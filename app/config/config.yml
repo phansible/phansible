@@ -1,0 +1,17 @@
+twig.path: "%root_dir%/src/Phansible/Resources/views"
+#http_cache.cache_dir: "%root_dir%/app/cache/http"
+routing.resource: "%root_dir%/app/config/routing.yml"
+
+debug: true
+
+#bundle generator options
+config:
+  syspackages:
+    - curl
+    - vim
+
+  phppackages:
+    - php5-cli
+    - php-pear
+    - php5-curl
+    - php5-mysql

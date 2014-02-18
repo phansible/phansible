@@ -1,0 +1,19 @@
+body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+
+section.form {
+    margin-top: 15px;
+}
+
+section.form-action {
+    background-color: #e5e5e5;
+    padding: 20px 10px;
+    margin: 20px;
+    text-align: center;
+}
+
+.footer {
+    color: #666666;
+}

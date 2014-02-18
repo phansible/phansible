@@ -1,0 +1,21 @@
+---
+- name: nginxphp | Install Nginx
+  sudo: yes
+  apt: pkg=nginx state=latest
+
+- name: nginxphp | Install php5-fpm and php5-cli
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5-fpm
+    - php5-cli
+
+- name: nginxphp | Change default nginx site
+  sudo: yes
+  template: src=nginxphp/templates/default.tpl dest=/etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: nginxphp | Install PHP Modules
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items: php_packages

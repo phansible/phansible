@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Phansible provides an easy way to generate Vagrant provisions with Ansible, for PHP environments">
+    <meta name="author" content="@erikaheidi">
+
+    <title>Phansible</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Phansible</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../navbar/">Default</a></li>
+                <li><a href="../navbar-static-top/">Static top</a></li>
+                <li class="active"><a href="./">Fixed top</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="well">
+        <h1>PHP dev environments made easy with Vagrant and Ansible</h1>
+        <p>Phansible provides a simple interface for generating a basic Vagrant provision for PHP development environments, using Ansible.</p>
+    </div>
+
+
+    <h1>Bundle Generator</h1>
+    <form method="post" class="form-horizontal" action="/generate">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <legend>Base Box</legend>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Box Identifier</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="boxname" value="precise64">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Box URL</label>
+                    <div class="col-sm-8">
+                        <input type="url" class="form-control" name="boxurl" value="http://files.vagrantup.com/precise64.box">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <legend>Network</legend>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">IP (priv network)</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="ipaddress" class="form-control" value="192.168.33.99">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Shared Folder</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="sharedfolder" class="form-control" value="./">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <section class="form">
+            <legend>Web Server</legend>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="webserver" value="nginxphp" checked>
+                            NGINX + PHP5-FPM
+                        </label>
+                    </div>
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="webserver" value="apachephp">
+                            APACHE + PHP
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="composer" value="1" checked>
+                            Install Composer
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Document Root:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="docroot" class="form-control" value="/vagrant">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">PHP Version:</label>
+                        <div class="col-sm-8">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="phpppa" value="php5-oldstable">
+                                5.4
+                            </label>
+
+                            <label class="checkbox-inline">
+                                <input type="radio" name="phpppa" value="php5" checked>
+                                5.5
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="form">
+            <legend>PHP Packages</legend>
+
+            {% for package in config.phppackages %}
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="phppackages[]" value="{{ package }}">
+                    {{ package }}
+                </label>
+            {% endfor %}
+
+        </section>
+
+        <section class="form">
+            <legend>Other Packages</legend>
+
+            {% for package in config.syspackages %}
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="syspackages[]" value="{{ package }}">
+                    {{ package }}
+                </label>
+            {% endfor %}
+        </section>
+
+        <div class="row">
+            <section class="form-action">
+
+                <button class="btn btn-success btn-lg"><i class="glyphicon glyphicon-download-alt"></i> Download Vagrant Bundle</button>
+
+            </section>
+        </div>
+    </form>
+
+    <div class="footer">
+        <p>Inspired by <a href="https://puphpet.com/" target="_blank" title="PuPHPet">PuPHPet</a>, powered by <a href="http://www.ansible.com/home">Ansible</a> - brought to you by <a href="http://twitter.com/erikaheidi" target="_blank">@erikaheidi</a></p>
+    </div>
+</div> <!-- /container -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+---
+- name: init | Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: init | Install Sys Packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items: sys_packages
+
+- name: init | make sure python-software-properties is installed
+  sudo: yes
+  apt: pkg=python-software-properties state=latest
+
+- name: init | Add ppa Repository
+  sudo: yes
+  apt_repository: repo=ppa:ondrej/{{ php_ppa }}
+
+- name: init | Update apt
+  sudo: yes
+  apt: update_cache=yes
