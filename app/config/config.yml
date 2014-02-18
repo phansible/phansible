@@ -14,10 +14,10 @@ config:
       name: Ubuntu Lucid Lynx 64
       url: http://files.vagrantup.com/lucid64.box
     precise32:
-      name: Ubuntu Precise Pangolim 32
+      name: Ubuntu Precise Pangolin 32
       url: http://files.vagrantup.com/precise32.box
     precise64:
-      name: Ubuntu Precise Pangolim 64
+      name: Ubuntu Precise Pangolin 64
       url: http://files.vagrantup.com/precise64.box
 
   syspackages:
