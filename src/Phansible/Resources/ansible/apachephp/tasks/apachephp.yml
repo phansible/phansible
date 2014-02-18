@@ -19,5 +19,5 @@
 
 - name: apachephp | Change default apache site
   sudo: yes
-  template: src=apachephp/templates/vhost.conf.tpl dest=/etc/apache2/sites-available/000-default.conf
+  template: src=apachephp/templates/vhost.conf.tpl dest=/etc/apache2/sites-available/default
   notify: restart apache

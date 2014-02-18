@@ -6,6 +6,20 @@ debug: true
 
 #bundle generator options
 config:
+  boxes:
+    lucid32:
+      name: Ubuntu Lucid Lynx 32
+      url: http://files.vagrantup.com/lucid32.box
+    lucid64:
+      name: Ubuntu Lucid Lynx 64
+      url: http://files.vagrantup.com/lucid64.box
+    precise32:
+      name: Ubuntu Precise Pangolim 32
+      url: http://files.vagrantup.com/precise32.box
+    precise64:
+      name: Ubuntu Precise Pangolim 64
+      url: http://files.vagrantup.com/precise64.box
+
   syspackages:
     - curl
     - vim

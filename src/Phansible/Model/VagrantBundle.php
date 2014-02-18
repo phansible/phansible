@@ -8,6 +8,8 @@ namespace Phansible\Model;
 class VagrantBundle
 {
     /** Vagrantfile options */
+    protected $vmName;
+    protected $memory;
     protected $box;
     protected $boxUrl;
     protected $ipAddress;
@@ -30,6 +32,38 @@ class VagrantBundle
 
         $loader = new \Twig_Loader_Filesystem($this->tplPath);
         $this->twig = new \Twig_Environment($loader);
+    }
+
+    /**
+     * @param mixed $memory
+     */
+    public function setMemory($memory)
+    {
+        $this->memory = $memory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMemory()
+    {
+        return $this->memory;
+    }
+
+    /**
+     * @param mixed $vmName
+     */
+    public function setVmName($vmName)
+    {
+        $this->vmName = $vmName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVmName()
+    {
+        return $this->vmName;
     }
 
     /**
@@ -212,6 +246,8 @@ class VagrantBundle
     public function renderVagrantfile()
     {
         $data = [
+            'vmName'       => $this->vmName,
+            'memory'       => $this->memory,
             'ipAddress'    => $this->ipAddress,
             'boxName'      => $this->box,
             'boxUrl'       => $this->boxUrl,

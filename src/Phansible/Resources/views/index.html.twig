@@ -9,30 +9,56 @@
 <h2>Bundle Generator</h2>
 <form method="post" class="form-horizontal" action="/generate">
 
+    <legend>VM Settings </legend>
 
     <div class="row">
         <div class="col-md-6">
-            <legend>Base Box</legend>
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-4 control-label">Box Identifier</label>
+                <label class="col-sm-4 control-label">VM Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="vmname" value="default">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Base Box</label>
+                <div class="col-sm-8">
+                    <select name="baseBox" class="form-control">
+                      {% for key,info in config.boxes %}
+                        <option value="{{ key }}" {% if key=='precise64' %}selected{% endif %}>{{ info.name }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Memory (MB)</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="memory" value="512">
+                </div>
+            </div>
+
+
+            {#
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Box Identifier</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="boxname" value="precise64">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-4 control-label">Box URL</label>
+                <label class="col-sm-4 control-label">Box URL</label>
                 <div class="col-sm-8">
                     <input type="url" class="form-control" name="boxurl" value="http://files.vagrantup.com/precise64.box">
                 </div>
             </div>
-
+             #}
         </div>
 
         <div class="col-md-6">
-            <legend>Network</legend>
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-4 control-label">IP (priv network)</label>
+                <label class="col-sm-4 control-label">IP (private network)</label>
                 <div class="col-sm-8">
                     <input type="text" name="ipaddress" class="form-control" value="192.168.33.99">
                 </div>

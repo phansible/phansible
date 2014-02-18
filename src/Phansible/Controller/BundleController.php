@@ -17,10 +17,17 @@ class BundleController extends Controller
     public function indexAction(Request $request, Application $app)
     {
         $vagrant = new VagrantBundle();
+        $name = $request->get('vmname');
+        $boxes = $this->get('config')['boxes'];
+
+        $boxName = array_key_exists($request->get('baseBox'), $boxes) ? $request->get('baseBox') : 'precise64';
+        $box =  $boxes[$boxName];
 
         /** Machine Options */
-        $vagrant->setBox($request->get('boxname'));
-        $vagrant->setBoxUrl($request->get('boxurl'));
+        $vagrant->setVmName($name);
+        $vagrant->setMemory($request->get('memory'));
+        $vagrant->setBox($boxName);
+        $vagrant->setBoxUrl($box['url']);
         $vagrant->setIpAddress($request->get('ipaddress'));
         $vagrant->setSyncedFolder($request->get('sharedfolder'));
 
@@ -42,9 +49,8 @@ class BundleController extends Controller
             };
 
             return $app->stream($stream, 200, array(
-                //'Content-Type' => 'text/csv',
                 'Content-length' => filesize($zipPath),
-                'Content-Disposition' => 'attachment; filename="vagrant-ansible.zip"'
+                'Content-Disposition' => 'attachment; filename="phansible_' . $name . '.zip"'
             ));
 
 

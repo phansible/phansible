@@ -4,6 +4,11 @@
 
 Vagrant.configure("2") do |config|
 
+    config.vm.provider :virtualbox do |v|
+        v.name = "{{ vmName }}"
+        v.customize ["modifyvm", :id, "--memory", {{ memory }}]
+    end
+
     config.vm.box = "{{ boxName }}"
     config.vm.box_url = "{{ boxUrl }}"
 
