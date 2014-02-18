@@ -244,9 +244,7 @@ class VagrantBundle
         if ($res === TRUE) {
 
             /** set tasks */
-            $tasks = [
-                'init', $this->webserver
-            ];
+            $tasks = [ 'init', $this->webserver, 'phpcommon' ];
 
             if ($this->installComposer) {
                 $tasks[] = 'composer';

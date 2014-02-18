@@ -5,6 +5,7 @@
     "require" : {
         "php"               : ">=5.3.3.",
         "flint/flint"       : "~1.5@dev",
-        "symfony/yaml"        : "2.3.x"
+        "symfony/yaml"        : "2.3.x",
+        "michelf/php-markdown": "1.4.0"
     }
 }

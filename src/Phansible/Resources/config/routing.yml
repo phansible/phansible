@@ -2,6 +2,10 @@ phansible_default:
     path: /
     defaults: { _controller: "Phansible\Controller\DefaultController::indexAction" }
 
+phansible_usage:
+    path: /doc/{doc}
+    defaults: { _controller: "Phansible\Controller\DefaultController::usageAction" }
+
 phansible_bundle:
     path: /generate
     defaults: { _controller: "Phansible\Controller\BundleController::indexAction" }

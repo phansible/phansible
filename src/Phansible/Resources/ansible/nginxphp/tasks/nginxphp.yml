@@ -14,8 +14,3 @@
   sudo: yes
   template: src=nginxphp/templates/default.tpl dest=/etc/nginx/sites-available/default
   notify: restart nginx
-
-- name: nginxphp | Install PHP Modules
-  sudo: yes
-  apt: pkg={{ item }} state=latest
-  with_items: php_packages

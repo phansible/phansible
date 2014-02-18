@@ -15,5 +15,12 @@ section.form-action {
 }
 
 .footer {
+    margin-top: 50px;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 10px;
     color: #666666;
+}
+
+.tweet-button {
+    padding-top: 15px;
 }
