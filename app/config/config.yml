@@ -23,6 +23,7 @@ config:
   syspackages:
     - curl
     - vim
+    - git
 
   phppackages:
     - php5-cli
