@@ -14,4 +14,5 @@ Contributions are welcome, specially for adding new Ansible Roles for new tasks 
 - Databases
 - More customization options
 - More packages to choose from and option to add custom packages
+- Give some love to the UI <3
 
