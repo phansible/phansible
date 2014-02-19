@@ -71,7 +71,7 @@ class BundleController extends Controller
             ));
 
         } else {
-            return new Response('An error ocurred.');
+            return new Response('An error occurred.');
         }
 
     }

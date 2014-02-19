@@ -310,28 +310,28 @@ class VagrantBundle
 
     protected function addRoleFiles($role, \ZipArchive $zip)
     {
-        $resouces = __DIR__ . '/../Resources/ansible/roles';
+        $resources = __DIR__ . '/../Resources/ansible/roles';
 
         /** tasks */
-        if (is_dir($resouces . '/' . $role . '/tasks')) {
+        if (is_dir($resources . '/' . $role . '/tasks')) {
 
-            foreach (glob($resouces . '/' . $role . '/tasks/*.yml') as $taskfile) {
+            foreach (glob($resources . '/' . $role . '/tasks/*.yml') as $taskfile) {
                 $zip->addFile($taskfile, 'ansible/roles/' . $role . '/tasks/' . basename($taskfile));
             }
         }
 
         /** handlers */
-        if (is_dir($resouces . '/' . $role . '/handlers')) {
+        if (is_dir($resources . '/' . $role . '/handlers')) {
 
-            foreach (glob($resouces . '/' . $role . '/handlers/*.yml') as $taskfile) {
+            foreach (glob($resources . '/' . $role . '/handlers/*.yml') as $taskfile) {
                 $zip->addFile($taskfile, 'ansible/roles/' . $role . '/handlers/' . basename($taskfile));
             }
         }
 
         /** templates */
-        if (is_dir($resouces . '/' . $role . '/templates')) {
+        if (is_dir($resources . '/' . $role . '/templates')) {
 
-            foreach (glob($resouces . '/' . $role . '/templates/*.tpl') as $tplfile) {
+            foreach (glob($resources . '/' . $role . '/templates/*.tpl') as $tplfile) {
                 $zip->addFile($tplfile, 'ansible/roles/' . $role . '/templates/' . basename($tplfile));
             }
         }
