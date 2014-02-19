@@ -15,13 +15,15 @@ class VagrantBundle
     protected $ipAddress;
     protected $syncedFolder;
 
-    /** Provisioner options */
-    protected $webserver;
+    /** Playbook options */
     protected $docRoot;
     protected $phpPPA;
     protected $syspackages;
     protected $phppackages;
     protected $installComposer;
+
+    /** Playbook Roles */
+    protected $roles = [];
 
     protected $twig;
     protected $tplPath;
@@ -195,22 +197,6 @@ class VagrantBundle
     }
 
     /**
-     * @param mixed $webserver
-     */
-    public function setWebserver($webserver)
-    {
-        $this->webserver = $webserver;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWebserver()
-    {
-        return $this->webserver;
-    }
-
-    /**
      * @param mixed $phpPPA
      */
     public function setPhpPPA($phpPPA)
@@ -242,6 +228,22 @@ class VagrantBundle
         return $this->installComposer;
     }
 
+    public function addRoles(array $roles)
+    {
+        foreach ($roles as $role) {
+            $this->roles[] = $role;
+        }
+    }
+
+    public function addRole($role)
+    {
+        $this->roles[] = $role;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+    }
 
     public function renderVagrantfile()
     {
@@ -257,7 +259,7 @@ class VagrantBundle
         return $this->twig->render('Vagrantfile.twig', $data);
     }
 
-    public function renderPlaybook(array $tasks = [])
+    public function renderPlaybook(array $roles = [])
     {
         $data = [
             'doc_root'     => $this->docRoot,
@@ -265,7 +267,7 @@ class VagrantBundle
             'sys_packages' => count($this->syspackages) ? json_encode($this->syspackages) : '[]',
             'web_server'   => $this->webserver,
             'php_ppa'      => $this->phpPPA,
-            'tasks'        => $tasks,
+            'roles'        => $roles,
         ];
 
         return $this->twig->render('playbook.yml.twig', $data);
@@ -280,21 +282,21 @@ class VagrantBundle
         if ($res === TRUE) {
 
             /** set tasks */
-            $tasks = [ 'init', $this->webserver, 'phpcommon' ];
+            $roles = [ 'init', $this->webserver, 'phpcommon' ];
 
             if ($this->installComposer) {
-                $tasks[] = 'composer';
+                $roles[] = 'composer';
             }
 
-            foreach ($tasks as $task) {
-                $this->addTask($task, $zip);
+            foreach ($this->roles as $role) {
+                $this->addRoleFiles($role, $zip);
             }
 
             /** adds the Vagrantfile */
             $zip->addFromString('Vagrantfile', $this->renderVagrantfile());
 
             /** adds the playbook */
-            $zip->addFromString('ansible/playbook.yml', $this->renderPlaybook($tasks));
+            $zip->addFromString('ansible/playbook.yml', $this->renderPlaybook($this->roles));
 
             $zip->close();
 
@@ -306,23 +308,31 @@ class VagrantBundle
         }
     }
 
-    protected function addTask($task, \ZipArchive $zip)
+    protected function addRoleFiles($role, \ZipArchive $zip)
     {
-        $resouces = __DIR__ . '/../Resources/ansible';
+        $resouces = __DIR__ . '/../Resources/ansible/roles';
 
         /** tasks */
-        if (is_dir($resouces . '/' . $task . '/tasks')) {
+        if (is_dir($resouces . '/' . $role . '/tasks')) {
 
-            foreach (glob($resouces . '/' . $task . '/tasks/*.yml') as $taskfile) {
-                $zip->addFile($taskfile, 'ansible/' . $task . '/tasks/' . basename($taskfile));
+            foreach (glob($resouces . '/' . $role . '/tasks/*.yml') as $taskfile) {
+                $zip->addFile($taskfile, 'ansible/roles/' . $role . '/tasks/' . basename($taskfile));
+            }
+        }
+
+        /** handlers */
+        if (is_dir($resouces . '/' . $role . '/handlers')) {
+
+            foreach (glob($resouces . '/' . $role . '/handlers/*.yml') as $taskfile) {
+                $zip->addFile($taskfile, 'ansible/roles/' . $role . '/handlers/' . basename($taskfile));
             }
         }
 
         /** templates */
-        if (is_dir($resouces . '/' . $task . '/templates')) {
+        if (is_dir($resouces . '/' . $role . '/templates')) {
 
-            foreach (glob($resouces . '/' . $task . '/templates/*.tpl') as $tplfile) {
-                $zip->addFile($tplfile, 'ansible/' . $task . '/templates/' . basename($tplfile));
+            foreach (glob($resouces . '/' . $role . '/templates/*.tpl') as $tplfile) {
+                $zip->addFile($tplfile, 'ansible/roles/' . $role . '/templates/' . basename($tplfile));
             }
         }
     }

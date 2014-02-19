@@ -20,8 +20,27 @@ config:
       name: Ubuntu Precise Pangolin 64
       url: http://files.vagrantup.com/precise64.box
 
+  webservers:
+    nginxphp:
+      name: NGINX + PHP5-FPM
+      checked: yes
+      include:
+        - nginx
+        - php5-fpm
+
+    apachephp:
+      name: APACHE + PHP5
+      include:
+        - apache
+        - php5
+
+    nginxhhvm:
+      name: NGINX + HHVM
+      include:
+        - nginx
+        - hhvm
+
   syspackages:
-    - curl
     - vim
     - git
 
@@ -29,4 +48,4 @@ config:
     - php5-cli
     - php-pear
     - php5-curl
-    - php5-mysql
+    - php5-imagick

@@ -1,4 +1,4 @@
-- name: nginxphp | Install PHP Packages
+- name: Install PHP Packages
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: php_packages

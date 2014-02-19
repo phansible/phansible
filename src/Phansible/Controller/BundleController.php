@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @package Skeleton
+ * @package Phansible
  */
 class BundleController extends Controller
 {
@@ -18,12 +18,18 @@ class BundleController extends Controller
     {
         $vagrant = new VagrantBundle();
         $name = $request->get('vmname');
-        $boxes = $this->get('config')['boxes'];
 
+        /** Get box options from config */
+        $boxes   = $this->get('config')['boxes'];
         $boxName = array_key_exists($request->get('baseBox'), $boxes) ? $request->get('baseBox') : 'precise64';
-        $box =  $boxes[$boxName];
+        $box     =  $boxes[$boxName];
 
-        /** Machine Options */
+        /** Get web server options from config */
+        $webservers   = $this->get('config')['webservers'];
+        $webServerKey = array_key_exists($request->get('webserver'), $webservers) ? $request->get('webserver') : 'nginxphp';
+        $webserver    = $webservers[$webServerKey];
+
+        /** Set Machine Options */
         $vagrant->setVmName($name);
         $vagrant->setMemory($request->get('memory'));
         $vagrant->setBox($boxName);
@@ -31,13 +37,24 @@ class BundleController extends Controller
         $vagrant->setIpAddress($request->get('ipaddress'));
         $vagrant->setSyncedFolder($request->get('sharedfolder'));
 
-        /** Provision Options */
-        $vagrant->setWebserver($request->get('webserver'));
+        /** Set Playbook Vars */
         $vagrant->setPhpPPA($request->get('phpppa'));
         $vagrant->setDocRoot($request->get('docroot'));
         $vagrant->setSyspackages($request->get('syspackages'));
         $vagrant->setPhpPackages($request->get('phppackages'));
-        $vagrant->setInstallComposer($request->get('composer'));
+
+        /** Add Roles */
+        $vagrant->addRole('init');
+
+        foreach ($webserver['include'] as $role) {
+            $vagrant->addRole($role);
+        }
+
+        if ($request->get('composer')) {
+            $vagrant->addRole('composer');
+        }
+
+        $vagrant->addRole('phpcommon');
 
         $tmpName = 'bundle_' . time();
         $zipPath = __DIR__ . "/../../../app/data/$tmpName.zip";
@@ -53,11 +70,9 @@ class BundleController extends Controller
                 'Content-Disposition' => 'attachment; filename="phansible_' . $name . '.zip"'
             ));
 
-
         } else {
             return new Response('An error ocurred.');
         }
 
-        //return $this->render('index.html.twig');
     }
 }

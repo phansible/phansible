@@ -6,12 +6,6 @@
     sys_packages: {{ sys_packages|raw }}
     php_packages: {{ php_packages|raw }}
     php_ppa: {{ php_ppa }}
-  tasks:
-{% for task in tasks %}    - include: {{ task }}/tasks/{{ task }}.yml
+  roles:
+{% for role in roles %}    - {{ role }}
 {% endfor %}
-  handlers:
-    - name: restart nginx
-      service: name=nginx state=restarted
-
-    - name: restart apache
-      service: name=apache2 state=restarted

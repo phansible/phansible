@@ -81,19 +81,15 @@
         <div class="row">
 
             <div class="col-md-6">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="webserver" value="nginxphp" checked>
-                        NGINX + PHP5-FPM
-                    </label>
-                </div>
 
+                {% for key,webserver in config.webservers %}
                 <div class="radio">
                     <label>
-                        <input type="radio" name="webserver" value="apachephp">
-                        APACHE + PHP
+                        <input type="radio" name="webserver" value="{{ key }}" {% if webserver.checked is defined %}checked{% endif %}>
+                        {{ webserver.name }}
                     </label>
                 </div>
+                {% endfor %}
 
                 <div class="checkbox">
                     <label>

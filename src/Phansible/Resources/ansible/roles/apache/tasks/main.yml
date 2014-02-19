@@ -1,13 +1,9 @@
 ---
-- name: apachephp | Install Apache
+- name: Install Apache
   sudo: yes
   apt: pkg=apache2 state=latest
 
-- name: apachephp | Install php5
-  sudo: yes
-  apt: pkg=php5 state=latest
-
-- name: Apache Modules
+- name: Install Apache Modules
   shell: a2enmod {{ item }}
   notify: restart apache
   with_items:
@@ -17,7 +13,7 @@
     - expires
     - filter
 
-- name: apachephp | Change default apache site
+- name: Change default apache site
   sudo: yes
   template: src=apachephp/templates/vhost.conf.tpl dest=/etc/apache2/sites-available/default
   notify: restart apache
