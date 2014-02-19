@@ -1,5 +1,5 @@
 .idea
-
 app/data
-
 vendor
+vagrant_ansible_inventory_default
+.vagrant
