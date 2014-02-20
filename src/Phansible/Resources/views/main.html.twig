@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Phansible provides an easy way to generate Vagrant provisions with Ansible, for PHP environments">
-    <meta name="author" content="@erikaheidi">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Phansible provides an easy to use interface that helps you generate Ansible Playbooks for PHP based projects.">
+    <title>Phansible</title>
 
-    <title>Phansible - Generate Vagrant + Ansible Bootstrap Bundles for PHP environments</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/github-fork.css" rel="stylesheet">
+    <!-- Semantic-UI core CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" class="ui" href="/assets/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/selectize.semantic-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -21,68 +19,46 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
-<body>
-
-<!-- Fixed navbar -->
-<div class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Phansible</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li {% if active == 'home' %}class="active"{% endif %}><a href="/" title="Home">Home</a></li>
-                <li {% if active == 'docs' %}class="active"{% endif %}><a href="/doc/usage">Usage Instructions</a></li>
-            </ul>
-            <div class="navbar-right tweet-button">
-             <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://phansible.com" data-via="erikaheidi">Tweet</a>
-             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<body id="phansible">
+    <div class="ui fixed transparent inverted main menu">
+        <div class="container">
+            <div class="title item"><a href="/">Phansible</a></div>
+            <div class="title item"><a href="/doc/usage">Usage Instructions</a></div>
+            <div class="right menu">
+                <a class="popup icon github item" data-content="View project on Github" href="https://github.com/erikaheidi/phansible">
+                    <i class="icon github"></i> Fork me
+                </a>
             </div>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
-
-<div class="container">
-
-    <div class="github-fork-ribbon-wrapper right">
-        <div class="github-fork-ribbon">
-            <a href="https://github.com/erikaheidi/phansible">Fork me on GitHub</a>
         </div>
     </div>
 
+    <header>
+        <div class="container">
+            <div class="introduction">
+                <h1>Phansible</h1>
+                <p>Phansible provides an easy to use interface that helps you generate Ansible Playbooks for PHP based projects.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main container">
     {% block content %}
     {% endblock %}
-
-    <div class="footer">
-        <p>Inspired by <a href="https://puphpet.com/" target="_blank" title="PuPHPet">PuPHPet</a>, powered by <a href="http://www.ansible.com/home">Ansible</a> - brought to you by <a href="http://twitter.com/erikaheidi" target="_blank">@erikaheidi</a></p>
     </div>
-</div> <!-- /container -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-48203119-1', 'phansible.com');
+        ga('send', 'pageview');
 
+    </script>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-48203119-1', 'phansible.com');
-    ga('send', 'pageview');
-
-</script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="/assets/js/semantic.min.js"></script>
+    <script src="/assets/js/selectize.min.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 </html>
