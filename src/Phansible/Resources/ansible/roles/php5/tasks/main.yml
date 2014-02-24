@@ -1,3 +1,0 @@
-- name: Install php5
-  sudo: yes
-  apt: pkg=php5 state=latest
