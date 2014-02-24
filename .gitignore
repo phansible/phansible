@@ -1,5 +1,8 @@
 .idea
 app/data
+app/cache
 vendor
 vagrant_ansible_inventory_default
 .vagrant
+
+!app/cache/.gitkeep
