@@ -16,7 +16,7 @@ class BundleController extends Controller
 
     public function indexAction(Request $request, Application $app)
     {
-        $vagrant = new VagrantBundle();
+        $vagrant = new VagrantBundle($this->get('ansible.path'));
         $name = $request->get('vmname');
 
         /** Get box options from config */

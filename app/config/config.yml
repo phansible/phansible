@@ -1,4 +1,5 @@
 twig.path: "%root_dir%/src/Phansible/Resources/views"
+ansible.path: "%root_dir%/src/Phansible/Resources/ansible"
 #http_cache.cache_dir: "%root_dir%/app/cache/http"
 routing.resource: "%root_dir%/app/config/routing.yml"
 

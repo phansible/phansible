@@ -265,7 +265,6 @@ class VagrantBundle
             'doc_root'     => $this->docRoot,
             'php_packages' => count($this->phppackages) ? json_encode($this->phppackages) : '[]',
             'sys_packages' => count($this->syspackages) ? json_encode($this->syspackages) : '[]',
-            'web_server'   => $this->webserver,
             'php_ppa'      => $this->phpPPA,
             'roles'        => $roles,
         ];
@@ -282,7 +281,7 @@ class VagrantBundle
         if ($res === TRUE) {
 
             /** set tasks */
-            $roles = [ 'init', $this->webserver, 'phpcommon' ];
+            $roles = [ 'init', 'phpcommon' ];
 
             if ($this->installComposer) {
                 $roles[] = 'composer';
