@@ -1,0 +1,163 @@
+html,
+body {
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    background-color: #FCFCFC;
+    color: #555555;
+    min-width: 320px;
+}
+
+p {
+  margin: 1em 0em;
+}
+
+p:first-child {
+  margin-top: 0em;
+}
+
+p:last-child {
+  margin-bottom: 0em;
+}
+
+a {
+  color: #009FDA;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #00BAFF;
+}
+
+header {
+    margin: 0px 0px 3em;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background: #56508D url(../images/header.jpg) center no-repeat;
+    border-bottom: 4px solid #7972B3;
+}
+
+header h1 {
+    color: #FFF;
+    font-size: 60px;
+    margin: 20px 0px 0px 0px;
+}
+
+header p{
+    color: #FFF;
+}
+
+#phansible .main.menu {
+  min-width: 320px;
+  z-index: 900;
+}
+
+.ui.transparent.menu {
+  opacity: 0.90;
+}
+
+#phansible .container {
+  width: 1050px;
+  margin: 0px auto;
+}
+
+#phansible .main.container {
+  position: relative;
+  padding-bottom: 100px;
+}
+#phansible .main.container > h2 {
+  -webkit-transition: 0.5s color ease;
+  -moz-transition: 0.5s color ease;
+  -o-transition: 0.5s color ease;
+  -ms-transition: 0.5s color ease;
+  transition: 0.5s color ease;
+}
+
+#phansible .phansible > p ,
+#phansible section > p {
+  color: #888888;
+}
+
+#phansible .main h2.group {
+  color: #A24096;
+}
+
+#phansible section:first-child
+#phansible .phansible:first-child,
+#phansible h2 + .phansible,
+#phansible h3 + .phansible,
+#phansible h4 + .phansible,
+#phansible h2 + section,
+#phansible h3 + section,
+#phansible h4 + section {
+  margin-top: 0px;
+  padding-top: 0px;
+  border-top: none;
+}
+
+#phansible section,
+#phansible .phansible {
+  margin: 1em 0em;
+  padding: 1em 0em;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.ui.selection.dropdown {
+  padding: 0.65em 1em;
+}
+
+@media only screen and (max-width : 1725px) {
+    header {
+        margin: 0px 0px 3em;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+@media only screen and (max-width : 1100px) {
+  #phansible .fixed .container {
+    width: auto;
+    margin: 0px auto;
+  }
+
+  #phansible .container {
+    width: auto;
+    margin: 0% 30px 0px;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+
+    #phansible .main.menu .icon.item {
+        display: none;
+    }
+
+    #phansible .main.menu .github.item {
+        display: block;
+    }
+
+    #phansible .main.menu .github.item:before {
+        display: none;
+    }
+
+    header {
+        margin: 0px 0px 3em;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    h1 {
+        font-size: 48px;
+    }
+
+    .ui.form .two.fields > .field,
+    .ui.form .three.fields > .field {
+        padding: 0px;
+        width: 100%;
+    }
+}
