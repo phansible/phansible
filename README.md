@@ -8,7 +8,8 @@ The project is built on top of [Silex](http://silex.sensiolabs.org/), using [Fli
 
 ##Contributions
 
-Contributions are welcome, specially for adding new Ansible Roles for new tasks / packages / services. 
+Contributions are welcome, specially for adding new Ansible Roles for new tasks / packages / services.
+The Ansible Roles are located in a separated repository: https://github.com/Phansible/phansible-roles
 
 ##TO DO
 - Databases
