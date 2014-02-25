@@ -122,10 +122,9 @@
                     <div class="field">
                         <label for="phppackages">PHP Modules:</label>
                         <select id="phppackages" name="phppackages[]" class="selectized" multiple>
-                            <option value="cli">cli</option>
-                            <option value="curl">curl</option>
-                            <option value="imagick">imagick</option>
-                            <option value="pear">pear</option>
+                        {% for package in config.phppackages %}
+                            <option value="{{ package }}">{{ package }}</option>
+                         {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -140,8 +139,9 @@
                     <div class="field">
                         <label for="syspackages">Packages:</label>
                         <select id="syspackages" name="syspackages[]" class="selectized" multiple>
-                            <option value="cli">vim</option>
-                            <option value="curl">git</option>
+                        {% for package in config.syspackages %}
+                            <option value="{{ package }}">{{ package }}</option>
+                        {% endfor %}
                         </select>
                     </div>
                 </div>
