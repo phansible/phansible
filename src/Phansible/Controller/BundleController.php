@@ -57,7 +57,7 @@ class BundleController extends Controller
         $vagrant->addRole('phpcommon');
 
         $tmpName = 'bundle_' . time();
-        $zipPath = __DIR__ . "/../../../app/data/$tmpName.zip";
+        $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
         if ($vagrant->generateBundle($zipPath)) {
 
