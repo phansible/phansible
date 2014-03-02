@@ -20,6 +20,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
-        "lstrojny/phpunit-function-mocker": "dev-master"
+        "lstrojny/phpunit-function-mocker": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
     }
 }
