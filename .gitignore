@@ -4,5 +4,5 @@ app/cache
 vendor
 vagrant_ansible_inventory_default
 .vagrant
-
+build/*
 !app/cache/.gitkeep

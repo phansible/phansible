@@ -24,6 +24,7 @@ class VagrantBundle
 
     /** Playbook Roles */
     protected $roles = [];
+    private $rolesPath;
 
     protected $twig;
     protected $tplPath;
@@ -245,6 +246,24 @@ class VagrantBundle
         return $this->roles;
     }
 
+    public function getZipArchive()
+    {
+        return new \ZipArchive();
+    }
+
+    public function getRolesPath()
+    {
+        if (null === $this->rolesPath) {
+            $this->rolesPath = __DIR__ . '/../Resources/ansible/roles';
+        }
+        return $this->rolesPath;
+    }
+
+    public function setRolesPath($path)
+    {
+        $this->rolesPath = $path;
+    }
+
     public function renderVagrantfile()
     {
         $data = [
@@ -275,7 +294,7 @@ class VagrantBundle
 
     public function generateBundle($filepath)
     {
-        $zip = new \ZipArchive();
+        $zip = $this->getZipArchive();
         $res = $zip->open($filepath, \ZipArchive::CREATE);
 
         if ($res === TRUE) {
@@ -309,7 +328,7 @@ class VagrantBundle
 
     protected function addRoleFiles($role, \ZipArchive $zip)
     {
-        $resources = __DIR__ . '/../Resources/ansible/roles';
+        $resources = $this->getRolesPath();
 
         /** tasks */
         if (is_dir($resources . '/' . $role . '/tasks')) {
@@ -335,4 +354,4 @@ class VagrantBundle
             }
         }
     }
-} 
+}
