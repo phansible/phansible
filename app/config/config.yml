@@ -20,7 +20,13 @@ config:
     precise64:
       name: Ubuntu Precise Pangolin 64
       url: http://files.vagrantup.com/precise64.box
-
+    trusty32:
+      name: Ubuntu Trusty Tahr 32
+      url: https://vagrantcloud.com/ubuntu/trusty32/version/1/provider/virtualbox.box
+    trusty64:
+      name: Ubuntu Trusty Tahr 64
+      url: https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box
+      
   webservers:
     nginxphp:
       name: NGINX + PHP5-FPM
