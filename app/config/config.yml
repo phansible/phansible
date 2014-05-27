@@ -9,22 +9,22 @@ debug: true
 config:
   boxes:
     lucid32:
-      name: Ubuntu Lucid Lynx 32
+      name: Ubuntu Lucid Lynx (10.04) 32
       url: http://files.vagrantup.com/lucid32.box
     lucid64:
-      name: Ubuntu Lucid Lynx 64
+      name: Ubuntu Lucid Lynx (10.04) 64
       url: http://files.vagrantup.com/lucid64.box
     precise32:
-      name: Ubuntu Precise Pangolin 32
+      name: Ubuntu Precise Pangolin (12.04) 32
       url: http://files.vagrantup.com/precise32.box
     precise64:
-      name: Ubuntu Precise Pangolin 64
+      name: Ubuntu Precise Pangolin (12.04) 64
       url: http://files.vagrantup.com/precise64.box
     trusty32:
-      name: Ubuntu Trusty Tahr 32
+      name: Ubuntu Trusty Tahr (14.04) 32
       url: https://vagrantcloud.com/ubuntu/trusty32/version/1/provider/virtualbox.box
     trusty64:
-      name: Ubuntu Trusty Tahr 64
+      name: Ubuntu Trusty Tahr (14.04) 64
       url: https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box
       
   webservers:
