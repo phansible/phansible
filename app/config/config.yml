@@ -7,6 +7,11 @@ debug: true
 
 #bundle generator options
 config:
+  bundles:
+    - vagrant
+    - webserver
+    - php
+    - syspackages
   boxes:
     lucid32:
       name: Ubuntu Lucid Lynx (10.04) 32
@@ -26,7 +31,7 @@ config:
     trusty64:
       name: Ubuntu Trusty Tahr (14.04) 64
       url: https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box
-      
+
   webservers:
     nginxphp:
       name: NGINX + PHP5-FPM

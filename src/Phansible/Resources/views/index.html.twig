@@ -5,13 +5,9 @@
 {% block content %}
     <form class="ui form" method="POST" action="/generate">
 
-        {% include "bundles/vagrant.html.twig" %}
-
-        {% include "bundles/webserver.html.twig" %}
-
-        {% include "bundles/php.html.twig" %}
-
-        {% include "bundles/syspackages.html.twig" %}
+        {% for bundle in config.bundles %}
+            {% include "bundles/"~bundle~".html.twig" %}
+        {% endfor %}
 
         <section>
             <button class="ui fluid labeled purple icon button" type="submit"><i class="download cloud icon"></i> Generate</button>
