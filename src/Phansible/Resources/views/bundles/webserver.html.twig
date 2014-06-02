@@ -1,0 +1,34 @@
+<h2 class="ui dividing header">Webserver</h2>
+<section>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Choose the Web Server you want to use.</p>
+    <div class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="field">
+            <div class="three fluid ui buttons">
+
+                {% set default_webserver = '' %}
+
+                {% for key,webserver in config.webservers %}
+                    {% if webserver.checked is defined %}
+                        {% set default_webserver = key %}
+                        <div class="ui green active button webserver checked" data-value="{{ key }}">{{ webserver.name }}</div>
+                        {% else %}
+                        <div class="ui black button webserver" data-value="{{ key }}">{{ webserver.name }}</div>
+                    {% endif %}
+                {% endfor %}
+
+                <input type="hidden" id="webserver" name="webserver" value="{{ default_webserver }}" />
+            </div>
+        </div>
+        <div class="field">
+            <label for="docroot">Document Root:</label>
+            <div class="ui left labeled input">
+                <input type="text" id="docroot" name="docroot" value="/vagrant" />
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

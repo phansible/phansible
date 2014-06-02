@@ -1,0 +1,61 @@
+<h2 class="ui dividing header">Vagrant - VM Settings</h2>
+<section>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Choose the options for your Virtual Machine.</p>
+    <div class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="field">
+            <label>Operating System:</label>
+            <div class="grouped inline fields">
+                {% for key,info in config.boxes %}
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" id="baseBox" name="baseBox" value="{{ key }}" {% if key=='precise64' %}checked{% endif %} />
+                            <label for="os_ubuntu">{{ info.name }}</label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label for="name">Name:</label>
+                <div class="ui left labeled input">
+                    <input type="text" id="vmname" name="vmname" placeholder="Default" value="Default" />
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="ip_address">IP Address:</label>
+                <div class="ui left labeled input">
+                    <input type="text" id="ipaddress" name="ipaddress" value="192.168.33.99" />
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label for="memory">Memory</label>
+                <div class="ui left labeled input">
+                    <input type="text" id="memory" name="memory" placeholder="512" value="512" />
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="memory">Shared Folder</label>
+                <div class="ui left labeled input">
+                    <input type="text" id="sharedfolder" name="sharedfolder" placeholder="./" value="./" />
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
