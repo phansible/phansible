@@ -1,0 +1,16 @@
+<h2 class="ui dividing header">System Packages</h2>
+<section>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Type the name of the package and choose from the list.</p>
+    <div class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="field">
+            <label for="syspackages">Packages:</label>
+            <select id="syspackages" name="syspackages[]" class="selectized" multiple>
+                {% for package in config.syspackages %}
+                    <option value="{{ package }}">{{ package }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</section>

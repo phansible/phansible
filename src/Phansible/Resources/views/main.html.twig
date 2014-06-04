@@ -1,64 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Phansible provides an easy to use interface that helps you generate Ansible Playbooks for PHP based projects.">
-    <title>Phansible</title>
-
-    <!-- Semantic-UI core CSS -->
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" class="ui" href="/assets/css/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/selectize.semantic-ui.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body id="phansible">
-    <div class="ui fixed transparent inverted main menu">
-        <div class="container">
-            <div class="title item"><a href="/">Phansible</a></div>
-            <div class="title item"><a href="/doc/usage">Usage Instructions</a></div>
-            <div class="right menu">
-                <a class="popup icon github item" data-content="View project on Github" href="https://github.com/Phansible/phansible">
-                    <i class="icon github"></i> Fork me
-                </a>
+    <head>
+        {% include "partials/head.html.twig" %}
+    </head>
+    <body id="phansible">
+        <div class="ui fixed transparent inverted main menu">
+            <div class="container">
+                <div class="title item"><a href="/">Phansible</a></div>
+                <div class="title item"><a href="/doc/usage">Usage Instructions</a></div>
+                <div class="right menu">
+                    <a class="popup icon github item" data-content="View project on Github" href="https://github.com/Phansible/phansible">
+                        <i class="icon github"></i> Fork me
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <header>
-        <div class="container">
-            <div class="introduction">
-                <h1>Phansible</h1>
-                <p>Phansible provides an easy to use interface that helps you generate Ansible Playbooks for PHP based projects.</p>
+        <header>
+            <div class="container">
+                <div class="introduction">
+                    <h1>Phansible</h1>
+                    <p>Phansible provides an easy to use interface that helps you generate Ansible Playbooks for PHP based projects.</p>
+                </div>
             </div>
+        </header>
+
+        <div class="main container">
+            {% block content %}{% endblock %}
         </div>
-    </header>
 
-    <div class="main container">
-    {% block content %}
-    {% endblock %}
-    </div>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        {% include "partials/javascripts.html.twig" %}
 
-        ga('create', 'UA-48203119-1', 'phansible.com');
-        ga('send', 'pageview');
-
-    </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="/assets/js/semantic.min.js"></script>
-    <script src="/assets/js/selectize.min.js"></script>
-    <script src="/assets/js/main.js"></script>
-</body>
+    </body>
 </html>
