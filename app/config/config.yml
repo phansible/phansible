@@ -88,5 +88,6 @@ config:
     - php5-sybase
     - php5-tidy
     - php5-xcache
+    - php5-xdebug
     - php5-xmlrpc
     - php5-xsl
