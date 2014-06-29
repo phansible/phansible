@@ -148,15 +148,69 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      * @covers Phansible\Model\VagrantBundle::getPhpPackages
      * @covers Phansible\Model\VagrantBundle::setPhpPackages
      */
-    public function testShouldSetAndGetPhpPackages()
+    public function testShouldSetGetAndAddPhpPackages()
     {
-        $phpPackages = array();
+        $this->assertInternalType('array', $this->model->getPhpPackages());
+
+        $this->assertEmpty($this->model->getPhpPackages());
+
+        $phpPackages = array('php5-intl');
 
         $this->model->setPhpPackages($phpPackages);
 
         $result = $this->model->getPhpPackages();
 
         $this->assertEquals($phpPackages, $result);
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::addPhpPackage
+     */
+    public function testAddPhpPackage()
+    {
+        $phpPackages = array('php5-mcrypt', 'php5-intl');
+
+        $this->model->setPhpPackages($phpPackages);
+
+        $result = $this->model->getPhpPackages();
+
+        $this->assertEquals($phpPackages, $result);
+
+        $this->model->addPhpPackage('php5-curl');
+
+        $result = $this->model->getPhpPackages();
+
+        $this->assertCount(3, $result);
+
+        $this->assertContains('php5-curl', $result);
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::addPhpPackage
+     */
+    public function testAddPhpPackageMustNotAddDuplicatePackage()
+    {
+        $phpPackages = array('php5-mcrypt', 'php5-intl');
+
+        $this->model->setPhpPackages($phpPackages);
+
+        $result = $this->model->getPhpPackages();
+
+        $this->assertEquals($phpPackages, $result);
+
+        $this->model->addPhpPackage('php5-curl');
+
+        $result = $this->model->getPhpPackages();
+
+        $this->assertCount(3, $result);
+
+        $this->assertContains('php5-curl', $result);
+
+        $this->model->addPhpPackage('php5-curl');
+
+        $result = $this->model->getPhpPackages();
+
+        $this->assertCount(3, $result);
     }
 
     /**
@@ -202,6 +256,21 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->getInstallComposer();
 
         $this->assertEquals($composer, $result);
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::getInstallXdebug
+     * @covers Phansible\Model\VagrantBundle::setInstallXdebug
+     */
+    public function testShouldSetAndGetInstallXdebug()
+    {
+        $xdebug = true;
+
+        $this->model->setInstallXdebug($xdebug);
+
+        $result = $this->model->getInstallXdebug();
+
+        $this->assertEquals($xdebug, $result);
     }
 
     /**
