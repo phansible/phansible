@@ -90,3 +90,4 @@ config:
     - php5-xcache
     - php5-xmlrpc
     - php5-xsl
+    - xdebug
