@@ -148,7 +148,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      * @covers Phansible\Model\VagrantBundle::getPhpPackages
      * @covers Phansible\Model\VagrantBundle::setPhpPackages
      */
-    public function testShouldSetGetAndAddPhpPackages()
+    public function testShouldSetAndGetPhpPackages()
     {
         $this->assertInternalType('array', $this->model->getPhpPackages());
 
@@ -264,13 +264,11 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldSetAndGetInstallXdebug()
     {
-        $xdebug = true;
+        $this->assertFalse($this->model->getInstallXdebug());
 
-        $this->model->setInstallXdebug($xdebug);
+        $this->model->setInstallXdebug(true);
 
-        $result = $this->model->getInstallXdebug();
-
-        $this->assertEquals($xdebug, $result);
+        $this->assertTrue($this->model->getInstallXdebug());
     }
 
     /**
