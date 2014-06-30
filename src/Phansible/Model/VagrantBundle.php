@@ -21,7 +21,7 @@ class VagrantBundle
     protected $syspackages;
     protected $phppackages = array();
     protected $installComposer;
-    protected $installXdebug;
+    protected $installXdebug = false;
 
     /** Playbook Roles */
     protected $roles = [];
