@@ -42,6 +42,7 @@ class BundleController extends Controller
         $vagrant->setDocRoot($request->get('docroot'));
         $vagrant->setSyspackages($request->get('syspackages'));
         $vagrant->setPhpPackages($request->get('phppackages'));
+        $vagrant->setTimezone($request->get('timezone'));
 
         /** Add Roles */
         $vagrant->addRole('init');

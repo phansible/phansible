@@ -21,6 +21,8 @@ class VagrantBundle
     protected $syspackages;
     protected $phppackages;
     protected $installComposer;
+    protected $timezone='Europe/Brussels';
+
 
     /** Playbook Roles */
     protected $roles = [];
@@ -229,6 +231,22 @@ class VagrantBundle
         return $this->installComposer;
     }
 
+    /**
+     * @param mixed $timezone
+     */
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
+
     public function addRoles(array $roles)
     {
         foreach ($roles as $role) {
@@ -286,6 +304,7 @@ class VagrantBundle
             'sys_packages' => count($this->syspackages) ? json_encode($this->syspackages) : '[]',
             'php_ppa'      => $this->phpPPA,
             'roles'        => $roles,
+            'timezone'     => $this->timezone
         ];
 
         return $this->twig->render('playbook.yml.twig', $data);

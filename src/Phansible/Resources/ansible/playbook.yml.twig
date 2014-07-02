@@ -6,6 +6,7 @@
     sys_packages: {{ sys_packages|raw }}
     php_packages: {{ php_packages|raw }}
     php_ppa: {{ php_ppa }}
+    timezone: {{ timezone }}
   roles:
 {% for role in roles %}    - {{ role }}
 {% endfor %}
