@@ -4,6 +4,9 @@ namespace Phansible\Model;
 
 class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var VagrantBundle;
+     */
     private $model;
 
     public function setUp()
