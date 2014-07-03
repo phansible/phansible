@@ -228,6 +228,19 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::getTimezone
+     * @covers Phansible\Model\VagrantBundle::setTimezone
+     */
+    public function testShouldSetAndGetTimezone()
+    {
+        $timezone = 'UTC';
+
+        $this->model->setTimezone($timezone);
+
+        $this->assertEquals($timezone, $this->model->getTimezone());
+    }
+
+    /**
      * @covers Phansible\Model\VagrantBundle::renderVagrantfile
      */
     public function testShouldRenderVagrantfile()
