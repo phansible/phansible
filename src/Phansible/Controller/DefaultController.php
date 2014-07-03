@@ -4,6 +4,7 @@ namespace Phansible\Controller;
 
 use Flint\Controller\Controller;
 use Michelf\Markdown;
+use DateTimeZone;
 
 /**
  * @package Skeleton
@@ -16,7 +17,10 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('index.html.twig', [
-            'config' => $this->get('config'),
+            'config' => array_merge(
+                            $this->get('config'),
+                            array('timezones' => DateTimeZone::listIdentifiers())
+            ),
         ]);
     }
 

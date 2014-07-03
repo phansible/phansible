@@ -4,6 +4,9 @@ namespace Phansible\Model;
 
 class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var VagrantBundle;
+     */
     private $model;
 
     public function setUp()
@@ -225,6 +228,19 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::getTimezone
+     * @covers Phansible\Model\VagrantBundle::setTimezone
+     */
+    public function testShouldSetAndGetTimezone()
+    {
+        $timezone = 'UTC';
+
+        $this->model->setTimezone($timezone);
+
+        $this->assertEquals($timezone, $this->model->getTimezone());
+    }
+
+    /**
      * @covers Phansible\Model\VagrantBundle::renderVagrantfile
      */
     public function testShouldRenderVagrantfile()
@@ -268,6 +284,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $this->model->setPhpPackages(array('php5-cli', 'php-pear'));
         $this->model->setSyspackages(array('vim', 'git'));
         $this->model->setPhpPPA(true);
+        $this->model->setTimezone('UTC');
 
         $mockedTwig = $this->getMockBuilder('\Twig_Environment')
             ->disableOriginalConstructor()
@@ -279,7 +296,8 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             'php_packages' => json_encode(array('php5-cli', 'php-pear')),
             'sys_packages' => json_encode(array('vim', 'git')),
             'php_ppa'      => true,
-            'roles'        => array('nginx') 
+            'roles'        => array('nginx'),
+            'timezone'    => 'UTC'
         );
 
         $mockedTwig->expects($this->once())
@@ -299,6 +317,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     {
         $this->model->setDocRoot('/vagrant');
         $this->model->setPhpPPA(true);
+        $this->model->setTimezone('UTC');
 
         $mockedTwig = $this->getMockBuilder('\Twig_Environment')
             ->disableOriginalConstructor()
@@ -310,7 +329,8 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             'php_packages' => '[]',
             'sys_packages' => '[]',
             'php_ppa'      => true,
-            'roles'        => array('nginx') 
+            'roles'        => array('nginx'),
+            'timezone'    => 'UTC'
         );
 
         $mockedTwig->expects($this->once())

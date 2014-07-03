@@ -1,0 +1,16 @@
+<h2 class="ui dividing header">Timezone</h2>
+<section>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Choose your timezone from the list.</p>
+    <div class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="field">
+            <label for="timezone">timezone:</label>
+            <select id="timezone" name="timezone" class="selectized" >
+                {% for timezone in config.timezones %}
+                    <option value="{{ timezone }}">{{ timezone }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</section>

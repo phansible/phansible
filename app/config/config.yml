@@ -12,6 +12,7 @@ config:
     - webserver
     - php
     - syspackages
+    - timezone
   boxes:
     lucid32:
       name: Ubuntu Lucid Lynx (10.04) 32
