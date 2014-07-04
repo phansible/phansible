@@ -20,3 +20,11 @@ The Ansible Roles are located in a separated repository: https://github.com/Phan
 - Databases
 - More customization options
 - More packages to choose from and option to add custom packages
+
+## Setup
+
+- Clone the repo: ```git clone https://github.com/Phansible/phansible.git```
+- Go into the folder
+- Install the dependencies with [composer](https://getcomposer.org/): ```php composer install```
+- Run the php build in server: ```php -S 0.0.0.0:8080 -t web/```
+- You can now go on [http://localhost:8080](http://localhost:8080) to see your modification.
