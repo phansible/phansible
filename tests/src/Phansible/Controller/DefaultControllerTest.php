@@ -23,6 +23,9 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
         $this->twig = null;
     }
 
+    /**
+     * @covers \Phansible\Controller\DefaultController::indexAction
+     */
     public function testShouldRenderIndexAction()
     {
         $container = new \Pimple();
@@ -42,6 +45,9 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @covers \Phansible\Controller\DefaultController::usageAction
+     */
     public function testShouldRenderUsageActionWhenDocFileNotExists()
     {
         $container = new \Pimple();
@@ -61,6 +67,9 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
         $this->controller->usageAction($doc);
     }
 
+    /**
+     * @covers \Phansible\Controller\DefaultController::usageAction
+     */
     public function testShouldRenderUsageActionWhenFileExists()
     {
         $container = new \Pimple();
