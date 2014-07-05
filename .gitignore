@@ -7,3 +7,4 @@ vagrant_ansible_inventory_default
 build/*
 !app/cache/.gitkeep
 composer.lock
+*.swp
