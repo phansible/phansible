@@ -26,7 +26,8 @@ class DefaultController extends Controller
 
     public function usageAction($doc)
     {
-        $docfile = __DIR__ . '/../Resources/docs/' . $doc . '.md';
+        $docfile = $this->get('docs.path') . DIRECTORY_SEPARATOR . $doc . '.md';
+
         $content = "";
 
         if (is_file($docfile)) {
