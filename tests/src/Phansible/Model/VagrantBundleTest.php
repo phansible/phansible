@@ -305,11 +305,55 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('playbook.yml.twig'), $data);
 
         $roles = array('nginx');
-        
+
         $this->model->setTwig($mockedTwig);
         $this->model->renderPlaybook($roles);
     }
-    
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::renderPlaybook
+     * @covers Phansible\Model\VagrantBundle::setMysqlVars
+     */
+    public function testShouldRenderPlaybookWithMysqlVars()
+    {
+        $this->model->setDocRoot('/vagrant');
+        $this->model->setPhpPackages(array());
+        $this->model->setSyspackages(array());
+        $this->model->setPhpPPA(true);
+        $this->model->setTimezone('UTC');
+
+        $mockedTwig = $this->getMockBuilder('\Twig_Environment')
+            ->disableOriginalConstructor()
+            ->setMethods(array('render'))
+            ->getMock();
+
+        $data = array(
+            'doc_root'     => '/vagrant',
+            'php_packages' => json_encode(array()),
+            'sys_packages' => json_encode(array()),
+            'php_ppa'      => true,
+            'roles'        => array('nginx', 'mysql'),
+            'timezone'     => 'UTC',
+            'mysql_user'   => 'user',
+            'mysql_pass'   => 'password',
+            'mysql_db'     => 'database'
+        );
+
+        $mockedTwig->expects($this->once())
+            ->method('render')
+            ->with($this->equalTo('playbook.yml.twig'), $data);
+
+        $roles = array('nginx', 'mysql');
+
+        $this->model->setTwig($mockedTwig);
+        $this->model->setMysqlVars(array(
+            'user' => 'user',
+            'pass' => 'password',
+            'db'   => 'database',
+        ));
+        $this->model->renderPlaybook($roles);
+    }
+
     /**
      * @covers Phansible\Model\VagrantBundle::renderPlaybook
      */
@@ -338,7 +382,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('playbook.yml.twig'), $data);
 
         $roles = array('nginx');
-        
+
         $this->model->setTwig($mockedTwig);
         $this->model->renderPlaybook($roles);
     }
@@ -363,7 +407,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->model->setRolesPath($path);
 
-        $result = $this->model->getRolesPath(); 
+        $result = $this->model->getRolesPath();
 
         $this->assertEquals($path, $result);
     }
@@ -497,7 +541,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $result);
     }
-    
+
     /**
      * @covers Phansible\Model\VagrantBundle::generateBundle
      */
@@ -545,7 +589,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $result);
     }
-    
+
     /**
      * @covers Phansible\Model\VagrantBundle::addRoleFiles
      */
@@ -632,7 +676,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $model->addRoles($roles);
         $model->setRolesPath('ansible/roles');
-        
+
         $result = $model->generateBundle($filePath);
 
         $this->assertEquals(1, $result);

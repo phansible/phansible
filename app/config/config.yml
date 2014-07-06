@@ -12,6 +12,7 @@ config:
     - vagrant
     - webserver
     - php
+    - database
     - syspackages
     - timezone
   boxes:

@@ -6,9 +6,9 @@ Main.prototype.form = function() {
 
     var that = this;
 
-    var checkbox  = $('.ui.checkbox'),
-        toggle    = $('.ui.toggle.button')
-        buttons   = $('.ui.buttons .button');
+    var checkbox    = $('.ui.checkbox'),
+        toggle      = $('.ui.toggle.button'),
+        buttons     = $('.ui.buttons .button');
 
     checkbox.checkbox();
 
@@ -22,6 +22,19 @@ Main.prototype.form = function() {
         },
         onDeactivate: function() {
             $('input#composer').val(0);
+        }
+    });
+
+    toggle.filter('.database').state({
+        text: {
+            active: 'Enabled',
+            inactive: 'Disabled'
+        },
+        onActivate: function() {
+            $('input#database-status').val(1);
+        },
+        onDeactivate: function() {
+            $('input#database-status').val(0);
         }
     });
 

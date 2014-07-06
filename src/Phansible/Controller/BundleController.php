@@ -55,6 +55,15 @@ class BundleController extends Controller
             $vagrant->addRole('composer');
         }
 
+        if ($request->get('database-status')) {
+            $vagrant->addRole('mysql');
+            $vagrant->setMysqlVars([
+                'user' => $request->get('user'),
+                'pass' => $request->get('password'),
+                'db'   => $request->get('database'),
+            ]);
+        }
+
         $vagrant->addRole('phpcommon');
 
         $tmpName = 'bundle_' . time();
