@@ -8,3 +8,4 @@ build/*
 !app/cache/.gitkeep
 composer.lock
 *.swp
+.DS_Store

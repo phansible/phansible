@@ -22,6 +22,7 @@ class VagrantBundle
     protected $phppackages;
     protected $installComposer;
     protected $timezone='Europe/Brussels';
+    protected $mysql = [];
 
 
     /** Playbook Roles */
@@ -247,6 +248,11 @@ class VagrantBundle
         return $this->timezone;
     }
 
+    public function setMysqlVars(array $vars)
+    {
+        $this->mysql = $vars;
+    }
+
     public function addRoles(array $roles)
     {
         foreach ($roles as $role) {
@@ -306,6 +312,12 @@ class VagrantBundle
             'roles'        => $roles,
             'timezone'     => $this->timezone
         ];
+
+        if ($this->mysql) {
+            $data['mysql_user'] = $this->mysql['user'];
+            $data['mysql_pass'] = $this->mysql['pass'];
+            $data['mysql_db']   = $this->mysql['db'];
+        }
 
         return $this->twig->render('playbook.yml.twig', $data);
     }
