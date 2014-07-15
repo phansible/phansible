@@ -1,3 +1,0 @@
-[submodule "src/Phansible/Resources/ansible/roles"]
-	path = src/Phansible/Resources/ansible/roles
-	url = https://github.com/Phansible/phansible-roles.git
