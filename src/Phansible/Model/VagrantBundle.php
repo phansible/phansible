@@ -19,15 +19,15 @@ class VagrantBundle
     protected $docRoot;
     protected $phpPPA;
     protected $syspackages;
-    protected $phppackages;
+    protected $phppackages = array();
     protected $installComposer;
     protected $timezone='Europe/Brussels';
     protected $mysql = [];
-
+    protected $installXdebug = false;
 
     /** Playbook Roles */
     protected $roles = [];
-    private $rolesPath;
+    private   $rolesPath;
 
     protected $twig;
     protected $tplPath;
@@ -169,19 +169,31 @@ class VagrantBundle
     }
 
     /**
-     * @param mixed $phppackages
+     * @param array $phppackages
      */
-    public function setPhpPackages($phppackages)
+    public function setPhpPackages(array $phppackages)
     {
         $this->phppackages = $phppackages;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getPhpPackages()
     {
         return $this->phppackages;
+    }
+
+    /**
+     * @param string $phppackage
+     *
+     * @return void
+     */
+    public function addPhpPackage($phppackage)
+    {
+        if (!in_array($phppackage, $this->phppackages)) {
+            $this->phppackages[] = $phppackage;
+        }
     }
 
     /**
@@ -248,9 +260,28 @@ class VagrantBundle
         return $this->timezone;
     }
 
+    /**
+     * @param array $vars
+     */
     public function setMysqlVars(array $vars)
     {
         $this->mysql = $vars;
+    }
+
+    /**
+     * @param boolean $installXdebug
+     */
+    public function setInstallXdebug($installXdebug)
+    {
+        $this->installXdebug = $installXdebug;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getInstallXdebug()
+    {
+        return $this->installXdebug;
     }
 
     public function addRoles(array $roles)
