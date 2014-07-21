@@ -41,8 +41,14 @@ class BundleController extends Controller
         $vagrant->setPhpPPA($request->get('phpppa'));
         $vagrant->setDocRoot($request->get('docroot'));
         $vagrant->setSyspackages($request->get('syspackages'));
-        $vagrant->setPhpPackages($request->get('phppackages'));
         $vagrant->setTimezone($request->get('timezone'));
+
+        /** Set PHP Packages */
+        $vagrant->setPhpPackages($request->get('phppackages', array()));
+
+        if ($request->get('xdebug')) {
+            $vagrant->addPhpPackage('php5-xdebug');
+        }
 
         /** Add Roles */
         $vagrant->addRole('init');

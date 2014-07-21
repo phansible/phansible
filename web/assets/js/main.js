@@ -38,6 +38,15 @@ Main.prototype.form = function() {
         }
     });
 
+    toggle.filter('.xdebug').state({
+        onActivate: function() {
+            $('input#xdebug').val(1);
+        },
+        onDeactivate: function() {
+            $('input#xdebug').val(0);
+        }
+    });
+
     buttons.filter('.phpversion').on('click', function(){
         $(this)
             .addClass('active')
