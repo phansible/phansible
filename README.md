@@ -12,8 +12,7 @@ The project is built on top of [Silex](http://silex.sensiolabs.org/), using [Fli
 
 ## Contributions
 
-Contributions are welcome, specially for adding new Ansible Roles for new tasks / packages / services.
-The Ansible Roles are located in a separated repository: https://github.com/Phansible/phansible-roles
+Contributions are always welcome, please have a look at our issues to see if there's something you could help with.
 
 ## TO DO
 
@@ -25,10 +24,11 @@ The Ansible Roles are located in a separated repository: https://github.com/Phan
 
 - Clone the repo: ```git clone https://github.com/Phansible/phansible.git```
 - Go into the phansible folder ```cd phansible/```
-- Clone roles submodule ```git submodule update --init```
 - Install the dependencies with [composer](https://getcomposer.org/): ```php composer install```
-- Run the php build in server: ```php -S 0.0.0.0:8080 -t web/```
+- Run the php built in server: ```php -S 0.0.0.0:8080 -t web/``` 
 - You can now go on [http://localhost:8080](http://localhost:8080) to see your modification.
+
+As an alternative, you can also use the included Vagrant setup (requires Ansible).
 
 ## Tests
 To run the tests just do:
