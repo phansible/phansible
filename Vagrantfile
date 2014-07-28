@@ -5,7 +5,7 @@
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
-        v.name = "phansible-dev"
+        v.name = "phansible-dev2"
         v.customize ["modifyvm", :id, "--memory", 512]
     end
 

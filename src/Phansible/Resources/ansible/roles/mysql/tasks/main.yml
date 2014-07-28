@@ -1,0 +1,26 @@
+---
+- name: mysql | Install MySQL Packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - mysql-server
+    - mysql-client
+    - python-mysqldb
+
+- name: mysql | Create default database
+  sudo: yes
+  mysql_db: name={{ mysql_db }} state=present
+
+- name: mysql | Create default user
+  sudo: yes
+  mysql_user: name={{ mysql_user }} password={{ mysql_pass }} priv={{ mysql_db }}.*:ALL state=present
+
+- name: mysql | Create databases
+  sudo: yes
+  mysql_db: name={{ item.db }} state=present
+  with_items: mysql
+
+- name: mysql | Create users
+  sudo: yes
+  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.db }}.*:ALL state=present
+  with_items: mysql
