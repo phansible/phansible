@@ -31,23 +31,13 @@ Vagrant.configure("2") do |config|
     # Ansible provisioning (you need to have ansible installed)
     #############################################################
 
-    {% if hostTarget == 'both' %}
     if which('ansible-playbook')
-    {% endif %}
-    {% if hostTarget == 'both' or hostTarget == 'unix' %}
         config.vm.provision "ansible" do |ansible|
             ansible.playbook = "ansible/playbook.yml"
         end
-    {% endif %}
-    {% if hostTarget == 'both' %}
     else
-    {% endif %}
-    {% if hostTarget == 'both' or hostTarget == 'win' %}
         config.vm.provision :shell, path: "ansible/windows.sh"
-    {% endif %}
-    {% if hostTarget == 'both' %}
     end
-    {% endif %}
 
     config.vm.synced_folder "{{ syncedFolder }}", "/vagrant", id: "vagrant-root", :nfs => true
 end
