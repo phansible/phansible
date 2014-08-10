@@ -48,16 +48,38 @@ class BundleController extends Controller
         $common->add('sys_packages', $request->get('syspackages', array()));
         $common->add('timezone', $request->get('timezone'));
 
+        /** Configure Playbook */
+        $playbook = new PlaybookRenderer();
+        $playbook->addRole('init');
+
         $php_packages = $request->get('phppackages', array());
+
+        /** Databases */
+        if ($request->get('database-status')) {
+            $playbook->addRole('mysql');
+
+            $mysqlvars = new VarfileRenderer('mysql');
+            $mysqlvars->setTemplate('roles/mysql.vars.twig');
+
+            $mysqlvars->setData([ 'mysql_vars' => [
+                    [
+                        'user' => $request->get('user'),
+                        'pass' => $request->get('password'),
+                        'db'   => $request->get('database'),
+                    ]
+                ]]);
+
+            $vagrant->addRenderer($mysqlvars);
+            $playbook->addVarFile('vars/mysql.yml');
+            $php_packages[] = 'php5-mysql';
+        }
+
+
         if ($request->get('xdebug')) {
             $php_packages[] = 'php5-xdebug';
         }
 
-        $common->add('php_packages', $php_packages);
-
-        /** Configure Playbook */
-        $playbook = new PlaybookRenderer();
-        $playbook->addRole('init');
+        $common->add('php_packages', array_unique($php_packages));
 
         foreach ($webserver['include'] as $role) {
             $playbook->addRole($role);
@@ -67,15 +89,6 @@ class BundleController extends Controller
             $playbook->addRole('composer');
         }
 
-        /*
-        if ($request->get('database-status')) {
-            $playbook->addRole('mysql');
-            $common->add('mysql', [
-                'user' => $request->get('user'),
-                'pass' => $request->get('password'),
-                'db'   => $request->get('database'),
-            ]);
-        }*/
 
         $playbook->addRole('phpcommon');
 

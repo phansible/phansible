@@ -17,10 +17,14 @@ class VagrantBundle
 
     protected $twig;
     protected $tplPath;
+    protected $ansiblePath;
 
-    public function __construct($tplPath = null)
+    public function __construct($ansiblePath = null)
     {
-        $this->tplPath = $tplPath ?: __DIR__ . '/../Resources/ansible';
+        $this->ansiblePath = $ansiblePath ?: __DIR__ . '/../Resources/ansible';
+
+        $this->tplPath   = $ansiblePath . '/templates';
+        $this->rolesPath = $ansiblePath . '/roles';
 
         $loader = new \Twig_Loader_Filesystem($this->tplPath);
         $this->twig = new \Twig_Environment($loader);
@@ -56,6 +60,22 @@ class VagrantBundle
     public function getTplPath()
     {
         return $this->tplPath;
+    }
+
+    /**
+     * @param string $ansiblePath
+     */
+    public function setAnsiblePath($ansiblePath)
+    {
+        $this->ansiblePath = $ansiblePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnsiblePath()
+    {
+        return $this->ansiblePath;
     }
 
     /**
@@ -112,9 +132,6 @@ class VagrantBundle
      */
     public function getRolesPath()
     {
-        if (null === $this->rolesPath) {
-            $this->rolesPath = __DIR__ . '/../Resources/ansible/roles';
-        }
         return $this->rolesPath;
     }
 

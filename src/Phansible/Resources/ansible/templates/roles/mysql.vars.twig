@@ -1,0 +1,7 @@
+mysql:
+{% for mysql in variables.mysql_vars %}
+  -
+    db: {{ mysql.db }}
+    user: {{ mysql.user }}
+    pass: {{ mysql.pass }}
+{% endfor %}
