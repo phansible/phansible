@@ -47,6 +47,14 @@ header h1 {
     margin: 20px 0px 0px 0px;
 }
 
+#forkme {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
 header p{
     color: #FFF;
 }
