@@ -70,7 +70,7 @@ class BundleController extends Controller
                 ]]);
 
             $vagrant->addRenderer($mysqlvars);
-            $playbook->addVarFile('vars/mysql.yml');
+            $playbook->addVarsFile('vars/mysql.yml');
             $php_packages[] = 'php5-mysql';
         }
 
@@ -95,7 +95,7 @@ class BundleController extends Controller
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
-        $playbook->addVarFile('vars/common.yml');
+        $playbook->addVarsFile('vars/common.yml');
 
         $vagrant->addRenderer($playbook);
         $vagrant->addRenderer($common);

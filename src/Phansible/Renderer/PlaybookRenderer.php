@@ -69,6 +69,11 @@ class PlaybookRenderer extends AbstractFileRenderer
         $this->vars[$key] = $value;
     }
 
+    public function getVar($key)
+    {
+        return isset($this->vars[$key]) ? $this->vars[$key] : null;
+    }
+
     /**
      * @param array $varsFiles
      */
@@ -85,7 +90,7 @@ class PlaybookRenderer extends AbstractFileRenderer
         return $this->varsFiles;
     }
 
-    public function addVarFile($varfile)
+    public function addVarsFile($varfile)
     {
         $this->varsFiles[] = $varfile;
     }

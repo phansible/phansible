@@ -13,6 +13,9 @@ class VarfileRenderer extends AbstractFileRenderer
     protected $filename;
     protected $template;
 
+    /**
+     * @param $filename
+     */
     public function  __construct($filename)
     {
         $this->filename = $filename;
@@ -24,6 +27,10 @@ class VarfileRenderer extends AbstractFileRenderer
         $this->template = 'vars.yml.twig';
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
     public function add($key, $value)
     {
         if (is_array($value)) {
@@ -32,6 +39,18 @@ class VarfileRenderer extends AbstractFileRenderer
         $this->data[$key] = $value;
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return isset($this->data[$key]) ? $this->data[$key] : null;
+    }
+
+    /**
+     * @return string
+     */
     public function getTemplate()
     {
         return $this->template;

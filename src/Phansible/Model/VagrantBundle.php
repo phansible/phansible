@@ -23,8 +23,8 @@ class VagrantBundle
     {
         $this->ansiblePath = $ansiblePath ?: __DIR__ . '/../Resources/ansible';
 
-        $this->tplPath   = $ansiblePath . '/templates';
-        $this->rolesPath = $ansiblePath . '/roles';
+        $this->tplPath   = $this->ansiblePath . '/templates';
+        $this->rolesPath = $this->ansiblePath . '/roles';
 
         $loader = new \Twig_Loader_Filesystem($this->tplPath);
         $this->twig = new \Twig_Environment($loader);
