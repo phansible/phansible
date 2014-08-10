@@ -41,7 +41,7 @@ class BundleController extends Controller
         $vagrantfile->setIpAddress($request->get('ipaddress'));
         $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
 
-        /** Configure Playbook Variable files */
+        /** Configure Variable files - common */
         $common = new VarfileRenderer('common');
         $common->add('php_ppa', $request->get('phpppa'));
         $common->add('doc_root', $request->get('docroot'));
@@ -83,6 +83,7 @@ class BundleController extends Controller
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
         $playbook->addVarFile('vars/common.yml');
+
         $vagrant->addRenderer($playbook);
         $vagrant->addRenderer($common);
         $vagrant->addRenderer($vagrantfile);

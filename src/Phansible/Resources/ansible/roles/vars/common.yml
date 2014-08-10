@@ -1,7 +1,0 @@
----
-# common variables
-doc_root: /vagrant
-timezone: "Brazil/DeNoronha"
-sys_packages: ["vim"]
-php_packages: ["php5-cli","php5-curl"]
-php_ppa: php5

@@ -20,7 +20,7 @@ class VarfileRenderer extends AbstractFileRenderer
 
     public function loadDefaults()
     {
-        $this->add('timezone', 'Europe/Amsterdam');
+        return null;
     }
 
     public function add($key, $value)

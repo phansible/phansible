@@ -31,7 +31,7 @@ class PlaybookRenderer extends AbstractFileRenderer
      */
     public function getFilePath()
     {
-        return 'ansible/playbook.yml.twig';
+        return 'ansible/playbook.yml';
     }
 
     /**
@@ -41,7 +41,7 @@ class PlaybookRenderer extends AbstractFileRenderer
     public function getData()
     {
         return [
-            'web_server'      => isset($this->vars['web_server']) ? $this->vars['web_server'] : 'nginx',
+            'web_server'      => isset($this->vars['web_server']) ? $this->vars['web_server'] : 'nginxphp',
             'playbook_vars'   => $this->vars,
             'playbook_files'  => $this->varsFiles,
             'playbook_roles'  => $this->roles,

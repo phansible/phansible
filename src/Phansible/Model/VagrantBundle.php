@@ -175,6 +175,14 @@ class VagrantBundle
     {
         $resources = $this->getRolesPath();
 
+        /** default var files */
+        if (is_dir($resources . '/vars')) {
+
+            foreach (glob($resources . '/vars/*.yml') as $varfile) {
+                $zip->addFile($varfile, 'ansible/vars/' . basename($varfile));
+            }
+        }
+
         /** tasks */
         if (is_dir($resources . '/' . $role . '/tasks')) {
 
