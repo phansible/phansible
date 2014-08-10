@@ -12,14 +12,6 @@ abstract class AbstractFileRenderer implements FileRenderer
         $this->loadDefaults();
     }
 
-    /**
-     * @param mixed $filePath
-     */
-    public function setFilePath($filePath)
-    {
-        $this->filePath = $filePath;
-    }
-
     public function renderFile(\Twig_Environment $twig)
     {
         return $twig->render($this->getTemplate(), $this->getData());

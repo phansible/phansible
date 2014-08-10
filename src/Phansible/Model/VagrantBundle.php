@@ -79,18 +79,6 @@ class VagrantBundle
     }
 
     /**
-     * @param string $phppackage
-     *
-     * @return void
-     */
-    public function addPhpPackage($phppackage)
-    {
-        if (!in_array($phppackage, $this->phppackages)) {
-            $this->phppackages[] = $phppackage;
-        }
-    }
-
-    /**
      * @param array $renderers
      */
     public function setRenderers(array $renderers)
