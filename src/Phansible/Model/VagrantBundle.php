@@ -5,6 +5,8 @@
 
 namespace Phansible\Model;
 
+use Phansible\Renderer\PlaybookRenderer;
+
 class VagrantBundle
 {
     /** Vagrantfile options */
@@ -25,7 +27,8 @@ class VagrantBundle
     protected $mysql = [];
     protected $installXdebug = false;
 
-    /** Playbook Roles */
+    /** File Renderers */
+    protected $renderers = [];
     protected $roles = [];
     private   $rolesPath;
 
@@ -269,6 +272,14 @@ class VagrantBundle
     }
 
     /**
+     * @return array
+     */
+    public function getMysqlVars()
+    {
+        return $this->mysql;
+    }
+
+    /**
      * @param boolean $installXdebug
      */
     public function setInstallXdebug($installXdebug)
@@ -284,21 +295,33 @@ class VagrantBundle
         return $this->installXdebug;
     }
 
-    public function addRoles(array $roles)
+    /**
+     * @param array $renderers
+     */
+    public function setRenderers(array $renderers)
     {
-        foreach ($roles as $role) {
-            $this->roles[] = $role;
+        foreach ($renderers as $renderer) {
+            $this->addRenderer($renderer);
         }
+
+        $this->renderers = $renderers;
     }
 
-    public function addRole($role)
+    /**
+     * @return array
+     */
+    public function getRenderers()
     {
-        $this->roles[] = $role;
+        return $this->renderers;
     }
 
-    public function getRoles()
+    /**
+     * @param FileRenderer $renderer
+     */
+
+    public function addRenderer(FileRenderer $renderer)
     {
-        return $this->roles;
+        $this->renderers[] = $renderer;
     }
 
     public function getZipArchive()
@@ -335,48 +358,34 @@ class VagrantBundle
 
     public function renderPlaybook(array $roles = [])
     {
-        $data = [
-            'doc_root'     => $this->docRoot,
-            'php_packages' => count($this->phppackages) ? json_encode($this->phppackages) : '[]',
-            'sys_packages' => count($this->syspackages) ? json_encode($this->syspackages) : '[]',
-            'php_ppa'      => $this->phpPPA,
-            'roles'        => $roles,
-            'timezone'     => $this->timezone
-        ];
+        $renderer = new PlaybookRenderer($this->twig);
 
-        if ($this->mysql) {
-            $data['mysql_user'] = $this->mysql['user'];
-            $data['mysql_pass'] = $this->mysql['pass'];
-            $data['mysql_db']   = $this->mysql['db'];
-        }
-
-        return $this->twig->render('playbook.yml.twig', $data);
+        return $renderer->renderPlaybook($roles, $this);
     }
 
+    public function renderFiles(\ZipArchive $zip)
+    {
+        foreach ($this->renderers as $renderer) {
+            $zip->addFromString($renderer->getFilePath(), $renderer->renderFile($this->twig));
+        }
 
-    public function generateBundle($filepath)
+        return $zip;
+    }
+
+    public function generateBundle($filepath, array $roles)
     {
         $zip = $this->getZipArchive();
         $res = $zip->open($filepath, \ZipArchive::CREATE);
 
         if ($res === TRUE) {
 
-            /** set tasks */
-            $roles = [ 'init', 'phpcommon' ];
+            // generate the templated files
+            $this->renderFiles($zip);
 
-            if ($this->installComposer) {
-                $roles[] = 'composer';
-            }
-
-            foreach ($this->roles as $role) {
+            // include role folders
+            foreach ($roles as $role) {
                 $this->addRoleFiles($role, $zip);
             }
-
-            /** adds the Vagrantfile */
-            $zip->addFromString('Vagrantfile', $this->renderVagrantfile());
-
-            /** adds the playbook */
-            $zip->addFromString('ansible/playbook.yml', $this->renderPlaybook($this->roles));
 
             $zip->close();
 

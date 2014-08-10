@@ -2,18 +2,15 @@
 - hosts: all
   sudo: true
   vars:
-    doc_root: {{ doc_root }}
-    sys_packages: {{ sys_packages|raw }}
-    php_packages: {{ php_packages|raw }}
-    php_ppa: {{ php_ppa }}
-    timezone: {{ timezone }}
-{% if mysql_user is defined %}
-    mysql:
-      -
-        db: {{ mysq_user }}
-        user: {{ mysql_pass }}
-        pass: {{ mysql_db }}
-{% endif %}
+    web_server: {{ web_server }}
+{% for key, value in playbook_vars %}
+    {{ key }}: {{ value }}
+{% endfor %}
+  vars_files:
+{% for file in playbook_files %}
+    - {{ file }}
+{% endfor %}
   roles:
-{% for role in roles %}    - {{ role }}
+{% for ansible_role in playbook_roles %}
+    - {{ ansible_role }}
 {% endfor %}
