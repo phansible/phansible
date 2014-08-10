@@ -67,15 +67,15 @@ class BundleController extends Controller
             $playbook->addRole('composer');
         }
 
+        /*
         if ($request->get('database-status')) {
             $playbook->addRole('mysql');
-            /*$vagrant->setMysqlVars([
+            $common->add('mysql', [
                 'user' => $request->get('user'),
                 'pass' => $request->get('password'),
                 'db'   => $request->get('database'),
             ]);
-            */
-        }
+        }*/
 
         $playbook->addRole('phpcommon');
 

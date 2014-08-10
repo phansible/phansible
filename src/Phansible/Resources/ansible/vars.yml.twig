@@ -1,4 +1,4 @@
 ---
 {% for key, value in variables %}
-    {{ key }}: {{ value }}
+    {{ key }}: {{ value|raw }}
 {% endfor %}

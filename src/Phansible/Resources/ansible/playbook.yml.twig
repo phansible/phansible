@@ -4,7 +4,7 @@
   vars:
     web_server: {{ web_server }}
 {% for key, value in playbook_vars %}
-    {{ key }}: {{ value }}
+    {{ key }}: {{ value|raw }}
 {% endfor %}
   vars_files:
 {% for file in playbook_files %}

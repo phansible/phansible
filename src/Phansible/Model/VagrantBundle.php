@@ -9,28 +9,11 @@ use Phansible\Renderer\PlaybookRenderer;
 
 class VagrantBundle
 {
-    /** Vagrantfile options */
-    protected $vmName;
-    protected $memory;
-    protected $box;
-    protected $boxUrl;
-    protected $ipAddress;
-    protected $syncedFolder;
-
-    /** Playbook options */
-    protected $docRoot;
-    protected $phpPPA;
-    protected $syspackages;
-    protected $phppackages = array();
-    protected $installComposer;
-    protected $timezone='Europe/Brussels';
-    protected $mysql = [];
-    protected $installXdebug = false;
-
     /** File Renderers */
     protected $renderers = [];
-    protected $roles = [];
-    private   $rolesPath;
+
+    /** @var string Roles Path */
+    private $rolesPath;
 
     protected $twig;
     protected $tplPath;
@@ -41,102 +24,6 @@ class VagrantBundle
 
         $loader = new \Twig_Loader_Filesystem($this->tplPath);
         $this->twig = new \Twig_Environment($loader);
-    }
-
-    /**
-     * @param mixed $memory
-     */
-    public function setMemory($memory)
-    {
-        $this->memory = $memory;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMemory()
-    {
-        return $this->memory;
-    }
-
-    /**
-     * @param mixed $vmName
-     */
-    public function setVmName($vmName)
-    {
-        $this->vmName = $vmName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVmName()
-    {
-        return $this->vmName;
-    }
-
-    /**
-     * @param mixed $box
-     */
-    public function setBox($box)
-    {
-        $this->box = $box;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBox()
-    {
-        return $this->box;
-    }
-
-    /**
-     * @param mixed $boxUrl
-     */
-    public function setBoxUrl($boxUrl)
-    {
-        $this->boxUrl = $boxUrl;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBoxUrl()
-    {
-        return $this->boxUrl;
-    }
-
-    /**
-     * @param mixed $ipAddress
-     */
-    public function setIpAddress($ipAddress)
-    {
-        $this->ipAddress = $ipAddress;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * @param mixed $syncedFolder
-     */
-    public function setSyncedFolder($syncedFolder)
-    {
-        $this->syncedFolder = $syncedFolder;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSyncedFolder()
-    {
-        return $this->syncedFolder;
     }
 
     /**
@@ -156,35 +43,19 @@ class VagrantBundle
     }
 
     /**
-     * @param mixed $docRoot
+     * @param string $tplPath
      */
-    public function setDocRoot($docRoot)
+    public function setTplPath($tplPath)
     {
-        $this->docRoot = $docRoot;
+        $this->tplPath = $tplPath;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDocRoot()
+    public function getTplPath()
     {
-        return $this->docRoot;
-    }
-
-    /**
-     * @param array $phppackages
-     */
-    public function setPhpPackages(array $phppackages)
-    {
-        $this->phppackages = $phppackages;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPhpPackages()
-    {
-        return $this->phppackages;
+        return $this->tplPath;
     }
 
     /**
@@ -197,102 +68,6 @@ class VagrantBundle
         if (!in_array($phppackage, $this->phppackages)) {
             $this->phppackages[] = $phppackage;
         }
-    }
-
-    /**
-     * @param mixed $syspackages
-     */
-    public function setSyspackages($syspackages)
-    {
-        $this->syspackages = $syspackages;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSyspackages()
-    {
-        return $this->syspackages;
-    }
-
-    /**
-     * @param mixed $phpPPA
-     */
-    public function setPhpPPA($phpPPA)
-    {
-        $this->phpPPA = $phpPPA;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhpPPA()
-    {
-        return $this->phpPPA;
-    }
-
-    /**
-     * @param mixed $installComposer
-     */
-    public function setInstallComposer($installComposer)
-    {
-        $this->installComposer = $installComposer;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getInstallComposer()
-    {
-        return $this->installComposer;
-    }
-
-    /**
-     * @param mixed $timezone
-     */
-    public function setTimezone($timezone)
-    {
-        $this->timezone = $timezone;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTimezone()
-    {
-        return $this->timezone;
-    }
-
-    /**
-     * @param array $vars
-     */
-    public function setMysqlVars(array $vars)
-    {
-        $this->mysql = $vars;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMysqlVars()
-    {
-        return $this->mysql;
-    }
-
-    /**
-     * @param boolean $installXdebug
-     */
-    public function setInstallXdebug($installXdebug)
-    {
-        $this->installXdebug = $installXdebug;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getInstallXdebug()
-    {
-        return $this->installXdebug;
     }
 
     /**
@@ -324,11 +99,17 @@ class VagrantBundle
         $this->renderers[] = $renderer;
     }
 
+    /**
+     * @return \ZipArchive
+     */
     public function getZipArchive()
     {
         return new \ZipArchive();
     }
 
+    /**
+     * @return string
+     */
     public function getRolesPath()
     {
         if (null === $this->rolesPath) {
@@ -337,32 +118,19 @@ class VagrantBundle
         return $this->rolesPath;
     }
 
+    /**
+     * @param string $path
+     */
     public function setRolesPath($path)
     {
         $this->rolesPath = $path;
     }
 
-    public function renderVagrantfile()
-    {
-        $data = [
-            'vmName'       => $this->vmName,
-            'memory'       => $this->memory,
-            'ipAddress'    => $this->ipAddress,
-            'boxName'      => $this->box,
-            'boxUrl'       => $this->boxUrl,
-            'syncedFolder' => $this->syncedFolder,
-        ];
-
-        return $this->twig->render('Vagrantfile.twig', $data);
-    }
-
-    public function renderPlaybook(array $roles = [])
-    {
-        $renderer = new PlaybookRenderer($this->twig);
-
-        return $renderer->renderPlaybook($roles, $this);
-    }
-
+    /**
+     * Renders the files defined via FileRenderers
+     * @param \ZipArchive $zip
+     * @return \ZipArchive
+     */
     public function renderFiles(\ZipArchive $zip)
     {
         foreach ($this->renderers as $renderer) {
@@ -372,6 +140,12 @@ class VagrantBundle
         return $zip;
     }
 
+    /**
+     * Generates a Vagrant Bundle based on given Roles and currently configured file renderers
+     * @param $filepath
+     * @param array $roles
+     * @return int
+     */
     public function generateBundle($filepath, array $roles)
     {
         $zip = $this->getZipArchive();
