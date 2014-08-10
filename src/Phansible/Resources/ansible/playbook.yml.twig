@@ -8,9 +8,11 @@
     php_ppa: {{ php_ppa }}
     timezone: {{ timezone }}
 {% if mysql_user is defined %}
-    mysql_user: {{ mysql_user }}
-    mysql_pass: {{ mysql_pass }}
-    mysql_db: {{ mysql_db }}
+    mysql:
+      -
+        db: {{ mysq_user }}
+        user: {{ mysql_pass }}
+        pass: {{ mysql_db }}
 {% endif %}
   roles:
 {% for role in roles %}    - {{ role }}
