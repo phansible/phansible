@@ -37,15 +37,15 @@ class VagrantBundle
     }
 
     /**
-     * @param mixed $twig
+     * @param \Twig_Environment $twig
      */
-    public function setTwig($twig)
+    public function setTwig(\Twig_Environment $twig)
     {
         $this->twig = $twig;
     }
 
     /**
-     * @return mixed
+     * @return \Twig_Environment
      */
     public function getTwig()
     {

@@ -23,6 +23,19 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Renderer\VagrantfileRenderer::loadDefaults
+     */
+    public function testLoadDefaults()
+    {
+        $this->assertEquals(512, $this->model->getMemory());
+        $this->assertEquals('Default', $this->model->getName());
+        $this->assertEquals('precise64', $this->model->getBoxName());
+        $this->assertEquals('http://files.vagrantup.com/precise64.box', $this->model->getBoxUrl());
+        $this->assertEquals('192.168.33.99', $this->model->getIpAddress());
+        $this->assertEquals('./', $this->model->getSyncedFolder());
+    }
+
+    /**
      * @covers Phansible\Renderer\VagrantfileRenderer::getMemory
      * @covers Phansible\Renderer\VagrantfileRenderer::setMemory
      */
@@ -110,6 +123,21 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->getSyncedFolder();
 
         $this->assertEquals($syncedFolder, $result);
+    }
+
+    /**
+     * @covers Phansible\Renderer\VagrantfileRenderer::getData
+     */
+    public function testGetData()
+    {
+        $data = $this->model->getData();
+
+        $this->assertArrayHasKey('vmName', $data);
+        $this->assertArrayHasKey('memory', $data);
+        $this->assertArrayHasKey('boxUrl', $data);
+        $this->assertArrayHasKey('boxName', $data);
+        $this->assertArrayHasKey('ipAddress', $data);
+        $this->assertArrayHasKey('syncedFolder', $data);
     }
 
     /**

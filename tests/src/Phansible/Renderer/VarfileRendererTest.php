@@ -15,6 +15,19 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
         $this->model = new VarfileRenderer('common');
     }
 
+    public function tearDown()
+    {
+        $this->model = null;
+    }
+
+    /**
+     * @covers Phansible\Renderer\VarfileRenderer::loadDefaults
+     */
+    public function testLoadDefaults()
+    {
+        $this->assertEquals('vars.yml.twig', $this->model->getTemplate());
+    }
+
     /**
      * @covers Phansible\Renderer\VarfileRenderer::getTemplate
      * @covers Phansible\Renderer\VarfileRenderer::setTemplate
@@ -61,6 +74,19 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
         $path = 'ansible/vars/common.yml';
 
         $this->assertEquals($path, $this->model->getFilePath());
+    }
+
+    /**
+     * @covers Phansible\Renderer\VarfileRenderer::getData
+     */
+    public function testGetData()
+    {
+        $this->model->add('test', 'test');
+
+        $data = $this->model->getData();
+
+        $this->assertArrayHasKey('variables', $data);
+        $this->assertArrayHasKey('test', $data['variables']);
     }
 
     /**

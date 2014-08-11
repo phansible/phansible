@@ -42,7 +42,9 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldSetAndGetTwig()
     {
-        $twig = "twig";
+        $twig = $this->getMockBuilder('Twig_Environment')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->model->setTwig($twig);
 

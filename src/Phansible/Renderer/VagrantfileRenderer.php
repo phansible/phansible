@@ -71,7 +71,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $boxName
+     * @param string $boxName
      */
     public function setBoxName($boxName)
     {
@@ -79,7 +79,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBoxName()
     {
@@ -87,7 +87,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $boxUrl
+     * @param string $boxUrl
      */
     public function setBoxUrl($boxUrl)
     {
@@ -95,7 +95,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBoxUrl()
     {
@@ -103,7 +103,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $ipAddress
+     * @param string $ipAddress
      */
     public function setIpAddress($ipAddress)
     {
@@ -111,7 +111,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIpAddress()
     {
@@ -119,7 +119,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $memory
+     * @param string $memory
      */
     public function setMemory($memory)
     {
@@ -127,7 +127,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMemory()
     {
@@ -135,7 +135,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -143,7 +143,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -151,7 +151,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $syncedFolder
+     * @param string $syncedFolder
      */
     public function setSyncedFolder($syncedFolder)
     {
@@ -159,7 +159,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSyncedFolder()
     {

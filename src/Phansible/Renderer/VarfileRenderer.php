@@ -19,7 +19,7 @@ class VarfileRenderer extends AbstractFileRenderer
     protected $template;
 
     /**
-     * @param $filename
+     * @param string $filename
      */
     public function  __construct($filename)
     {
@@ -48,7 +48,7 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
     public function get($key)
@@ -65,7 +65,7 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $template
+     * @param string $template
      */
     public function setTemplate($template)
     {
@@ -81,7 +81,7 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param mixed $data
+     * @param array $data
      */
     public function setData(array $data)
     {

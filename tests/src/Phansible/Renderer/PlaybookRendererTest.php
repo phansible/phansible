@@ -23,6 +23,16 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Renderer\PlaybookRenderer::loadDefaults
+     */
+    public function testLoadDefaults()
+    {
+        $this->assertTrue(is_array($this->model->getVars()));
+        $this->assertTrue(is_array($this->model->getVarsFiles()));
+        $this->assertTrue(is_array($this->model->getRoles()));
+    }
+
+    /**
      * @covers Phansible\Renderer\PlaybookRenderer::addVar
      * @covers Phansible\Renderer\PlaybookRenderer::getVar
      */
@@ -37,8 +47,25 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Renderer\PlaybookRenderer::setVars
+     * @covers Phansible\Renderer\PlaybookRenderer::getVars
+     */
+    public function testShouldSetAndGetVars()
+    {
+        $vars = [
+            'web_server' => 'nginx',
+            'doc_root'   => '/vagrant'
+        ];
+
+        $this->model->setVars($vars);
+
+        $this->assertEquals($vars, $this->model->getVars());
+    }
+
+    /**
      * @covers Phansible\Renderer\PlaybookRenderer::addVarsFile
      * @covers Phansible\Renderer\PlaybookRenderer::getVarsFiles
+     * @covers Phansible\Renderer\PlaybookRenderer::setVarsFiles
      */
     public function testShouldAddAndGetVarsFile()
     {
@@ -47,6 +74,10 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
         $this->model->addVarsFile($var_file);
 
         $this->assertContains($var_file, $this->model->getVarsFiles());
+
+        $this->model->setVarsFiles(['test01.yml', 'test02.yml']);
+
+        $this->assertContains('test02.yml', $this->model->getVarsFiles());
     }
 
     /**
@@ -54,7 +85,7 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
      * @covers Phansible\Renderer\PlaybookRenderer::setRoles
      * @covers Phansible\Renderer\PlaybookRenderer::addRole
      */
-    public function testShouldAddAndGetRoles()
+    public function testShouldSetAndGetRoles()
     {
         $roles = [ 'nginx', 'php' ];
 
@@ -65,6 +96,19 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
         $this->model->addRole('init');
 
         $this->assertContains('init', $this->model->getRoles());
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::getData
+     */
+    public function testGetData()
+    {
+        $data = $this->model->getData();
+
+        $this->assertArrayHasKey('web_server', $data);
+        $this->assertArrayHasKey('playbook_vars', $data);
+        $this->assertArrayHasKey('playbook_files', $data);
+        $this->assertArrayHasKey('playbook_roles', $data);
     }
 
     /**
