@@ -111,7 +111,7 @@ class BundleController extends Controller
      * @param string $filename
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    protected function outputBundle($zipPath, Application $app, $filename)
+    public function outputBundle($zipPath, Application $app, $filename)
     {
         $stream = function () use ($zipPath) {
             readfile($zipPath);
@@ -127,7 +127,7 @@ class BundleController extends Controller
      * @param string $boxName
      * @return string
      */
-    protected function getBox($boxName)
+    public function getBox($boxName)
     {
         $boxes = $this->get('config')['boxes'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
@@ -139,7 +139,7 @@ class BundleController extends Controller
      * @param string $webServerKey
      * @return array
      */
-    protected function getWebServer($webServerKey)
+    public function getWebServer($webServerKey)
     {
         $webservers   = $this->get('config')['webservers'];
         $webServerKey = array_key_exists($webServerKey, $webservers) ? $webServerKey : 'nginxphp';
