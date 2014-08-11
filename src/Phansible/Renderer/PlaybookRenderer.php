@@ -6,14 +6,21 @@
 namespace Phansible\Renderer;
 
 use Phansible\Model\AbstractFileRenderer;
-use Phansible\Model\VagrantBundle;
 
 class PlaybookRenderer extends AbstractFileRenderer
 {
+    /** @var  array Playbook Variables */
     protected $vars;
+
+    /** @var  array Playbook Vars Files */
     protected $varsFiles;
+
+    /** @var  array Playbook Roles */
     protected $roles;
 
+    /**
+     * {@inheritdoc}
+     */
     public function loadDefaults()
     {
         $this->vars      = [];
@@ -21,13 +28,16 @@ class PlaybookRenderer extends AbstractFileRenderer
         $this->roles     = [];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getTemplate()
     {
         return 'playbook.yml.twig';
     }
 
     /**
-     * FilePath for saving the rendered template in the bundle
+     * {@inheritdoc}
      */
     public function getFilePath()
     {
@@ -35,8 +45,7 @@ class PlaybookRenderer extends AbstractFileRenderer
     }
 
     /**
-     * Returns the data for the template
-     * @return Array
+     * {@inheritdoc}
      */
     public function getData()
     {
@@ -64,11 +73,19 @@ class PlaybookRenderer extends AbstractFileRenderer
         return $this->vars;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
     public function addVar($key, $value)
     {
         $this->vars[$key] = $value;
     }
 
+    /**
+     * @param string $key
+     * @return mixed
+     */
     public function getVar($key)
     {
         return isset($this->vars[$key]) ? $this->vars[$key] : null;
@@ -90,6 +107,9 @@ class PlaybookRenderer extends AbstractFileRenderer
         return $this->varsFiles;
     }
 
+    /**
+     * @param string $varfile
+     */
     public function addVarsFile($varfile)
     {
         $this->varsFiles[] = $varfile;
@@ -111,6 +131,9 @@ class PlaybookRenderer extends AbstractFileRenderer
         return $this->roles;
     }
 
+    /**
+     * @param string $role
+     */
     public function addRole($role)
     {
         $this->roles[] = $role;

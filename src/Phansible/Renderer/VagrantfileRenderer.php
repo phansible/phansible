@@ -5,21 +5,30 @@
 
 namespace Phansible\Renderer;
 
-
 use Phansible\Model\AbstractFileRenderer;
 
 class VagrantfileRenderer extends AbstractFileRenderer
 {
+    /** @var string VM Name */
     protected $name;
+
+    /** @var  string Memory */
     protected $memory;
+
+    /** @var  string Box Name */
     protected $boxName;
+
+    /** @var  string Box URL */
     protected $boxUrl;
+
+    /** @var  string IP Address */
     protected $ipAddress;
+
+    /** @var  string Synced Folder */
     protected $syncedFolder;
 
     /**
-     * Loads any default values
-     * @return void
+     * {@inheritdoc}
      */
     public function loadDefaults()
     {
@@ -32,16 +41,14 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * Template to be used for rendering
-     * @return string
+     * {@inheritdoc}
      */
     public function getTemplate()
     {
         return 'Vagrantfile.twig';
     }
-
     /**
-     * FilePath for saving the rendered template
+     * {@inheritdoc}
      */
     public function getFilePath()
     {
@@ -49,8 +56,7 @@ class VagrantfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * Returns the data for the template
-     * @return Array
+     * {@inheritdoc}
      */
     public function getData()
     {

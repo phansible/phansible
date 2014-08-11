@@ -9,8 +9,13 @@ use Phansible\Model\AbstractFileRenderer;
 
 class VarfileRenderer extends AbstractFileRenderer
 {
+    /** @var  array Variables key-value format */
     protected $data;
+
+    /** @var  string Varfile name */
     protected $filename;
+
+    /** @var  string Template */
     protected $template;
 
     /**
@@ -22,6 +27,9 @@ class VarfileRenderer extends AbstractFileRenderer
         parent::__construct();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function loadDefaults()
     {
         $this->template = 'vars.yml.twig';
@@ -49,7 +57,7 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getTemplate()
     {
@@ -65,8 +73,7 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * Returns the data for the template
-     * @return Array
+     * {@inheritdoc}
      */
     public function getData()
     {
@@ -82,12 +89,11 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * FilePath for saving the rendered template
+     * {@inheritdoc}
      */
     public function getFilePath()
     {
         return 'ansible/vars/' . $this->filename . '.yml';
     }
-
 
 } 

@@ -5,20 +5,26 @@
 
 namespace Phansible\Model;
 
-use Phansible\Renderer\PlaybookRenderer;
-
 class VagrantBundle
 {
     /** File Renderers */
     protected $renderers = [];
 
-    /** @var string Roles Path */
-    private $rolesPath;
-
-    protected $twig;
-    protected $tplPath;
+    /** @var string Path to Ansible Resources */
     protected $ansiblePath;
 
+    /** @var string Path to Ansible Templates */
+    protected $tplPath;
+
+    /** @var string Path to Roles */
+    private $rolesPath;
+
+    /** @var \Twig_Environment */
+    protected $twig;
+
+    /**
+     * @param string $ansiblePath
+     */
     public function __construct($ansiblePath = null)
     {
         $this->ansiblePath = $ansiblePath ?: __DIR__ . '/../Resources/ansible';
@@ -147,7 +153,7 @@ class VagrantBundle
 
     /**
      * Generates a Vagrant Bundle based on given Roles and currently configured file renderers
-     * @param $filepath
+     * @param string $filepath
      * @param array $roles
      * @return int
      */
@@ -158,13 +164,16 @@ class VagrantBundle
 
         if ($res === TRUE) {
 
-            // generate the templated files
+            /** template files rendering */
             $this->renderFiles($zip);
 
-            // include role folders
+            /** role folders */
             foreach ($roles as $role) {
                 $this->addRoleFiles($role, $zip);
             }
+
+            /** default var files */
+            $this->includeBundleFiles($zip, 'vars', '*.yml', 'ansible/vars');
 
             $zip->close();
 
@@ -176,40 +185,46 @@ class VagrantBundle
         }
     }
 
-    protected function addRoleFiles($role, \ZipArchive $zip)
+    /**
+     * Includes Files in the Vagrant Bundle
+     *
+     * @param \ZipArchive $zip
+     * @param string $sourceDir The source directory where to get the files from
+     * @param string $pattern   Pattern to be used with glob
+     * @param string $includePath Path to save the file inside the bundle, defaults to the same as sourceDir
+     */
+    public function includeBundleFiles(\ZipArchive $zip, $sourceDir, $pattern = '*.*', $includePath = null)
     {
-        $resources = $this->getRolesPath();
+        $includePath = $includePath ?: $sourceDir;
 
-        /** default var files */
-        if (is_dir($resources . '/vars')) {
+        $resources = $this->getAnsiblePath();
 
-            foreach (glob($resources . '/vars/*.yml') as $varfile) {
-                $zip->addFile($varfile, 'ansible/vars/' . basename($varfile));
+        if (is_dir($resources . '/' . $sourceDir)) {
+            foreach (glob($resources . '/' . $sourceDir . '/' . $pattern) as $file) {
+                $zip->addFile($file, $includePath . '/' . basename($file));
             }
         }
+    }
+
+    /**
+     * Adds a Role directory inside a Vagrant Bundle
+     * @param $role
+     * @param \ZipArchive $zip
+     */
+    public function addRoleFiles($role, \ZipArchive $zip)
+    {
+        $base = 'roles/' . $role;
 
         /** tasks */
-        if (is_dir($resources . '/' . $role . '/tasks')) {
-
-            foreach (glob($resources . '/' . $role . '/tasks/*.yml') as $taskfile) {
-                $zip->addFile($taskfile, 'ansible/roles/' . $role . '/tasks/' . basename($taskfile));
-            }
-        }
+        $dirTasks = $base . '/tasks';
+        $this->includeBundleFiles($zip, $dirTasks, '*.yml', 'ansible/' . $dirTasks);
 
         /** handlers */
-        if (is_dir($resources . '/' . $role . '/handlers')) {
-
-            foreach (glob($resources . '/' . $role . '/handlers/*.yml') as $taskfile) {
-                $zip->addFile($taskfile, 'ansible/roles/' . $role . '/handlers/' . basename($taskfile));
-            }
-        }
+        $dirHandlers = $base . '/handlers';
+        $this->includeBundleFiles($zip, $dirHandlers, '*.yml', 'ansible/' . $dirHandlers);
 
         /** templates */
-        if (is_dir($resources . '/' . $role . '/templates')) {
-
-            foreach (glob($resources . '/' . $role . '/templates/*.tpl') as $tplfile) {
-                $zip->addFile($tplfile, 'ansible/roles/' . $role . '/templates/' . basename($tplfile));
-            }
-        }
+        $dirTemplates = $base . '/templates';
+        $this->includeBundleFiles($zip, $dirTemplates, '*.tpl', 'ansible/' . $dirTemplates);
     }
 }
