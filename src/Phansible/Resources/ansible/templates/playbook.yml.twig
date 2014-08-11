@@ -2,7 +2,6 @@
 - hosts: all
   sudo: true
   vars:
-    web_server: {{ web_server }}
 {% for key, value in playbook_vars %}
     {{ key }}: {{ value|raw }}
 {% endfor %}

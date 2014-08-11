@@ -16,21 +16,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BundleController extends Controller
 {
-
     public function indexAction(Request $request, Application $app)
     {
         $vagrant = new VagrantBundle($this->get('ansible.path'));
-        $name = $request->get('vmname');
+        $name    = $request->get('vmname');
 
-        /** Get box options from config */
-        $boxes   = $this->get('config')['boxes'];
-        $boxName = array_key_exists($request->get('baseBox'), $boxes) ? $request->get('baseBox') : 'precise64';
-        $box     =  $boxes[$boxName];
+        $boxName = $request->get('baseBox') ?: 'precise64';
+        $box     = $this->getBox($boxName);
 
-        /** Get web server options from config */
-        $webservers   = $this->get('config')['webservers'];
-        $webServerKey = array_key_exists($request->get('webserver'), $webservers) ? $request->get('webserver') : 'nginxphp';
-        $webserver    = $webservers[$webServerKey];
+        $webServerKey = $request->get('webserver') ?: 'nginxphp';
+        $webserver    = $this->getWebServer($webServerKey);
 
         /** Configure Vagrantfile */
         $vagrantfile = new VagrantfileRenderer();
@@ -50,6 +45,7 @@ class BundleController extends Controller
 
         /** Configure Playbook */
         $playbook = new PlaybookRenderer();
+        $playbook->addVar('web_server', $webServerKey);
         $playbook->addRole('init');
 
         $php_packages = $request->get('phppackages', array());
@@ -74,7 +70,6 @@ class BundleController extends Controller
             $php_packages[] = 'php5-mysql';
         }
 
-
         if ($request->get('xdebug')) {
             $php_packages[] = 'php5-xdebug';
         }
@@ -89,11 +84,7 @@ class BundleController extends Controller
             $playbook->addRole('composer');
         }
 
-
         $playbook->addRole('phpcommon');
-
-        $tmpName = 'bundle_' . time();
-        $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
         $playbook->addVarsFile('vars/common.yml');
 
@@ -101,20 +92,58 @@ class BundleController extends Controller
         $vagrant->addRenderer($common);
         $vagrant->addRenderer($vagrantfile);
 
+        $tmpName = 'bundle_' . time();
+        $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
+
         if ($vagrant->generateBundle($zipPath, $playbook->getRoles())) {
 
-            $stream = function () use ($zipPath) {
-                readfile($zipPath);
-            };
-
-            return $app->stream($stream, 200, array(
-                'Content-length' => filesize($zipPath),
-                'Content-Disposition' => 'attachment; filename="phansible_' . $name . '.zip"'
-            ));
+            return $this->outputBundle($zipPath, $app, $name);
 
         } else {
+
             return new Response('An error occurred.');
         }
+    }
 
+    /**
+     * @param string $zipPath
+     * @param Application $app
+     * @param string $filename
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    protected function outputBundle($zipPath, Application $app, $filename)
+    {
+        $stream = function () use ($zipPath) {
+            readfile($zipPath);
+        };
+
+        return $app->stream($stream, 200, array(
+            'Content-length' => filesize($zipPath),
+            'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"'
+        ));
+    }
+
+    /**
+     * @param string $boxName
+     * @return string
+     */
+    protected function getBox($boxName)
+    {
+        $boxes = $this->get('config')['boxes'];
+        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
+
+        return $boxes[$boxName];
+    }
+
+    /**
+     * @param string $webServerKey
+     * @return array
+     */
+    protected function getWebServer($webServerKey)
+    {
+        $webservers   = $this->get('config')['webservers'];
+        $webServerKey = array_key_exists($webServerKey, $webservers) ? $webServerKey : 'nginxphp';
+
+        return $webservers[$webServerKey];
     }
 }
