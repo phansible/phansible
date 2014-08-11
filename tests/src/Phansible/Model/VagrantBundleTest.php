@@ -54,6 +54,42 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::getAnsiblePath
+     * @covers Phansible\Model\VagrantBundle::setAnsiblePath
+     */
+    public function testShouldSetAndGetAnsiblePath()
+    {
+        $path = __DIR__ . '/../src/Resources/ansible';
+        $this->model->setAnsiblePath($path);
+
+        $this->assertEquals($path, $this->model->getAnsiblePath());
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::getTplPath
+     * @covers Phansible\Model\VagrantBundle::setTplPath
+     */
+    public function testShouldSetAndGetTplPath()
+    {
+        $path = __DIR__ . '/../src/Resources/ansible';
+        $this->model->setTplPath($path);
+
+        $this->assertEquals($path, $this->model->getTplPath());
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::getRolesPath
+     * @covers Phansible\Model\VagrantBundle::setRolesPath
+     */
+    public function testShouldSetAndGetRolesPath()
+    {
+        $path = __DIR__ . '/../src/Resources/ansible';
+        $this->model->setRolesPath($path);
+
+        $this->assertEquals($path, $this->model->getRolesPath());
+    }
+
+    /**
      * @covers Phansible\Model\VagrantBundle::addRenderer
      * @covers Phansible\Model\VagrantBundle::getRenderers
      * @covers Phansible\Model\VagrantBundle::setRenderers
@@ -130,6 +166,30 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             );
 
         $model->addRoleFiles('nginx', $mockedZip);
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::includeBundleFiles
+     */
+    public function testDefaultIncludeBundleFiles()
+    {
+        $mockedZip = $this->getMockBuilder('\ZipArchive')
+            ->setMethods(array('addFile'))
+            ->getMock();
+
+        $mockedZip->expects($this->any())
+            ->method('addFile')
+            ->with(
+                $this->stringContains('vars'),
+                $this->stringContains('vars')
+            );
+
+        $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
+
+        $this->assertTrue(is_dir($ansiblePath));
+
+        $this->model->setAnsiblePath($ansiblePath);
+        $this->model->includeBundleFiles($mockedZip, 'vars');
     }
 
     /**

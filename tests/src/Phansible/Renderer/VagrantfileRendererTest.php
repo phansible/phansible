@@ -36,6 +36,26 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Renderer\VagrantfileRenderer::getTemplate
+     */
+    public function testGetTemplate()
+    {
+        $path = 'Vagrantfile.twig';
+
+        $this->assertEquals($path, $this->model->getTemplate());
+    }
+
+    /**
+     * @covers Phansible\Renderer\VagrantfileRenderer::getFilePath
+     */
+    public function testGetFilePath()
+    {
+        $path = 'Vagrantfile';
+
+        $this->assertEquals($path, $this->model->getFilePath());
+    }
+
+    /**
      * @covers Phansible\Renderer\VagrantfileRenderer::getMemory
      * @covers Phansible\Renderer\VagrantfileRenderer::setMemory
      */

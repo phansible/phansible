@@ -13,17 +13,17 @@ class VarfileRenderer extends AbstractFileRenderer
     protected $data;
 
     /** @var  string Varfile name */
-    protected $filename;
+    protected $name;
 
     /** @var  string Template */
     protected $template;
 
     /**
-     * @param string $filename
+     * @param string $name
      */
-    public function  __construct($filename)
+    public function  __construct($name)
     {
-        $this->filename = $filename;
+        $this->name = $name;
         parent::__construct();
     }
 
@@ -33,6 +33,22 @@ class VarfileRenderer extends AbstractFileRenderer
     public function loadDefaults()
     {
         $this->template = 'vars.yml.twig';
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -93,7 +109,7 @@ class VarfileRenderer extends AbstractFileRenderer
      */
     public function getFilePath()
     {
-        return 'ansible/vars/' . $this->filename . '.yml';
+        return 'ansible/vars/' . $this->name . '.yml';
     }
 
 } 

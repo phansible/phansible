@@ -21,11 +21,31 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Renderer\VarfileRenderer::__construct
+     */
+    public function testShouldConstruct()
+    {
+        $this->assertEquals('common', $this->model->getName());
+    }
+
+    /**
      * @covers Phansible\Renderer\VarfileRenderer::loadDefaults
      */
     public function testLoadDefaults()
     {
         $this->assertEquals('vars.yml.twig', $this->model->getTemplate());
+    }
+
+    /**
+     * @covers Phansible\Renderer\VarfileRenderer::setName
+     * @covers Phansible\Renderer\VarfileRenderer::getName
+     */
+    public function testShouldSetAndGetName()
+    {
+        $name = 'phansible';
+        $this->model->setName($name);
+
+        $this->assertEquals($name, $this->model->getName());
     }
 
     /**
@@ -46,10 +66,8 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Phansible\Renderer\VarfileRenderer::add
      * @covers Phansible\Renderer\VarfileRenderer::get
-     * @covers Phansible\Renderer\VarfileRenderer::setData
-     * @covers Phansible\Renderer\VarfileRenderer::getData
      */
-    public function testShouldSetAndGetVar()
+    public function testShouldAddAndGetVar()
     {
         $key   = 'doc_root';
         $value = '/vagrant/web';
@@ -57,13 +75,36 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
         $this->model->add($key, $value);
 
         $this->assertEquals($value, $this->model->get($key));
+    }
 
+    /**
+     * @covers Phansible\Renderer\VarfileRenderer::add
+     */
+    public function testShouldAddArrayValue()
+    {
+        $key   = 'packages';
+        $value = ['git', 'curl'];
+
+        $this->model->add($key, $value);
+
+        $this->assertTrue(is_array(
+            json_decode($this->model->get('packages'), 1)
+        ));
+    }
+    /**
+     * @covers Phansible\Renderer\VarfileRenderer::setData
+     * @covers Phansible\Renderer\VarfileRenderer::getData
+     */
+    public function testShouldSetAndGetData()
+    {
         $this->model->setData([
-            $key => $value
+            'key' => 'value'
         ]);
 
-        $this->assertEquals($value, $this->model->get($key));
-        $this->assertArrayHasKey('variables', $this->model->getData());
+        $data = $this->model->getData();
+
+        $this->assertArrayHasKey('variables', $data);
+        $this->assertArrayHasKey('key', $data['variables']);
     }
 
     /**

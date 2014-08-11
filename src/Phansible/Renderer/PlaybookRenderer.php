@@ -9,13 +9,9 @@ use Phansible\Model\AbstractFileRenderer;
 
 class PlaybookRenderer extends AbstractFileRenderer
 {
-    /** @var  array Playbook Variables */
+    /** @var  array Playbook Varia */
     protected $vars;
-
-    /** @var  array Playbook Vars Files */
     protected $varsFiles;
-
-    /** @var  array Playbook Roles */
     protected $roles;
 
     /**

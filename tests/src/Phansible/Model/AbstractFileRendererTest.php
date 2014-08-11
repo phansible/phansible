@@ -12,6 +12,7 @@ class AbstractFileRendererTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->model = $this->getMockForAbstractClass('Phansible\Model\AbstractFileRenderer');
+
         $this->model->expects($this->any())
             ->method('getTemplate')
             ->will($this->returnValue('Vagrantfile.twig'));
@@ -24,6 +25,26 @@ class AbstractFileRendererTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->model = null;
+    }
+
+    public function testConstructorShouldLoadDefaults()
+    {
+        $classname = 'Phansible\Model\AbstractFileRenderer';
+
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->setMethods(array('loadDefaults'))
+            ->getMockForAbstractClass();
+
+        // set expectations for constructor calls
+        $mock->expects($this->once())
+            ->method('loadDefaults')
+            ->will($this->returnValue(true));
+
+        // now call the constructor
+        $reflectedClass = new \ReflectionClass($classname);
+        $constructor = $reflectedClass->getConstructor();
+        $constructor->invoke($mock);
     }
 
     /**

@@ -33,6 +33,26 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Renderer\PlaybookRenderer::getTemplate
+     */
+    public function testGetTemplate()
+    {
+        $path = 'playbook.yml.twig';
+
+        $this->assertEquals($path, $this->model->getTemplate());
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::getFilePath
+     */
+    public function testGetFilePath()
+    {
+        $path = 'ansible/playbook.yml';
+
+        $this->assertEquals($path, $this->model->getFilePath());
+    }
+
+    /**
      * @covers Phansible\Renderer\PlaybookRenderer::addVar
      * @covers Phansible\Renderer\PlaybookRenderer::getVar
      */
