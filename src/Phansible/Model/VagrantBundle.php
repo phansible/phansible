@@ -92,8 +92,6 @@ class VagrantBundle
         foreach ($renderers as $renderer) {
             $this->addRenderer($renderer);
         }
-
-        $this->renderers = $renderers;
     }
 
     /**
