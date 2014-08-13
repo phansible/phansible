@@ -2,6 +2,9 @@
 
 namespace Phansible\Model;
 
+use Phansible\Renderer\PlaybookRenderer;
+use Phansible\Renderer\VagrantfileRenderer;
+
 class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -9,9 +12,15 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      */
     private $model;
 
+    /**
+     * @var PlaybookRenderer
+     */
+    private $playbook;
+
     public function setUp()
     {
-        $this->model = new VagrantBundle();
+        $this->model    = new VagrantBundle();
+        $this->playbook = new PlaybookRenderer();
     }
 
     public function tearDown()
@@ -28,102 +37,14 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::getMemory
-     * @covers Phansible\Model\VagrantBundle::setMemory
-     */
-    public function testShouldSetAndGetMemory()
-    {
-        $memory = 512;
-
-        $this->model->setMemory($memory);
-
-        $result = $this->model->getMemory();
-
-        $this->assertEquals($memory, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getVmName
-     * @covers Phansible\Model\VagrantBundle::setVmName
-     */
-    public function testShouldSetAndGetVmName()
-    {
-        $vmName = 'phansible';
-
-        $this->model->setVmName($vmName);
-
-        $result = $this->model->getVmName();
-
-        $this->assertEquals($vmName, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getBox
-     * @covers Phansible\Model\VagrantBundle::setBox
-     */
-    public function testShouldSetAndGetBox()
-    {
-        $box = 'precise64';
-
-        $this->model->setBox($box);
-
-        $result = $this->model->getBox();
-
-        $this->assertEquals($box, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getBoxUrl
-     * @covers Phansible\Model\VagrantBundle::setBoxUrl
-     */
-    public function testShouldSetAndGetBoxUrl()
-    {
-        $boxUrl = 'http://files.vagrantup.com/precise64.box';
-
-        $this->model->setBoxUrl($boxUrl);
-
-        $result = $this->model->getBoxUrl();
-
-        $this->assertEquals($boxUrl, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getIpAddress
-     * @covers Phansible\Model\VagrantBundle::setIpAddress
-     */
-    public function testShouldSetAndGetIpAddress()
-    {
-        $ipAddress = '192.168.100.100';
-
-        $this->model->setIpAddress($ipAddress);
-
-        $result = $this->model->getIpAddress();
-
-        $this->assertEquals($ipAddress, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getSyncedFolder
-     * @covers Phansible\Model\VagrantBundle::setSyncedFolder
-     */
-    public function testShouldSetAndGetSyncedFolder()
-    {
-        $syncedFolder = './';
-
-        $this->model->setSyncedFolder($syncedFolder);
-
-        $result = $this->model->getSyncedFolder();
-
-        $this->assertEquals($syncedFolder, $result);
-    }
-
-    /**
      * @covers Phansible\Model\VagrantBundle::getTwig
      * @covers Phansible\Model\VagrantBundle::setTwig
      */
     public function testShouldSetAndGetTwig()
     {
-        $twig = "twig";
+        $twig = $this->getMockBuilder('Twig_Environment')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->model->setTwig($twig);
 
@@ -133,325 +54,61 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::getDocRoot
-     * @covers Phansible\Model\VagrantBundle::setDocRoot
+     * @covers Phansible\Model\VagrantBundle::getAnsiblePath
+     * @covers Phansible\Model\VagrantBundle::setAnsiblePath
      */
-    public function testShouldSetAndGetDocRoot()
+    public function testShouldSetAndGetAnsiblePath()
     {
-        $docRoot = '/vagrant';
+        $path = __DIR__ . '/../src/Resources/ansible';
+        $this->model->setAnsiblePath($path);
 
-        $this->model->setDocRoot($docRoot);
-
-        $result = $this->model->getDocRoot();
-
-        $this->assertEquals($docRoot, $result);
+        $this->assertEquals($path, $this->model->getAnsiblePath());
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::getPhpPackages
-     * @covers Phansible\Model\VagrantBundle::setPhpPackages
+     * @covers Phansible\Model\VagrantBundle::getTplPath
+     * @covers Phansible\Model\VagrantBundle::setTplPath
      */
-    public function testShouldSetAndGetPhpPackages()
+    public function testShouldSetAndGetTplPath()
     {
-        $this->assertInternalType('array', $this->model->getPhpPackages());
+        $path = __DIR__ . '/../src/Resources/ansible';
+        $this->model->setTplPath($path);
 
-        $this->assertEmpty($this->model->getPhpPackages());
-
-        $phpPackages = array('php5-intl');
-
-        $this->model->setPhpPackages($phpPackages);
-
-        $result = $this->model->getPhpPackages();
-
-        $this->assertEquals($phpPackages, $result);
+        $this->assertEquals($path, $this->model->getTplPath());
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::addPhpPackage
+     * @covers Phansible\Model\VagrantBundle::getRolesPath
+     * @covers Phansible\Model\VagrantBundle::setRolesPath
      */
-    public function testAddPhpPackage()
+    public function testShouldSetAndGetRolesPath()
     {
-        $phpPackages = array('php5-mcrypt', 'php5-intl');
+        $path = __DIR__ . '/../src/Resources/ansible';
+        $this->model->setRolesPath($path);
 
-        $this->model->setPhpPackages($phpPackages);
-
-        $result = $this->model->getPhpPackages();
-
-        $this->assertEquals($phpPackages, $result);
-
-        $this->model->addPhpPackage('php5-curl');
-
-        $result = $this->model->getPhpPackages();
-
-        $this->assertCount(3, $result);
-
-        $this->assertContains('php5-curl', $result);
+        $this->assertEquals($path, $this->model->getRolesPath());
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::addPhpPackage
+     * @covers Phansible\Model\VagrantBundle::addRenderer
+     * @covers Phansible\Model\VagrantBundle::getRenderers
+     * @covers Phansible\Model\VagrantBundle::setRenderers
      */
-    public function testAddPhpPackageMustNotAddDuplicatePackage()
+    public function testShouldSetAndGetRenderer()
     {
-        $phpPackages = array('php5-mcrypt', 'php5-intl');
-
-        $this->model->setPhpPackages($phpPackages);
-
-        $result = $this->model->getPhpPackages();
-
-        $this->assertEquals($phpPackages, $result);
-
-        $this->model->addPhpPackage('php5-curl');
-
-        $result = $this->model->getPhpPackages();
-
-        $this->assertCount(3, $result);
-
-        $this->assertContains('php5-curl', $result);
-
-        $this->model->addPhpPackage('php5-curl');
-
-        $result = $this->model->getPhpPackages();
-
-        $this->assertCount(3, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getSyspackages
-     * @covers Phansible\Model\VagrantBundle::setSyspackages
-     */
-    public function testShouldSetAndGetSyspackages()
-    {
-        $syspackages = array();
-
-        $this->model->setSyspackages($syspackages);
-
-        $result = $this->model->getSyspackages();
-
-        $this->assertEquals($syspackages, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getPhpPPA
-     * @covers Phansible\Model\VagrantBundle::setPhpPPa
-     */
-    public function testShouldSetAndGetPhpPPA()
-    {
-        $phpPPA = true;
-
-        $this->model->setPhpPPA($phpPPA);
-
-        $result = $this->model->getPhpPPA();
-
-        $this->assertEquals($phpPPA, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getInstallComposer
-     * @covers Phansible\Model\VagrantBundle::setInstallComposer
-     */
-    public function testShouldSetAndGetInstallComposer()
-    {
-        $composer = true;
-
-        $this->model->setInstallComposer($composer);
-
-        $result = $this->model->getInstallComposer();
-
-        $this->assertEquals($composer, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getInstallXdebug
-     * @covers Phansible\Model\VagrantBundle::setInstallXdebug
-     */
-    public function testShouldSetAndGetInstallXdebug()
-    {
-        $this->assertFalse($this->model->getInstallXdebug());
-
-        $this->model->setInstallXdebug(true);
-
-        $this->assertTrue($this->model->getInstallXdebug());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getRoles
-     * @covers Phansible\Model\VagrantBundle::addRoles
-     * @covers Phansible\Model\VagrantBundle::addRole
-     */
-    public function testShouldAddAndGetRoles()
-    {
-        $roles = array('nginx', 'php');
-
-        $this->model->addRoles($roles);
-
-        $this->assertEquals($roles, $this->model->getRoles());
-
-        $this->model->addRole('init');
-
-        $roles[] = 'init';
-
-        $this->assertEquals($roles, $this->model->getRoles());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getTimezone
-     * @covers Phansible\Model\VagrantBundle::setTimezone
-     */
-    public function testShouldSetAndGetTimezone()
-    {
-        $timezone = 'UTC';
-
-        $this->model->setTimezone($timezone);
-
-        $this->assertEquals($timezone, $this->model->getTimezone());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::renderVagrantfile
-     */
-    public function testShouldRenderVagrantfile()
-    {
-        $this->model->setVmName('phansible');
-        $this->model->setMemory(512);
-        $this->model->setIpAddress('192.168.100.100');
-        $this->model->setBox('precise64');
-        $this->model->setBoxUrl('http://files.vagrantup.com/precise64.box');
-        $this->model->setSyncedFolder('./');
-
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+        $renderer = $this->getMockBuilder('Phansible\Renderer\VagrantfileRenderer')
             ->getMock();
 
-        $data = array(
-            'vmName'       => 'phansible',
-            'memory'       => 512,
-            'ipAddress'    => '192.168.100.100',
-            'boxName'      => 'precise64',
-            'boxUrl'       => 'http://files.vagrantup.com/precise64.box',
-            'syncedFolder' => './'
-        );
+        $this->model->addRenderer($renderer);
 
-        $twig->expects($this->once())
-            ->method('render')
-            ->with($this->equalTo('Vagrantfile.twig'), $data);
+        $this->assertContains($renderer, $this->model->getRenderers());
 
-        $this->model->setTwig($twig);
-
-        $result = $this->model->renderVagrantfile();
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::renderPlaybook
-     */
-    public function testShouldRenderPlaybook()
-    {
-        $this->model->setDocRoot('/vagrant');
-        $this->model->setPhpPackages(array('php5-cli', 'php-pear'));
-        $this->model->setSyspackages(array('vim', 'git'));
-        $this->model->setPhpPPA(true);
-        $this->model->setTimezone('UTC');
-
-        $mockedTwig = $this->getMockBuilder('\Twig_Environment')
-            ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+        $renderer2 = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
             ->getMock();
 
-        $data = array(
-            'doc_root' => '/vagrant',
-            'php_packages' => json_encode(array('php5-cli', 'php-pear')),
-            'sys_packages' => json_encode(array('vim', 'git')),
-            'php_ppa'      => true,
-            'roles'        => array('nginx'),
-            'timezone'    => 'UTC'
-        );
+        $this->model->setRenderers([$renderer, $renderer2]);
 
-        $mockedTwig->expects($this->once())
-            ->method('render')
-            ->with($this->equalTo('playbook.yml.twig'), $data);
-
-        $roles = array('nginx');
-
-        $this->model->setTwig($mockedTwig);
-        $this->model->renderPlaybook($roles);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::renderPlaybook
-     * @covers Phansible\Model\VagrantBundle::setMysqlVars
-     */
-    public function testShouldRenderPlaybookWithMysqlVars()
-    {
-        $this->model->setDocRoot('/vagrant');
-        $this->model->setPhpPackages(array());
-        $this->model->setSyspackages(array());
-        $this->model->setPhpPPA(true);
-        $this->model->setTimezone('UTC');
-
-        $mockedTwig = $this->getMockBuilder('\Twig_Environment')
-            ->disableOriginalConstructor()
-            ->setMethods(array('render'))
-            ->getMock();
-
-        $data = array(
-            'doc_root'     => '/vagrant',
-            'php_packages' => json_encode(array()),
-            'sys_packages' => json_encode(array()),
-            'php_ppa'      => true,
-            'roles'        => array('nginx', 'mysql'),
-            'timezone'     => 'UTC',
-            'mysql_user'   => 'user',
-            'mysql_pass'   => 'password',
-            'mysql_db'     => 'database'
-        );
-
-        $mockedTwig->expects($this->once())
-            ->method('render')
-            ->with($this->equalTo('playbook.yml.twig'), $data);
-
-        $roles = array('nginx', 'mysql');
-
-        $this->model->setTwig($mockedTwig);
-        $this->model->setMysqlVars(array(
-            'user' => 'user',
-            'pass' => 'password',
-            'db'   => 'database',
-        ));
-        $this->model->renderPlaybook($roles);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::renderPlaybook
-     */
-    public function testShouldRenderPlaybookWithoutPackages()
-    {
-        $this->model->setDocRoot('/vagrant');
-        $this->model->setPhpPPA(true);
-        $this->model->setTimezone('UTC');
-
-        $mockedTwig = $this->getMockBuilder('\Twig_Environment')
-            ->disableOriginalConstructor()
-            ->setMethods(array('render'))
-            ->getMock();
-
-        $data = array(
-            'doc_root' => '/vagrant',
-            'php_packages' => '[]',
-            'sys_packages' => '[]',
-            'php_ppa'      => true,
-            'roles'        => array('nginx'),
-            'timezone'    => 'UTC'
-        );
-
-        $mockedTwig->expects($this->once())
-            ->method('render')
-            ->with($this->equalTo('playbook.yml.twig'), $data);
-
-        $roles = array('nginx');
-
-        $this->model->setTwig($mockedTwig);
-        $this->model->renderPlaybook($roles);
+        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRenderer', $this->model->getRenderers());
     }
 
     /**
@@ -466,21 +123,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Phansible\Model\VagrantBundle::getRolesPath
-     * @covers Phansible\Model\VagrantBundle::setRolesPath
-     */
-    public function testShouldSetAndGetRolesPath()
-    {
-        $path   = 'ansible/roles/';
-
-        $this->model->setRolesPath($path);
-
-        $result = $this->model->getRolesPath();
-
-        $this->assertEquals($path, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getRolesPath
      */
     public function testShoulRetrieveDefaultRolesPath()
     {
@@ -490,6 +132,95 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $expected = strpos($result, $expected) !== false;
 
         $this->assertTrue($expected);
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::addRoleFiles
+     * @covers Phansible\Model\VagrantBundle::includeBundleFiles
+     */
+    public function testShouldIncludeRole()
+    {
+        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+            ->disableOriginalConstructor()
+            ->setMethods(array('includeBundleFiles'))
+            ->getMock();
+
+        $mockedZip = $this->getMockBuilder('\ZipArchive')
+            ->setMethods(array('open'))
+            ->getMock();
+
+        $model->expects($this->at(0))
+            ->method('includeBundleFiles')
+            ->with($this->identicalTo($mockedZip),
+                $this->equalTo('roles/nginx/tasks'),
+                $this->equalTo('*.yml'),
+                $this->equalTo('ansible/roles/nginx/tasks')
+            );
+
+        $model->expects($this->at(2))
+            ->method('includeBundleFiles')
+            ->with($this->identicalTo($mockedZip),
+                $this->equalTo('roles/nginx/templates'),
+                $this->equalTo('*.tpl'),
+                $this->equalTo('ansible/roles/nginx/templates')
+            );
+
+        $model->addRoleFiles('nginx', $mockedZip);
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::includeBundleFiles
+     */
+    public function testDefaultIncludeBundleFiles()
+    {
+        $mockedZip = $this->getMockBuilder('\ZipArchive')
+            ->setMethods(array('addFile'))
+            ->getMock();
+
+        $mockedZip->expects($this->any())
+            ->method('addFile')
+            ->with(
+                $this->stringContains('vars'),
+                $this->stringContains('vars')
+            );
+
+        $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
+
+        $this->assertTrue(is_dir($ansiblePath));
+
+        $this->model->setAnsiblePath($ansiblePath);
+        $this->model->includeBundleFiles($mockedZip, 'vars');
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::renderFiles
+     */
+    public function testShouldRenderFile()
+    {
+        $twig = $this->getMockBuilder('Twig_Environment')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $renderer = $this->getMockBuilder('Phansible\Renderer\VagrantfileRenderer')
+            ->setMethods(['renderFile'])
+            ->getMock();
+
+        $renderer->expects($this->once())
+            ->method('renderFile')
+            ->with($this->identicalTo($twig))
+            ->will($this->returnValue('Vagrantfile'));
+
+        $mockedZip = $this->getMockBuilder('\ZipArchive')
+            ->setMethods(['addFromString'])
+            ->getMock();
+
+        $mockedZip->expects($this->once())
+            ->method('addFromString')
+            ->with($this->equalTo('Vagrantfile'), 'Vagrantfile');
+
+        $this->model->setTwig($twig);
+        $this->model->addRenderer($renderer);
+        $this->model->renderFiles($mockedZip);
     }
 
     /**
@@ -516,7 +247,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->method('getZipArchive')
             ->will($this->returnValue($mockedZip));
 
-        $result = $model->generateBundle($filePath);
+        $result = $model->generateBundle($filePath, ['nginx', 'php']);
 
         $this->assertEquals(0, $result);
     }
@@ -530,53 +261,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
             ->disableOriginalConstructor()
-            ->setMethods(array('getZipArchive', 'renderVagrantfile', 'renderPlaybook'))
-            ->getMock();
-
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open', 'addFromString', 'close'))
-            ->getMock();
-
-        $mockedZip->expects($this->once())
-            ->method('open')
-            ->will($this->returnValue(true));
-
-        $mockedZip->expects($this->at(1))
-            ->method('addFromString')
-            ->with('Vagrantfile', 'renderVagrantfile');
-
-        $mockedZip->expects($this->at(2))
-            ->method('addFromString')
-            ->with('ansible/playbook.yml', 'renderPlaybook');
-
-        $model->expects($this->once())
-            ->method('getZipArchive')
-            ->will($this->returnValue($mockedZip));
-
-        $model->expects($this->once())
-            ->method('renderVagrantfile')
-            ->will($this->returnValue('renderVagrantfile'));
-
-        $model->expects($this->once())
-            ->method('renderPlaybook')
-            ->with(array())
-            ->will($this->returnValue('renderPlaybook'));
-
-        $result = $model->generateBundle($filePath);
-
-        $this->assertEquals(1, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::generateBundle
-     */
-    public function testShouldRetrieveOneWhenGenerateBundleWithRoles()
-    {
-        $filePath = '/tmp/file.zip';
-
-        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getZipArchive', 'renderVagrantfile', 'renderPlaybook', 'addRoleFiles'))
+            ->setMethods(array('getZipArchive', 'renderFiles'))
             ->getMock();
 
         $mockedZip = $this->getMockBuilder('\ZipArchive')
@@ -591,161 +276,9 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->method('getZipArchive')
             ->will($this->returnValue($mockedZip));
 
-        $model->expects($this->once())
-            ->method('renderVagrantfile')
-            ->will($this->returnValue('renderVagrantfile'));
-
-        $roles = array('phpcommon');
-
-        $model->expects($this->once())
-            ->method('renderPlaybook')
-            ->with($roles)
-            ->will($this->returnValue('renderPlaybook'));
-
-        $model->addRoles($roles);
-
-        $result = $model->generateBundle($filePath);
+        $result = $model->generateBundle($filePath, ['nginx', 'php']);
 
         $this->assertEquals(1, $result);
     }
 
-    /**
-     * @covers Phansible\Model\VagrantBundle::generateBundle
-     */
-    public function testShouldRetrieveOneWhenGenerateBundleWithComposeRole()
-    {
-        $filePath = '/tmp/file.zip';
-
-        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getZipArchive', 'renderVagrantfile', 'renderPlaybook', 'addRoleFiles'))
-            ->getMock();
-
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open', 'addFromString', 'close'))
-            ->getMock();
-
-        $mockedZip->expects($this->once())
-            ->method('open')
-            ->will($this->returnValue(true));
-
-        $mockedZip->expects($this->at(1))
-            ->method('addFromString')
-            ->with('Vagrantfile', 'renderVagrantfile');
-
-        $mockedZip->expects($this->at(2))
-            ->method('addFromString')
-            ->with('ansible/playbook.yml', 'renderPlaybook');
-
-        $model->expects($this->once())
-            ->method('getZipArchive')
-            ->will($this->returnValue($mockedZip));
-
-        $model->expects($this->once())
-            ->method('renderVagrantfile')
-            ->will($this->returnValue('renderVagrantfile'));
-
-        $model->expects($this->once())
-            ->method('renderPlaybook')
-            ->with(array())
-            ->will($this->returnValue('renderPlaybook'));
-
-        $model->setInstallComposer(true);
-
-        $result = $model->generateBundle($filePath);
-
-        $this->assertEquals(1, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::addRoleFiles
-     */
-    public function testShouldAddRolesFilesIntoZip()
-    {
-        $filePath = '/tmp/file.zip';
-
-        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getZipArchive', 'renderVagrantfile', 'renderPlaybook'))
-            ->getMock();
-
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open', 'addFromString', 'close', 'addFile'))
-            ->getMock();
-
-        $mockedZip->expects($this->once())
-            ->method('open')
-            ->will($this->returnValue(true));
-
-        $php = \PHPUnit_Extension_FunctionMocker::start($this, __NAMESPACE__)
-            ->mockFunction('is_dir')
-            ->mockFunction('glob')
-            ->getMock();
-
-        $rolePath = 'ansible/roles/phpcommon';
-
-        $php->expects($this->at(0))
-            ->method('is_dir')
-            ->with($rolePath . '/tasks')
-            ->will($this->returnValue(true));
-
-        $php->expects($this->at(2))
-            ->method('is_dir')
-            ->with($rolePath . '/handlers')
-            ->will($this->returnValue(true));
-
-        $php->expects($this->at(4))
-            ->method('is_dir')
-            ->with($rolePath . '/templates')
-            ->will($this->returnValue(true));
-
-        $php->expects($this->at(1))
-            ->method('glob')
-            ->with($rolePath . '/tasks/*.yml')
-            ->will($this->returnValue(array('main.yml')));
-
-        $php->expects($this->at(3))
-            ->method('glob')
-            ->with($rolePath . '/handlers/*.yml')
-            ->will($this->returnValue(array('main.yml')));
-
-        $php->expects($this->at(5))
-            ->method('glob')
-            ->with($rolePath . '/templates/*.tpl')
-            ->will($this->returnValue(array('template.tpl')));
-
-        $mockedZip->expects($this->at(1))
-            ->method('addFile')
-            ->with('main.yml', $rolePath . '/tasks/main.yml');
-
-        $mockedZip->expects($this->at(2))
-            ->method('addFile')
-            ->with('main.yml', $rolePath . '/handlers/main.yml');
-
-        $mockedZip->expects($this->at(3))
-            ->method('addFile')
-            ->with('template.tpl', $rolePath . '/templates/template.tpl');
-
-        $model->expects($this->once())
-            ->method('getZipArchive')
-            ->will($this->returnValue($mockedZip));
-
-        $model->expects($this->once())
-            ->method('renderVagrantfile')
-            ->will($this->returnValue('renderVagrantfile'));
-
-        $roles = array('phpcommon');
-
-        $model->expects($this->once())
-            ->method('renderPlaybook')
-            ->with($roles)
-            ->will($this->returnValue('renderPlaybook'));
-
-        $model->addRoles($roles);
-        $model->setRolesPath('ansible/roles');
-
-        $result = $model->generateBundle($filePath);
-
-        $this->assertEquals(1, $result);
-    }
 }

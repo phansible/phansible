@@ -5,6 +5,9 @@ namespace Phansible\Controller;
 use Flint\Controller\Controller;
 use Phansible\Application;
 use Phansible\Model\VagrantBundle;
+use Phansible\Renderer\PlaybookRenderer;
+use Phansible\Renderer\VagrantfileRenderer;
+use Phansible\Renderer\VarfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,82 +16,134 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BundleController extends Controller
 {
-
     public function indexAction(Request $request, Application $app)
     {
         $vagrant = new VagrantBundle($this->get('ansible.path'));
-        $name = $request->get('vmname');
+        $name    = $request->get('vmname');
 
-        /** Get box options from config */
-        $boxes   = $this->get('config')['boxes'];
-        $boxName = array_key_exists($request->get('baseBox'), $boxes) ? $request->get('baseBox') : 'precise64';
-        $box     =  $boxes[$boxName];
+        $boxName = $request->get('baseBox') ?: 'precise64';
+        $box     = $this->getBox($boxName);
 
-        /** Get web server options from config */
-        $webservers   = $this->get('config')['webservers'];
-        $webServerKey = array_key_exists($request->get('webserver'), $webservers) ? $request->get('webserver') : 'nginxphp';
-        $webserver    = $webservers[$webServerKey];
+        $webServerKey = $request->get('webserver') ?: 'nginxphp';
+        $webserver    = $this->getWebServer($webServerKey);
 
-        /** Set Machine Options */
-        $vagrant->setVmName($name);
-        $vagrant->setMemory($request->get('memory'));
-        $vagrant->setBox($boxName);
-        $vagrant->setBoxUrl($box['url']);
-        $vagrant->setIpAddress($request->get('ipaddress'));
-        $vagrant->setSyncedFolder($request->get('sharedfolder'));
+        /** Configure Vagrantfile */
+        $vagrantfile = new VagrantfileRenderer();
+        $vagrantfile->setName($name);
+        $vagrantfile->setBoxName($boxName);
+        $vagrantfile->setBoxUrl($box['url']);
+        $vagrantfile->setMemory($request->get('memory'));
+        $vagrantfile->setIpAddress($request->get('ipaddress'));
+        $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
 
-        /** Set Playbook Vars */
-        $vagrant->setPhpPPA($request->get('phpppa'));
-        $vagrant->setDocRoot($request->get('docroot'));
-        $vagrant->setSyspackages($request->get('syspackages'));
-        $vagrant->setTimezone($request->get('timezone'));
+        /** Configure Variable files - common */
+        $common = new VarfileRenderer('common');
+        $common->add('php_ppa', $request->get('phpppa'));
+        $common->add('doc_root', $request->get('docroot'));
+        $common->add('sys_packages', $request->get('syspackages', array()));
+        $common->add('timezone', $request->get('timezone'));
 
-        /** Set PHP Packages */
-        $vagrant->setPhpPackages($request->get('phppackages', array()));
+        /** Configure Playbook */
+        $playbook = new PlaybookRenderer();
+        $playbook->addVar('web_server', $webServerKey);
+        $playbook->addRole('init');
 
-        if ($request->get('xdebug')) {
-            $vagrant->addPhpPackage('php5-xdebug');
+        $php_packages = $request->get('phppackages', array());
+
+        /** Databases */
+        if ($request->get('database-status')) {
+            $playbook->addRole('mysql');
+
+            $mysqlvars = new VarfileRenderer('mysql');
+            $mysqlvars->setTemplate('roles/mysql.vars.twig');
+
+            $mysqlvars->setData([ 'mysql_vars' => [
+                    [
+                        'user' => $request->get('user'),
+                        'pass' => $request->get('password'),
+                        'db'   => $request->get('database'),
+                    ]
+                ]]);
+
+            $vagrant->addRenderer($mysqlvars);
+            $playbook->addVarsFile('vars/mysql.yml');
+            $php_packages[] = 'php5-mysql';
         }
 
-        /** Add Roles */
-        $vagrant->addRole('init');
+        if ($request->get('xdebug')) {
+            $php_packages[] = 'php5-xdebug';
+        }
+
+        $common->add('php_packages', array_unique($php_packages));
 
         foreach ($webserver['include'] as $role) {
-            $vagrant->addRole($role);
+            $playbook->addRole($role);
         }
 
         if ($request->get('composer')) {
-            $vagrant->addRole('composer');
+            $playbook->addRole('composer');
         }
 
-        if ($request->get('database-status')) {
-            $vagrant->addRole('mysql');
-            $vagrant->setMysqlVars([
-                'user' => $request->get('user'),
-                'pass' => $request->get('password'),
-                'db'   => $request->get('database'),
-            ]);
-        }
+        $playbook->addRole('phpcommon');
 
-        $vagrant->addRole('phpcommon');
+        $playbook->addVarsFile('vars/common.yml');
+
+        $vagrant->addRenderer($playbook);
+        $vagrant->addRenderer($common);
+        $vagrant->addRenderer($vagrantfile);
 
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
-        if ($vagrant->generateBundle($zipPath)) {
+        if ($vagrant->generateBundle($zipPath, $playbook->getRoles())) {
 
-            $stream = function () use ($zipPath) {
-                readfile($zipPath);
-            };
-
-            return $app->stream($stream, 200, array(
-                'Content-length' => filesize($zipPath),
-                'Content-Disposition' => 'attachment; filename="phansible_' . $name . '.zip"'
-            ));
+            return $this->outputBundle($zipPath, $app, $name);
 
         } else {
+
             return new Response('An error occurred.');
         }
+    }
 
+    /**
+     * @param string $zipPath
+     * @param Application $app
+     * @param string $filename
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function outputBundle($zipPath, Application $app, $filename)
+    {
+        $stream = function () use ($zipPath) {
+            readfile($zipPath);
+        };
+
+        return $app->stream($stream, 200, array(
+            'Content-length' => filesize($zipPath),
+            'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"'
+        ));
+    }
+
+    /**
+     * @param string $boxName
+     * @return string
+     */
+    public function getBox($boxName)
+    {
+        $boxes = $this->get('config')['boxes'];
+        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
+
+        return $boxes[$boxName];
+    }
+
+    /**
+     * @param string $webServerKey
+     * @return array
+     */
+    public function getWebServer($webServerKey)
+    {
+        $webservers   = $this->get('config')['webservers'];
+        $webServerKey = array_key_exists($webServerKey, $webservers) ? $webServerKey : 'nginxphp';
+
+        return $webservers[$webServerKey];
     }
 }

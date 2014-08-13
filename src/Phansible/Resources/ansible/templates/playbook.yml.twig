@@ -1,0 +1,16 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+{% for key, value in playbook_vars %}
+    {{ key }}: {{ value|raw }}
+{% endfor %}
+  vars_files:
+{% for file in playbook_files %}
+    - {{ file }}
+{% endfor %}
+    - [ "vars/{{ web_server }}.yml", "vars/ws_defaults.yml" ]
+  roles:
+{% for ansible_role in playbook_roles %}
+    - {{ ansible_role }}
+{% endfor %}
