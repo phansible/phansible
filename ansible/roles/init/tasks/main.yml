@@ -25,7 +25,7 @@
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
 
-- name: Create directory if not existent
+- name: Make sure project directory exists
   sudo: yes
   file: path={{ project_root }} state=directory owner={{ system_user }} group={{ system_group }}
 
@@ -34,12 +34,3 @@
 
 - name: Set system user ACLs
   shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX {{ project_root }}'
-
-- name: Read ACLs for web_user
-  shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'
-
-- name: Read and Write ACLs for shell user
-  shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX -m d:u:"{{ system_user }}":rwX {{ project_root }}'
-
-- name: Read and Write ACLs cache dir
-  shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}/app/cache'
