@@ -1,0 +1,12 @@
+---
+project_root: /sites/phansible
+doc_root: /sites/phansible/web
+
+sys_packages: ["vim", "git", "fail2ban"]
+
+php_packages: ["php5-cli","php5-curl"]
+php_display_errors: 'Off'
+php_display_startup_errors: 'Off'
+php_html_errors: 'Off'
+
+server_name: phansible.com

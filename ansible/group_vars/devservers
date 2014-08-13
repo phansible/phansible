@@ -1,0 +1,18 @@
+---
+project_root: /vagrant
+doc_root: /vagrant/web
+
+sys_packages: ["vim"]
+
+php_packages: ["php5-cli","php5-curl","php5-xdebug"]
+php_display_errors: 'On'
+php_display_startup_errors: 'On'
+php_html_errors: 'On'
+
+system_user: vagrant
+system_group: vagrant
+
+webserver_user: vagrant
+webserver_group: vagrant
+
+server_name: 192.168.56.121

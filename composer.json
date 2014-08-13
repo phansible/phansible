@@ -16,6 +16,7 @@
         "php"               : ">=5.4.0",
         "flint/flint"       : "~1.5@dev",
         "symfony/yaml"        : "2.3.x",
+        "symfony/twig-bridge": "~2.3",
         "michelf/php-markdown": "1.4.0"
     },
     "require-dev": {

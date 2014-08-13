@@ -1,0 +1,21 @@
+---
+- hosts: webservers
+  user: "{{ system_user }}"
+  vars_prompt:
+    - name: deploy_version
+      default: master
+      prompt: "Tag, Branch or Hash to deploy"
+      private: no
+  tasks:
+    - name: Set Maintenance Page
+      shell: cp {{ doc_root }}/maintenance/maintenance.html {{ doc_root }}/maintenance.html
+      ignore_errors: true
+
+    - name: Checkout code
+      git: repo=git@github.com:Phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
+
+    - name: Run Composer
+      shell: /usr/local/bin/composer install chdir={{ project_root }}
+
+    - name: Remove maintenance page
+      file: path="{{ doc_root }}/maintenance.html" state=absent

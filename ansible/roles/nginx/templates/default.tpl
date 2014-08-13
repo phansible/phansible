@@ -4,7 +4,17 @@ server {
     root {{ doc_root }};
     index index.html index.php;
 
-    server_name {{ ansible_eth1.ipv4.address }};
+    server_name {{ server_name }};
+
+    if (-f {{ doc_root }}/maintenance.html) {
+        return 503;
+    }
+
+    error_page 503 @maintenance;
+
+    location @maintenance {
+        rewrite ^(.*)$ /maintenance.html break;
+    }
 
     location / {
         try_files $uri $uri/ /index.php;
@@ -12,7 +22,7 @@ server {
 
     error_page 404 /404.html;
 
-    error_page 500 502 503 504 /50x.html;
+    error_page 500 502 504 /50x.html;
         location = /50x.html {
         root /usr/share/nginx/www;
     }

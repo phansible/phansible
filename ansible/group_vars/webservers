@@ -1,0 +1,4 @@
+---
+php_ppa: php5
+php_fpm_ini: /etc/php5/fpm/php.ini
+php_error_reporting: -1
