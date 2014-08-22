@@ -5,7 +5,7 @@
 
 namespace Phansible\Model;
 
-interface FileRenderer
+interface FileRendererInterface
 {
     /**
      * Renders the template with current data

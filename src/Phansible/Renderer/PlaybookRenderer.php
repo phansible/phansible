@@ -5,13 +5,15 @@
 
 namespace Phansible\Renderer;
 
-use Phansible\Model\AbstractFileRenderer;
-
-class PlaybookRenderer extends AbstractFileRenderer
+class PlaybookRenderer extends TemplateRenderer
 {
-    /** @var  array Playbook Varia */
+    /** @var array Playbook Variables */
     protected $vars;
+
+    /** @var array VarsFiles inclusions */
     protected $varsFiles;
+
+    /** @var array Playbook Roles */
     protected $roles;
 
     /**
@@ -19,25 +21,12 @@ class PlaybookRenderer extends AbstractFileRenderer
      */
     public function loadDefaults()
     {
+        $this->setTemplate('playbook.yml.twig');
+        $this->setFilePath('ansible/playbook.yml');
+
         $this->vars      = [];
         $this->varsFiles = [];
         $this->roles     = [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate()
-    {
-        return 'playbook.yml.twig';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFilePath()
-    {
-        return 'ansible/playbook.yml';
     }
 
     /**

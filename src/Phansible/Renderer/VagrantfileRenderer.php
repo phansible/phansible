@@ -5,9 +5,7 @@
 
 namespace Phansible\Renderer;
 
-use Phansible\Model\AbstractFileRenderer;
-
-class VagrantfileRenderer extends AbstractFileRenderer
+class VagrantfileRenderer extends TemplateRenderer
 {
     /** @var string VM Name */
     protected $name;
@@ -32,27 +30,15 @@ class VagrantfileRenderer extends AbstractFileRenderer
      */
     public function loadDefaults()
     {
+        $this->setTemplate('Vagrantfile.twig');
+        $this->setFilePath('Vagrantfile');
+
         $this->setName('Default');
         $this->setMemory('512');
         $this->setBoxUrl('http://files.vagrantup.com/precise64.box');
         $this->setBoxName('precise64');
         $this->setIpAddress('192.168.33.99');
         $this->setSyncedFolder('./');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate()
-    {
-        return 'Vagrantfile.twig';
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function getFilePath()
-    {
-        return 'Vagrantfile';
     }
 
     /**
@@ -165,4 +151,4 @@ class VagrantfileRenderer extends AbstractFileRenderer
     {
         return $this->syncedFolder;
     }
-} 
+}

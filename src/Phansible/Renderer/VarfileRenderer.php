@@ -5,9 +5,7 @@
 
 namespace Phansible\Renderer;
 
-use Phansible\Model\AbstractFileRenderer;
-
-class VarfileRenderer extends AbstractFileRenderer
+class VarfileRenderer extends TemplateRenderer
 {
     /** @var  array Variables key-value format */
     protected $data;
@@ -15,13 +13,10 @@ class VarfileRenderer extends AbstractFileRenderer
     /** @var  string Varfile name */
     protected $name;
 
-    /** @var  string Template */
-    protected $template;
-
     /**
      * @param string $name
      */
-    public function  __construct($name)
+    public function __construct($name)
     {
         $this->name = $name;
         parent::__construct();
@@ -32,7 +27,7 @@ class VarfileRenderer extends AbstractFileRenderer
      */
     public function loadDefaults()
     {
-        $this->template = 'vars.yml.twig';
+        $this->setTemplate('vars.yml.twig');
     }
 
     /**
@@ -51,42 +46,7 @@ class VarfileRenderer extends AbstractFileRenderer
         return $this->name;
     }
 
-    /**
-     * @param string $key
-     * @param mixed $value
-     */
-    public function add($key, $value)
-    {
-        if (is_array($value)) {
-            $value = json_encode($value);
-        }
-        $this->data[$key] = $value;
-    }
 
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    public function get($key)
-    {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate()
-    {
-        return $this->template;
-    }
-
-    /**
-     * @param string $template
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-    }
 
     /**
      * {@inheritdoc}
@@ -97,19 +57,10 @@ class VarfileRenderer extends AbstractFileRenderer
     }
 
     /**
-     * @param array $data
-     */
-    public function setData(array $data)
-    {
-        $this->data = $data;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getFilePath()
     {
-        return 'ansible/vars/' . $this->name . '.yml';
+        return 'ansible/vars/' . $this->getName() . '.yml';
     }
-
-} 
+}

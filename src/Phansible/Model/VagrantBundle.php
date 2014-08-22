@@ -103,10 +103,10 @@ class VagrantBundle
     }
 
     /**
-     * @param FileRenderer $renderer
+     * @param FileRendererInterface $renderer
      */
 
-    public function addRenderer(FileRenderer $renderer)
+    public function addRenderer(FileRendererInterface $renderer)
     {
         $this->renderers[] = $renderer;
     }
@@ -160,7 +160,7 @@ class VagrantBundle
         $zip = $this->getZipArchive();
         $res = $zip->open($filepath, \ZipArchive::CREATE);
 
-        if ($res === TRUE) {
+        if ($res === true) {
 
             /** template files rendering */
             $this->renderFiles($zip);
@@ -172,6 +172,9 @@ class VagrantBundle
 
             /** default var files */
             $this->includeBundleFiles($zip, 'vars', '*.yml', 'ansible/vars');
+
+            /** include windows.sh */
+            $zip->addFile($this->getAnsiblePath() . '/windows.sh', 'ansible/windows.sh');
 
             $zip->close();
 
