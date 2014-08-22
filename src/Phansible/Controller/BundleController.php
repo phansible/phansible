@@ -6,6 +6,7 @@ use Flint\Controller\Controller;
 use Phansible\Application;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\PlaybookRenderer;
+use Phansible\Renderer\TemplateRenderer;
 use Phansible\Renderer\VagrantfileRenderer;
 use Phansible\Renderer\VarfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,8 +28,18 @@ class BundleController extends Controller
         $webServerKey = $request->get('webserver') ?: 'nginxphp';
         $webserver    = $this->getWebServer($webServerKey);
 
-        /** Configure Vagrantfile */
+        /** Create the Renderers */
         $vagrantfile = new VagrantfileRenderer();
+        $inventory   = new TemplateRenderer();
+        $playbook    = new PlaybookRenderer();
+        $common      = new VarfileRenderer('common');
+
+        /** Set the Inventory */
+        $inventory->add('ipAddress', $request->get('ipaddress'));
+        $inventory->setTemplate('inventory.twig');
+        $inventory->setFilePath('ansible/inventories/dev');
+
+        /** Configure Vagrantfile */
         $vagrantfile->setName($name);
         $vagrantfile->setBoxName($boxName);
         $vagrantfile->setBoxUrl($box['url']);
@@ -37,14 +48,12 @@ class BundleController extends Controller
         $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
 
         /** Configure Variable files - common */
-        $common = new VarfileRenderer('common');
         $common->add('php_ppa', $request->get('phpppa'));
         $common->add('doc_root', $request->get('docroot'));
         $common->add('sys_packages', $request->get('syspackages', array()));
         $common->add('timezone', $request->get('timezone'));
 
         /** Configure Playbook */
-        $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
         $playbook->addRole('init');
 
@@ -85,12 +94,12 @@ class BundleController extends Controller
         }
 
         $playbook->addRole('phpcommon');
-
         $playbook->addVarsFile('vars/common.yml');
 
         $vagrant->addRenderer($playbook);
         $vagrant->addRenderer($common);
         $vagrant->addRenderer($vagrantfile);
+        $vagrant->addRenderer($inventory);
 
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";

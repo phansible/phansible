@@ -176,6 +176,9 @@ class VagrantBundle
             /** include windows.sh */
             $zip->addFile($this->getAnsiblePath() . '/windows.sh', 'ansible/windows.sh');
 
+            /** include default public key */
+            $zip->addFile($this->getAnsiblePath() . '/files/authorized_keys', 'ansible/files/authorized_keys');
+
             $zip->close();
 
             return 1;
