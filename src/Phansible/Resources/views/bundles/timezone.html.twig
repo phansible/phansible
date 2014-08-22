@@ -6,7 +6,9 @@
         <div class="ui top attached black label">Details</div>
         <div class="field">
             <label for="timezone">timezone:</label>
-            <select id="timezone" name="timezone" class="selectized" >
+
+            <select id="timezone" name="timezone" class="selectized">
+                    <option value="UTC">UTC</option>
                 {% for timezone in config.timezones %}
                     <option value="{{ timezone }}">{{ timezone }}</option>
                 {% endfor %}

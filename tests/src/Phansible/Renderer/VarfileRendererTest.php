@@ -78,20 +78,6 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::add
-     */
-    public function testShouldAddArrayValue()
-    {
-        $key   = 'packages';
-        $value = ['git', 'curl'];
-
-        $this->model->add($key, $value);
-
-        $this->assertTrue(is_array(
-            json_decode($this->model->get('packages'), 1)
-        ));
-    }
-    /**
      * @covers Phansible\Renderer\VarfileRenderer::setData
      * @covers Phansible\Renderer\VarfileRenderer::getData
      */

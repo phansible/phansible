@@ -108,7 +108,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->model->setRenderers([$renderer, $renderer2]);
 
-        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRenderer', $this->model->getRenderers());
+        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRendererInterface', $this->model->getRenderers());
     }
 
     /**
@@ -265,11 +265,15 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open', 'addFromString', 'close'))
+            ->setMethods(array('open', 'addFile', 'close'))
             ->getMock();
 
         $mockedZip->expects($this->once())
             ->method('open')
+            ->will($this->returnValue(true));
+
+        $mockedZip->expects($this->any())
+            ->method('addFile')
             ->will($this->returnValue(true));
 
         $model->expects($this->once())
