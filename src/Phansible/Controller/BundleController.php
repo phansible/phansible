@@ -38,11 +38,14 @@ class BundleController extends Controller
         $this->setupXDebug($playbook, $request);
 
         /** Configure Variable files - common */
+        $box = $this->getBox($vagrantfile->getBoxName());
+
         $playbook->createVarsFile('common', [
                 'php_ppa'      => $request->get('phpppa'),
                 'doc_root'     => $request->get('docroot'),
                 'sys_packages' => $request->get('syspackages', array()),
                 'timezone'     => $request->get('timezone'),
+                'dist'         => $box['deb'],
                 'php_packages' => $this->getPhpPackages()
         ]);
 

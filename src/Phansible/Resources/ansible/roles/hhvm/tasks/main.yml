@@ -1,43 +1,26 @@
 ---
+
+- name: Add PPA repo
+  apt_repository: repo=ppa:mapnik/boost
+  when: dist == 'precise'
+
 - name: Add HHVM repo key
-  sudo: yes
   shell: wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
 
 - name: Add HHVM repo
-  sudo: yes
-  shell: echo deb http://dl.hhvm.com/ubuntu precise main | sudo tee /etc/apt/sources.list.d/hhvm.list
+  shell: echo deb http://dl.hhvm.com/ubuntu {{ dist }} main | sudo tee /etc/apt/sources.list.d/hhvm.list
 
 - name: Update apt
-  sudo: yes
   apt: update_cache=yes
 
 - name: Install HHVM and php5-cli (for command-line php)
-  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - hhvm
     - php5-cli
 
-- name: Check port
-  shell: grep -c 'Port = 80' /etc/hhvm/server.hdf
-  register: port_check
-  ignore_errors: True
-
-- name: Change port
-  shell: sed -i 's/Port = 80/Port = 9000/' /etc/hhvm/server.hdf
-  when: port_check > 0
-
-- name: Check init script
-  shell: grep -c 'fastcgi' /etc/init.d/hhvm
-  register: init_check
-  ignore_errors: True
-
-- name: Change init script to use FastCGI by default
-  shell: sed -i 's/--mode daemon/--mode daemon -vServer.Type=fastcgi/' /etc/init.d/hhvm
-  when: init_check|failed
-  notify: restart hhvm
-
 - name: Change default nginx site
-  sudo: yes
   template: src=nginx.tpl dest=/etc/nginx/sites-available/default
-  notify: restart nginx
+  notify:
+    - restart nginx
+    - restart hhvm
