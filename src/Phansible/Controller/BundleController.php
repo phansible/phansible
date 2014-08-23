@@ -46,6 +46,8 @@ class BundleController extends Controller
                 'php_packages' => $this->getPhpPackages()
         ]);
 
+        $playbook->addRole('phpcommon');
+
         $vagrant->setRenderers($playbook->getVarsFiles());
         $vagrant->addRenderer($playbook);
         $vagrant->addRenderer($vagrantfile);
