@@ -1,0 +1,4 @@
+syspackages:
+  - vim
+  - git
+  - fail2ban
