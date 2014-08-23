@@ -24,14 +24,15 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['render'])
             ->getMock();
 
-        $this->config = [
-            'webservers' => [
-                'nginxphp' => [
-                    'name' => 'NGINX + PHP5-FPM',
-                    'include' => [ 'nginx', 'php5-fpm' ]
-                ]
-            ],
-            'boxes' => [
+        $webservers = [
+            'nginxphp' => [
+                'name' => 'NGINX + PHP5-FPM',
+                'include' => [ 'nginx', 'php5-fpm' ]
+            ]
+        ];
+
+        $boxes = [
+            'virtualbox' => [
                 'precise32' => [
                     'name'  => 'Ubuntu Precise Pangolin (12.04) 32',
                     'url'   => 'http://files.vagrantup.com/precise32.box'
@@ -40,11 +41,12 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
                     'name'  => 'Ubuntu Precise Pangolin (12.04) 64',
                     'url'   => 'http://files.vagrantup.com/precise64.box'
                 ],
-            ]
+            ],
         ];
 
         $this->container = new \Pimple();
-        $this->container['config'] = $this->config;
+        $this->container['webservers'] = $webservers;
+        $this->container['boxes'] = $boxes;
 
         $this->controller->setPimple($this->container);
 

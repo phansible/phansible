@@ -39,6 +39,10 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
 
         $container['twig'] = $this->twig;
         $container['config'] = [];
+        $container['webservers'] = [];
+        $container['boxes'] = [];
+        $container['syspackages'] = [];
+        $container['phppackages'] = [];
 
         $this->controller->setPimple($container);
         $this->controller->indexAction();
@@ -78,7 +82,7 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
             ->method('render')
             ->with(
                 $this->equalTo('docs.html.twig'),
-                $this->callback(function($param){
+                $this->callback(function ($param) {
                     return array_key_exists('content', $param) && strpos($param['content'], 'ansible');
                 })
             );
