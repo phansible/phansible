@@ -46,7 +46,17 @@ class VarfileRenderer extends TemplateRenderer
         return $this->name;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function add($key, $value, $convert = true)
+    {
+        if ($convert && is_array($value)) {
+            $value = $this->arrayToYAML($value);
+        }
 
+        $this->data[$key] = $value;
+    }
 
     /**
      * {@inheritdoc}

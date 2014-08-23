@@ -89,15 +89,60 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldAddAndGetVarsFile()
     {
-        $var_file   = 'common.yml';
+        $varfile1 = new VarfileRenderer('common');
+        $varfile2 = new VarfileRenderer('test');
 
-        $this->model->addVarsFile($var_file);
+        $this->model->addVarsFile($varfile1);
 
-        $this->assertContains($var_file, $this->model->getVarsFiles());
+        $this->assertContains($varfile1, $this->model->getVarsFiles());
 
-        $this->model->setVarsFiles(['test01.yml', 'test02.yml']);
+        $this->model->setVarsFiles([$varfile1, $varfile2]);
 
-        $this->assertContains('test02.yml', $this->model->getVarsFiles());
+        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRendererInterface', $this->model->getVarsFiles());
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::getVarsFilesList
+     */
+    public function testShouldGetVarsFilesList()
+    {
+        $varfile1 = new VarfileRenderer('common');
+        $varfile2 = new VarfileRenderer('test');
+        $this->model->setVarsFiles([$varfile1, $varfile2]);
+
+        $list = $this->model->getVarsFilesList();
+        $this->assertContains('vars/common.yml', $list);
+        $this->assertContains('vars/test.yml', $list);
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::createVarsFile
+     */
+    public function testShouldCreateVarFile()
+    {
+        $data = [ 'key' => 'value' ];
+
+        $this->model->createVarsFile('common', $data);
+
+        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRendererInterface', $this->model->getVarsFiles());
+        $this->assertContains('vars/common.yml', $this->model->getVarsFilesList());
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::createVarsFile
+     */
+    public function testShouldCreateVarFileAndSetTemplate()
+    {
+        $data = [ 'testkey' => 'testvalue' ];
+
+        $this->model->createVarsFile('common', $data, 'test.twig');
+
+        $varsfiles = $this->model->getVarsFiles();
+
+        foreach ($varsfiles as $varfile) {
+            $this->assertSame('testvalue', $varfile->get('testkey'));
+            $this->assertSame('test.twig', $varfile->getTemplate());
+        }
     }
 
     /**

@@ -66,7 +66,9 @@ class TemplateRenderer implements FileRendererInterface
 
     public function setData(array $data)
     {
-        $this->data = $data;
+        foreach ($data as $key => $item) {
+            $this->add($key, $item);
+        }
     }
 
     /**
@@ -84,10 +86,6 @@ class TemplateRenderer implements FileRendererInterface
      */
     public function add($key, $value)
     {
-        if (is_array($value)) {
-            $value = $this->arrayToYAML($value);
-        }
-
         $this->data[$key] = $value;
     }
 

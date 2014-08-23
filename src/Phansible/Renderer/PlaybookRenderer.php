@@ -10,7 +10,7 @@ class PlaybookRenderer extends TemplateRenderer
     /** @var array Playbook Variables */
     protected $vars;
 
-    /** @var array VarsFiles inclusions */
+    /** @var array[VarfileRenderer] VarsFiles */
     protected $varsFiles;
 
     /** @var array Playbook Roles */
@@ -37,7 +37,7 @@ class PlaybookRenderer extends TemplateRenderer
         return [
             'web_server'      => isset($this->vars['web_server']) ? $this->vars['web_server'] : 'nginxphp',
             'playbook_vars'   => $this->vars,
-            'playbook_files'  => $this->varsFiles,
+            'playbook_files'  => $this->getVarsFilesList(),
             'playbook_roles'  => $this->roles,
         ];
     }
@@ -81,7 +81,9 @@ class PlaybookRenderer extends TemplateRenderer
      */
     public function setVarsFiles(array $varsFiles = [])
     {
-        $this->varsFiles = $varsFiles;
+        foreach ($varsFiles as $varFile) {
+            $this->addVarsFile($varFile);
+        }
     }
 
     /**
@@ -92,10 +94,20 @@ class PlaybookRenderer extends TemplateRenderer
         return $this->varsFiles;
     }
 
+    public function getVarsFilesList()
+    {
+        $include = [];
+        foreach ($this->varsFiles as $varFile) {
+            $include[] = 'vars/'. $varFile->getName() . '.yml';
+        }
+
+        return $include;
+    }
+
     /**
-     * @param string $varfile
+     * @param VarFileRenderer $varfile
      */
-    public function addVarsFile($varfile)
+    public function addVarsFile(VarfileRenderer $varfile)
     {
         $this->varsFiles[] = $varfile;
     }
@@ -122,5 +134,17 @@ class PlaybookRenderer extends TemplateRenderer
     public function addRole($role)
     {
         $this->roles[] = $role;
+    }
+
+    public function createVarsFile($name, array $data, $template = null)
+    {
+        $varfile = new VarfileRenderer($name);
+        $varfile->setData($data);
+
+        if ($template) {
+            $varfile->setTemplate($template);
+        }
+
+        $this->addVarsFile($varfile);
     }
 }

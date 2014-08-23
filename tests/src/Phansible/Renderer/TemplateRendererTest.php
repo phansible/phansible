@@ -50,9 +50,7 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
 
         $this->model->add($key, $value);
 
-        $this->assertTrue(is_array(
-            json_decode($this->model->get('packages'), 1)
-        ));
+        $this->assertTrue(is_array($this->model->get('packages')));
     }
 
     /**

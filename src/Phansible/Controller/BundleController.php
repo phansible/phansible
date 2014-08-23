@@ -17,87 +17,37 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BundleController extends Controller
 {
+    protected $phpPackages = [];
+
     public function indexAction(Request $request, Application $app)
     {
         $vagrant = new VagrantBundle($this->get('ansible.path'));
-        $name    = $request->get('vmname');
+        $this->setPhpPackages($request->get('phppackages', array()));
 
-        $boxName = $request->get('baseBox') ?: 'precise64';
-        $box     = $this->getBox($boxName);
+        /** Get Inventory */
+        $inventory = $this->getInventory($request);
 
-        $webServerKey = $request->get('webserver') ?: 'nginxphp';
-        $webserver    = $this->getWebServer($webServerKey);
+        /** Get Vagrantfile */
+        $vagrantfile = $this->getVagrantfile($request);
 
-        /** Create the Renderers */
-        $vagrantfile = new VagrantfileRenderer();
-        $inventory   = new TemplateRenderer();
-        $playbook    = new PlaybookRenderer();
-        $common      = new VarfileRenderer('common');
+        /** Get Playbook */
+        $playbook = $this->getPlaybook($request);
 
-        /** Set the Inventory */
-        $inventory->add('ipAddress', $request->get('ipaddress'));
-        $inventory->setTemplate('inventory.twig');
-        $inventory->setFilePath('ansible/inventories/dev');
-
-        /** Configure Vagrantfile */
-        $vagrantfile->setName($name);
-        $vagrantfile->setBoxName($boxName);
-        $vagrantfile->setBoxUrl($box['url']);
-        $vagrantfile->setMemory($request->get('memory'));
-        $vagrantfile->setIpAddress($request->get('ipaddress'));
-        $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
+        $this->setupMysql($playbook, $request);
+        $this->setupComposer($playbook, $request);
+        $this->setupXDebug($playbook, $request);
 
         /** Configure Variable files - common */
-        $common->add('php_ppa', $request->get('phpppa'));
-        $common->add('doc_root', $request->get('docroot'));
-        $common->add('sys_packages', $request->get('syspackages', array()));
-        $common->add('timezone', $request->get('timezone'));
+        $playbook->createVarsFile('common', [
+                'php_ppa'      => $request->get('phpppa'),
+                'doc_root'     => $request->get('docroot'),
+                'sys_packages' => $request->get('syspackages', array()),
+                'timezone'     => $request->get('timezone'),
+                'php_packages' => $this->getPhpPackages()
+        ]);
 
-        /** Configure Playbook */
-        $playbook->addVar('web_server', $webServerKey);
-        $playbook->addRole('init');
-
-        $php_packages = $request->get('phppackages', array());
-
-        /** Databases */
-        if ($request->get('database-status')) {
-            $playbook->addRole('mysql');
-
-            $mysqlvars = new VarfileRenderer('mysql');
-            $mysqlvars->setTemplate('roles/mysql.vars.twig');
-
-            $mysqlvars->setData([ 'mysql_vars' => [
-                    [
-                        'user' => $request->get('user'),
-                        'pass' => $request->get('password'),
-                        'db'   => $request->get('database'),
-                    ]
-                ]]);
-
-            $vagrant->addRenderer($mysqlvars);
-            $playbook->addVarsFile('vars/mysql.yml');
-            $php_packages[] = 'php5-mysql';
-        }
-
-        if ($request->get('xdebug')) {
-            $php_packages[] = 'php5-xdebug';
-        }
-
-        $common->add('php_packages', array_unique($php_packages));
-
-        foreach ($webserver['include'] as $role) {
-            $playbook->addRole($role);
-        }
-
-        if ($request->get('composer')) {
-            $playbook->addRole('composer');
-        }
-
-        $playbook->addRole('phpcommon');
-        $playbook->addVarsFile('vars/common.yml');
-
+        $vagrant->setRenderers($playbook->getVarsFiles());
         $vagrant->addRenderer($playbook);
-        $vagrant->addRenderer($common);
         $vagrant->addRenderer($vagrantfile);
         $vagrant->addRenderer($inventory);
 
@@ -106,12 +56,139 @@ class BundleController extends Controller
 
         if ($vagrant->generateBundle($zipPath, $playbook->getRoles())) {
 
-            return $this->outputBundle($zipPath, $app, $name);
+            return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
 
         } else {
 
             return new Response('An error occurred.');
         }
+    }
+
+    /**
+     * @param PlaybookRenderer $playbook
+     * @param Request $request
+     */
+    public function setupMysql(PlaybookRenderer $playbook, Request $request)
+    {
+        /** Databases */
+        if ($request->get('database-status')) {
+            $playbook->addRole('mysql');
+
+            $mysqlVars = new VarfileRenderer('mysql');
+            $mysqlVars->add('mysql_vars', [
+                [
+                    'user' => $request->get('user'),
+                    'pass' => $request->get('password'),
+                    'db'   => $request->get('database'),
+                ]
+            ], false);
+
+            $mysqlVars->setTemplate('roles/mysql.vars.twig');
+            $playbook->addVarsFile($mysqlVars);
+
+            $this->addPhpPackage('php5-mysql');
+        }
+    }
+
+    /**
+     * @param PlaybookRenderer $playbook
+     * @param Request $request
+     */
+    public function setupComposer(PlaybookRenderer $playbook, Request $request)
+    {
+        if ($request->get('composer')) {
+            $playbook->addRole('composer');
+        }
+    }
+
+    /**
+     * @param PlaybookRenderer $playbook
+     * @param Request $request
+     */
+    public function setupXDebug(PlaybookRenderer $playbook, Request $request)
+    {
+        if ($request->get('xdebug')) {
+            $this->addPhpPackage('php5-xdebug');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return VagrantfileRenderer
+     */
+    public function getVagrantfile(Request $request)
+    {
+        $name = $request->get('vmname');
+        $boxName = $request->get('baseBox') ?: 'precise64';
+        $box = $this->getBox($boxName);
+
+        $vagrantfile = new VagrantfileRenderer();
+        $vagrantfile->setName($name);
+        $vagrantfile->setBoxName($boxName);
+        $vagrantfile->setBoxUrl($box['url']);
+        $vagrantfile->setMemory($request->get('memory'));
+        $vagrantfile->setIpAddress($request->get('ipaddress'));
+        $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
+
+        return $vagrantfile;
+    }
+
+    /**
+     * @param Request $request
+     * @return TemplateRenderer
+     */
+    public function getInventory(Request $request)
+    {
+        $inventory = new TemplateRenderer();
+        $inventory->add('ipAddress', $request->get('ipaddress'));
+        $inventory->setTemplate('inventory.twig');
+        $inventory->setFilePath('ansible/inventories/dev');
+
+        return $inventory;
+    }
+
+    /**
+     * @param Request $request
+     * @return PlaybookRenderer
+     */
+    public function getPlaybook(Request $request)
+    {
+        $webServerKey = $request->get('webserver') ?: 'nginxphp';
+        $webserver    = $this->getWebServer($webServerKey);
+
+        $playbook = new PlaybookRenderer();
+        $playbook->addVar('web_server', $webServerKey);
+        $playbook->addRole('init');
+
+        foreach ($webserver['include'] as $role) {
+            $playbook->addRole($role);
+        }
+
+        return $playbook;
+    }
+
+    /**
+     * @param string $package
+     */
+    public function addPhpPackage($package)
+    {
+        $this->phpPackages[] = $package;
+    }
+
+    /**
+     * @param array $packages
+     */
+    public function setPhpPackages(array $packages)
+    {
+        $this->phpPackages = $packages;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPhpPackages()
+    {
+        return array_unique($this->phpPackages);
     }
 
     /**

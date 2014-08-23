@@ -4,6 +4,7 @@ namespace Phansible\Model;
 
 use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VagrantfileRenderer;
+use Symfony\Component\HttpFoundation\Request;
 
 class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 {
@@ -151,7 +152,8 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $model->expects($this->at(0))
             ->method('includeBundleFiles')
-            ->with($this->identicalTo($mockedZip),
+            ->with(
+                $this->identicalTo($mockedZip),
                 $this->equalTo('roles/nginx/tasks'),
                 $this->equalTo('*.yml'),
                 $this->equalTo('ansible/roles/nginx/tasks')
@@ -159,7 +161,8 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $model->expects($this->at(2))
             ->method('includeBundleFiles')
-            ->with($this->identicalTo($mockedZip),
+            ->with(
+                $this->identicalTo($mockedZip),
                 $this->equalTo('roles/nginx/templates'),
                 $this->equalTo('*.tpl'),
                 $this->equalTo('ansible/roles/nginx/templates')
