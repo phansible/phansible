@@ -7,7 +7,7 @@
         <div class="field">
             <label for="timezone">timezone:</label>
 
-            <select id="timezone" name="timezone" class="selectized">
+            <select id="timezone" name="timezone" class="select-one">
                     <option value="UTC">UTC</option>
                 {% for timezone in config.timezones %}
                     <option value="{{ timezone }}">{{ timezone }}</option>

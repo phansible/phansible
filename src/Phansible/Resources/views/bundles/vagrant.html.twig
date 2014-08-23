@@ -5,17 +5,14 @@
     <div class="ui piled segment">
         <div class="ui top attached black label">Details</div>
         <div class="field">
-            <label>Operating System:</label>
-            <div class="grouped inline fields">
-                {% for key,info in config.boxes %}
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" id="baseBox" name="baseBox" value="{{ key }}" {% if key=='precise64' %}checked{% endif %} />
-                            <label for="os_ubuntu">{{ info.name }}</label>
-                        </div>
-                    </div>
+            <label for="baseBox">Base Box:</label>
+
+            <select id="baseBox" name="baseBox" class="select-one">
+                <option value="precise64">Ubuntu Precise Pangolin (12.04) 64</option>
+                {% for key,info in config.boxes.virtualbox %}
+                    <option value="{{ key }}">{{ info.name }}</option>
                 {% endfor %}
-            </div>
+            </select>
         </div>
         <div class="two fields">
             <div class="field">

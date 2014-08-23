@@ -6,7 +6,12 @@ docs.path: "%root_dir%/src/Phansible/Resources/docs"
 
 debug: true
 
-#bundle generator options
+@import:
+    - app/config/phansible/boxes.yml
+    - app/config/phansible/webservers.yml
+    - app/config/phansible/syspackages.yml
+    - app/config/phansible/phppackages.yml
+
 config:
   bundles:
     - vagrant
@@ -15,88 +20,7 @@ config:
     - database
     - syspackages
     - timezone
-  boxes:
-    lucid32:
-      name: Ubuntu Lucid Lynx (10.04) 32
-      deb: lucid
-      url: http://files.vagrantup.com/lucid32.box
-    lucid64:
-      name: Ubuntu Lucid Lynx (10.04) 64
-      deb: lucid
-      url: http://files.vagrantup.com/lucid64.box
-    precise32:
-      name: Ubuntu Precise Pangolin (12.04) 32
-      deb: precise
-      url: http://files.vagrantup.com/precise32.box
-    precise64:
-      name: Ubuntu Precise Pangolin (12.04) 64
-      deb: precise
-      url: http://files.vagrantup.com/precise64.box
-    trusty32:
-      name: Ubuntu Trusty Tahr (14.04) 32
-      deb: truty
-      url: https://vagrantcloud.com/ubuntu/trusty32/version/1/provider/virtualbox.box
-    trusty64:
-      name: Ubuntu Trusty Tahr (14.04) 64
-      deb: trusty
-      url: https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box
 
-  webservers:
-    nginxphp:
-      name: NGINX + PHP5-FPM
-      checked: yes
-      include:
-        - nginx
-        - php5-fpm
 
-    apachephp:
-      name: APACHE + PHP5
-      include:
-        - apache
-        - php5
 
-    nginxhhvm:
-      name: NGINX + HHVM
-      include:
-        - nginx
-        - hhvm
 
-  syspackages:
-    - vim
-    - git
-
-  phppackages:
-    - php5-cli
-    - php-pear
-    - php5-curl
-    - php5-imagick
-    - php5-cgi
-    - php5-common
-    - php5-dbg
-    - php5-enchant
-    - php5-fpm
-    - php5-gd
-    - php5-geoip
-    - php5-gmp
-    - php5-imap
-    - php5-interbase
-    - php5-intl
-    - php5-ldap
-    - php5-mapscript
-    - php5-mbstring
-    - php5-mcrypt
-    - php5-memcache
-    - php5-memcached
-    - php5-odbc
-    - php5-pspell
-    - php5-readline
-    - php5-recode
-    - php5-snmp
-    - php5-sqlite
-    - php5-svn
-    - php5-sybase
-    - php5-tidy
-    - php5-xcache
-    - php5-xdebug
-    - php5-xmlrpc
-    - php5-xsl

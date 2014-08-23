@@ -220,7 +220,7 @@ class BundleController extends Controller
      */
     public function getBox($boxName)
     {
-        $boxes = $this->get('config')['boxes'];
+        $boxes = $this->get('boxes')['virtualbox'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
 
         return $boxes[$boxName];
@@ -232,7 +232,7 @@ class BundleController extends Controller
      */
     public function getWebServer($webServerKey)
     {
-        $webservers   = $this->get('config')['webservers'];
+        $webservers   = $this->get('webservers');
         $webServerKey = array_key_exists($webServerKey, $webservers) ? $webServerKey : 'nginxphp';
 
         return $webservers[$webServerKey];

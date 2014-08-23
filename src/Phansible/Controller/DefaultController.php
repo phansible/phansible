@@ -16,12 +16,16 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('index.html.twig', [
-            'config' => array_merge(
-                            $this->get('config'),
-                            array('timezones' => DateTimeZone::listIdentifiers())
-            ),
-        ]);
+        $config = $this->get('config');
+
+        $config['boxes']       = $this->get('boxes');
+        $config['webservers']  = $this->get('webservers');
+        $config['syspackages'] = $this->get('syspackages');
+        $config['phppackages'] = $this->get('phppackages');
+
+        $config['timezones'] = DateTimeZone::listIdentifiers();
+
+        return $this->render('index.html.twig', ['config' => $config]);
     }
 
     public function usageAction($doc)
