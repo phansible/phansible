@@ -39,6 +39,10 @@ Main.prototype.form = function() {
     });
 
     toggle.filter('.xdebug').state({
+        text: {
+            active: 'Enabled',
+            inactive: 'Disabled'
+        },
         onActivate: function() {
             $('input#xdebug').val(1);
         },
