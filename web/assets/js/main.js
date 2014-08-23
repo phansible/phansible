@@ -86,6 +86,15 @@ Main.prototype.form = function() {
         labelField: 'text',
         searchField: 'value'
     });
+
+    $('select.select-one').selectize({
+        maxItems: 1,
+        persist: false,
+        labelField: "item",
+        valueField: "value",
+        sortField: 'item',
+        searchField: 'item'
+    });
 }
 
 $(document).ready(function(){
