@@ -102,7 +102,7 @@ Main.prototype.waypoints = function(){
     //Sticky menu
     var menu = $('.ui.secondary.vertical.pointing.menu');
     menu.waypoint('sticky', {
-        offset: 50 // Apply "stuck" when element 30px from top
+        offset: 50 // Apply "stuck" when element 50px from top
     });
 
     //Activate menu items if passed on scroll
