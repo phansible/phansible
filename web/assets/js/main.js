@@ -97,8 +97,25 @@ Main.prototype.form = function() {
     });
 }
 
+Main.prototype.waypoints = function(){
+
+    //Sticky menu
+    var menu = $('.ui.secondary.vertical.pointing.menu');
+    menu.waypoint('sticky', {
+        offset: 50 // Apply "stuck" when element 30px from top
+    });
+
+    //Activate menu items if passed on scroll
+    $('h2').waypoint(function() {
+        menu.find('a').removeClass('active teal');
+        menu.find('a[href="#'+$(this).attr('id')+'"]').addClass('active teal');
+    }, { offset: 250 });
+}
+
 $(document).ready(function(){
     var main = new Main();
 
     main.form();
+
+    main.waypoints();
 });
