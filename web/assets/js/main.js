@@ -118,4 +118,6 @@ $(document).ready(function(){
     main.form();
 
     main.waypoints();
+
+    $('.tabs .item').tab();
 });

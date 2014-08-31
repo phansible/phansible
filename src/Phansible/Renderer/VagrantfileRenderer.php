@@ -25,6 +25,12 @@ class VagrantfileRenderer extends TemplateRenderer
     /** @var  string Synced Folder */
     protected $syncedFolder;
 
+    /** @var  string Synced Folder Type */
+    protected $syncedType;
+
+    /** @var  bool Enables or Disables Windows support (windows.sh) */
+    protected $enableWindows;
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +45,8 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setBoxName('precise64');
         $this->setIpAddress('192.168.33.99');
         $this->setSyncedFolder('./');
+        $this->setSyncedType('nfs');
+        $this->setEnableWindows(true);
     }
 
     /**
@@ -47,12 +55,14 @@ class VagrantfileRenderer extends TemplateRenderer
     public function getData()
     {
         return [
-            'vmName'       => $this->getName(),
-            'memory'       => $this->getMemory(),
-            'boxUrl'       => $this->getBoxUrl(),
-            'boxName'      => $this->getBoxName(),
-            'ipAddress'    => $this->getIpAddress(),
-            'syncedFolder' => $this->getSyncedFolder()
+            'vmName'        => $this->getName(),
+            'memory'        => $this->getMemory(),
+            'boxUrl'        => $this->getBoxUrl(),
+            'boxName'       => $this->getBoxName(),
+            'ipAddress'     => $this->getIpAddress(),
+            'syncedFolder'  => $this->getSyncedFolder(),
+            'syncedType'    => $this->getSyncedType(),
+            'enableWindows' => $this->getEnableWindows(),
         ];
     }
 
@@ -150,5 +160,37 @@ class VagrantfileRenderer extends TemplateRenderer
     public function getSyncedFolder()
     {
         return $this->syncedFolder;
+    }
+
+    /**
+     * @param string $syncedType
+     */
+    public function setSyncedType($syncedType)
+    {
+        $this->syncedType = $syncedType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSyncedType()
+    {
+        return $this->syncedType;
+    }
+
+    /**
+     * @param boolean $enableWindows
+     */
+    public function setEnableWindows($enableWindows)
+    {
+        $this->enableWindows = $enableWindows;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getEnableWindows()
+    {
+        return $this->enableWindows;
     }
 }

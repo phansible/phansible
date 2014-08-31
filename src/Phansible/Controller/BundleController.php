@@ -134,6 +134,8 @@ class BundleController extends Controller
         $vagrantfile->setMemory($request->get('memory'));
         $vagrantfile->setIpAddress($request->get('ipaddress'));
         $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
+        $vagrantfile->setEnableWindows($request->get('enable-windows'));
+        $vagrantfile->setSyncedType($request->get('sync-type'));
 
         return $vagrantfile;
     }
