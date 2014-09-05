@@ -210,7 +210,8 @@ class BundleController extends Controller
 
         return $app->stream($stream, 200, array(
             'Content-length' => filesize($zipPath),
-            'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"'
+            'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"',
+            'Content-Type' => 'application/zip'
         ));
     }
 
