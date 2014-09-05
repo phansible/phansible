@@ -38,7 +38,7 @@ class BundleController extends Controller
         $this->setupXDebug($playbook, $request);
 
         /** Configure Variable files - common */
-        $box = $this->getBox($vagrantfile->getBoxName());
+        $box        = $this->getBox($vagrantfile->getBoxName());
 
         $playbook->createVarsFile('common', [
                 'php_ppa'      => $request->get('phpppa'),
@@ -50,6 +50,9 @@ class BundleController extends Controller
         ]);
 
         $playbook->addRole('phpcommon');
+
+        /** Add framework **/
+        $this->setupFramework($playbook, $request);
 
         $vagrant->setRenderers($playbook->getVarsFiles());
         $vagrant->addRenderer($playbook);
@@ -116,6 +119,21 @@ class BundleController extends Controller
             $this->addPhpPackage('php5-xdebug');
         }
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function setupFramework(PlaybookRenderer $playbook, Request $request)
+    {
+        $frameworks = $this->get('frameworks');
+        $frameworkName = $request->get('framework');
+
+        if(array_key_exists($frameworkName, $frameworks)){
+            $playbook->addRole($frameworkName);
+        }
+    }
+
 
     /**
      * @param Request $request

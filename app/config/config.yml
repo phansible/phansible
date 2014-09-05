@@ -11,6 +11,7 @@ debug: true
     - app/config/phansible/webservers.yml
     - app/config/phansible/syspackages.yml
     - app/config/phansible/phppackages.yml
+    - app/config/phansible/frameworks.yml
 
 config:
   bundles:
@@ -20,3 +21,4 @@ config:
     - database
     - syspackages
     - timezone
+    - frameworks
