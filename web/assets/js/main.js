@@ -119,5 +119,9 @@ $(document).ready(function(){
 
     main.waypoints();
 
+    $('.ui.accordion')
+        .accordion()
+    ;
+
     $('.tabs .item').tab();
 });

@@ -129,13 +129,17 @@ class BundleController extends Controller
 
         $vagrantfile = new VagrantfileRenderer();
         $vagrantfile->setName($name);
-        $vagrantfile->setBoxName($boxName);
-        $vagrantfile->setBoxUrl($box['url']);
+        $vagrantfile->setBoxName($box['cloud']);
+
+        if (!$request->get('useVagrantCloud')) {
+            $vagrantfile->setBoxUrl($box['url']);
+        }
+
         $vagrantfile->setMemory($request->get('memory'));
-        $vagrantfile->setIpAddress($request->get('ipaddress'));
-        $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
-        $vagrantfile->setEnableWindows($request->get('enable-windows'));
-        $vagrantfile->setSyncedType($request->get('sync-type'));
+        $vagrantfile->setIpAddress($request->get('ipAddress'));
+        $vagrantfile->setSyncedFolder($request->get('sharedFolder'));
+        $vagrantfile->setEnableWindows($request->get('enableWindows'));
+        $vagrantfile->setSyncedType($request->get('syncType'));
 
         return $vagrantfile;
     }

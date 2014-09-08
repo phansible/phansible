@@ -41,8 +41,8 @@ class VagrantfileRenderer extends TemplateRenderer
 
         $this->setName('Default');
         $this->setMemory('512');
-        $this->setBoxUrl('http://files.vagrantup.com/precise64.box');
-        $this->setBoxName('precise64');
+        $this->setBoxName('ubuntu/trusty64');
+        $this->setBoxUrl('');
         $this->setIpAddress('192.168.33.99');
         $this->setSyncedFolder('./');
         $this->setSyncedType('nfs');

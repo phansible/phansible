@@ -1,18 +1,16 @@
-<h2 class="ui dividing header" id="section-vagrant">Vagrant - VM Settings</h2>
+<h2 class="ui dividing header" id="section-vagrant">Vagrant Settings</h2>
 <section>
     <div class="ui top attached tabular menu tabs">
         <a class="active item" data-tab="options-main">
-            Basic Options
+            VirtualBox
         </a>
         <a class="item" data-tab="options-advanced">
-            Advanced Options
+            VMWare
         </a>
     </div>
 
     <div class="ui bottom attached tab active segment" data-tab="options-main">
-        <h3 class="ui header">Instructions:</h3>
-
-        <p>Choose the options for your Virtual Machine.</p>
+        <h3>Basic Options</h3>
 
             <div class="field">
                 <label for="baseBox">Base Box:</label>
@@ -35,9 +33,9 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="ip_address">IP Address:</label>
+                    <label for="ipAddress">IP Address:</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="ipaddress" name="ipaddress" value="192.168.33.99" />
+                        <input type="text" id="ipAddress" name="ipAddress" value="192.168.33.99" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -57,10 +55,39 @@
                 <div class="field">
                     <label for="memory">Shared Folder</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="sharedfolder" name="sharedfolder" placeholder="./" value="./" />
+                        <input type="text" id="sharedFolder" name="sharedFolder" placeholder="./" value="./" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui basic accordion">
+                <div class="title">
+                    <h3><i class="dropdown icon"></i> Advanced Options</h3>
+                </div>
+                <div class="content">
+                    <div class="inline field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" id="enableWindows" name="enableWindows" value="1" checked="checked">
+                            <label for="enableWindows">Include windows.sh script to enable provisioning on Windows Hosts</label>
+                        </div>
+                    </div>
+                    <div class="inline field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" id="useVagrantCloud" name="useVagrantCloud" value="1" checked="checked">
+                            <label for="useVagrantCloud">Use Vagrant Cloud</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="syncType">Synced Folders Type:</label>
+
+                        <select id="syncType" name="syncType" class="select-one">
+                            <option value="nfs">NFS</option>
+                            <option value="0">VBox Default</option>
+                            <option value="rsync">RSync</option>
+                            <option value="smb">SMB</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -68,23 +95,7 @@
 
 
     <div class="ui bottom attached tab segment" data-tab="options-advanced">
-        <div class="inline field">
-            <div class="ui checkbox">
-                <input type="checkbox" id="enable-windows" name="enable-windows" value="1" checked="checked">
-                <label for="enable-windows">Include windows.sh script to enable provisioning on Windows Hosts</label>
-            </div>
-        </div>
 
-        <div class="field">
-            <label for="sync-type">Synced Folders Type:</label>
-
-            <select id="sync-type" name="sync-type" class="select-one">
-                <option value="NFS">NFS</option>
-                <option value="vbox">VBox Default</option>
-                <option value="rsync">RSync</option>
-                <option value="smb">SMB</option>
-            </select>
-        </div>
 
     </div>
 </section>
