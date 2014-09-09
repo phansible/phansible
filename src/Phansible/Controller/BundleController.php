@@ -44,7 +44,6 @@ class BundleController extends Controller
                 'php_ppa'      => $request->get('phpppa'),
                 'doc_root'     => $request->get('docroot'),
                 'sys_packages' => $request->get('syspackages', array()),
-                'timezone'     => $request->get('timezone'),
                 'dist'         => $box['deb'],
                 'php_packages' => $this->getPhpPackages()
         ]);
@@ -164,6 +163,8 @@ class BundleController extends Controller
         $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
         $playbook->addRole('init');
+        $playbook->addRole('php5-cli');
+        $playbook->addVar('timezone', $request->get('timezone'));
 
         foreach ($webserver['include'] as $role) {
             $playbook->addRole($role);

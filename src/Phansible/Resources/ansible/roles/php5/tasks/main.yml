@@ -1,3 +1,8 @@
 - name: Install php5
   sudo: yes
   apt: pkg=php5 state=latest
+
+- name: ensure timezone is set in apache2 php.ini
+  lineinfile: dest=/etc/php5/apache2/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = {{ timezone }}'
