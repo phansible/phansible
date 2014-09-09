@@ -38,6 +38,19 @@ Main.prototype.form = function() {
         }
     });
 
+    toggle.filter('.phpmyadmin').state({
+        text: {
+            active: 'PHPMyAdmin Enabled',
+            inactive: 'Disabled'
+        },
+        onActivate: function() {
+            $('input#phpmyadmin-status').val(1);
+        },
+        onDeactivate: function() {
+            $('input#phpmyadmin-status').val(0);
+        }
+    });
+
     toggle.filter('.xdebug').state({
         text: {
             active: 'Enabled',
