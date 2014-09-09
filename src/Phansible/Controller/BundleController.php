@@ -93,25 +93,30 @@ class BundleController extends Controller
 
             $this->addPhpPackage('php5-mysql');
 
-            if ($request->get('phpmyadmin-status')) {
-                $playbook->addRole('phpmyadmin');
+            $this->setupPhpmyadmin($playbook, $request);
+        }
+    }
 
-                $phpmyadminVars = new VarfileRenderer('phpmyadmin');
-                $phpmyadminVars->add('phpmyadmin_vars', [
-                        [
-                            'user' => $request->get('user'),
-                            'pass' => $request->get('password'),
-                            'hostname' => $request->get('phpmyadmin-hostname'),
-                            'pma_dbname' => 'phpmyadmin'
-                        ]
-                    ], false);
+    public function setupPhpmyadmin(PlaybookRenderer $playbook, Request $request)
+    {
+        if ($request->get('phpmyadmin-status')) {
+            $playbook->addRole('phpmyadmin');
 
-                $phpmyadminVars->setTemplate('roles/phpmyadmin.vars.twig');
-                $playbook->addVarsFile($phpmyadminVars);
+            $phpmyadminVars = new VarfileRenderer('phpmyadmin');
+            $phpmyadminVars->add('phpmyadmin_vars', [
+                    [
+                        'user' => $request->get('user'),
+                        'pass' => $request->get('password'),
+                        'hostname' => $request->get('phpmyadmin-hostname'),
+                        'pma_dbname' => 'phpmyadmin'
+                    ]
+                ], false);
 
-                //making sure that mcrypt get included as it's required by phpmyadmin.
-                $this->addPhpPackage('php5-mcrypt');
-            }
+            $phpmyadminVars->setTemplate('roles/phpmyadmin.vars.twig');
+            $playbook->addVarsFile($phpmyadminVars);
+
+            //making sure that mcrypt get included as it's required by phpmyadmin.
+            $this->addPhpPackage('php5-mcrypt');
         }
     }
 
