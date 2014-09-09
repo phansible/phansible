@@ -26,7 +26,8 @@ Vagrant.configure("2") do |config|
 
     config.vm.box = "{{ boxName }}"
     {% if boxUrl %}
-        config.vm.box_url = "{{ boxUrl }}"
+
+    config.vm.box_url = "{{ boxUrl }}"
     {% endif %}
 
     config.vm.network :private_network, ip: "{{ ipAddress }}"
