@@ -1,0 +1,11 @@
+- name: configure phpmyadmin for apache
+  file: path=/var/www/phpmyadmin src=/usr/share/phpmyadmin state=link
+
+- name: configure phpmyadmin for apache
+  template: src=phpmyadmin.conf.tpl dest=/etc/apache2/conf-available/phpmyadmin.conf
+  with_items: phpmyadmin
+
+- name: configure phpmyadmin for apache
+  notify: restart apache
+  sudo: yes
+  command: a2enconf phpmyadmin

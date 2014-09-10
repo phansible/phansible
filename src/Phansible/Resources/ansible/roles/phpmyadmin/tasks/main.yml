@@ -1,0 +1,61 @@
+- name: Add phpmyadmin ppa Repository
+  sudo: yes
+  apt_repository: repo=ppa:nijel/phpmyadmin
+
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: install pma
+  sudo: yes
+  apt: pkg=phpmyadmin state=present
+
+- name: configure phpmyadmin for apache
+  include: pma-apache.yml
+  when: web_server=='apachephp'
+
+- name: configure phpmyadmin for nginx
+  include: pma-nginx.yml
+  when: web_server=='nginxphp'
+
+- name: configure phpmyadmin for nginx
+  include: pma-nginx.yml
+  when: web_server=='nginxhhvm'
+
+- name: Add phpmyadmin.vb1 to the /etc/hosts file
+  lineinfile: dest=/etc/hosts line='127.0.0.1 {{ item.hostname }}' state=present
+  with_items: phpmyadmin
+
+- name: Configure phpmyadmin database user
+  lineinfile: dest=/etc/phpmyadmin/config-db.php
+              regexp="dbuser="
+              line="$dbuser='{{ item.user }}';"
+              state=present
+  with_items: phpmyadmin
+
+- name: Configure phpmyadmin database password
+  lineinfile: dest=/etc/phpmyadmin/config-db.php
+              regexp="dbpass="
+              line="$dbpass='{{ item.pass }}';"
+              state=present
+  with_items: phpmyadmin
+
+- name: Configure phpmyadmin database database name
+  lineinfile: dest=/etc/phpmyadmin/config-db.php
+              regexp="dbname="
+              line="$dbname='{{ item.pma_dbname }}';"
+              state=present
+  with_items: phpmyadmin
+
+- name: Create the phpmyadmin database
+  sudo: yes
+  mysql_db: name={{ item.pma_dbname }} state=present
+  with_items: phpmyadmin
+
+- name: create the phpmyadmin user
+  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.pma_dbname }}.*:ALL state=present host='%'
+  with_items: phpmyadmin
+
+- name: setup the phpmyadmin db
+  shell: mysql -u{{ item.user }} -p{{ item.pass }} {{ item.pma_dbname }} < /usr/share/dbconfig-common/data/phpmyadmin/install/mysql
+  with_items: phpmyadmin

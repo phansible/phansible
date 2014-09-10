@@ -1,0 +1,8 @@
+phpmyadmin:
+{% for phpmyadmin in variables.phpmyadmin_vars %}
+  -
+    user: {{ phpmyadmin.user }}
+    pass: {{ phpmyadmin.pass }}
+    hostname: {{ phpmyadmin.hostname }}
+    pma_dbname: {{ phpmyadmin.pma_dbname }}
+{% endfor %}

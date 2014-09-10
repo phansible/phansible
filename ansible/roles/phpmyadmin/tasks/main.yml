@@ -1,0 +1,49 @@
+- name: Add phpmyadmin ppa Repository
+  sudo: yes
+  apt_repository: repo=ppa:nijel/phpmyadmin
+
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: install pma
+  sudo: yes
+  apt: pkg=phpmyadmin state=present
+
+- name: configure phpmyadmin
+  file: path=/var/www/phpmyadmin src=/usr/share/phpmyadmin state=link
+
+- name: configure phpmyadmin for apache
+  template: src=phpmyadmin.conf dest=/etc/apache2/conf-available/phpmyadmin.conf
+
+- name: configure phpmyadmin for apache
+  notify: restart apache
+  sudo: yes
+  command: a2enconf phpmyadmin
+
+- name: Add phpmyadmin.vb1 to the /etc/hosts file
+  lineinfile: dest=/etc/hosts line='127.0.0.1 phpmyadmin.vb1' state=present
+
+- name: Configure phpmyadmin database user
+  lineinfile: dest=/etc/phpmyadmin/config-db.php
+              regexp="dbuser="
+              line="$dbuser='{{ mysql_user }}';"
+              state=present
+
+- name: Configure phpmyadmin database password
+  lineinfile: dest=/etc/phpmyadmin/config-db.php
+              regexp="dbpass="
+              line="$dbpass='{{ mysql_pass }}';"
+              state=present
+
+- name: Configure phpmyadmin database database name
+  lineinfile: dest=/etc/phpmyadmin/config-db.php
+              regexp="dbname="
+              line="$dbname='{{ pma_dbname }}';"
+              state=present
+
+- name: create the phpmyadmin db
+  command: mysql -u{{ mysql_user }} -p{{ mysql_pass }} -e"CREATE DATABASE IF NOT EXISTS {{ pma_dbname }}"
+
+- name: setup the phpmyadmin db
+  shell: mysql -u{{ mysql_user }} -p{{ mysql_pass }} {{ pma_dbname }} < /usr/share/dbconfig-common/data/phpmyadmin/install/mysql

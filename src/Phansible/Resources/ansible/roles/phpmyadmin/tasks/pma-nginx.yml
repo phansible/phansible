@@ -1,0 +1,16 @@
+- name: Create the folder for the phpmyadmin installation
+  sudo: yes
+  file: path=/usr/share/nginx/www state=directory
+
+- name: configure phpmyadmin for nginx
+  sudo: yes
+  file: path=/usr/share/nginx/www/phpmyadmin src=/usr/share/phpmyadmin state=link
+
+- name: configuration of phpmyadmin in sites-available for nginx
+  template: src=nginx-phpmyadmin.tpl dest=/etc/nginx/sites-available/phpmyadmin
+  with_items: phpmyadmin
+
+- name: enabling phpmyadmin for nginx
+  sudo: yes
+  file: path=/etc/nginx/sites-enabled/phpmyadmin src=/etc/nginx/sites-available/phpmyadmin state=link
+  notify: restart nginx

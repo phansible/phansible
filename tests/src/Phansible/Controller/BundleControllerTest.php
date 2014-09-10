@@ -9,6 +9,7 @@ use Phansible\Renderer\PlaybookRenderer;
 
 class BundleControllerTest extends \PHPUnit_Framework_TestCase
 {
+    /* @var BundleController */
     private $controller;
     private $container;
     private $twig;
@@ -107,10 +108,20 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPlaybook()
     {
-        $this->request->expects($this->once())
+        $this->request->expects($this->exactly(3))
+            ->method('get');
+        $this->request->expects($this->at(0))
             ->method('get')
             ->with('webserver')
             ->will($this->returnValue(1));
+        $this->request->expects($this->at(1))
+            ->method('get')
+            ->with('servername')
+            ->will($this->returnValue('myShinyNewApp.io'));
+        $this->request->expects($this->at(2))
+            ->method('get')
+            ->with('timezone')
+            ->will($this->returnValue('UTC'));
 
         $playbook = $this->controller->getPlaybook($this->request);
 
@@ -194,11 +205,48 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->with('database')
             ->will($this->returnValue('db'));
 
+        $this->request->expects($this->at(4))
+            ->method('get')
+            ->with('mysql-listen-status')
+            ->will($this->returnValue(1));
+
         $playbook = new PlaybookRenderer();
 
         $this->controller->setupMysql($playbook, $this->request);
 
         $this->assertContains('mysql', $playbook->getRoles());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupPhpmyadmin
+     */
+    public function testSetupPhpMyAdmin()
+    {
+        $this->request->expects($this->at(0))
+            ->method('get')
+            ->with('phpmyadmin-status')
+            ->will($this->returnValue(1));
+
+        $this->request->expects($this->at(1))
+            ->method('get')
+            ->with('user')
+            ->will($this->returnValue('user'));
+
+        $this->request->expects($this->at(2))
+            ->method('get')
+            ->with('password')
+            ->will($this->returnValue('pass'));
+
+        $this->request->expects($this->at(3))
+            ->method('get')
+            ->with('phpmyadmin-hostname')
+            ->will($this->returnValue('phpmyadmin.vb'));
+
+        $playbook = new PlaybookRenderer();
+
+        $this->controller->setupPhpmyadmin($playbook, $this->request);
+
+        $this->assertContains('phpmyadmin', $playbook->getRoles());
     }
 
     /**

@@ -18,3 +18,8 @@ Choose the options you want and download the Bundle. Unzip to a folder.
 
 ### 2. vagrant up
 Go to the directory and run `vagrant up` to test the provision.
+
+### 3. Optionaly, if you use phpmyadmin
+Add a line in your /etc/hosts file like so
+
+ip\_you\_choose\_for\_vagrantbox php\_myadmin\_hostname

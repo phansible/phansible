@@ -44,7 +44,6 @@ class BundleController extends Controller
                 'php_ppa'      => $request->get('phpppa'),
                 'doc_root'     => $request->get('docroot'),
                 'sys_packages' => $request->get('syspackages', array()),
-                'timezone'     => $request->get('timezone'),
                 'dist'         => $box['deb'],
                 'php_packages' => $this->getPhpPackages()
         ]);
@@ -75,6 +74,7 @@ class BundleController extends Controller
     {
         /** Databases */
         if ($request->get('database-status')) {
+
             $playbook->addRole('mysql');
 
             $mysqlVars = new VarfileRenderer('mysql');
@@ -83,6 +83,7 @@ class BundleController extends Controller
                     'user' => $request->get('user'),
                     'pass' => $request->get('password'),
                     'db'   => $request->get('database'),
+                    'mysql-listen' => $request->get('mysql-listen-status'),
                 ]
             ], false);
 
@@ -90,6 +91,31 @@ class BundleController extends Controller
             $playbook->addVarsFile($mysqlVars);
 
             $this->addPhpPackage('php5-mysql');
+
+            $this->setupPhpmyadmin($playbook, $request);
+        }
+    }
+
+    public function setupPhpmyadmin(PlaybookRenderer $playbook, Request $request)
+    {
+        if ($request->get('phpmyadmin-status')) {
+            $playbook->addRole('phpmyadmin');
+
+            $phpmyadminVars = new VarfileRenderer('phpmyadmin');
+            $phpmyadminVars->add('phpmyadmin_vars', [
+                    [
+                        'user' => $request->get('user'),
+                        'pass' => $request->get('password'),
+                        'hostname' => $request->get('phpmyadmin-hostname'),
+                        'pma_dbname' => 'phpmyadmin'
+                    ]
+                ], false);
+
+            $phpmyadminVars->setTemplate('roles/phpmyadmin.vars.twig');
+            $playbook->addVarsFile($phpmyadminVars);
+
+            //making sure that mcrypt get included as it's required by phpmyadmin.
+            $this->addPhpPackage('php5-mcrypt');
         }
     }
 
@@ -166,7 +192,10 @@ class BundleController extends Controller
 
         $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
+        $playbook->addVar('servername', trim($request->get('servername')));
         $playbook->addRole('init');
+        $playbook->addRole('php5-cli');
+        $playbook->addVar('timezone', $request->get('timezone'));
 
         foreach ($webserver['include'] as $role) {
             $playbook->addRole($role);

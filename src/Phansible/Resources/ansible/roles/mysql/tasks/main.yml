@@ -7,6 +7,9 @@
     - mysql-client
     - python-mysqldb
 
+- name: Start the MySQL service
+  action: service name=mysql state=started
+
 - name: mysql | Create databases
   sudo: yes
   mysql_db: name={{ item.db }} state=present
@@ -16,3 +19,19 @@
   sudo: yes
   mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.db }}.*:ALL state=present
   with_items: mysql
+
+- name: mysql | Allow connection from the every ips
+  sudo: yes
+  lineinfile: dest=/etc/mysql/my.cnf
+              regexp="bind-address"
+              line="bind-address=            = 0.0.0.0"
+              state=present
+  when: mysql-listen == 1
+
+- name: mysql | Deactivate connection from others than localhost
+  sudo: yes
+  lineinfile: dest=/etc/mysql/my.cnf
+              regexp="bind-address"
+              line="bind-address=            = 127.0.0.1"
+              state=present
+  when: mysql-listen == 0
