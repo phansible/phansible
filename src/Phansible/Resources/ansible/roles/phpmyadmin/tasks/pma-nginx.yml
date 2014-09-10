@@ -13,7 +13,3 @@
 - name: enabling phpmyadmin for nginx
   sudo: yes
   file: path=/etc/nginx/sites-enabled/phpmyadmin src=/etc/nginx/sites-available/phpmyadmin state=link
-
-- name: enabling mcrypt for phpmyadmin on php-fpm
-  sudo: yes
-  file: path=/etc/php5/fpm/conf.d/mcrypt.ini src=/etc/php5/conf.d/mcrypt.ini state=link
