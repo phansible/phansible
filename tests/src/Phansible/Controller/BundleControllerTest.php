@@ -188,6 +188,11 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->with('database')
             ->will($this->returnValue('db'));
 
+        $this->request->expects($this->at(4))
+            ->method('get')
+            ->with('mysql-listen-status')
+            ->will($this->returnValue(1));
+
         $playbook = new PlaybookRenderer();
 
         $this->controller->setupMysql($playbook, $this->request);

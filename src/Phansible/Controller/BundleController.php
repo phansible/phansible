@@ -85,6 +85,7 @@ class BundleController extends Controller
                     'user' => $request->get('user'),
                     'pass' => $request->get('password'),
                     'db'   => $request->get('database'),
+                    'mysql-listen' => $request->get('mysql-listen-status'),
                 ]
             ], false);
 

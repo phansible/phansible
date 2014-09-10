@@ -51,6 +51,19 @@ Main.prototype.form = function() {
         }
     });
 
+    toggle.filter('.mysql-listen').state({
+        text: {
+            active: 'MysqlWorkbench connection Enabled',
+            inactive: 'Disabled'
+        },
+        onActivate: function() {
+            $('input#mysql-listen-status').val(1);
+        },
+        onDeactivate: function() {
+            $('input#mysql-listen-status').val(0);
+        }
+    });
+
     toggle.filter('.xdebug').state({
         text: {
             active: 'Enabled',
