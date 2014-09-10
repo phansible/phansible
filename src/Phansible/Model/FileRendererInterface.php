@@ -29,7 +29,7 @@ interface FileRendererInterface
 
     /**
      * Returns the data for the template
-     * @return Array
+     * @return array
      */
     public function getData();
 
