@@ -49,16 +49,12 @@
 
 - name: Create the phpmyadmin database
   sudo: yes
-  mysql_db: login_user=root login_password={{ item[1].pass }} name={{ item[0].pma_dbname }} state=present
-  with_nested:
-    - phpmyadmin
-    - mysql
+  mysql_db: name={{ item.pma_dbname }} state=present
+  with_items: phpmyadmin
 
 - name: create the phpmyadmin user
-  mysql_user: login_user=root login_password={{ item[1].pass }} name={{ item[0].user }} password={{ item[0].pass }} priv={{ item[0].pma_dbname }}.*:ALL state=present host='%'
-  with_nested:
-    - phpmyadmin
-    - mysql
+  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.pma_dbname }}.*:ALL state=present host='%'
+  with_items: phpmyadmin
 
 - name: setup the phpmyadmin db
   shell: mysql -u{{ item.user }} -p{{ item.pass }} {{ item.pma_dbname }} < /usr/share/dbconfig-common/data/phpmyadmin/install/mysql

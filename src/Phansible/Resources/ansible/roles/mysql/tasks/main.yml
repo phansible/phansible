@@ -10,21 +10,12 @@
 - name: Start the MySQL service
   action: service name=mysql state=started
 
-    # 'localhost' needs to be the last item for idempotency, see
-    # http://ansible.cc/docs/modules.html#mysql-user
-- name: update mysql root password for all root accounts
-  sudo: yes
-  mysql_user: name=root host={{ item[0] }} password={{ item[1].pass }}
-  with_nested:
-    - [ "{{ ansible_hostname }}" , '127.0.0.1' , '::1' , 'localhost' ]
-    - mysql
-
 - name: mysql | Create databases
   sudo: yes
-  mysql_db: login_user=root login_password={{ item.pass }} name={{ item.db }} state=present
+  mysql_db: name={{ item.db }} state=present
   with_items: mysql
 
 - name: mysql | Create users
   sudo: yes
-  mysql_user: login_user=root login_password={{ item.pass }} name={{ item.user }} password={{ item.pass }} priv={{ item.db }}.*:ALL state=present
+  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.db }}.*:ALL state=present
   with_items: mysql
