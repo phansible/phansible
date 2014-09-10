@@ -4,7 +4,7 @@
   apt: pkg=apache2 state=latest
 
 - name: Install Apache Modules
-  shell: a2enmod {{ item }}
+  apache2_module: state=present name={{ item }}
   notify: restart apache
   with_items:
     - rewrite
