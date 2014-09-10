@@ -13,7 +13,7 @@
                     {% if webserver.checked is defined %}
                         {% set default_webserver = key %}
                         <div class="ui green active button webserver checked" data-value="{{ key }}">{{ webserver.name }}</div>
-                        {% else %}
+                    {% else %}
                         <div class="ui black button webserver" data-value="{{ key }}">{{ webserver.name }}</div>
                     {% endif %}
                 {% endfor %}
