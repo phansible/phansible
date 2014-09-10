@@ -13,3 +13,4 @@
 - name: enabling phpmyadmin for nginx
   sudo: yes
   file: path=/etc/nginx/sites-enabled/phpmyadmin src=/etc/nginx/sites-available/phpmyadmin state=link
+  notify: restart nginx
