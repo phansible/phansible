@@ -163,6 +163,7 @@ class BundleController extends Controller
 
         $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
+        $playbook->addVar('servername', trim($request->get('servername')));
         $playbook->addRole('init');
 
         foreach ($webserver['include'] as $role) {

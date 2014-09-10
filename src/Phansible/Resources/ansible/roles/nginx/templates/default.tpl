@@ -4,7 +4,7 @@ server {
     root {{ doc_root }};
     index index.html index.php;
 
-    server_name {{ ansible_eth1.ipv4.address }};
+    server_name {{ servername }} {{ ansible_eth1.ipv4.address }};
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
