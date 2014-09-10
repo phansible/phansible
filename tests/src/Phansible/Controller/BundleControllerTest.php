@@ -105,10 +105,14 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPlaybook()
     {
-        $this->request->expects($this->once())
+        $this->request->expects($this->at(0))
             ->method('get')
             ->with('webserver')
             ->will($this->returnValue(1));
+        $this->request->expects($this->at(1))
+            ->method('get')
+            ->with('timezone')
+            ->will($this->returnValue('UTC'));
 
         $playbook = $this->controller->getPlaybook($this->request);
 
