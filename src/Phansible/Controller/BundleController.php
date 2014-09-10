@@ -62,11 +62,9 @@ class BundleController extends Controller
         if ($vagrant->generateBundle($zipPath, $playbook->getRoles())) {
 
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
-
-        } else {
-
-            return new Response('An error occurred.');
         }
+
+        return new Response('An error occurred.');
     }
 
     /**
