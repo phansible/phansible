@@ -118,4 +118,10 @@ $(document).ready(function(){
     main.form();
 
     main.waypoints();
+
+    $('.ui.accordion')
+        .accordion()
+    ;
+
+    $('.tabs .item').tab();
 });

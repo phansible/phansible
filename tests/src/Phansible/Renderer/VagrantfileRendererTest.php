@@ -29,10 +29,11 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(512, $this->model->getMemory());
         $this->assertEquals('Default', $this->model->getName());
-        $this->assertEquals('precise64', $this->model->getBoxName());
-        $this->assertEquals('http://files.vagrantup.com/precise64.box', $this->model->getBoxUrl());
+        $this->assertEquals('ubuntu/trusty64', $this->model->getBoxName());
         $this->assertEquals('192.168.33.99', $this->model->getIpAddress());
         $this->assertEquals('./', $this->model->getSyncedFolder());
+        $this->assertEquals('nfs', $this->model->getSyncedType());
+        $this->assertEquals(true, $this->model->getEnableWindows());
     }
 
     /**
@@ -143,6 +144,32 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->getSyncedFolder();
 
         $this->assertEquals($syncedFolder, $result);
+    }
+
+    /**
+     * @covers Phansible\Renderer\VagrantfileRenderer::getSyncedType
+     * @covers Phansible\Renderer\VagrantfileRenderer::setSyncedType
+     */
+    public function testShouldSetAndGetSyncedFolderType()
+    {
+        $syncedType = 'nfs';
+
+        $this->model->setSyncedType($syncedType);
+
+        $result = $this->model->getSyncedType();
+
+        $this->assertEquals($syncedType, $result);
+    }
+
+    /**
+     * @covers Phansible\Renderer\VagrantfileRenderer::getEnableWindows
+     * @covers Phansible\Renderer\VagrantfileRenderer::setEnableWindows
+     */
+    public function testShouldSetAndGetEnableWindows()
+    {
+        $this->model->setEnableWindows(true);
+
+        $this->assertEquals(true, $this->model->getEnableWindows());
     }
 
     /**

@@ -1,34 +1,32 @@
 boxes:
   virtualbox:
-    lucid32:
-      name: Ubuntu Lucid Lynx (10.04) 32
-      deb: lucid
-      url: http://files.vagrantup.com/lucid32.box
-    lucid64:
-      name: Ubuntu Lucid Lynx (10.04) 64
-      deb: lucid
-      url: http://files.vagrantup.com/lucid64.box
     precise32:
       name: Ubuntu Precise Pangolin (12.04) 32
       deb: precise
+      cloud: hashicorp/precise32
       url: https://vagrantcloud.com/hashicorp/precise32/version/1/provider/virtualbox.box
     precise64:
       name: Ubuntu Precise Pangolin (12.04) 64
       deb: precise
+      cloud: hashicorp/precise64
       url: https://vagrantcloud.com/hashicorp/precise64/version/2/provider/virtualbox.box
     saucy32:
       name: Ubuntu Saucy Salamander (13.10) 32
       deb: saucy
+      cloud: chef/ubuntu-13.10-i386
       url: https://vagrantcloud.com/chef/ubuntu-13.10-i386/version/1/provider/virtualbox.box
     saucy64:
       name: Ubuntu Saucy Salamander (13.10) 64
       deb: saucy
+      cloud: chef/ubuntu-13.10
       url: https://vagrantcloud.com/chef/ubuntu-13.10/version/1/provider/virtualbox.box
     trusty32:
       name: Ubuntu Trusty Tahr (14.04) 32
-      deb: truty
+      deb: trusty
+      cloud: ubuntu/trusty32
       url: https://vagrantcloud.com/ubuntu/trusty32/version/1/provider/virtualbox.box
     trusty64:
       name: Ubuntu Trusty Tahr (14.04) 64
       deb: trusty
+      cloud: ubuntu/trusty64
       url: https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box

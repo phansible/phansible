@@ -61,11 +61,9 @@ class BundleController extends Controller
         if ($vagrant->generateBundle($zipPath, $playbook->getRoles())) {
 
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
-
-        } else {
-
-            return new Response('An error occurred.');
         }
+
+        return new Response('An error occurred.');
     }
 
     /**
@@ -128,11 +126,16 @@ class BundleController extends Controller
 
         $vagrantfile = new VagrantfileRenderer();
         $vagrantfile->setName($name);
-        $vagrantfile->setBoxName($boxName);
-        $vagrantfile->setBoxUrl($box['url']);
+        $vagrantfile->setBoxName($box['cloud']);
         $vagrantfile->setMemory($request->get('memory'));
-        $vagrantfile->setIpAddress($request->get('ipaddress'));
-        $vagrantfile->setSyncedFolder($request->get('sharedfolder'));
+        $vagrantfile->setIpAddress($request->get('ipAddress'));
+        $vagrantfile->setSyncedFolder($request->get('sharedFolder'));
+        $vagrantfile->setEnableWindows($request->get('enableWindows'));
+        $vagrantfile->setSyncedType($request->get('syncType'));
+
+        if (!$request->get('useVagrantCloud')) {
+            $vagrantfile->setBoxUrl($box['url']);
+        }
 
         return $vagrantfile;
     }
@@ -162,6 +165,7 @@ class BundleController extends Controller
 
         $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
+        $playbook->addVar('servername', trim($request->get('servername')));
         $playbook->addRole('init');
         $playbook->addRole('php5-cli');
         $playbook->addVar('timezone', $request->get('timezone'));
@@ -210,9 +214,9 @@ class BundleController extends Controller
         };
 
         return $app->stream($stream, 200, array(
-            'Content-length' => filesize($zipPath),
+            'Content-length'      => filesize($zipPath),
             'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"',
-            'Content-Type' => 'application/zip'
+            'Content-Type'        => 'application/zip'
         ));
     }
 

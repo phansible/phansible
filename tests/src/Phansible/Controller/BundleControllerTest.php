@@ -9,6 +9,7 @@ use Phansible\Renderer\PlaybookRenderer;
 
 class BundleControllerTest extends \PHPUnit_Framework_TestCase
 {
+    /* @var BundleController */
     private $controller;
     private $container;
     private $twig;
@@ -35,11 +36,13 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             'virtualbox' => [
                 'precise32' => [
                     'name'  => 'Ubuntu Precise Pangolin (12.04) 32',
-                    'url'   => 'http://files.vagrantup.com/precise32.box'
+                    'url'   => 'https://vagrantcloud.com/hashicorp/precise32/version/1/provider/virtualbox.box',
+                    'cloud' => 'hashicorp/precise32'
                 ],
                 'precise64' => [
                     'name'  => 'Ubuntu Precise Pangolin (12.04) 64',
-                    'url'   => 'http://files.vagrantup.com/precise64.box'
+                    'url'   => 'https://vagrantcloud.com/hashicorp/precise64/version/2/provider/virtualbox.box',
+                    'cloud' => 'hashicorp/precise64'
                 ],
             ],
         ];
@@ -111,6 +114,10 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(1));
         $this->request->expects($this->at(1))
             ->method('get')
+            ->with('servername')
+            ->will($this->returnValue('myShinyNewApp.io'));
+        $this->request->expects($this->at(2))
+            ->method('get')
             ->with('timezone')
             ->will($this->returnValue('UTC'));
 
@@ -141,13 +148,28 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->request->expects($this->at(3))
             ->method('get')
-            ->with('ipaddress')
+            ->with('ipAddress')
             ->will($this->returnValue('192.168.11.11'));
 
         $this->request->expects($this->at(4))
             ->method('get')
-            ->with('sharedfolder')
+            ->with('sharedFolder')
             ->will($this->returnValue('./'));
+
+        $this->request->expects($this->at(5))
+            ->method('get')
+            ->with('enableWindows')
+            ->will($this->returnValue('1'));
+
+        $this->request->expects($this->at(6))
+            ->method('get')
+            ->with('syncType')
+            ->will($this->returnValue('nfs'));
+
+        $this->request->expects($this->at(7))
+            ->method('get')
+            ->with('useVagrantCloud')
+            ->will($this->returnValue('1'));
 
         $vagrantfile = $this->controller->getVagrantfile($this->request);
 
@@ -240,7 +262,10 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $box = $this->controller->getBox('precise64');
 
         $this->assertArrayHasKey('name', $box);
-        $this->assertEquals('http://files.vagrantup.com/precise64.box', $box['url']);
+        $this->assertEquals(
+            'https://vagrantcloud.com/hashicorp/precise64/version/2/provider/virtualbox.box',
+            $box['url']
+        );
     }
 
     public function testOutputBundle()

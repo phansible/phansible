@@ -7,7 +7,7 @@ namespace Phansible\Model;
 
 class VagrantBundle
 {
-    /** File Renderers */
+    /** @var array File Renderers */
     protected $renderers = [];
 
     /** @var string Path to Ansible Resources */
@@ -182,11 +182,9 @@ class VagrantBundle
             $zip->close();
 
             return 1;
-
-        } else {
-
-            return 0;
         }
+
+        return 0;
     }
 
     /**
