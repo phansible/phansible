@@ -9,6 +9,7 @@ use Phansible\Renderer\PlaybookRenderer;
 
 class BundleControllerTest extends \PHPUnit_Framework_TestCase
 {
+    /* @var BundleController */
     private $controller;
     private $container;
     private $twig;
@@ -107,10 +108,14 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPlaybook()
     {
-        $this->request->expects($this->once())
+        $this->request->expects($this->at(0))
             ->method('get')
             ->with('webserver')
             ->will($this->returnValue(1));
+        $this->request->expects($this->at(1))
+            ->method('get')
+            ->with('servername')
+            ->will($this->returnValue('myShinyNewApp.io'));
 
         $playbook = $this->controller->getPlaybook($this->request);
 
