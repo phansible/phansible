@@ -1,0 +1,18 @@
+<h2 class="ui dividing header" id="section-framework">Framework</h2>
+<section>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Choose an optional PHP Framework to deploy.</p>
+    <div class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="field">
+            <label for="php_version">Framework:</label>
+            <div class="{{ config.frameworks|length + 1 }} fluid ui buttons">
+                <input type="hidden" id="framework" name="framework" value="none" />
+                <div class="ui active green button frameworkbutton" data-value="none">None</div>
+                {% for key,info in config.frameworks %}
+                <div class="ui black button frameworkbutton" data-value="{{ key }}">{{ info.name }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

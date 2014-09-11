@@ -47,9 +47,19 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
+        $frameworks = [
+            'cakephp' => [
+                    'name' => 'CakePHP 2.x'
+            ],
+            'laravel' => [
+                    'name' => 'Laravel 4.x'
+            ]
+        ];
+
         $this->container = new \Pimple();
         $this->container['webservers'] = $webservers;
         $this->container['boxes'] = $boxes;
+        $this->container['frameworks'] = $frameworks;
 
         $this->controller->setPimple($this->container);
 
@@ -267,5 +277,21 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     public function testOutputBundle()
     {
 
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupFramework
+     */
+    public function testSetupFramework(){
+        $this->request->expects($this->once())
+            ->method('get')
+            ->with('framework')
+            ->will($this->returnValue('cakephp'));
+
+        $playbook = new PlaybookRenderer();
+
+        $this->controller->setupFramework($playbook, $this->request);
+
+        $this->assertContains('cakephp', $playbook->getRoles());
     }
 }

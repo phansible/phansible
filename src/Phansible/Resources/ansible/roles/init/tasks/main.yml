@@ -23,3 +23,6 @@
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
+
+- name: Create documentroot
+  command: mkdir -p {{ doc_root }} creates={{ doc_root }}

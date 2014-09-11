@@ -77,6 +77,37 @@ Main.prototype.form = function() {
             .data('value'));
     });
 
+    buttons.filter('.frameworkbutton').on('click', function(){
+        $(this)
+            .addClass('active')
+            .addClass('green')
+            .siblings()
+            .removeClass('active')
+            .removeClass('green')
+            .addClass('black');
+
+        $('input[name=framework]').val($(this)
+            .data('value'));
+
+        //Need something better for this...
+        if( $(this).data('value') != 'none' ){
+
+            //Enable composer
+            $('input#composer').val(1);
+            $('.composer')
+                .addClass('active')
+                .addClass('green')
+                .text('Enabled');
+
+            //Up the memory to at least 1024
+            var memory = $('#memory');
+            if(parseInt(memory.val()) < 1024){
+                memory.val('1024');
+            }
+        }
+
+    });
+
     $('select.selectized').selectize({
         plugins: ['remove_button'],
         delimiter: ',',

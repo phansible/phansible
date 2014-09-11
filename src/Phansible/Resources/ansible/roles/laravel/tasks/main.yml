@@ -1,0 +1,17 @@
+- name: Install required Laravel packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5-mcrypt
+    - php5-intl
+    - git
+
+#Install using composer
+- name: Deploy Laravel
+  command: composer create-project --no-interaction laravel/laravel . --prefer-dist chdir={{ doc_root }}
+
+- name: Change default nginx site
+  sudo: yes
+  template: src={{ ws_template }} dest={{ ws_vhost_path }}/{{ ws_vhost_file }}
+  notify: restart nginx
+  when: web_server == "nginxphp"
