@@ -116,6 +116,10 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('servername')
             ->will($this->returnValue('myShinyNewApp.io'));
+        $this->request->expects($this->at(2))
+            ->method('get')
+            ->with('timezone')
+            ->will($this->returnValue('UTC'));
 
         $playbook = $this->controller->getPlaybook($this->request);
 
