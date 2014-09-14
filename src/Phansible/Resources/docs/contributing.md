@@ -9,13 +9,20 @@ We appreciate any contributions; however, we recommend that before starting some
 developers can discuss the idea with you.
 
 Phansible is meant to be **simple**, as Ansible itself. It's meant to be used as a bootstrapping tool, so you can get started quickly,
-but users are encouraged to learn how to customize and add their own roles.
+and users are encouraged to learn how to customize and add their own roles.
 
+### Contributing additional roles
 If you have an idea for a role that is very specific (a framework-specific role for instance),
 you can still create a Pull Request for our **[Additional Roles](https://github.com/Phansible/additional-roles)** repository. This repository was created to collect roles that can be
 easily integrated with Phansible bundles, but don't need to be in the main UI form.
 
-Please use PSR-2 coding standards.
+### Contributing to the main website
+New additions to the UI, including new roles or new settings, normally involve more work, cause at the moment you'll need to edit the
+BundleController and also make sure you keep compatibility with the different web servers and boxes currently available.
+If you feel that it's going to be a lot of work or a lot of changes, please open an issue on Github first, so the core
+developers can discuss it with you.
+
+We appreciate the use of PSR-2 coding standards.
 
 ## Installing Phansible
 
