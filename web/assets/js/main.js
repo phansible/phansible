@@ -123,5 +123,9 @@ $(document).ready(function(){
         .accordion()
     ;
 
+    $('.ui.dropdown')
+        .dropdown()
+    ;
+
     $('.tabs .item').tab();
 });

@@ -3,7 +3,7 @@ phansible_default:
     defaults: { _controller: "Phansible\Controller\DefaultController::indexAction" }
 
 phansible_usage:
-    path: /doc/{doc}
+    path: /docs/{doc}
     defaults: { _controller: "Phansible\Controller\DefaultController::usageAction" }
 
 phansible_bundle:
