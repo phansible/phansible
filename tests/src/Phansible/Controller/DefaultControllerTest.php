@@ -50,7 +50,32 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::usageAction
+     * @covers \Phansible\Controller\DefaultController::aboutAction
+     */
+    public function testShouldRenderAboutAction()
+    {
+        $container = new \Pimple();
+
+        $this->twig->expects($this->once())
+            ->method('render')
+            ->with(
+                $this->equalTo('about.html.twig'),
+                $this->arrayHasKey('contributors')
+            );
+
+        $container['twig'] = $this->twig;
+        $container['config'] = [];
+        $container['webservers'] = [];
+        $container['boxes'] = [];
+        $container['syspackages'] = [];
+        $container['phppackages'] = [];
+
+        $this->controller->setPimple($container);
+        $this->controller->aboutAction();
+    }
+
+    /**
+     * @covers \Phansible\Controller\DefaultController::docsAction
      */
     public function testShouldRenderUsageActionWhenDocFileNotExists()
     {
@@ -68,13 +93,13 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
         $doc = '';
 
         $this->controller->setPimple($container);
-        $this->controller->usageAction($doc);
+        $this->controller->docsAction($doc);
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::usageAction
+     * @covers \Phansible\Controller\DefaultController::docsAction
      */
-    public function testShouldRenderUsageActionWhenFileExists()
+    public function testShouldRenderDocsActionWhenFileExists()
     {
         $container = new \Pimple();
 
@@ -96,7 +121,7 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
         $container['docs.path'] = '/tmp';
 
         $this->controller->setPimple($container);
-        $this->controller->usageAction($doc);
+        $this->controller->docsAction($doc);
 
         unlink($docFile->getPathname());
     }

@@ -1,0 +1,29 @@
+{% set active='about' %}
+
+{% extends "main.html.twig" %}
+
+{% block content %}
+
+<h2>About Phansible</h2>
+
+<p>Phansible is a project created by <a href="http://twitter.com/erikaheidi" target="_blank">Erika Heidi</a> and maintained with collaboration of many <a href="https://github.com/Phansible/phansible/graphs/contributors">contributors</a>. Our goal is to provide
+    a tool that is easy to use and still highly customizable, to create <a href="http://vagrantup.com" target="_blank">Vagrant</a>
+    provisionings using <a href="http://ansible.com" target="_blank">Ansible</a>.
+
+    Phansible was inspired on <a href="http://puphpet.com" target="_blank">PuPHPet</a>.</p>
+
+<h2>Contributors</h2>
+    <p>Many kudos for our contributors!</p>
+    <div class="ui raised segment">
+        <div class="ui grid">
+          {% for dev in contributors %}
+            <div class="two wide column">
+                <div class="ui center aligned basic segment">
+                  <a href="{{ dev.author.html_url }}" target="_blank"><img src="{{ dev.author.avatar_url }}" class="circular ui small center image"></a>
+                  <p><small><a href="{{ dev.author.html_url }}" target="_blank">{{ dev.author.login }}</a></small></p>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+{% endblock %}

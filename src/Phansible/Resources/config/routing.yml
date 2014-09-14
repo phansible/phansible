@@ -2,9 +2,13 @@ phansible_default:
     path: /
     defaults: { _controller: "Phansible\Controller\DefaultController::indexAction" }
 
-phansible_usage:
+phansible_about:
+    path: /about
+    defaults: { _controller: "Phansible\Controller\DefaultController::aboutAction" }
+
+phansible_docs:
     path: /docs/{doc}
-    defaults: { _controller: "Phansible\Controller\DefaultController::usageAction" }
+    defaults: { _controller: "Phansible\Controller\DefaultController::docsAction" }
 
 phansible_bundle:
     path: /generate

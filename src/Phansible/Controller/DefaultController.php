@@ -3,6 +3,9 @@
 namespace Phansible\Controller;
 
 use Flint\Controller\Controller;
+use Github\Client;
+use Github\HttpClient\CachedHttpClient;
+use Github\HttpClient\Message\ResponseMediator;
 use Michelf\Markdown;
 use DateTimeZone;
 
@@ -28,7 +31,7 @@ class DefaultController extends Controller
         return $this->render('index.html.twig', ['config' => $config]);
     }
 
-    public function usageAction($doc)
+    public function docsAction($doc)
     {
         $docfile = $this->get('docs.path') . DIRECTORY_SEPARATOR . $doc . '.md';
 
@@ -41,5 +44,19 @@ class DefaultController extends Controller
         return $this->render('docs.html.twig', [
             'content' => $content,
         ]);
+    }
+
+    public function aboutAction()
+    {
+        $client = new Client(
+            new CachedHttpClient(
+                ['cache_dir' => __DIR__ . '/../../../app/cache/github-api-cache']
+            )
+        );
+
+        $response = $client->getHttpClient()->get('repos/Phansible/phansible/stats/contributors');
+        $contributors = ResponseMediator::getContent($response);
+
+        return $this->render('about.html.twig', ['contributors' => $contributors]);
     }
 }
