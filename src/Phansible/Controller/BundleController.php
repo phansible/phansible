@@ -147,7 +147,7 @@ class BundleController extends Controller
     public function getInventory(Request $request)
     {
         $inventory = new TemplateRenderer();
-        $inventory->add('ipAddress', $request->get('ipaddress'));
+        $inventory->add('ipAddress', $request->get('ipAddress'));
         $inventory->setTemplate('inventory.twig');
         $inventory->setFilePath('ansible/inventories/dev');
 
