@@ -95,7 +95,7 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->request->expects($this->once())
             ->method('get')
-            ->with('ipaddress')
+            ->with('ipAddress')
             ->will($this->returnValue(1));
 
         $playbook = $this->controller->getInventory($this->request);
