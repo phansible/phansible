@@ -49,6 +49,7 @@ class BundleController extends Controller
         ]);
 
         $playbook->addRole('phpcommon');
+        $playbook->addRole('app');
 
         $vagrant->setRenderers($playbook->getVarsFiles());
         $vagrant->addRenderer($playbook);
