@@ -174,3 +174,10 @@ header p{
         width: 100%;
     }
 }
+
+pre code {
+    background-color: #333;
+    display: block;
+    color: #c5c5c5;
+    padding: 15px 10px;
+}

@@ -1,0 +1,37 @@
+# Contributing to Phansible
+
+You want to contribute to Phansible? YAY! In this page you will find some important instructions and guidelines.
+ The first thing to do is fork our main repository: [https://github.com/Phansible/phansible](https://github.com/Phansible/phansible) .
+
+## Quick Guidelines
+
+We appreciate any contributions; however, we recommend that before starting something "big", create an issue on GitHub, so the core
+developers can discuss the idea with you.
+
+Phansible is meant to be **simple**, as Ansible itself. It's meant to be used as a bootstrapping tool, so you can get started quickly,
+but users are encouraged to learn how to customize and add their own roles.
+
+If you have an idea for a role that is very specific (a framework-specific role for instance),
+you can still create a Pull Request for our **[Additional Roles](https://github.com/Phansible/additional-roles)** repository. This repository was created to collect roles that can be
+easily integrated with Phansible bundles, but don't need to be in the main UI form.
+
+
+## Installing Phansible
+
+### Running Phansible locally
+
+The easiest way to get Phansible up and running is by using the built-in PHP server. This will require you to have PHP 5.4+ installed locally.
+
+After cloning your forked Phansible repository in your local machine, go to the project directory and run:
+
+    php -S 0.0.0.0:8000 -t web/
+
+Now point your browser to `http://localhost:8000` and you will be able to access your local Phansible copy.
+
+### Using the Vagrant setup included
+
+Phansible also has a Vagrant setup for development. Go to the project root directory and run:
+
+    $ vagrant up
+
+Point your browser to `http://192.168.56.121` and you will be able to access your local Phansible copy.

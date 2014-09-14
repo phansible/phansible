@@ -14,8 +14,15 @@
     - name: Checkout code
       git: repo=git@github.com:Phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
 
+    - name: Self-update Composer
+      sudo: yes
+      shell: /usr/local/bin/composer self-update
+
     - name: Run Composer
-      shell: /usr/local/bin/composer install chdir={{ project_root }}
+      shell: /usr/local/bin/composer install --no-dev --no-progress chdir={{ project_root }}
+
+    - name: Run Composer update
+      shell: /usr/local/bin/composer update --no-progress chdir={{ project_root }}
 
     - name: Read ACLs for web_user
       sudo: yes

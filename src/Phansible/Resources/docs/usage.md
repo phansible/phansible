@@ -26,7 +26,7 @@ Choose the options you want for your Vagrant setup. The defaults will set up a N
 Extract the contents of the zip file into a directory.
 Go to the directory and run:
 
-`$ vagrant up`
+    $ vagrant up
 
 This will initialize the machine and run the Ansible provisioning.
 
