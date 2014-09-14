@@ -15,8 +15,20 @@ If you have an idea for a role that is very specific (a framework-specific role 
 you can still create a Pull Request for our **[Additional Roles](https://github.com/Phansible/additional-roles)** repository. This repository was created to collect roles that can be
 easily integrated with Phansible bundles, but don't need to be in the main UI form.
 
+Please use PSR-2 coding standards.
 
 ## Installing Phansible
+
+First, clone your forked Phansible repo in your local machine. Then go to the project directory and
+install the dependencies with composer.
+
+In case you don't have composer installed yet:
+
+    $ curl -sS https://getcomposer.org/installer | php
+
+Now install the dependencies:
+
+    $ php composer.phar install
 
 ### Running Phansible locally
 
