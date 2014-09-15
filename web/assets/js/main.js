@@ -100,7 +100,7 @@ Main.prototype.form = function() {
 Main.prototype.waypoints = function(){
 
     //Sticky menu
-    var menu = $('.ui.secondary.vertical.pointing.menu');
+    var menu = $('.sticky-wrapper.peek');
     menu.waypoint('sticky', {
         offset: 50 // Apply "stuck" when element 50px from top
     });

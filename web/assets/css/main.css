@@ -76,13 +76,22 @@ header p{
 #phansible .main.container {
   position: relative;
   padding-bottom: 150px;
+  margin-left: 380px;
 }
+
 #phansible .main.container > h2 {
   -webkit-transition: 0.5s color ease;
   -moz-transition: 0.5s color ease;
   -o-transition: 0.5s color ease;
   -ms-transition: 0.5s color ease;
   transition: 0.5s color ease;
+}
+
+#phansible .peek {
+  position: absolute;
+  top: 0px;
+  left: -265px;
+  width: 180px;
 }
 
 #phansible .phansible > p ,
@@ -130,6 +139,11 @@ header p{
         padding-top: 60px;
         padding-bottom: 60px;
     }
+
+    #phansible .main.container {
+      margin-left: 30%;
+      width: 60%;
+    }
 }
 
 @media only screen and (max-width : 1100px) {
@@ -142,9 +156,17 @@ header p{
     width: auto;
     margin: 0% 30px 0px;
   }
+
+  #phansible .main.container {
+    margin-left: 300px;
+    width: 60%;
+  }
 }
 
 @media only screen and (max-width : 480px) {
+    #phansible .sticky-wrapper {
+        display:none;
+    }
 
     #phansible .main.menu .icon.item {
         display: none;
@@ -172,6 +194,11 @@ header p{
     .ui.form .three.fields > .field {
         padding: 0px;
         width: 100%;
+    }
+
+    #phansible .main.container {
+      margin-left: 10px;
+      width: 100%
     }
 }
 

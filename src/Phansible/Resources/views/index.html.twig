@@ -3,9 +3,8 @@
 {% extends "main.html.twig" %}
 
 {% block content %}
-    <div class="ui grid">
-        <div class="left floated four wide column">
-
+    <div class="sticky-wrapper">
+        <div class="peek">
             <div class="ui vertical pointing secondary menu">
 
                 <a class="active teal item" href="#section-vagrant">Machine Settings</a>
@@ -16,8 +15,8 @@
                 <a class="item" href="#section-timezone">Timezone</a>
             </div>
         </div>
+    </div>
 
-        <div class="right floated twelve wide column">
             <form class="ui form" method="POST" action="/generate">
 
                 {% for bundle in config.bundles %}
@@ -29,7 +28,4 @@
                 </section>
 
             </form>
-
-        </div>
-    </div>
 {% endblock %}
