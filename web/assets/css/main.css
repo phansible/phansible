@@ -180,6 +180,7 @@ pre code {
     display: block;
     color: #c5c5c5;
     padding: 15px 10px;
+    overflow-x: auto;
 }
 
 div.mainFooter {
