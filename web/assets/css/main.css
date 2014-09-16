@@ -161,6 +161,10 @@ header p{
     margin-left: 300px;
     width: 60%;
   }
+
+  .ui.button, .ui.buttons .button {
+      font-size: 0.9em;
+  }
 }
 
 @media only screen and (max-width : 480px) {
@@ -199,6 +203,9 @@ header p{
     #phansible .main.container {
       margin-left: 10px;
       width: 100%
+    }
+    .ui.button, .ui.buttons .button {
+      font-size: 0.9em;
     }
 }
 
