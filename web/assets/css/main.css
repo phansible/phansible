@@ -133,6 +133,16 @@ header p{
   top:50px;
 }
 
+#phansible .sticky-wrapper {
+  height: 0px !important;
+}
+
+#phansible .sticky-wrapper .stuck.peek {
+  position: fixed;
+  top: 50px;
+  left: 119px;
+}
+
 @media only screen and (max-width : 1725px) {
     header {
         margin: 0px 0px 3em;
@@ -144,6 +154,10 @@ header p{
       margin-left: 30%;
       width: 60%;
     }
+
+  #phansible .sticky-wrapper .stuck.peek {
+    left: 95px;
+  }
 }
 
 @media only screen and (max-width : 1100px) {
@@ -164,6 +178,10 @@ header p{
 
   .ui.button, .ui.buttons .button {
       font-size: 0.9em;
+  }
+
+  #phansible .sticky-wrapper .stuck.peek {
+    left: 35px;
   }
 }
 
