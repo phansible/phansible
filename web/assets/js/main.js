@@ -106,9 +106,6 @@ Main.prototype.waypoints = function(){
         stuckClass: 'stuck'
     });
 
-    $.waypoints('refresh');
-    $.waypoints('refresh');
-
     //Activate menu items if passed on scroll
     $('h2').waypoint(function() {
         menu.find('a').removeClass('active teal');
