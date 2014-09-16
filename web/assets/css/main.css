@@ -201,8 +201,8 @@ header p{
     }
 
     #phansible .main.container {
-      margin-left: 10px;
-      width: 100%
+      margin-left: 9px;
+      width: 95%;
     }
     .ui.button, .ui.buttons .button {
       font-size: 0.9em;
