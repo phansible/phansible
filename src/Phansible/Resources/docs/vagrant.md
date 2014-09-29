@@ -63,20 +63,15 @@ This is a quick reference on the basic Vagrant commands:
             <td>When you want to recover a previously suspended vm</td>
         </tr>
         <tr>
-            <td>destroy</td>
-            <td>Destroys the virtual machine</td>
-            <td>When you want to start from scratch</td>
+            <td>ssh</td>
+            <td>Logs in via ssh (no password is required)</td>
+            <td>When you want to make manual changes or debug</td>
         </tr>
-      <tr>
-          <td>ssh</td>
-          <td>Logs in via ssh (no password is required)</td>
-          <td>When you want to make manual changes or debug</td>
-      </tr>
-      <tr>
-          <td>global-status</td>
-          <td>Shows global information about VMs</td>
-          <td>When you want to check which VMs are running and control them individually</td>
-      </tr>
+        <tr>
+            <td>global-status</td>
+            <td>Shows global information about VMs</td>
+            <td>When you want to check which VMs are running and control them individually</td>
+        </tr>
     </tbody>
 </table>
 
