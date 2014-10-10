@@ -77,6 +77,19 @@ Main.prototype.form = function() {
             .data('value'));
     });
 
+    buttons.filter('.database').on('click', function(){
+        $(this)
+            .addClass('active')
+            .addClass('green')
+            .siblings()
+            .removeClass('active')
+            .removeClass('green')
+            .addClass('black');
+
+        $('input[name=dbserver]').val($(this)
+            .data('value'));
+    });
+
     $('select.selectized').selectize({
         plugins: ['remove_button'],
         delimiter: ',',

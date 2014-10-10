@@ -1,12 +1,25 @@
 <h2 class="ui dividing header" id="section-database">Database</h2>
 <section>
     <h3 class="ui header">Instructions:</h3>
-    <p>Choose the Mysql configuration you want to use.</p>
+    <p>Choose the Database you want to use.</p>
     <div class="ui piled segment">
         <div class="ui top attached black label">Details</div>
         <div class="field">
-            <input type="hidden" id="database-status" name="database-status" value="0" />
-            <div class="ui fluid toggle black button database">Disabled</div>
+            <div class="three fluid ui buttons">
+
+                {% set default_database = '' %}
+
+                {% for key,database in config.databases %}
+                    {% if database.checked is defined %}
+                        {% set default_database = key %}
+                        <div class="ui green active button database checked" data-value="{{ key }}">{{ database.name }}</div>
+                    {% else %}
+                        <div class="ui black button database" data-value="{{ key }}">{{ database.name }}</div>
+                    {% endif %}
+                {% endfor %}
+
+                <input type="hidden" id="dbserver" name="dbserver" value="{{ default_database }}" />
+            </div>
         </div>
 
         <div class="three fields">

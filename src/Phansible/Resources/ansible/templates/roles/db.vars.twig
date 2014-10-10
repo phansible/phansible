@@ -1,0 +1,7 @@
+db:
+{% for dbvar in variables.db_vars %}
+  -
+    db: {{ dbvar.db }}
+    user: {{ dbvar.user }}
+    pass: {{ dbvar.pass }}
+{% endfor %}
