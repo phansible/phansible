@@ -253,6 +253,14 @@ div.mainFooter p {
     line-height: 1.7em;
 }
 
+div.mainFooter .column i {
+  float: left;
+}
+
+div.mainFooter .ui.grid {
+  margin-left: 2%;
+}
+
 div.footerNotice {
     background-color: #cccccc;
     padding: 20px 0;
