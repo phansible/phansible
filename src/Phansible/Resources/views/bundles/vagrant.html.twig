@@ -8,7 +8,7 @@
                 <label for="baseBox">Base Box:</label>
 
                 <select id="baseBox" name="baseBox" class="select-one">
-                    <option value="trusty64">Ubuntu Trusty Tahr (14.04) 64</option>
+                    <option value="trusty64">Ubuntu Trusty Tahr (14.04) [LTS] 64</option>
                     {% for key,info in config.boxes.virtualbox %}
                         <option value="{{ key }}">{{ info.name }}</option>
                     {% endfor %}
