@@ -3,16 +3,20 @@
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items:
-    - pgsql-server
-    - pgsql-client
-    - python-pgsqldb
+    - postgresql-9.3
+    - postgresql-client-9.3
+    - python-pygresql
+    - python-psycopg2
+
 
 - name: pgsql | Create databases
   sudo: yes
-  mysql_db: name={{ item.db }} state=present
+  sudo_user: postgres
+  postgresql_db: name={{ database.db }} state=present
   with_items: pgsql
 
 - name: pgsql | Create users
   sudo: yes
-  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.db }}.*:ALL state=present
+  sudo_user: postgres
+  postgresql_user: name={{ database.user }} password={{ database.pass }} db={{ database.db }} priv=ALL
   with_items: pgsql

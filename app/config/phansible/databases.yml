@@ -5,12 +5,12 @@ databases:
     include:
       - mysql
 
-  mariadb:
-    name: MariaDB
-    include:
-      - mariadb
+#  mariadb:
+#    name: MariaDB
+#    include:
+#      - mariadb
 
-  pgsql:
+  pgsql :
     name: PostgreSQL
     include:
-      - pgsql
+      - postgresql-9.3

@@ -16,6 +16,10 @@
   sudo: yes
   apt_repository: repo=ppa:ondrej/{{ php_ppa }}
 
+- name: Add pgdg Repository
+  sudo: yes
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main' state=present
+
 - name: Update apt
   sudo: yes
   apt: update_cache=yes
@@ -25,12 +29,12 @@
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
 
-- name: Make sure project directory exists
-  sudo: yes
-  file: path={{ project_root }} state=directory owner={{ system_user }} group={{ system_group }}
+#- name: Make sure project directory exists
+#  sudo: yes
+#  file: path={{ project_root }} state=directory owner={{ system_user }} group={{ system_group }}
 
-- name: Set system ACL mask
-  shell: 'setfacl -Rn -m m:rwX {{ project_root }}'
+#- name: Set system ACL mask
+#  shell: 'setfacl -Rn -m m:rwX {{ project_root }}'
 
-- name: Set system user ACLs
-  shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX {{ project_root }}'
+#- name: Set system user ACLs
+#  shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX {{ project_root }}'

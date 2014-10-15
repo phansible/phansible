@@ -15,6 +15,14 @@
   sudo: yes
   apt_repository: repo=ppa:ondrej/{{ php_ppa }}
 
+- name: pgsql | Add pgdg Repository
+  sudo: yes
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main' state=present
+
+- name: pgsql | Add pgdp Keys
+  sudo: yes
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
 - name: Update apt
   sudo: yes
   apt: update_cache=yes
