@@ -9,10 +9,10 @@
 
 - name: mysql | Create databases
   sudo: yes
-  mysql_db: name={{ item.db }} state=present
+  mysql_db: name={{ database.db }} state=present
   with_items: mysql
 
 - name: mysql | Create users
   sudo: yes
-  mysql_user: name={{ item.user }} password={{ item.pass }} priv={{ item.db }}.*:ALL state=present
+  mysql_user: name={{ database.user }} password={{ database.pass }} priv={{ database.db }}.*:ALL state=present
   with_items: mysql

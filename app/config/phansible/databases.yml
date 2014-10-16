@@ -5,10 +5,10 @@ databases:
     include:
       - mysql
 
-#  mariadb:
-#    name: MariaDB
-#    include:
-#      - mariadb
+  mariadb:
+    name: MariaDB
+    include:
+      - mariadb
 
   pgsql :
     name: PostgreSQL
