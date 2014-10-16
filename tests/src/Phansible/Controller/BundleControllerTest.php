@@ -260,6 +260,38 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Phansible\Controller\BundleController::setupDatabase
+     */
+    public function testSetupDBWithWrongDB()
+    {
+        $this->request->expects($this->at(0))
+            ->method('get')
+            ->with('dbserver')
+            ->will($this->returnValue('mariadb'));
+
+        $playbook = new PlaybookRenderer();
+
+        $this->assertNull($this->controller->setupDatabase($playbook, $this->request));
+
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupDatabase
+     */
+    public function testSetupDBWithoutDB()
+    {
+        $this->request->expects($this->at(0))
+            ->method('get')
+            ->with('dbserver')
+            ->will($this->returnValue(''));
+
+        $playbook = new PlaybookRenderer();
+
+        $this->assertNull($this->controller->setupDatabase($playbook, $this->request));
+
+    }
+
+    /**
      * @covers \Phansible\Controller\BundleController::setupComposer
      */
     public function testSetupComposer()
