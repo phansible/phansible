@@ -47,9 +47,26 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
+        $databases = [
+            'mysql' => [
+                'name' => 'MySQL',
+                'checked' => 'yes',
+                'include' => [
+                    'mysql',
+                ]
+            ],
+            'pgsql' => [
+                'name' => 'PostgreSQL',
+                'include' => [
+                    'postgresql-9.3',
+                ]
+            ],
+        ];
+
         $this->container = new \Pimple();
         $this->container['webservers'] = $webservers;
         $this->container['boxes'] = $boxes;
+        $this->container['databases'] = $databases;
 
         $this->controller->setPimple($this->container);
 
@@ -179,14 +196,14 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\BundleController::setupMysql
+     * @covers \Phansible\Controller\BundleController::setupDatabase
      */
     public function testSetupMysql()
     {
         $this->request->expects($this->at(0))
             ->method('get')
-            ->with('database-status')
-            ->will($this->returnValue(1));
+            ->with('dbserver')
+            ->will($this->returnValue('mysql'));
 
         $this->request->expects($this->at(1))
             ->method('get')
@@ -205,9 +222,41 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
 
         $playbook = new PlaybookRenderer();
 
-        $this->controller->setupMysql($playbook, $this->request);
+        $this->controller->setupDatabase($playbook, $this->request);
 
         $this->assertContains('mysql', $playbook->getRoles());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupDatabase
+     */
+    public function testSetupPostgreSQL()
+    {
+        $this->request->expects($this->at(0))
+            ->method('get')
+            ->with('dbserver')
+            ->will($this->returnValue('pgsql'));
+
+        $this->request->expects($this->at(1))
+            ->method('get')
+            ->with('user')
+            ->will($this->returnValue('user'));
+
+        $this->request->expects($this->at(2))
+            ->method('get')
+            ->with('password')
+            ->will($this->returnValue('pass'));
+
+        $this->request->expects($this->at(3))
+            ->method('get')
+            ->with('database')
+            ->will($this->returnValue('db'));
+
+        $playbook = new PlaybookRenderer();
+
+        $this->controller->setupDatabase($playbook, $this->request);
+
+        $this->assertContains('pgsql', $playbook->getRoles());
     }
 
     /**
