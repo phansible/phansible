@@ -76,22 +76,13 @@ header p{
 #phansible .main.container {
   position: relative;
   padding-bottom: 150px;
-  margin-left: 380px;
 }
-
 #phansible .main.container > h2 {
   -webkit-transition: 0.5s color ease;
   -moz-transition: 0.5s color ease;
   -o-transition: 0.5s color ease;
   -ms-transition: 0.5s color ease;
   transition: 0.5s color ease;
-}
-
-#phansible .peek {
-  position: absolute;
-  top: 0px;
-  left: -265px;
-  width: 180px;
 }
 
 #phansible .phansible > p ,
@@ -133,31 +124,12 @@ header p{
   top:50px;
 }
 
-#phansible .sticky-wrapper {
-  height: 0px !important;
-}
-
-#phansible .sticky-wrapper .stuck.peek {
-  position: fixed;
-  top: 50px;
-  left: 119px;
-}
-
 @media only screen and (max-width : 1725px) {
     header {
         margin: 0px 0px 3em;
         padding-top: 60px;
         padding-bottom: 60px;
     }
-
-    #phansible .main.container {
-      margin-left: 30%;
-      width: 60%;
-    }
-
-  #phansible .sticky-wrapper .stuck.peek {
-    left: 95px;
-  }
 }
 
 @media only screen and (max-width : 1100px) {
@@ -170,25 +142,9 @@ header p{
     width: auto;
     margin: 0% 30px 0px;
   }
-
-  #phansible .main.container {
-    margin-left: 300px;
-    width: 60%;
-  }
-
-  .ui.button, .ui.buttons .button {
-      font-size: 0.9em;
-  }
-
-  #phansible .sticky-wrapper .stuck.peek {
-    left: 35px;
-  }
 }
 
 @media only screen and (max-width : 480px) {
-    #phansible .sticky-wrapper {
-        display:none;
-    }
 
     #phansible .main.menu .icon.item {
         display: none;
@@ -217,14 +173,6 @@ header p{
         padding: 0px;
         width: 100%;
     }
-
-    #phansible .main.container {
-      margin-left: 9px;
-      width: 95%;
-    }
-    .ui.button, .ui.buttons .button {
-      font-size: 0.9em;
-    }
 }
 
 pre code {
@@ -232,7 +180,6 @@ pre code {
     display: block;
     color: #c5c5c5;
     padding: 15px 10px;
-    overflow-x: auto;
 }
 
 div.mainFooter {
@@ -251,14 +198,6 @@ div.mainFooter a:hover {
 
 div.mainFooter p {
     line-height: 1.7em;
-}
-
-div.mainFooter .column i {
-  float: left;
-}
-
-div.mainFooter .ui.grid {
-  margin-left: 2%;
 }
 
 div.footerNotice {
