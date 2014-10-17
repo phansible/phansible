@@ -100,8 +100,6 @@ class BundleController extends Controller
 
         $dbVars->setTemplate('roles/db.vars.twig');
         $playbook->addVarsFile($dbVars);
-
-      //  $playbook->addVar('db_server', $dbservers[$dbserver]);
     }
 
     /**
