@@ -41,7 +41,7 @@ header {
     border-bottom: 4px solid #36677A;
 }
 
-header h1 {
+header img.logo {
     color: #FFF;
     font-size: 60px;
     margin: 20px 0px 0px 0px;
@@ -161,7 +161,7 @@ header p{
     header {
         margin: 0px 0px 3em;
         padding-top: 50px;
-        padding-bottom: 50px;
+        padding-bottom: 40px;
     }
 
     h1 {
