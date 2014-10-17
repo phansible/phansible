@@ -3,33 +3,28 @@
 {% extends "main.html.twig" %}
 
 {% block content %}
-    <div class="ui grid">
-        <div class="left floated four wide column">
 
-            <div class="ui vertical pointing secondary menu">
+    <div class="peek">
+        <div class="ui vertical pointing secondary menu">
 
-                <a class="active teal item" href="#section-vagrant">Machine Settings</a>
-                <a class="item" href="#section-webserver">Web Server</a>
-                <a class="item" href="#section-php">PHP Settings</a>
-                <a class="item" href="#section-database">Databases</a>
-                <a class="item" href="#section-syspackages">Additional Software</a>
-                <a class="item" href="#section-timezone">Timezone</a>
-            </div>
-        </div>
-
-        <div class="right floated twelve wide column">
-            <form class="ui form" method="POST" action="/generate">
-
-                {% for bundle in config.bundles %}
-                    {% include "bundles/"~bundle~".html.twig" %}
-                {% endfor %}
-
-                <section>
-                    <button class="ui fluid labeled purple icon button" type="submit"><i class="download cloud icon"></i> Generate</button>
-                </section>
-
-            </form>
-
+            <a class="active teal item" href="#section-vagrant">Machine Settings</a>
+            <a class="item" href="#section-webserver">Web Server</a>
+            <a class="item" href="#section-php">PHP Settings</a>
+            <a class="item" href="#section-database">Databases</a>
+            <a class="item" href="#section-syspackages">Additional Software</a>
+            <a class="item" href="#section-timezone">Timezone</a>
         </div>
     </div>
+
+    <form class="ui form" method="POST" action="/generate">
+
+        {% for bundle in config.bundles %}
+            {% include "bundles/"~bundle~".html.twig" %}
+        {% endfor %}
+
+        <section>
+            <button class="ui fluid labeled purple icon button" type="submit"><i class="download cloud icon"></i> Generate</button>
+        </section>
+
+    </form>
 {% endblock %}

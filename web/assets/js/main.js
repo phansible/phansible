@@ -100,9 +100,10 @@ Main.prototype.form = function() {
 Main.prototype.waypoints = function(){
 
     //Sticky menu
-    var menu = $('.ui.secondary.vertical.pointing.menu');
+    var menu = $('.peek');
     menu.waypoint('sticky', {
-        offset: 50 // Apply "stuck" when element 50px from top
+        offset: 50, // Apply "stuck" when element 50px from top
+        stuckClass: 'stuck'
     });
 
     //Activate menu items if passed on scroll
