@@ -5,6 +5,7 @@
 
 namespace Phansible\Controller;
 
+use Phansible\Application;
 use Phansible\Renderer\PlaybookRenderer;
 
 class BundleControllerTest extends \PHPUnit_Framework_TestCase
@@ -47,9 +48,32 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
+        $databases = [
+            'mysql' => [
+                'name' => 'MySQL',
+                'checked' => 'yes',
+                'include' => [
+                    'mysql',
+                ]
+            ],
+            'pgsql' => [
+                'name' => 'PostgreSQL',
+                'include' => [
+                    'postgresql-9.3',
+                ]
+            ],
+            'mariadb' => [
+                'name' => 'MariaDB',
+                'include' => [
+                    'mariadb',
+                ]
+            ],
+        ];
+
         $this->container = new \Pimple();
         $this->container['webservers'] = $webservers;
         $this->container['boxes'] = $boxes;
+        $this->container['databases'] = $databases;
 
         $this->controller->setPimple($this->container);
 
@@ -127,49 +151,27 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getVagrantfileProvider
      * @covers \Phansible\Controller\BundleController::getVagrantfile
      */
-    public function testGetVagrantfile()
+    public function testGetVagrantfile($useCloud)
     {
-        $this->request->expects($this->at(0))
+        $this->request->expects($this->any())
             ->method('get')
-            ->with('vmname')
-            ->will($this->returnValue('VMName'));
+            ->will($this->returnCallback(function($key) use ($useCloud){
+                $params = array(
+                    'vmname' => 'VMName',
+                    'baseBox' => 'precise64',
+                    'memory'  => '512',
+                    'ipAddress' => '192.168.11.11',
+                    'sharedFolder' => './',
+                    'enableWindows' => '1',
+                    'syncType' => 'nfs',
+                    'useVagrantCloud' => $useCloud,
+                );
 
-        $this->request->expects($this->at(1))
-            ->method('get')
-            ->with('baseBox')
-            ->will($this->returnValue('precise64'));
-
-        $this->request->expects($this->at(2))
-            ->method('get')
-            ->with('memory')
-            ->will($this->returnValue('512'));
-
-        $this->request->expects($this->at(3))
-            ->method('get')
-            ->with('ipAddress')
-            ->will($this->returnValue('192.168.11.11'));
-
-        $this->request->expects($this->at(4))
-            ->method('get')
-            ->with('sharedFolder')
-            ->will($this->returnValue('./'));
-
-        $this->request->expects($this->at(5))
-            ->method('get')
-            ->with('enableWindows')
-            ->will($this->returnValue('1'));
-
-        $this->request->expects($this->at(6))
-            ->method('get')
-            ->with('syncType')
-            ->will($this->returnValue('nfs'));
-
-        $this->request->expects($this->at(7))
-            ->method('get')
-            ->with('useVagrantCloud')
-            ->will($this->returnValue('1'));
+                return isset($params[$key])?$params[$key]:null;
+            }));
 
         $vagrantfile = $this->controller->getVagrantfile($this->request);
 
@@ -178,36 +180,62 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('512', $vagrantfile->getMemory());
     }
 
-    /**
-     * @covers \Phansible\Controller\BundleController::setupMysql
-     */
-    public function testSetupMysql()
+    public function getVagrantfileProvider()
     {
-        $this->request->expects($this->at(0))
-            ->method('get')
-            ->with('database-status')
-            ->will($this->returnValue(1));
+        return array(
+            array('1'),
+            array('0'),
+        );
+    }
 
-        $this->request->expects($this->at(1))
+    /**
+     * @dataProvider setupDatabaseProvider
+     * @covers \Phansible\Controller\BundleController::setupDatabase
+     */
+    public function testSetupDatabase($database, $expectsResult)
+    {
+        $this->request->expects($this->any())
             ->method('get')
-            ->with('user')
-            ->will($this->returnValue('user'));
+            ->will($this->returnCallback(function($key) use ($database){
+                $param = array(
+                    'dbserver' => $database,
+                    'user'     => 'user',
+                    'password' => 'pass',
+                    'database' => 'db',
+                );
 
-        $this->request->expects($this->at(2))
-            ->method('get')
-            ->with('password')
-            ->will($this->returnValue('pass'));
-
-        $this->request->expects($this->at(3))
-            ->method('get')
-            ->with('database')
-            ->will($this->returnValue('db'));
+                return isset($param[$key])?$param[$key]:null;
+            }));
 
         $playbook = new PlaybookRenderer();
 
-        $this->controller->setupMysql($playbook, $this->request);
+        if ($expectsResult) {
+            $this->controller->setupDatabase($playbook, $this->request);
+            $this->assertContains($database, $playbook->getRoles());
+            $varFiles = $playbook->getVarsFiles();
+            $this->assertArrayHasKey(0, $varFiles);
+            $this->assertArrayNotHasKey(1, $varFiles);
+            $varFile = $varFiles[0];
+            $this->assertInstanceof('\Phansible\Renderer\VarfileRenderer', $varFile);
+            $this->assertEquals(array('variables' => array('db_vars' => array(array(
+                'user' => 'user',
+                'pass' => 'pass',
+                'db' => 'db',
+            )))), $varFile->getData());
+        } else {
+            $this->assertNull($this->controller->setupDatabase($playbook, $this->request));
+        }
+    }
 
-        $this->assertContains('mysql', $playbook->getRoles());
+    public function setupDatabaseProvider()
+    {
+        return array(
+            array('pgsql', true),
+            array('mysql', true),
+            array('mariadb', true),
+            array('foo', false),
+            array('', false),
+        );
     }
 
     /**
@@ -270,6 +298,26 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testOutputBundle()
     {
+        $app = $this->getMockBuilder('\Phansible\Application')
+            ->disableOriginalConstructor()
+            ->setMethods(['stream'])
+            ->getMock();
 
+        $path = __DIR__ . '/_assets/test';
+        $app->expects($this->once())
+            ->method('stream')
+            ->will($this->returnCallback(function($callback, $status, $headers){
+                return new \Symfony\Component\HttpFoundation\StreamedResponse($callback, $status, $headers);
+            }));
+
+        $result = $this->controller->outputBundle($path, $app, 'foobar');
+
+        ob_start();
+        $result->sendContent();
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals(file_get_contents($path), $content);
     }
+
 }

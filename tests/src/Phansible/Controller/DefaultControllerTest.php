@@ -43,6 +43,7 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
         $container['boxes'] = [];
         $container['syspackages'] = [];
         $container['phppackages'] = [];
+        $container['databases'] = [];
 
         $this->controller->setPimple($container);
         $this->controller->indexAction();

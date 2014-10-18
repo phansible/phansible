@@ -33,7 +33,7 @@ class BundleController extends Controller
         /** Get Playbook */
         $playbook = $this->getPlaybook($request);
 
-        $this->setupMysql($playbook, $request);
+        $this->setupDatabase($playbook, $request);
         $this->setupComposer($playbook, $request);
         $this->setupXDebug($playbook, $request);
 
@@ -71,26 +71,35 @@ class BundleController extends Controller
      * @param PlaybookRenderer $playbook
      * @param Request $request
      */
-    public function setupMysql(PlaybookRenderer $playbook, Request $request)
+    public function setupDatabase(PlaybookRenderer $playbook, Request $request)
     {
         /** Databases */
-        if ($request->get('database-status')) {
-            $playbook->addRole('mysql');
-
-            $mysqlVars = new VarfileRenderer('mysql');
-            $mysqlVars->add('mysql_vars', [
-                [
-                    'user' => $request->get('user'),
-                    'pass' => $request->get('password'),
-                    'db'   => $request->get('database'),
-                ]
-            ], false);
-
-            $mysqlVars->setTemplate('roles/mysql.vars.twig');
-            $playbook->addVarsFile($mysqlVars);
-
-            $this->addPhpPackage('php5-mysql');
+        $dbserver  = $request->get('dbserver');
+        if (! $dbserver) {
+            // No DB-Server wanted
+            return;
         }
+
+        $dbservers = $this->get('databases');
+        if (! array_key_exists($dbserver, $dbservers)) {
+
+            // DB-Server wanted that we do not provide.
+            return;
+        }
+
+        $playbook->addRole($dbserver);
+
+        $dbVars = new VarfileRenderer($dbserver);
+        $dbVars->add('db_vars', [
+            [
+                'user' => $request->get('user'),
+                'pass' => $request->get('password'),
+                'db'   => $request->get('database'),
+            ]
+        ], false);
+
+        $dbVars->setTemplate('roles/db.vars.twig');
+        $playbook->addVarsFile($dbVars);
     }
 
     /**

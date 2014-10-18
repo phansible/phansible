@@ -25,6 +25,7 @@ class DefaultController extends Controller
         $config['webservers']  = $this->get('webservers');
         $config['syspackages'] = $this->get('syspackages');
         $config['phppackages'] = $this->get('phppackages');
+        $config['databases']   = $this->get('databases');
 
         $config['timezones'] = DateTimeZone::listIdentifiers();
 

@@ -1,0 +1,16 @@
+databases:
+  mysql:
+    name: MySQL
+    checked: yes
+    include:
+      - mysql
+
+  mariadb:
+    name: MariaDB
+    include:
+      - mariadb
+
+  pgsql :
+    name: PostgreSQL
+    include:
+      - postgresql-9.3
