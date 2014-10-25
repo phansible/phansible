@@ -142,6 +142,10 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('myShinyNewApp.io'));
         $this->request->expects($this->at(2))
             ->method('get')
+            ->with('ipAddress')
+            ->will($this->returnValue('192.168.11.12'));
+        $this->request->expects($this->at(3))
+            ->method('get')
             ->with('timezone')
             ->will($this->returnValue('UTC'));
 
