@@ -175,7 +175,7 @@ class BundleController extends Controller
 
         $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
-        $playbook->addVar('servername', trim($request->get('servername')));
+        $playbook->addVar('servername', trim($request->get('servername')) . ' ' . $request->get('ipAddress'));
         $playbook->addRole('init');
         $playbook->addRole('php5-cli');
         $playbook->addVar('timezone', $request->get('timezone'));
