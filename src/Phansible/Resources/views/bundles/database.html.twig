@@ -5,17 +5,12 @@
     <div class="ui piled segment">
         <div class="ui top attached black label">Details</div>
         <div class="field">
-            <div class="three fluid ui buttons">
+            <div class="four fluid ui buttons">
 
                 {% set default_database = '' %}
-
+                <div class="ui green active button database checked" data-value="0">Disabled</div>
                 {% for key,database in config.databases %}
-                    {% if database.checked is defined %}
-                        {% set default_database = key %}
-                        <div class="ui green active button database checked" data-value="{{ key }}">{{ database.name }}</div>
-                    {% else %}
-                        <div class="ui black button database" data-value="{{ key }}">{{ database.name }}</div>
-                    {% endif %}
+                   <div class="ui black button database" data-value="{{ key }}">{{ database.name }}</div>
                 {% endfor %}
 
                 <input type="hidden" id="dbserver" name="dbserver" value="{{ default_database }}" />
