@@ -110,7 +110,13 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setPhpPackages(['php5-xdebug', 'php5-curl']);
 
         $this->assertContains('php5-curl', $this->controller->getPhpPackages());
+    }
 
+    /**
+     * @covers \Phansible\Controller\BundleController::getPhpPackages
+     */
+    public function testPhpPackagesAreUnique()
+    {
         $this->controller->setPhpPackages(['php5-xdebug', 'php5-xdebug']);
 
         $this->assertCount(1, $this->controller->getPhpPackages());
