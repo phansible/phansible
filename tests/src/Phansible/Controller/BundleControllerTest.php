@@ -110,6 +110,10 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setPhpPackages(['php5-xdebug', 'php5-curl']);
 
         $this->assertContains('php5-curl', $this->controller->getPhpPackages());
+
+        $this->controller->setPhpPackages(['php5-xdebug', 'php5-xdebug']);
+
+        $this->assertCount(1, $this->controller->getPhpPackages());
     }
 
     /**
@@ -229,6 +233,30 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertNull($this->controller->setupDatabase($playbook, $this->request));
         }
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupDatabase
+     */
+    public function testSelectingMysqlEnablesPhpMysqlPackage()
+    {
+        $playbook = new PlaybookRenderer();
+        $this->request->expects($this->any())
+            ->method('get')
+            ->will($this->returnCallback(function($key) {
+                        $param = array(
+                            'dbserver' => 'mysql',
+                            'user'     => 'user',
+                            'password' => 'pass',
+                            'database' => 'db',
+                        );
+
+                        return isset($param[$key])?$param[$key]:null;
+                    }));
+
+        $this->controller->setupDatabase($playbook, $this->request);
+
+        $this->assertContains('php5-mysql', $this->controller->getPhpPackages());
     }
 
     public function setupDatabaseProvider()
