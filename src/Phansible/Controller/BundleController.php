@@ -89,6 +89,11 @@ class BundleController extends Controller
 
         $playbook->addRole($dbserver);
 
+        // Enable php-mysql package when user selected mysql as db provider
+        if ($dbserver === 'mysql') {
+            $this->addPhpPackage('php5-mysql');
+        }
+
         $dbVars = new VarfileRenderer($dbserver);
         $dbVars->add('db_vars', [
             [

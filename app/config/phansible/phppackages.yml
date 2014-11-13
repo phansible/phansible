@@ -20,6 +20,7 @@ phppackages:
   - php5-mcrypt
   - php5-memcache
   - php5-memcached
+  - php5-mysql
   - php5-odbc
   - php5-pspell
   - php5-readline
