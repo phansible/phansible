@@ -22,6 +22,7 @@ Vagrant.configure("2") do |config|
     config.vm.provider :virtualbox do |v|
         v.name = "{{ vmName }}"
         v.customize ["modifyvm", :id, "--memory", {{ memory }}]
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
 
     config.vm.box = "{{ boxName }}"
