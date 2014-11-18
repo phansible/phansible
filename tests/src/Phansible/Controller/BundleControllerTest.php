@@ -358,4 +358,15 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(file_get_contents($path), $content);
     }
 
+    /**
+     * @covers \Phansible\Controller\BundleController::getPeclPackages
+     * @covers \Phansible\Controller\BundleController::setPeclPackages
+     */
+    public function testShouldSetAndGetPeclPackages()
+    {
+        $packages = [];
+
+        $this->controller->setPeclPackages($packages);
+        $this->assertEquals($packages, $this->controller->getPeclPackages());
+    }
 }

@@ -19,6 +19,8 @@ class BundleController extends Controller
 {
     protected $phpPackages = [];
 
+    protected $peclPackages = [];
+
     public function indexAction(Request $request, Application $app)
     {
         $vagrant = new VagrantBundle($this->get('ansible.path'));
@@ -257,5 +259,17 @@ class BundleController extends Controller
         $webServerKey = array_key_exists($webServerKey, $webservers) ? $webServerKey : 'nginxphp';
 
         return $webservers[$webServerKey];
+    }
+
+    public function getPeclPackages()
+    {
+        return array_unique($this->peclPackages);
+    }
+
+    public function setPeclPackages(array $packages)
+    {
+        $this->peclPackages = $packages;
+
+        return $this;
     }
 }
