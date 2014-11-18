@@ -33,5 +33,17 @@
                 {% endfor %}
             </select>
         </div>
+        <div class="field">
+            <label for="peclpackages">PECL Packages:</label>
+            <select id="peclpackages" name="peclpackages[]" class="selectized" multiple>
+                {% for key, values in config.peclpackages %}
+                    <optgroup label="{{ key }}">
+                        {% for package in values %}
+                        <option value="{{ package }}">{{ package }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
     </div>
 </section>

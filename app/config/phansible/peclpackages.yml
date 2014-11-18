@@ -1,0 +1,334 @@
+peclpackages:
+    Authentication:
+        - courierauth
+        - PAM
+        - radius
+        - sasl
+    Benchmarking:
+        - DTrace
+        - inclued
+    Caching:
+        - APC
+        - APCu
+        - chdb
+        - coherence
+        - hidef
+        - memcache
+        - memcached
+        - memoize
+        - memoize_apc
+        - memoize_memcached
+        - memoize_memory
+        - varnish
+        - WinCache
+        - ZendOpcache
+    Configuration:
+        - augeas
+        - zookeeper
+    Console:
+        - ncurses
+        - newt
+        - tvision
+        - xmms
+    Database:
+        - couchbase
+        - CUBRID
+        - daffodildb
+        - dbase
+        - DBDO
+        - dbplus
+        - dbx
+        - drizzle
+        - filepro
+        - hwapi
+        - ibm_db2
+        - informix
+        - ingres
+        - isis
+        - lchash
+        - leveldb
+        - maxdb
+        - mdbtools
+        - mongo
+        - mysql
+        - mysqlnd_memcache
+        - mysqlnd_ms
+        - mysqlnd_qc
+        - mysqlnd_uh
+        - notes
+        - oci8
+        - odbtp
+        - Ovrimos
+        - Paradox
+        - PDO
+        - PDO_4D
+        - PDO_CUBRID
+        - PDO_DBLIB
+        - PDO_FIREBIRD
+        - PDO_IBM
+        - PDO_INFORMIX
+        - PDO_MYSQL
+        - PDO_OCI
+        - PDO_ODBC
+        - PDO_PGSQL
+        - PDO_SQLANYWHERE
+        - PDO_SQLITE
+        - pdo_sqlsrv
+        - pdo_user
+        - PDO_XML
+        - pq
+        - redis
+        - sqlanywhere
+        - SQLite
+        - sqlite3
+        - sqlsrv
+        - tdb
+        - tokyo_tyrant
+    Date and Time:
+        - date_time
+        - timezonedb
+    Encryption:
+        - BLENC
+        - gnupg
+        - mcrypt_filter
+    Event:
+        - eio
+        - ev
+        - libevent
+    File Formats:
+        - archive
+        - bz2
+        - cpdf
+        - Fileinfo
+        - fpdf
+        - haru
+        - id3
+        - lzf
+        - qqwry
+        - rar
+        - rpmreader
+        - syck
+        - yaml
+        - zip
+    File System:
+        - dazuko
+        - fuse
+        - inotify
+        - mogilefs
+        - xattr
+    GUI:
+        - php_xcb
+        - tk
+        - win32std
+        - WinBinder
+        - wxwidgets
+    HTML:
+        - html_parse
+        - tidy
+    HTTP:
+        - pecl_http
+        - txforward
+        - uri_template
+    Images:
+        - cairo
+        - cairo_wrapper
+        - framegrab
+        - FreeImage
+        - GDChart
+        - gmagick
+        - imagick
+        - imlib2
+        - pango
+        - rsvg
+    Internationalization:
+        - cld
+        - fribidi
+        - gender
+        - idn
+        - intl
+        - translit
+        - unicode
+        - unicodestring
+    Languages:
+        - lua
+        - perl
+        - python
+        - spidermonkey
+        - v8js
+    Mail:
+        - mailparse
+        - POP3
+        - vpopmail
+    Math:
+        - big_int
+        - lapack
+        - stats
+        - trader
+    Multimedia:
+        - ecasound
+        - ming
+        - sdl
+    Networking:
+        - amqp
+        - ares
+        - cvsclient
+        - cyrus
+        - DBus
+        - esmtp
+        - event
+        - gearman
+        - geoip
+        - gupnp
+        - IMS
+        - kadm5
+        - mqseries
+        - msession
+        - netools
+        - Net_Gopher
+        - ocal
+        - opendirectory
+        - perforce
+        - sam
+        - spread
+        - ssh2
+        - tcpwrap
+        - uuid
+        - yami
+        - yaz
+        - yp
+        - zeroconf
+    Numbers:
+        - Bitset
+    Payment:
+        - coin_acceptor
+        - cybercash
+        - cybermut
+        - mcve
+        - spplus
+        - TCLink
+    PHP:
+        - AOP
+        - apd
+        - APM
+        - automap
+        - bcompiler
+        - classkit
+        - docblock
+        - ffi
+        - funcall
+        - htscanner
+        - igbinary
+        - intercept
+        - llvm
+        - memsession
+        - memtrack
+        - meta
+        - mono
+        - operator
+        - optimizer
+        - params
+        - parsekit
+        - Parse_Tree
+        - phar
+        - PHK
+        - PHPScript
+        - postparser
+        - PreProcessor
+        - propro
+        - raphf
+        - runkit
+        - scream
+        - session_mysql
+        - tcc
+        - uploadprogress
+        - vld
+    Processing:
+        - amfext
+        - rrd
+        - shape
+    Search Engine:
+        - clucene
+        - mnogosearch
+        - solr
+        - sphinx
+        - swish
+    Security:
+        - selinux
+        - taint
+    Streams:
+        - oggvorbis
+        - openal
+    Structures:
+        - bloomy
+        - Judy
+        - quickhash
+        - Weakref
+    System:
+        - ApacheAccessor
+        - dio
+        - expect
+        - fam
+        - printer
+        - proctitle
+        - pthreads
+        - statgrab
+        - threads
+        - w32api
+        - win32ps
+        - win32ps_dll
+        - win32service
+        - yaf
+    Text:
+        - bbcode
+        - colorer
+        - doublemetaphone
+        - enchant
+        - jsmin
+        - markdown
+        - namazu
+        - panda
+        - pdflib
+        - ps
+        - re2
+        - ssdeep
+        - stem
+        - sundown
+        - TextCat
+        - xdiff
+    Tools and Utilities:
+        - clips
+        - crack
+        - crack_dll
+        - fann
+        - filter
+        - functional
+        - graphdat
+        - hash
+        - huffman
+        - msgpack
+        - pcsc
+        - PECL_Gen
+        - rsync
+        - SPL
+        - SPL_Types
+        - stomp
+        - svm
+        - udis86
+        - Valkyrie
+        - xrange
+    Virtualization:
+        - libvirt
+    Web Services:
+        - axis2
+        - json
+        - oauth
+        - SCA_SDO
+        - xcommerce
+        - yar
+    XML:
+        - domxml
+        - WBXML
+        - xmlReader
+        - XMLRPCi
+        - xmlwriter
+        - xslcache
