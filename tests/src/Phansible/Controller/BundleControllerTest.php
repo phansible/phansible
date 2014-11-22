@@ -356,11 +356,11 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     public function setupDatabaseProvider()
     {
         return array(
-            array('pgsql', true, true),
+            array('pgsql', 1, true),
             array('pgsql', 0, false),
-            array('mysql', true, true),
+            array('mysql', 1, true),
             array('mysql', 0, false),
-            array('mariadb', true, true),
+            array('mariadb', 1, true),
             array('mariadb', 0, false),
         );
     }
