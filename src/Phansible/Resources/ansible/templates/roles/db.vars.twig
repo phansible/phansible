@@ -1,7 +1,4 @@
-database:
-{% for dbvar in variables.db_vars %}
-    root_pass: {{ dbvar.root_pass }}
-    db: {{ dbvar.db }}
-    user: {{ dbvar.user }}
-    pass: {{ dbvar.pass }}
+{{ name }}:
+{% for key, value in variables %}
+    {{ key }}: {{ value|raw }}
 {% endfor %}

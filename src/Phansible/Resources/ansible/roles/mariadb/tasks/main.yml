@@ -19,7 +19,7 @@
     - python-mysqldb
 
 - name: mariadb | Update root password for all root accounts
-  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ database.root_pass }} login_user=root login_password={{ database.root_pass }}
+  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mariadb.root_password }} login_user=root login_password={{ mariadb.root_password }}
   with_items:
     - "{{ hostname }}"
     - 127.0.0.1
@@ -27,11 +27,7 @@
     - localhost
 
 - name: mariadb | Create databases
-  sudo: yes
-  mysql_db: name={{ database.db }} state=present login_user=root login_password={{ database.root_pass }}
-  with_items: mariadb
+  mysql_db: name={{ mariadb.database }} state=present login_user=root login_password={{ mariadb.root_password }}
 
 - name: mariadb | Create users
-  sudo: yes
-  mysql_user: name={{ database.user }} password={{ database.pass }} priv={{ database.db }}.*:ALL state=present login_user=root login_password={{ database.root_pass }}
-  with_items: mariadb
+  mysql_user: name={{ mariadb.user }} password={{ mariadb.password }} priv={{ mariadb.database }}.*:ALL state=present login_user=root login_password={{ mariadb.root_password }}

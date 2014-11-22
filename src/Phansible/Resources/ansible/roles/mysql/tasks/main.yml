@@ -8,7 +8,7 @@
     - python-mysqldb
 
 - name: mysql | Update root password for all root accounts
-  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ database.root_pass }} login_user=root login_password={{ database.root_pass }}
+  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mysql.root_password }} login_user=root login_password={{ mysql.root_password }}
   with_items:
     - "{{ hostname }}"
     - 127.0.0.1
@@ -16,11 +16,7 @@
     - localhost
 
 - name: mysql | Create databases
-  sudo: yes
-  mysql_db: name={{ database.db }} state=present login_user=root login_password={{ database.root_pass }}
-  with_items: mysql
+  mysql_db: name={{ mysql.database }} state=present login_user=root login_password={{ mysql.root_password }}
 
 - name: mysql | Create users
-  sudo: yes
-  mysql_user: name={{ database.user }} password={{ database.pass }} priv={{ database.db }}.*:ALL state=present login_user=root login_password={{ database.root_pass }}
-  with_items: mysql
+  mysql_user: name={{ mysql.user }} password={{ mysql.password }} priv={{ mysql.database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}

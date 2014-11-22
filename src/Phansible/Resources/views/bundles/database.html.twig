@@ -2,43 +2,112 @@
 <section>
     <h3 class="ui header">Instructions:</h3>
     <p>Choose the Database you want to use.</p>
-    <div class="ui piled segment">
-        <div class="ui top attached black label">Details</div>
-        <div class="field">
-            <div class="four fluid ui buttons">
-
-                {% set default_database = '' %}
-                <div class="ui green active button database checked" data-value="0">Disabled</div>
-                {% for key,database in config.databases %}
-                   <div class="ui black button database" data-value="{{ key }}">{{ database.name }}</div>
-                {% endfor %}
-
-                <input type="hidden" id="dbserver" name="dbserver" value="{{ default_database }}" />
+    <div class="ui pointing database menu tabs">
+        {% for key,database in config.databases %}
+        <a class="item" data-tab="{{ key }}">{{ database.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="ui tab segment" data-tab="mysql">
+        <div class="inline field">
+            <div class="ui checkbox">
+                <input class="update-other-input" type="checkbox" name="mysql[install]" data-update-mariadb[install]="0" value="1" />
+                <label>Install MySQL</label>
             </div>
         </div>
+        <p>If you install MySQL, you cannot install MariaDB.</p>
         <div class="field">
             <label for="root_password">Root Password:</label>
-            <input type="text" name="root_password" value="" />
+            <input type="text" name="mysql[root-password]" value="" />
         </div>
         <div class="three fields">
             <div class="field">
                 <label for="database">Database:</label>
                 <div class="ui disabled left labeled input">
-                    <input type="text" name="database" value="db" />
+                    <input type="text" name="mysql[database]" value="db" />
                 </div>
             </div>
 
             <div class="field">
                 <label for="user">User:</label>
                 <div class="ui left labeled input">
-                    <input type="text" name="user" value="user" />
+                    <input type="text" name="mysql[user]" value="user" />
                 </div>
             </div>
 
             <div class="field">
                 <label for="database">Password:</label>
                 <div class="ui left labeled input">
-                    <input type="text" name="password" value="password" />
+                    <input type="text" name="mysql[password]" value="password" />
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui tab segment" data-tab="mariadb">
+        <div class="inline field">
+            <div class="ui checkbox">
+                <input class="update-other-input" type="checkbox" name="mariadb[install]" data-update-mysql[install]="0" value="1" />
+                <label>Install MariaDb</label>
+            </div>
+        </div>
+        <div class="field">
+            <label for="root_password">Root Password:</label>
+            <input type="text" name="mariadb[root-password]" value="" />
+        </div>
+        <div class="three fields">
+            <div class="field">
+                <label for="database">Database:</label>
+                <div class="ui disabled left labeled input">
+                    <input type="text" name="mariadb[database]" value="db" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="user">User:</label>
+                <div class="ui left labeled input">
+                    <input type="text" name="mariadb[user]" value="user" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="database">Password:</label>
+                <div class="ui left labeled input">
+                    <input type="text" name="mariadb[password]" value="password" />
+                    <div class="ui corner label">
+                        <i class="icon asterisk"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui tab segment" data-tab="pgsql">
+        <div class="inline field">
+            <div class="ui checkbox">
+                <input type="checkbox" name="pgsql[install]" value="1" />
+                <label>Install PostgreSQL</label>
+            </div>
+        </div>
+        <div class="three fields">
+            <div class="field">
+                <label for="database">Database:</label>
+                <div class="ui disabled left labeled input">
+                    <input type="text" name="pgsql[database]" value="db" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="user">User:</label>
+                <div class="ui left labeled input">
+                    <input type="text" name="pgsql[user]" value="user" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="database">Password:</label>
+                <div class="ui left labeled input">
+                    <input type="text" name="pgsql[password]" value="password" />
                     <div class="ui corner label">
                         <i class="icon asterisk"></i>
                     </div>
