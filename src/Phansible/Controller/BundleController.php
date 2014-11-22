@@ -73,7 +73,7 @@ class BundleController extends Controller
      * @param PlaybookRenderer $playbook
      * @param Request $request
      */
-    protected function setupMysql(PlaybookRenderer $playbook, Request $request)
+    public function setupMysql(PlaybookRenderer $playbook, Request $request)
     {
         $config = $request->get('mysql');
         if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
@@ -97,7 +97,7 @@ class BundleController extends Controller
      * @param PlaybookRenderer $playbook
      * @param Request $request
      */
-    protected function setupMariadb(PlaybookRenderer $playbook, Request $request)
+    public function setupMariadb(PlaybookRenderer $playbook, Request $request)
     {
         $config = $request->get('mariadb');
         if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
@@ -121,7 +121,7 @@ class BundleController extends Controller
      * @param PlaybookRenderer $playbook
      * @param Request $request
      */
-    protected function setupPgsql(PlaybookRenderer $playbook, Request $request)
+    public function setupPgsql(PlaybookRenderer $playbook, Request $request)
     {
         $config = $request->get('pgsql');
         if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
@@ -132,7 +132,6 @@ class BundleController extends Controller
         $this->addPhpPackage('php5-pgsql');
 
         $dbVars = new VarfileRenderer('pgsql');
-        $dbVars->add('root_password', $config['root-password'], false);
         $dbVars->add('user', $config['user'], false);
         $dbVars->add('password', $config['password'], false);
         $dbVars->add('database', $config['database'], false);

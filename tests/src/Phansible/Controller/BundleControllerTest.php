@@ -204,47 +204,83 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider setupDatabaseProvider
-     * @covers \Phansible\Controller\BundleController::setupDatabase
      */
-    public function testSetupDatabase($database, $expectsResult)
+    public function testSetupDatabase($database, $install, $expectsResult)
     {
         $this->request->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(function($key) use ($database){
-                $param = array(
-                    'dbserver' => $database,
-                    'root_password' => 'root_pass',
+            ->will($this->returnCallback(function($key) use ($database, $install) {
+
+                $param = array($database => array(
+                    'install' => $install,
+                    'root-password' => 'root_pass',
                     'user'     => 'user',
                     'password' => 'pass',
                     'database' => 'db',
-                );
+                ));
 
                 return isset($param[$key])?$param[$key]:null;
             }));
 
         $playbook = new PlaybookRenderer();
+        switch ($database) {
+            case 'mysql':
+                $controllerFunction = 'setupMysql';
+                $expectedData = array(
+                  'variables' => array(
+                    'user' => 'user',
+                    'password' => 'pass',
+                    'root_password' => 'root_pass',
+                    'database' => 'db',
+                  ),
+                  'name' => $database,
+                );
+                break;
+            case 'mariadb':
+                $controllerFunction = 'setupMariadb';
+                $expectedData = array(
+                  'variables' => array(
+                    'user' => 'user',
+                    'password' => 'pass',
+                    'root_password' => 'root_pass',
+                    'database' => 'db',
+                  ),
+                  'name' => $database,
+                );
+                break;
+            case 'pgsql':
+                $controllerFunction = 'setupPgsql';
+                $expectedData = array(
+                  'variables' => array(
+                    'user' => 'user',
+                    'password' => 'pass',
+                    'database' => 'db',
+                  ),
+                  'name' => $database,
+                );
+                break;
+
+
+        }
 
         if ($expectsResult) {
-            $this->controller->setupDatabase($playbook, $this->request);
+            $this->controller->$controllerFunction($playbook, $this->request);
             $this->assertContains($database, $playbook->getRoles());
             $varFiles = $playbook->getVarsFiles();
             $this->assertArrayHasKey(0, $varFiles);
             $this->assertArrayNotHasKey(1, $varFiles);
             $varFile = $varFiles[0];
             $this->assertInstanceof('\Phansible\Renderer\VarfileRenderer', $varFile);
-            $this->assertEquals(array('variables' => array('db_vars' => array(array(
-                'user' => 'user',
-                'pass' => 'pass',
-                'root_pass' => 'root_pass',
-                'db' => 'db',
-            )))), $varFile->getData());
+            $this->assertEquals($expectedData, $varFile->getData());
         } else {
-            $this->assertNull($this->controller->setupDatabase($playbook, $this->request));
+            $this->assertNull($this->controller->$controllerFunction($playbook, $this->request));
         }
     }
 
+
+
     /**
-     * @covers \Phansible\Controller\BundleController::setupDatabase
+     * @covers \Phansible\Controller\BundleController::setupMysql
      */
     public function testSelectingMysqlEnablesPhpMysqlPackage()
     {
@@ -252,30 +288,80 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->request->expects($this->any())
             ->method('get')
             ->will($this->returnCallback(function($key) {
-                        $param = array(
-                            'dbserver' => 'mysql',
+                        $param = array('mysql' => array(
+                            'install' => 1,
                             'user'     => 'user',
-                            'password' => 'pass',
-                            'root_password' => 'root_pass',
-                            'database' => 'db',
-                        );
+                            'password' => 'password',
+                            'root-password' => 'root-password',
+                            'database' => 'database',
+                        ));
 
                         return isset($param[$key])?$param[$key]:null;
                     }));
 
-        $this->controller->setupDatabase($playbook, $this->request);
+        $this->controller->setupMysql($playbook, $this->request);
 
         $this->assertContains('php5-mysql', $this->controller->getPhpPackages());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupMysql
+     */
+    public function testSelectingMariadbEnablesPhpMysqlPackage()
+    {
+        $playbook = new PlaybookRenderer();
+        $this->request->expects($this->any())
+          ->method('get')
+          ->will($this->returnCallback(function($key) {
+              $param = array('mariadb' => array(
+                'install' => 1,
+                'user'     => 'user',
+                'password' => 'password',
+                'root-password' => 'root-password',
+                'database' => 'database',
+              ));
+
+              return isset($param[$key])?$param[$key]:null;
+          }));
+
+        $this->controller->setupMariadb($playbook, $this->request);
+
+        $this->assertContains('php5-mysql', $this->controller->getPhpPackages());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::setupMysql
+     */
+    public function testSelectingPgsqlEnablesPhpPgsqlPackage()
+    {
+        $playbook = new PlaybookRenderer();
+        $this->request->expects($this->any())
+          ->method('get')
+          ->will($this->returnCallback(function($key) {
+              $param = array('pgsql' => array(
+                'install' => 1,
+                'user'     => 'user',
+                'password' => 'password',
+                'database' => 'database',
+              ));
+
+              return isset($param[$key])?$param[$key]:null;
+          }));
+
+        $this->controller->setupPgsql($playbook, $this->request);
+
+        $this->assertContains('php5-pgsql', $this->controller->getPhpPackages());
     }
 
     public function setupDatabaseProvider()
     {
         return array(
-            array('pgsql', true),
-            array('mysql', true),
-            array('mariadb', true),
-            array('foo', false),
-            array('', false),
+            array('pgsql', true, true),
+            array('pgsql', 0, false),
+            array('mysql', true, true),
+            array('mysql', 0, false),
+            array('mariadb', true, true),
+            array('mariadb', 0, false),
         );
     }
 
