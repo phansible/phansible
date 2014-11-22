@@ -21,8 +21,13 @@ Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
         v.name = "{{ vmName }}"
-        v.customize ["modifyvm", :id, "--memory", {{ memory }}]
-        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize [
+            "modifyvm", :id,
+            "--name", "{{ vmName }}",
+            "--memory", {{ memory }},
+            "--natdnshostresolver1", "on",
+            "--cpus", 1,
+        ]
     end
 
     config.vm.box = "{{ boxName }}"
@@ -45,6 +50,10 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "ansible/playbook.yml"
             ansible.inventory_path = "ansible/inventories/dev"
             ansible.limit = 'all'
+            ansible.extra_vars = {
+                private_interface: "{{ ipAddress }}",
+                hostname: "{{ vmName }}"
+            }
         end
     else
         config.vm.provision :shell, path: "ansible/windows.sh"
@@ -56,6 +65,10 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "ansible/playbook.yml"
         ansible.inventory_path = "ansible/inventories/dev"
         ansible.limit = 'all'
+        ansible.extra_vars = {
+            private_interface: "{{ ipAddress }}",
+            hostname: "{{ vmName }}"
+        }
     end
     {% endif %}
 

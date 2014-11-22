@@ -213,6 +213,7 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function($key) use ($database){
                 $param = array(
                     'dbserver' => $database,
+                    'root_password' => 'root_pass',
                     'user'     => 'user',
                     'password' => 'pass',
                     'database' => 'db',
@@ -234,6 +235,7 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(array('variables' => array('db_vars' => array(array(
                 'user' => 'user',
                 'pass' => 'pass',
+                'root_pass' => 'root_pass',
                 'db' => 'db',
             )))), $varFile->getData());
         } else {
@@ -254,6 +256,7 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
                             'dbserver' => 'mysql',
                             'user'     => 'user',
                             'password' => 'pass',
+                            'root_password' => 'root_pass',
                             'database' => 'db',
                         );
 

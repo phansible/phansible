@@ -97,6 +97,7 @@ class BundleController extends Controller
         $dbVars = new VarfileRenderer($dbserver);
         $dbVars->add('db_vars', [
             [
+                'root_pass' => $request->get('root_password'),
                 'user' => $request->get('user'),
                 'pass' => $request->get('password'),
                 'db'   => $request->get('database'),
