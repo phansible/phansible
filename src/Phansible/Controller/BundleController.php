@@ -33,6 +33,8 @@ class BundleController extends Controller
     {
         $this->setPhpPackages($request->get('phppackages', array()));
 
+        $this->setPeclPackages($request->get('peclpackages', []));
+
         /** Get Inventory */
         $inventory = $this->getInventory($request);
 
@@ -50,15 +52,20 @@ class BundleController extends Controller
         $box = $this->getBox($vagrantfile->getBoxName());
 
         $playbook->createVarsFile('common', [
-                'php_ppa'      => $request->get('phpppa'),
-                'doc_root'     => $request->get('docroot'),
-                'sys_packages' => $request->get('syspackages', array()),
-                'dist'         => $box['deb'],
-                'php_packages' => $this->getPhpPackages()
+                'php_ppa'       => $request->get('phpppa'),
+                'doc_root'      => $request->get('docroot'),
+                'sys_packages'  => $request->get('syspackages', array()),
+                'dist'          => $box['deb'],
+                'php_packages'  => $this->getPhpPackages(),
+                'pecl_packages' => $this->getPeclPackages()
         ]);
 
         $playbook->addRole('phpcommon');
         $playbook->addRole('app');
+
+        if ($this->getPeclPackages()) {
+            $playbook->addRole('php-pecl');
+        }
 
         $this->getVagrantBundle()
             ->setRenderers($playbook->getVarsFiles())
