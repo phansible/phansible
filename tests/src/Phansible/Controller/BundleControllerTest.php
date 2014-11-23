@@ -396,6 +396,33 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Phansible\Controller\BundleController::indexAction
      */
+    public function testShouldRetriveErrorWhenGenerateAnsibleFileFail()
+    {
+        $request = new \Symfony\Component\HttpFoundation\Request(['vmname' => 'test']);
+
+        $app = $this->getMockBuilder('\Phansible\Application')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $vagrantBundle = $this->getMockBuilder('\Phansible\Model\VagrantBundle')
+            ->setMethods(['generateBundle'])
+            ->getMock();
+
+        $vagrantBundle->expects($this->once())
+            ->method('generateBundle')
+            ->will($this->returnValue(0));
+
+        $result = $this->controller
+            ->setVagrantBundle($vagrantBundle)
+            ->indexAction($request, $app);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $result);
+        $this->assertEquals('An error occurred.', $result->getContent());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::indexAction
+     */
     public function testShouldGenerateAnsibleFile()
     {
         $request = new \Symfony\Component\HttpFoundation\Request(['vmname' => 'test']);
