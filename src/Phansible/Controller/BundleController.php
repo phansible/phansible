@@ -19,11 +19,18 @@ class BundleController extends Controller
 {
     protected $phpPackages = [];
 
-    protected $peclPackages = [];
+    /**
+     * @var array
+     */
+    private $peclPackages = [];
+
+    /**
+     * @var Phansible\Model\VagrantBundle
+     */
+    private $vagrantBundle;
 
     public function indexAction(Request $request, Application $app)
     {
-        $vagrant = new VagrantBundle($this->get('ansible.path'));
         $this->setPhpPackages($request->get('phppackages', array()));
 
         /** Get Inventory */
@@ -53,16 +60,16 @@ class BundleController extends Controller
         $playbook->addRole('phpcommon');
         $playbook->addRole('app');
 
-        $vagrant->setRenderers($playbook->getVarsFiles());
-        $vagrant->addRenderer($playbook);
-        $vagrant->addRenderer($vagrantfile);
-        $vagrant->addRenderer($inventory);
+        $this->getVagrantBundle()
+            ->setRenderers($playbook->getVarsFiles())
+            ->addRenderer($playbook)
+            ->addRenderer($vagrantfile)
+            ->addRenderer($inventory);
 
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
-        if ($vagrant->generateBundle($zipPath, $playbook->getRoles())) {
-
+        if ($this->getVagrantBundle()->generateBundle($zipPath, $playbook->getRoles())) {
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
         }
 
@@ -269,6 +276,22 @@ class BundleController extends Controller
     public function setPeclPackages(array $packages)
     {
         $this->peclPackages = $packages;
+
+        return $this;
+    }
+
+    public function getVagrantBundle()
+    {
+        if (null === $this->vagrantBundle) {
+            $this->vagrantBundle = new VagrantBundle($this->get('ansible.path'));
+        }
+
+        return $this->vagrantBundle;
+    }
+
+    public function setVagrantBundle(VagrantBundle $vagrantBundle)
+    {
+        $this->vagrantBundle = $vagrantBundle;
 
         return $this;
     }
