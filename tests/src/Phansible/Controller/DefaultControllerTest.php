@@ -37,17 +37,17 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
                 $this->arrayHasKey('config')
             );
 
-        $container['twig'] = $this->twig;
-        $container['config'] = [];
-        $container['webservers'] = [];
-        $container['boxes'] = [];
-        $container['syspackages'] = [];
-        $container['phppackages'] = [];
-        $container['databases'] = [];
+        $container['twig']         = $this->twig;
+        $container['config']       = [];
+        $container['webservers']   = [];
+        $container['boxes']        = [];
+        $container['syspackages']  = [];
+        $container['phppackages']  = [];
+        $container['databases']    = [];
+        $container['peclpackages'] = [];
 
         $this->controller->setPimple($container);
         $this->controller->indexAction();
-
     }
 
     /**

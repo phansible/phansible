@@ -92,6 +92,8 @@ class VagrantBundle
         foreach ($renderers as $renderer) {
             $this->addRenderer($renderer);
         }
+
+        return $this;
     }
 
     /**
@@ -109,6 +111,8 @@ class VagrantBundle
     public function addRenderer(FileRendererInterface $renderer)
     {
         $this->renderers[] = $renderer;
+
+        return $this;
     }
 
     /**

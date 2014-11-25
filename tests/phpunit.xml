@@ -18,6 +18,9 @@
     <filter>
         <whitelist>
             <directory>../src/</directory>
+            <exclude>
+                <directory>../src/Phansible/Resources/ansible</directory>
+            </exclude>
         </whitelist>
     </filter>
     <logging>

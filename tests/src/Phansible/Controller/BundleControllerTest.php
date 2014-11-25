@@ -37,11 +37,13 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             'virtualbox' => [
                 'precise32' => [
                     'name'  => 'Ubuntu Precise Pangolin (12.04) 32',
+                    'deb'   => 'precise',
                     'url'   => 'https://vagrantcloud.com/hashicorp/precise32/version/1/provider/virtualbox.box',
                     'cloud' => 'hashicorp/precise32'
                 ],
                 'precise64' => [
                     'name'  => 'Ubuntu Precise Pangolin (12.04) 64',
+                    'deb'   => 'precise',
                     'url'   => 'https://vagrantcloud.com/hashicorp/precise64/version/2/provider/virtualbox.box',
                     'cloud' => 'hashicorp/precise64'
                 ],
@@ -74,10 +76,17 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->container['webservers'] = $webservers;
         $this->container['boxes'] = $boxes;
         $this->container['databases'] = $databases;
+        $this->container['ansible.path'] = '';
 
         $this->controller->setPimple($this->container);
 
         $this->request = $this->createRequest();
+
+        $this->php = \PHPUnit_Extension_FunctionMocker::start($this, 'Phansible\Controller')
+            ->mockFunction('time')
+            ->mockFunction('sys_get_temp_dir')
+            ->mockFunction('filesize')
+            ->getMock();
     }
 
     private function createRequest()
@@ -358,4 +367,253 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(file_get_contents($path), $content);
     }
 
+    /**
+     * @covers \Phansible\Controller\BundleController::getPeclPackages
+     * @covers \Phansible\Controller\BundleController::setPeclPackages
+     */
+    public function testShouldSetAndGetPeclPackages()
+    {
+        $packages = [];
+
+        $this->controller->setPeclPackages($packages);
+        $this->assertEquals($packages, $this->controller->getPeclPackages());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::getVagrantBundle
+     */
+    public function testShouldGetDefaultInstanceOfVagrantBundle()
+    {
+        $this->assertInstanceOf('\Phansible\Model\VagrantBundle', $this->controller->getVagrantBundle());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::getVagrantBundle
+     * @covers \Phansible\Controller\BundleController::setVagrantBundle
+     */
+    public function testShouldSetAndGetVagrantBlundle()
+    {
+        $vagrantBundle = $this->getMock('\Phansible\Model\VagrantBundle');
+
+        $this->controller->setVagrantBundle($vagrantBundle);
+        $this->assertSame($vagrantBundle, $this->controller->getVagrantBundle());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::indexAction
+     */
+    public function testShouldRetriveErrorWhenGenerateAnsibleFileFail()
+    {
+        $request = new \Symfony\Component\HttpFoundation\Request(['vmname' => 'test']);
+
+        $app = $this->getMockBuilder('\Phansible\Application')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $vagrantBundle = $this->getMockBuilder('\Phansible\Model\VagrantBundle')
+            ->setMethods(['generateBundle'])
+            ->getMock();
+
+        $vagrantBundle->expects($this->once())
+            ->method('generateBundle')
+            ->will($this->returnValue(0));
+
+        $result = $this->controller
+            ->setVagrantBundle($vagrantBundle)
+            ->indexAction($request, $app);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $result);
+        $this->assertEquals('An error occurred.', $result->getContent());
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::indexAction
+     */
+    public function testShouldGenerateAnsibleFile()
+    {
+        $request = new \Symfony\Component\HttpFoundation\Request(['vmname' => 'test']);
+
+        $app = $this->getMockBuilder('\Phansible\Application')
+            ->disableOriginalConstructor()
+            ->setMethods(['stream'])
+            ->getMock();
+
+        $path = __DIR__ . '/_assets/test';
+
+        $app->expects($this->once())
+            ->method('stream')
+            ->with(
+                $this->anything(),
+                $this->equalTo(200)
+            )
+            ->will($this->returnCallback(function($callback, $status, $headers){
+                return new \Symfony\Component\HttpFoundation\StreamedResponse($callback, $status, $headers);
+            }));
+
+        $vagrantBundle = $this->getMockBuilder('\Phansible\Model\VagrantBundle')
+            ->setMethods(['setRenderers', 'addRenderer', 'generateBundle'])
+            ->getMock();
+
+        $vagrantBundle->expects($this->once())
+            ->method('setRenderers')
+            ->will($this->returnValue($vagrantBundle));
+
+        $vagrantBundle->expects($this->at(1))
+            ->method('addRenderer')
+            ->with(
+                $this->isInstanceOf('\Phansible\Renderer\PlaybookRenderer')
+            )
+            ->will($this->returnValue($vagrantBundle));
+
+        $vagrantBundle->expects($this->at(2))
+            ->method('addRenderer')
+            ->with(
+                $this->isInstanceOf('\Phansible\Renderer\VagrantfileRenderer')
+            )
+            ->will($this->returnValue($vagrantBundle));
+
+        $vagrantBundle->expects($this->at(3))
+            ->method('addRenderer')
+            ->with(
+                $this->isInstanceOf('\Phansible\Renderer\TemplateRenderer')
+            )
+            ->will($this->returnValue($vagrantBundle));
+
+        $this->php->expects($this->once())
+            ->method('time')
+            ->will($this->returnValue(123));
+
+        $this->php->expects($this->once())
+            ->method('sys_get_temp_dir')
+            ->will($this->returnValue('/tmp'));
+
+        $this->php->expects($this->once())
+            ->method('filesize')
+            ->with('/tmp/bundle_123.zip')
+            ->will($this->returnValue(1000));
+
+        $roles = [
+            'init',
+            'php5-cli',
+            'nginx',
+            'php5-fpm',
+            'phpcommon',
+            'app'
+        ];
+
+        $vagrantBundle->expects($this->once())
+            ->method('generateBundle')
+            ->with(
+                $this->equalTo('/tmp/bundle_123.zip'),
+                $roles
+            )
+            ->will($this->returnValue(1));
+
+        $result = $this->controller
+            ->setVagrantBundle($vagrantBundle)
+            ->indexAction($request, $app);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\StreamedResponse', $result);
+        $this->assertEquals(200, $result->getStatusCode());
+        $this->assertArrayHasKey('content-length', $result->headers->all());
+        $this->assertGreaterThan(0, $result->headers->get('content-length'));
+        $this->assertArrayHasKey('content-disposition', $result->headers->all());
+        $this->assertEquals('attachment; filename="phansible_test.zip"', $result->headers->get('content-disposition'));
+        $this->assertArrayHasKey('content-type', $result->headers->all());
+        $this->assertEquals('application/zip', $result->headers->get('content-type'));
+    }
+
+    /**
+     * @covers \Phansible\Controller\BundleController::indexAction
+     */
+    public function testShouldGenerateAnsibleFileWithPeclRole()
+    {
+        $request = new \Symfony\Component\HttpFoundation\Request([
+            'vmname'       => 'test',
+            'peclpackages' => ['uploadprogress']
+        ]);
+
+        $app = $this->getMockBuilder('\Phansible\Application')
+            ->disableOriginalConstructor()
+            ->setMethods(['stream'])
+            ->getMock();
+
+        $path = __DIR__ . '/_assets/test';
+
+        $app->expects($this->once())
+            ->method('stream')
+            ->with(
+                $this->anything(),
+                $this->equalTo(200)
+            )
+            ->will($this->returnCallback(function($callback, $status, $headers){
+                return new \Symfony\Component\HttpFoundation\StreamedResponse($callback, $status, $headers);
+            }));
+
+        $vagrantBundle = $this->getMockBuilder('\Phansible\Model\VagrantBundle')
+            ->setMethods(['setRenderers', 'addRenderer', 'generateBundle'])
+            ->getMock();
+
+        $vagrantBundle->expects($this->once())
+            ->method('setRenderers')
+            ->will($this->returnValue($vagrantBundle));
+
+        $vagrantBundle->expects($this->at(1))
+            ->method('addRenderer')
+            ->with(
+                $this->isInstanceOf('\Phansible\Renderer\PlaybookRenderer')
+            )
+            ->will($this->returnValue($vagrantBundle));
+
+        $vagrantBundle->expects($this->at(2))
+            ->method('addRenderer')
+            ->with(
+                $this->isInstanceOf('\Phansible\Renderer\VagrantfileRenderer')
+            )
+            ->will($this->returnValue($vagrantBundle));
+
+        $vagrantBundle->expects($this->at(3))
+            ->method('addRenderer')
+            ->with(
+                $this->isInstanceOf('\Phansible\Renderer\TemplateRenderer')
+            )
+            ->will($this->returnValue($vagrantBundle));
+
+        $this->php->expects($this->once())
+            ->method('time')
+            ->will($this->returnValue(123));
+
+        $this->php->expects($this->once())
+            ->method('sys_get_temp_dir')
+            ->will($this->returnValue('/tmp'));
+
+        $this->php->expects($this->once())
+            ->method('filesize')
+            ->with('/tmp/bundle_123.zip')
+            ->will($this->returnValue(1000));
+
+        $roles = [
+            'init',
+            'php5-cli',
+            'nginx',
+            'php5-fpm',
+            'phpcommon',
+            'php-pecl',
+            'app'
+        ];
+
+        $vagrantBundle->expects($this->once())
+            ->method('generateBundle')
+            ->with(
+                $this->equalTo('/tmp/bundle_123.zip'),
+                $roles
+            )
+            ->will($this->returnValue(1));
+
+        $result = $this->controller
+            ->setVagrantBundle($vagrantBundle)
+            ->indexAction($request, $app);
+
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\StreamedResponse', $result);
+    }
 }
