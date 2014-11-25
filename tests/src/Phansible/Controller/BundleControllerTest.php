@@ -598,8 +598,8 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
             'nginx',
             'php5-fpm',
             'phpcommon',
-            'app',
-            'php-pecl'
+            'php-pecl',
+            'app'
         ];
 
         $vagrantBundle->expects($this->once())

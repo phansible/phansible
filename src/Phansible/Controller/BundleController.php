@@ -61,11 +61,12 @@ class BundleController extends Controller
         ]);
 
         $playbook->addRole('phpcommon');
-        $playbook->addRole('app');
 
         if ($this->getPeclPackages()) {
             $playbook->addRole('php-pecl');
         }
+
+        $playbook->addRole('app');
 
         $this->getVagrantBundle()
             ->setRenderers($playbook->getVarsFiles())
