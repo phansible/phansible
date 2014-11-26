@@ -1,6 +1,7 @@
 mysql:
 {% for mysql in variables.mysql_vars %}
   -
+    root_pass: {{ mysql.root_pass }}
     db: {{ mysql.db }}
     user: {{ mysql.user }}
     pass: {{ mysql.pass }}

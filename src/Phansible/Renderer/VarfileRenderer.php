@@ -63,7 +63,7 @@ class VarfileRenderer extends TemplateRenderer
      */
     public function getData()
     {
-        return [ 'variables' => $this->data ];
+        return [ 'variables' => $this->data, 'name' => $this->name ];
     }
 
     /**

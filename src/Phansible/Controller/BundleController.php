@@ -44,7 +44,9 @@ class BundleController extends Controller
         /** Get Playbook */
         $playbook = $this->getPlaybook($request);
 
-        $this->setupDatabase($playbook, $request);
+        $this->setupMysql($playbook, $request);
+        $this->setupMariadb($playbook, $request);
+        $this->setupPgsql($playbook, $request);
         $this->setupComposer($playbook, $request);
         $this->setupXDebug($playbook, $request);
 
@@ -88,37 +90,68 @@ class BundleController extends Controller
      * @param PlaybookRenderer $playbook
      * @param Request $request
      */
-    public function setupDatabase(PlaybookRenderer $playbook, Request $request)
+    public function setupMysql(PlaybookRenderer $playbook, Request $request)
     {
-        /** Databases */
-        $dbserver  = $request->get('dbserver');
-        if (! $dbserver) {
-            // No DB-Server wanted
+        $config = $request->get('mysql');
+        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
+            // No Mysql wanted
             return;
         }
+        $playbook->addRole('mysql');
+        $this->addPhpPackage('php5-mysql');
 
-        $dbservers = $this->get('databases');
-        if (! array_key_exists($dbserver, $dbservers)) {
+        $dbVars = new VarfileRenderer('mysql');
+        $dbVars->add('root_password', $config['root-password'], false);
+        $dbVars->add('user', $config['user'], false);
+        $dbVars->add('password', $config['password'], false);
+        $dbVars->add('database', $config['database'], false);
 
-            // DB-Server wanted that we do not provide.
+        $dbVars->setTemplate('roles/db.vars.twig');
+        $playbook->addVarsFile($dbVars);
+    }
+
+    /**
+     * @param PlaybookRenderer $playbook
+     * @param Request $request
+     */
+    public function setupMariadb(PlaybookRenderer $playbook, Request $request)
+    {
+        $config = $request->get('mariadb');
+        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
+            // No mariadb wanted
             return;
         }
+        $playbook->addRole('mariadb');
+        $this->addPhpPackage('php5-mysql');
 
-        $playbook->addRole($dbserver);
+        $dbVars = new VarfileRenderer('mariadb');
+        $dbVars->add('root_password', $config['root-password'], false);
+        $dbVars->add('user', $config['user'], false);
+        $dbVars->add('password', $config['password'], false);
+        $dbVars->add('database', $config['database'], false);
 
-        // Enable php-mysql package when user selected mysql as db provider
-        if ($dbserver === 'mysql') {
-            $this->addPhpPackage('php5-mysql');
+        $dbVars->setTemplate('roles/db.vars.twig');
+        $playbook->addVarsFile($dbVars);
+    }
+
+    /**
+     * @param PlaybookRenderer $playbook
+     * @param Request $request
+     */
+    public function setupPgsql(PlaybookRenderer $playbook, Request $request)
+    {
+        $config = $request->get('pgsql');
+        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
+            // No Postgresql wanted
+            return;
         }
+        $playbook->addRole('pgsql');
+        $this->addPhpPackage('php5-pgsql');
 
-        $dbVars = new VarfileRenderer($dbserver);
-        $dbVars->add('db_vars', [
-            [
-                'user' => $request->get('user'),
-                'pass' => $request->get('password'),
-                'db'   => $request->get('database'),
-            ]
-        ], false);
+        $dbVars = new VarfileRenderer('pgsql');
+        $dbVars->add('user', $config['user'], false);
+        $dbVars->add('password', $config['password'], false);
+        $dbVars->add('database', $config['database'], false);
 
         $dbVars->setTemplate('roles/db.vars.twig');
         $playbook->addVarsFile($dbVars);

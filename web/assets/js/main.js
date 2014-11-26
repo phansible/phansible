@@ -10,7 +10,13 @@ Main.prototype.form = function() {
         toggle      = $('.ui.toggle.button'),
         buttons     = $('.ui.buttons .button');
 
-    checkbox.checkbox();
+    checkbox.checkbox({
+        onChange: function() {
+            if ($(this).hasClass('update-other-input')) {
+                that.updateOtherInput($(this));
+            }
+        }
+    });
 
     toggle.filter('.composer').state({
         text: {
@@ -123,6 +129,58 @@ Main.prototype.waypoints = function(){
         menu.find('a').removeClass('active teal');
         menu.find('a[href="#'+$(this).attr('id')+'"]').addClass('active teal');
     }, { offset: 250 });
+}
+
+Main.prototype.updateOtherInput = function(input) {
+    var $parent = input;
+    $.each(input.data(), function(key, value) {
+        // jQuery changed "data-foo-bar" to "dataFooBar". Change them back.
+        key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        // Only work with data attributes that have "update-"
+        if (key.search('update-') !== 0) {
+            return true;
+        }
+        key = key.replace('update-', '');
+        var $target = $('#' + key);
+        // If target element is not defined as #foo, maybe it is an input,name,value target
+        if (!$target.length) {
+            var selector = 'input[name="' + key + '"]';
+            if (value.length) {
+                selector = selector + '[value="'+ value +'"]'
+            }
+            $target = $(selector)
+        }
+        // If target is a radio element, check it, no need to uncheck in future
+        if ($target.is(':radio')) {
+            $target.prop('checked', true);
+            return true;
+        }
+        /**
+         * If target is checkbox element, check if clicked element was checked or unchecked.
+         *
+         * If unchecked, do not update target. We only want to handle positive actions
+         */
+        if ($target.is(':checkbox')) {
+            var checked;
+            // Element gets checked, wants target to be checked
+            if (value && $parent.is(':checked')) {
+                checked = true;
+            }
+            // Element gets checked, wants target to be unchecked
+            else if (!value && $parent.is(':checked')) {
+                checked = false;
+            }
+            // Element gets unchecked
+            else {
+                return 1;
+            }
+            $target.prop('checked', checked);
+            return true;
+        }
+        if (!$target.is(':radio') && !$target.is(':checkbox')) {
+            $target.val(value);
+        }
+    });
 }
 
 $(document).ready(function(){
