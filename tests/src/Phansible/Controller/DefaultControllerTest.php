@@ -77,23 +77,11 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Phansible\Controller\DefaultController::docsAction
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function testShouldRenderUsageActionWhenDocFileNotExists()
+    public function testShouldThrowExceptionWhenDocFileNotExists()
     {
-        $container = new \Pimple();
-
-        $this->twig->expects($this->once())
-            ->method('render')
-            ->with(
-                $this->equalTo('docs.html.twig'),
-                $this->equalTo(['content' => ''])
-            );
-
-        $container['twig'] = $this->twig;
-        $container['docs.path'] = '';
         $doc = '';
-
-        $this->controller->setPimple($container);
         $this->controller->docsAction($doc);
     }
 
@@ -113,10 +101,10 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
                 })
             );
 
-        $docFile = new \SplFileObject('/tmp/phansible.md', 'w+');
+        $docFile = new \SplFileObject('/tmp/vagrant.md', 'w+');
         $docFile->fwrite('Phansible');
 
-        $doc = 'phansible';
+        $doc = 'vagrant';
 
         $container['twig'] = $this->twig;
         $container['docs.path'] = '/tmp';
