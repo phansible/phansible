@@ -3,39 +3,65 @@
 namespace Phansible;
 
 use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Roles\Mysql;
 use Symfony\Component\HttpFoundation\Request;
 
-class RoleManager {
+class RoleManager
+{
+    /**
+     * @var \Phansible\Application
+     */
+    protected $app;
 
-  protected $roles = [];
+    /**
+     * @var array
+     */
+    protected $roles = [];
 
-  public function __construct()
-  {
-    $this->registerRoles();
-  }
-
-  protected function registerRoles()
-  {
-    $this->register(new Mysql());
-
-  }
-
-  public function register(RoleInterface $role)
-  {
-    $this->roles[] = $role;
-  }
-
-  public function getRoles()
-  {
-    return $this->roles;
-  }
-
-  public function setupRole(Request $request, PlaybookRenderer $playbook)
-  {
-    foreach ($this->roles as $role) {
-      /** @var RoleInterface $role */
-      $role->setup($request, $playbook);
+    /**
+     * @param \Phansible\Application $app
+     */
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
     }
-  }
+
+    /**
+     * Initialize roles
+     */
+    public function initialize()
+    {
+        $this->register(new Roles\Mysql());
+        $this->register(new Roles\Mariadb());
+        $this->register(new Roles\Pgsql());
+    }
+
+    /**
+     * Register role
+     * @param \Phansible\RoleInterface $role
+     */
+    public function register(RoleInterface $role)
+    {
+        $this->roles[] = $role;
+    }
+
+    /**
+     * Get roles
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Phansible\Renderer\PlaybookRenderer $playbook
+     */
+    public function setupRole(Request $request, PlaybookRenderer $playbook)
+    {
+        foreach ($this->roles as $role) {
+            /** @var RoleInterface $role */
+            $role->setup($request, $playbook);
+        }
+    }
 }

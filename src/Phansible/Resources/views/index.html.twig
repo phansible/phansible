@@ -18,7 +18,7 @@
         </div>
 
         <div class="right floated twelve wide column">
-            <form class="ui form" method="POST" action="/generate">
+            <form class="ui form" method="POST" action="{{ path('phansible_bundle') }}">
 
                 {% for bundle in config.bundles %}
                     {% include "bundles/"~bundle~".html.twig" %}

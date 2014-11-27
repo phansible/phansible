@@ -7,7 +7,7 @@ use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VarfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
 
-class Mysql extends BaseRole
+class Pgsql extends BaseRole
 {
   public function setup(Request $request, PlaybookRenderer $playbook)
   {

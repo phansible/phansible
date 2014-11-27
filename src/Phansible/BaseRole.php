@@ -7,10 +7,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class BaseRole implements RoleInterface
 {
-  protected $app;
+    protected $app;
 
-  public function __construct() {
-  }
+    public function __construct()
+    {
+    }
 
-  public abstract function setup(Request $request, PlaybookRenderer $playbook);
+    public abstract function setup(
+      Request $request,
+      PlaybookRenderer $playbook
+    );
 }

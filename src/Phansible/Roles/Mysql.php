@@ -11,6 +11,7 @@ class Mysql extends BaseRole
 {
   public function setup(Request $request, PlaybookRenderer $playbook)
   {
+    throw new \Exception("Ttest error");
     $config = $request->get('mysql');
     if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
       // No Mysql wanted

@@ -45,8 +45,7 @@ class BundleController extends Controller
         /** Get Playbook */
         $playbook = $this->getPlaybook($request);
 
-        $roleManager = new RoleManager();
-        $roleManager->setupRole($request, $playbook);
+        $app['roles']->setupRole($request, $playbook);
 
         $this->setupComposer($playbook, $request);
         $this->setupXDebug($playbook, $request);
@@ -54,14 +53,17 @@ class BundleController extends Controller
         /** Configure Variable files - common */
         $box = $this->getBox($vagrantfile->getBoxName());
 
-        $playbook->createVarsFile('common', [
-                'php_ppa'       => $request->get('phpppa'),
-                'doc_root'      => $request->get('docroot'),
-                'sys_packages'  => $request->get('syspackages', array()),
-                'dist'          => $box['deb'],
-                'php_packages'  => $this->getPhpPackages(),
-                'pecl_packages' => $this->getPeclPackages()
-        ]);
+        $playbook->createVarsFile(
+          'common',
+          [
+            'php_ppa' => $request->get('phpppa'),
+            'doc_root' => $request->get('docroot'),
+            'sys_packages' => $request->get('syspackages', array()),
+            'dist' => $box['deb'],
+            'php_packages' => $this->getPhpPackages(),
+            'pecl_packages' => $this->getPeclPackages()
+          ]
+        );
 
         $playbook->addRole('phpcommon');
 
@@ -72,15 +74,19 @@ class BundleController extends Controller
         $playbook->addRole('app');
 
         $this->getVagrantBundle()
-            ->setRenderers($playbook->getVarsFiles())
-            ->addRenderer($playbook)
-            ->addRenderer($vagrantfile)
-            ->addRenderer($inventory);
+          ->setRenderers($playbook->getVarsFiles())
+          ->addRenderer($playbook)
+          ->addRenderer($vagrantfile)
+          ->addRenderer($inventory);
 
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
-        if ($this->getVagrantBundle()->generateBundle($zipPath, $playbook->getRoles())) {
+        if ($this->getVagrantBundle()->generateBundle(
+          $zipPath,
+          $playbook->getRoles()
+        )
+        ) {
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
         }
 
@@ -156,11 +162,14 @@ class BundleController extends Controller
     public function getPlaybook(Request $request)
     {
         $webServerKey = $request->get('webserver') ?: 'nginxphp';
-        $webserver    = $this->getWebServer($webServerKey);
+        $webserver = $this->getWebServer($webServerKey);
 
         $playbook = new PlaybookRenderer();
         $playbook->addVar('web_server', $webServerKey);
-        $playbook->addVar('servername', trim($request->get('servername')) . ' ' . $request->get('ipAddress'));
+        $playbook->addVar(
+          'servername',
+          trim($request->get('servername')) . ' ' . $request->get('ipAddress')
+        );
         $playbook->addRole('init');
         $playbook->addRole('php5-cli');
         $playbook->addVar('timezone', $request->get('timezone'));
@@ -208,11 +217,15 @@ class BundleController extends Controller
             readfile($zipPath);
         };
 
-        return $app->stream($stream, 200, array(
-            'Content-length'      => filesize($zipPath),
+        return $app->stream(
+          $stream,
+          200,
+          array(
+            'Content-length' => filesize($zipPath),
             'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"',
-            'Content-Type'        => 'application/zip'
-        ));
+            'Content-Type' => 'application/zip'
+          )
+        );
     }
 
     /**
@@ -233,8 +246,11 @@ class BundleController extends Controller
      */
     public function getWebServer($webServerKey)
     {
-        $webservers   = $this->get('webservers');
-        $webServerKey = array_key_exists($webServerKey, $webservers) ? $webServerKey : 'nginxphp';
+        $webservers = $this->get('webservers');
+        $webServerKey = array_key_exists(
+          $webServerKey,
+          $webservers
+        ) ? $webServerKey : 'nginxphp';
 
         return $webservers[$webServerKey];
     }
@@ -254,7 +270,9 @@ class BundleController extends Controller
     public function getVagrantBundle()
     {
         if (null === $this->vagrantBundle) {
-            $this->vagrantBundle = new VagrantBundle($this->get('ansible.path'));
+            $this->vagrantBundle = new VagrantBundle(
+              $this->get('ansible.path')
+            );
         }
 
         return $this->vagrantBundle;
