@@ -10,14 +10,14 @@
     <div class="ui tab segment" data-tab="mysql">
         <div class="inline field">
             <div class="ui checkbox">
-                <input class="update-other-input" type="checkbox" name="mysql[install]" data-update-mariadb[install]="0" value="1" />
+                <input class="update-other-input" type="checkbox" name="mysql[install]" data-update-mariadb[install]="0" value="1" {% if mysql.install %}checked="checked"{% endif %} />
                 <label>Install MySQL</label>
             </div>
         </div>
         <p>If you install MySQL, you cannot install MariaDB.</p>
         <div class="field">
             <label for="root_password">Root Password:</label>
-            <input type="text" name="mysql[root-password]" value="" />
+            <input type="text" name="mysql[root-password]" value="{{ mysql.root_password }}" />
         </div>
         <div class="three fields">
             <div class="field">
@@ -48,14 +48,14 @@
     <div class="ui tab segment" data-tab="mariadb">
         <div class="inline field">
             <div class="ui checkbox">
-                <input class="update-other-input" type="checkbox" name="mariadb[install]" data-update-mysql[install]="0" value="1" />
+                <input class="update-other-input" type="checkbox" name="mariadb[install]" data-update-mysql[install]="0" value="1" {% if mariadb.install %}checked="checked"{% endif %}/>
                 <label>Install MariaDb</label>
             </div>
         </div>
         <p>If you install MariaDB, you cannot install MySQL.</p>
         <div class="field">
             <label for="root_password">Root Password:</label>
-            <input type="text" name="mariadb[root-password]" value="" />
+            <input type="text" name="mariadb[root-password]" value="{{ mariadb.root_password }}" />
         </div>
         <div class="three fields">
             <div class="field">
@@ -86,7 +86,7 @@
     <div class="ui tab segment" data-tab="pgsql">
         <div class="inline field">
             <div class="ui checkbox">
-                <input type="checkbox" name="pgsql[install]" value="1" />
+                <input type="checkbox" name="pgsql[install]" value="1" {% if pgsql.install %}checked="checked"{% endif %} />
                 <label>Install PostgreSQL</label>
             </div>
         </div>

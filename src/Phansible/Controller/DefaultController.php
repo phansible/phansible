@@ -8,6 +8,7 @@ use Github\HttpClient\CachedHttpClient;
 use Github\HttpClient\Message\ResponseMediator;
 use Michelf\Markdown;
 use DateTimeZone;
+use Phansible\Application;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -31,7 +32,11 @@ class DefaultController extends Controller
 
         $config['timezones'] = DateTimeZone::listIdentifiers();
 
-        return $this->render('index.html.twig', ['config' => $config]);
+        $roles = $this->get('roles');
+
+        $initialValues = $roles->getInitialValues();
+        $config = ['config' => $config];
+        return $this->render('index.html.twig', array_merge($initialValues, $config));
     }
 
     public function docsAction($doc)

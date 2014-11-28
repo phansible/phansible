@@ -136,6 +136,20 @@ class PlaybookRenderer extends TemplateRenderer
         $this->roles[] = $role;
     }
 
+    /**
+     * @param $role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        return (bool) array_search($role, $this->roles);
+    }
+
+    /**
+     * @param string $name
+     * @param array $data
+     * @param null|string $template
+     */
     public function createVarsFile($name, array $data, $template = null)
     {
         $varfile = new VarfileRenderer($name);

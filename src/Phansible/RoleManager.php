@@ -30,9 +30,9 @@ class RoleManager
      */
     public function initialize()
     {
-        $this->register(new Roles\Mysql());
-        $this->register(new Roles\Mariadb());
-        $this->register(new Roles\Pgsql());
+        $this->register(new Roles\Mysql($this->app));
+        $this->register(new Roles\Mariadb($this->app));
+        $this->register(new Roles\Pgsql($this->app));
     }
 
     /**
@@ -63,5 +63,18 @@ class RoleManager
             /** @var RoleInterface $role */
             $role->setup($request, $playbook);
         }
+    }
+
+    /**
+     * Get initial values for each role
+     * @return array
+     */
+    public function getInitialValues()
+    {
+        $initials = [];
+        foreach ($this->roles as $role) {
+            $initials[$role->getSlug()] = $role->getInitialValues();
+        }
+        return $initials;
     }
 }

@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BundleController extends Controller
 {
+    /**
+     * @var array
+     */
     protected $phpPackages = [];
 
     /**
@@ -46,6 +49,14 @@ class BundleController extends Controller
         $playbook = $this->getPlaybook($request);
 
         $app['roles']->setupRole($request, $playbook);
+
+        if ($playbook->hasRole('mysql') || $playbook->hasRole('mariadb')) {
+            $this->addPhpPackage('php5-mysql');
+        } elseif ($playbook->hasRole('pgsql')) {
+            $this->addPhpPackage('php5-pgsql');
+        }
+
+
 
         $this->setupComposer($playbook, $request);
         $this->setupXDebug($playbook, $request);
@@ -186,7 +197,9 @@ class BundleController extends Controller
      */
     public function addPhpPackage($package)
     {
-        $this->phpPackages[] = $package;
+        if (array_search($package, $this->phpPackages) === false) {
+            $this->phpPackages[] = $package;
+        }
     }
 
     /**
