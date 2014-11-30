@@ -209,4 +209,3 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
 
 
 }
- 
