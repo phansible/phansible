@@ -2,7 +2,7 @@
 
 namespace Phansible\Controller;
 
-class DefaultControllerTests extends \PHPUnit_Framework_TestCase
+class DefaultControllerTest extends \PHPUnit_Framework_TestCase
 {
     private $controller;
     private $twig;

@@ -162,4 +162,3 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
 
     }
 }
- 
