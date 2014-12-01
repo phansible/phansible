@@ -14,12 +14,15 @@ The project is built on top of [Silex](http://silex.sensiolabs.org/), using [Fli
 ## Contributions
 
 Contributions are always welcome, please have a look at our issues to see if there's something you could help with.
+You can also join us on [gitter](https://gitter.im/phansible/phansible).
 
 ## TO DO
 
-- Databases
 - More customization options
 - More packages to choose from and option to add custom packages
+- More documentation
+- More Tests
+- Take a look at our [issues](https://github.com/phansible/phansible/issues).
 
 ## Setup
 
