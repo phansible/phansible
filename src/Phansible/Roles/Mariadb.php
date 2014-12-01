@@ -16,8 +16,13 @@ class Mariadb extends Mysql
   public function getInitialValues()
   {
     return [
-      'install' => 1,
-      'root_password' => 123
+      'install' => 0,
+      'root_password' => 123,
+      'databases' => [
+        'name' => 'dbname',
+        'user' => 'name',
+        'password' => 123,
+      ]
     ];
   }
 }

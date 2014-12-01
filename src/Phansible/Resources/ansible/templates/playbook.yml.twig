@@ -9,7 +9,6 @@
 {% for file in playbook_files %}
     - {{ file }}
 {% endfor %}
-    - [ "vars/{{ web_server }}.yml", "vars/ws_defaults.yml" ]
   roles:
 {% for ansible_role in playbook_roles %}
     - {{ ansible_role }}

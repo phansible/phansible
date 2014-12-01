@@ -19,69 +19,28 @@ use Symfony\Component\HttpFoundation\Response;
 class BundleController extends Controller
 {
     /**
-     * @var array
-     */
-    protected $phpPackages = [];
-
-    /**
-     * @var array
-     */
-    private $peclPackages = [];
-
-    /**
      * @var \Phansible\Model\VagrantBundle
      */
     private $vagrantBundle;
 
     public function indexAction(Request $request, Application $app)
     {
-        $this->setPhpPackages($request->get('phppackages', array()));
-
-        $this->setPeclPackages($request->get('peclpackages', []));
+        $requestVars = $request->request->all();
 
         /** Get Inventory */
         $inventory = $this->getInventory($request);
 
         /** Get Vagrantfile */
-        $vagrantfile = $this->getVagrantfile($request);
+        $vagrantfile = $this->getVagrantfile($requestVars);
 
         /** Get Playbook */
         $playbook = $this->getPlaybook($request);
 
-        $app['roles']->setupRole($request, $playbook);
+        $varsFile = new VarfileRenderer('all');
 
-        if ($playbook->hasRole('mysql') || $playbook->hasRole('mariadb')) {
-            $this->addPhpPackage('php5-mysql');
-        } elseif ($playbook->hasRole('pgsql')) {
-            $this->addPhpPackage('php5-pgsql');
-        }
+        $app['roles']->setupRole($requestVars, $playbook, $varsFile);
 
-
-
-        $this->setupComposer($playbook, $request);
-        $this->setupXDebug($playbook, $request);
-
-        /** Configure Variable files - common */
-        $box = $this->getBox($vagrantfile->getBoxName());
-
-        $playbook->createVarsFile(
-          'common',
-          [
-            'php_ppa' => $request->get('phpppa'),
-            'doc_root' => $request->get('docroot'),
-            'sys_packages' => $request->get('syspackages', array()),
-            'dist' => $box['deb'],
-            'php_packages' => $this->getPhpPackages(),
-            'pecl_packages' => $this->getPeclPackages()
-          ]
-        );
-
-        $playbook->addRole('phpcommon');
-
-        if ($this->getPeclPackages()) {
-            $playbook->addRole('php-pecl');
-        }
-
+        $playbook->addVarsFile($varsFile);
         $playbook->addRole('app');
 
         $this->getVagrantBundle()
@@ -105,49 +64,29 @@ class BundleController extends Controller
     }
 
     /**
-     * @param PlaybookRenderer $playbook
-     * @param Request $request
-     */
-    public function setupComposer(PlaybookRenderer $playbook, Request $request)
-    {
-        if ($request->get('composer')) {
-            $playbook->addRole('composer');
-        }
-    }
-
-    /**
-     * @param PlaybookRenderer $playbook
-     * @param Request $request
-     */
-    public function setupXDebug(PlaybookRenderer $playbook, Request $request)
-    {
-        if ($request->get('xdebug')) {
-            $this->addPhpPackage('php5-xdebug');
-        }
-    }
-
-    /**
-     * @param Request $request
+     * @param array $requestVars
      * @return VagrantfileRenderer
      */
-    public function getVagrantfile(Request $request)
+    public function getVagrantfile(array $requestVars)
     {
-        $name = $request->get('vmname');
-        $boxName = $request->get('baseBox') ?: 'precise64';
+        $config = $requestVars['vagrantfile-local'];
+        $name = $config['vm']['name'];
+        $boxName = $config['vm']['box_url'];
+        // $boxName = $request->get('baseBox') ?: 'precise64';
         $box = $this->getBox($boxName);
 
         $vagrantfile = new VagrantfileRenderer();
         $vagrantfile->setName($name);
         $vagrantfile->setBoxName($box['cloud']);
-        $vagrantfile->setMemory($request->get('memory'));
-        $vagrantfile->setIpAddress($request->get('ipAddress'));
-        $vagrantfile->setSyncedFolder($request->get('sharedFolder'));
-        $vagrantfile->setEnableWindows($request->get('enableWindows'));
-        $vagrantfile->setSyncedType($request->get('syncType'));
+        $vagrantfile->setMemory($config['vm']['memory']);
+        $vagrantfile->setIpAddress($config['vm']['ip']);
+        $vagrantfile->setSyncedFolder($config['vm']['sharedfolder']);
+        $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
+        $vagrantfile->setSyncedType($config['vm']['syncType']);
 
-        if (!$request->get('useVagrantCloud')) {
-            $vagrantfile->setBoxUrl($box['url']);
-        }
+        ///if (!$request->get('useVagrantCloud')) {
+        //     $vagrantfile->setBoxUrl($box['url']);
+        //}
 
         return $vagrantfile;
     }
@@ -190,32 +129,6 @@ class BundleController extends Controller
         }
 
         return $playbook;
-    }
-
-    /**
-     * @param string $package
-     */
-    public function addPhpPackage($package)
-    {
-        if (array_search($package, $this->phpPackages) === false) {
-            $this->phpPackages[] = $package;
-        }
-    }
-
-    /**
-     * @param array $packages
-     */
-    public function setPhpPackages(array $packages)
-    {
-        $this->phpPackages = $packages;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPhpPackages()
-    {
-        return array_unique($this->phpPackages);
     }
 
     /**
@@ -266,18 +179,6 @@ class BundleController extends Controller
         ) ? $webServerKey : 'nginxphp';
 
         return $webservers[$webServerKey];
-    }
-
-    public function getPeclPackages()
-    {
-        return array_unique($this->peclPackages);
-    }
-
-    public function setPeclPackages(array $packages)
-    {
-        $this->peclPackages = $packages;
-
-        return $this;
     }
 
     public function getVagrantBundle()

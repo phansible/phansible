@@ -3,7 +3,7 @@
 namespace Phansible;
 
 use Phansible\Renderer\PlaybookRenderer;
-use Symfony\Component\HttpFoundation\Request;
+use Phansible\Renderer\VarfileRenderer;
 
 class RoleManager
 {
@@ -26,16 +26,6 @@ class RoleManager
     }
 
     /**
-     * Initialize roles
-     */
-    public function initialize()
-    {
-        $this->register(new Roles\Mysql($this->app));
-        $this->register(new Roles\Mariadb($this->app));
-        $this->register(new Roles\Pgsql($this->app));
-    }
-
-    /**
      * Register role
      * @param \Phansible\RoleInterface $role
      */
@@ -54,14 +44,13 @@ class RoleManager
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Phansible\Renderer\PlaybookRenderer $playbook
+     * {@inheritdoc}
      */
-    public function setupRole(Request $request, PlaybookRenderer $playbook)
+    public function setupRole(array $requestVars, PlaybookRenderer $playbook, VarfileRenderer $varFile)
     {
         foreach ($this->roles as $role) {
             /** @var RoleInterface $role */
-            $role->setup($request, $playbook);
+            $role->setup($requestVars, $playbook, $varFile);
         }
     }
 
@@ -76,5 +65,14 @@ class RoleManager
             $initials[$role->getSlug()] = $role->getInitialValues();
         }
         return $initials;
+    }
+
+    public function getAvailableOptions()
+    {
+        $available = [];
+        foreach($this->roles as $role) {
+            $available[$role->getSlug()] = $role->getAvailableOptions();
+        }
+        return $available;
     }
 }

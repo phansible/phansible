@@ -16,25 +16,12 @@ class Pgsql extends BaseRole
   {
     return [
       'install' => 0,
+      'root_password' => 123,
+      'databases' => [
+        'name' => 'dbname',
+        'user' => 'name',
+        'password' => 123,
+      ]
     ];
-  }
-
-
-  public function setup(Request $request, PlaybookRenderer $playbook)
-  {
-    $config = $request->get($this->slug);
-    if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
-      // No Postgresql wanted
-      return;
-    }
-    $playbook->addRole('pgsql');
-
-    $dbVars = new VarfileRenderer($this->slug);
-    $dbVars->add('user', $config['user'], false);
-    $dbVars->add('password', $config['password'], false);
-    $dbVars->add('database', $config['database'], false);
-
-    $dbVars->setTemplate('roles/db.vars.twig');
-    $playbook->addVarsFile($dbVars);
   }
 }

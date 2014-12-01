@@ -50,7 +50,16 @@ class Application extends \Flint\Application
      */
     protected function initRoles()
     {
-        $this['roles']->initialize();
+        $this['roles']->register(new Roles\Server($this));
+        $this['roles']->register(new Roles\Apache($this));
+        $this['roles']->register(new Roles\Nginx($this));
+        $this['roles']->register(new Roles\Hhvm($this));
+        $this['roles']->register(new Roles\Mysql($this));
+        $this['roles']->register(new Roles\Mariadb($this));
+        $this['roles']->register(new Roles\Pgsql($this));
+
+        // PHP should always be the last role!!
+        $this['roles']->register(new Roles\Php($this));
     }
 
     /**

@@ -198,5 +198,7 @@ $(document).ready(function(){
         .dropdown()
     ;
 
-    $('.tabs .item').tab();
+    $('.webservers.tabs .item').tab();
+    $('.databases.tabs .item').tab();
+    $('.languages.tabs .item').tab();
 });

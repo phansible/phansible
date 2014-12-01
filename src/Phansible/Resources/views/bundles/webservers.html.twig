@@ -1,0 +1,11 @@
+<h2 class="ui dividing header" id="section-webservers">Webservers</h2>
+<section>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Choose the Web Server you want to use.</p>
+    <div class="ui pointing webservers menu tabs">
+        <a class="item" data-tab="apache">Apache</a>
+        <a class="item" data-tab="nginx">Nginx</a>
+    </div>
+    {% include "bundles/webservers/apache.html.twig" %}
+    {% include "bundles/webservers/nginx.html.twig" %}
+</section>

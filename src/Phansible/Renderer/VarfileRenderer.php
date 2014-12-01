@@ -5,10 +5,12 @@
 
 namespace Phansible\Renderer;
 
+use Symfony\Component\Yaml\Yaml;
+
 class VarfileRenderer extends TemplateRenderer
 {
     /** @var  array Variables key-value format */
-    protected $data;
+    protected $data = [];
 
     /** @var  string Varfile name */
     protected $name;
@@ -49,13 +51,14 @@ class VarfileRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, $convert = true)
+    public function add($key, $value)
     {
-        if ($convert && is_array($value)) {
-            $value = $this->arrayToYAML($value);
-        }
-
         $this->data[$key] = $value;
+    }
+
+    public function addMultipleVars(array $vars)
+    {
+        $this->data = array_merge($this->data, $vars);
     }
 
     /**
@@ -63,7 +66,7 @@ class VarfileRenderer extends TemplateRenderer
      */
     public function getData()
     {
-        return [ 'variables' => $this->data, 'name' => $this->name ];
+        return [ 'variables' => Yaml::dump($this->data), 'name' => $this->name ];
     }
 
     /**

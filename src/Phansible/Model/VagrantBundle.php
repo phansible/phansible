@@ -105,9 +105,9 @@ class VagrantBundle
     }
 
     /**
-     * @param FileRendererInterface $renderer
+     * @param \Phansible\Model\FileRendererInterface $renderer
+     * @return $this
      */
-
     public function addRenderer(FileRendererInterface $renderer)
     {
         $this->renderers[] = $renderer;

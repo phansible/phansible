@@ -1,6 +1,0 @@
----
-# default web server
-
-ws_vhost_path: /etc/nginx/sites-available
-ws_vhost_file: default
-ws_template: default.tpl
