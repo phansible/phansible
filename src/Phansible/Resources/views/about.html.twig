@@ -26,7 +26,7 @@
     <div class="ui raised segment">
         <div class="ui grid">
           {% for dev in contributors %}
-            <div class="two wide column">
+            <div class="two wide column contributor-avatar">
                 <div class="ui center aligned basic segment">
                   <a href="{{ dev.author.html_url }}" target="_blank"><img src="{{ dev.author.avatar_url }}" class="circular ui small center image"></a>
                   <p><small><a href="{{ dev.author.html_url }}" target="_blank">{{ dev.author.login }}</a></small></p>
