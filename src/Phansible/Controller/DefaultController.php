@@ -15,6 +15,11 @@ use DateTimeZone;
 class DefaultController extends Controller
 {
     /**
+     * @var Github\Client
+     */
+    private $githubClient;
+
+    /**
      * @return string
      */
     public function indexAction()
@@ -48,15 +53,31 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function getGithubClient()
+    {
+        if (null === $this->githubClient) {
+            $this->githubClient = new Client(
+                new CachedHttpClient(
+                    ['cache_dir' => __DIR__ . '/../../../app/cache/github-api-cache']
+                )
+            );
+        }
+
+        return $this->githubClient;
+    }
+
+    public function setGithubClient(Client $client)
+    {
+        $this->githubClient = $client;
+        return $this;
+    }
+
     public function aboutAction()
     {
-        $client = new Client(
-            new CachedHttpClient(
-                ['cache_dir' => __DIR__ . '/../../../app/cache/github-api-cache']
-            )
-        );
+        $response = $this->getGithubClient()
+            ->getHttpClient()
+            ->get('repos/Phansible/phansible/stats/contributors');
 
-        $response = $client->getHttpClient()->get('repos/Phansible/phansible/stats/contributors');
         $contributors = ResponseMediator::getContent($response);
 
         return $this->render('about.html.twig', ['contributors' => $contributors]);
