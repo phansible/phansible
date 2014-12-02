@@ -18,77 +18,41 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BundleController extends Controller
 {
-    /**
-     * @var \Phansible\Model\VagrantBundle
-     */
-    private $vagrantBundle;
-
     public function indexAction(Request $request, Application $app)
     {
         $requestVars = $request->request->all();
 
-        /** Get Inventory */
         $inventory = $this->getInventory($request);
-
-        /** Get Vagrantfile */
-        $vagrantfile = $this->getVagrantfile($requestVars);
-
-        /** Get Playbook */
-        $playbook = $this->getPlaybook($request);
-
         $varsFile = new VarfileRenderer('all');
 
-        $app['roles']->setupRole($requestVars, $playbook, $varsFile);
-
-        $playbook->addVarsFile($varsFile);
+        $playbook = new PlaybookRenderer();
+        // @todo fix str_replace
+        $playbook->setVarsFilename(str_replace('ansible/', '', $varsFile->getFilePath()));
         $playbook->addRole('app');
 
-        $this->getVagrantBundle()
-          ->setRenderers($playbook->getVarsFiles())
-          ->addRenderer($playbook)
-          ->addRenderer($vagrantfile)
-          ->addRenderer($inventory);
+        $vagrantBundle = new VagrantBundle(
+          $this->get('ansible.path')
+        );
+
+        $vagrantBundle->setPlaybook($playbook)
+          ->setVarsFile($varsFile)
+          ->setInventory($inventory);
+
+        $app['roles']->setupRole($requestVars, $vagrantBundle);
 
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
-        if ($this->getVagrantBundle()->generateBundle(
+        if ($vagrantBundle->generateBundle(
           $zipPath,
           $playbook->getRoles()
         )
         ) {
+            $vagrantfile = $vagrantBundle->getVagrantFile();
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
         }
 
         return new Response('An error occurred.');
-    }
-
-    /**
-     * @param array $requestVars
-     * @return VagrantfileRenderer
-     */
-    public function getVagrantfile(array $requestVars)
-    {
-        $config = $requestVars['vagrantfile-local'];
-        $name = $config['vm']['name'];
-        $boxName = $config['vm']['box_url'];
-        // $boxName = $request->get('baseBox') ?: 'precise64';
-        $box = $this->getBox($boxName);
-
-        $vagrantfile = new VagrantfileRenderer();
-        $vagrantfile->setName($name);
-        $vagrantfile->setBoxName($box['cloud']);
-        $vagrantfile->setMemory($config['vm']['memory']);
-        $vagrantfile->setIpAddress($config['vm']['ip']);
-        $vagrantfile->setSyncedFolder($config['vm']['sharedfolder']);
-        $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
-        $vagrantfile->setSyncedType($config['vm']['syncType']);
-
-        ///if (!$request->get('useVagrantCloud')) {
-        //     $vagrantfile->setBoxUrl($box['url']);
-        //}
-
-        return $vagrantfile;
     }
 
     /**
@@ -103,32 +67,6 @@ class BundleController extends Controller
         $inventory->setFilePath('ansible/inventories/dev');
 
         return $inventory;
-    }
-
-    /**
-     * @param Request $request
-     * @return PlaybookRenderer
-     */
-    public function getPlaybook(Request $request)
-    {
-        $webServerKey = $request->get('webserver') ?: 'nginxphp';
-        $webserver = $this->getWebServer($webServerKey);
-
-        $playbook = new PlaybookRenderer();
-        $playbook->addVar('web_server', $webServerKey);
-        $playbook->addVar(
-          'servername',
-          trim($request->get('servername')) . ' ' . $request->get('ipAddress')
-        );
-        $playbook->addRole('init');
-        $playbook->addRole('php5-cli');
-        $playbook->addVar('timezone', $request->get('timezone'));
-
-        foreach ($webserver['include'] as $role) {
-            $playbook->addRole($role);
-        }
-
-        return $playbook;
     }
 
     /**
@@ -154,48 +92,4 @@ class BundleController extends Controller
         );
     }
 
-    /**
-     * @param string $boxName
-     * @return string
-     */
-    public function getBox($boxName)
-    {
-        $boxes = $this->get('boxes')['virtualbox'];
-        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
-
-        return $boxes[$boxName];
-    }
-
-    /**
-     * @param string $webServerKey
-     * @return array
-     */
-    public function getWebServer($webServerKey)
-    {
-        $webservers = $this->get('webservers');
-        $webServerKey = array_key_exists(
-          $webServerKey,
-          $webservers
-        ) ? $webServerKey : 'nginxphp';
-
-        return $webservers[$webServerKey];
-    }
-
-    public function getVagrantBundle()
-    {
-        if (null === $this->vagrantBundle) {
-            $this->vagrantBundle = new VagrantBundle(
-              $this->get('ansible.path')
-            );
-        }
-
-        return $this->vagrantBundle;
-    }
-
-    public function setVagrantBundle(VagrantBundle $vagrantBundle)
-    {
-        $this->vagrantBundle = $vagrantBundle;
-
-        return $this;
-    }
 }

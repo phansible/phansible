@@ -2,8 +2,7 @@
 
 namespace Phansible;
 
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
+use Phansible\Model\VagrantBundle;
 
 interface RoleInterface
 {
@@ -56,10 +55,9 @@ interface RoleInterface
      * Setup the role
      *
      * @param array $requestVars
-     * @param \Phansible\Renderer\PlaybookRenderer $playbook
-     * @param \Phansible\Renderer\VarfileRenderer $varFile
+     * @param \Phansible\Model\VagrantBundle $vagrantBundle
      * @throws \Exception
      */
-    public function setup(array $requestVars, PlaybookRenderer $playbook, VarfileRenderer $varFile);
+    public function setup(array $requestVars,  VagrantBundle $vagrantBundle);
 
 }

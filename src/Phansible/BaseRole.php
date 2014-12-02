@@ -2,6 +2,7 @@
 
 namespace Phansible;
 
+use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VarfileRenderer;
 
@@ -10,7 +11,7 @@ abstract class BaseRole implements RoleInterface
     protected $app;
     protected $name;
     protected $slug;
-    protected $role;
+    protected $role = null;
 
     /**
      * {@inheritdoc}
@@ -56,11 +57,7 @@ abstract class BaseRole implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function setup(
-      array $requestVars,
-      PlaybookRenderer $playbook,
-      VarfileRenderer $varFile
-    ) {
+    public function setup(array $requestVars, VagrantBundle $vagrantBundle) {
         if (!array_key_exists($this->getSlug(), $requestVars)) {
             return;
         }
@@ -68,9 +65,12 @@ abstract class BaseRole implements RoleInterface
         if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
             return;
         }
-        $playbook->addRole($this->role);
 
-        $varFile->addMultipleVars([$this->getSlug() => $config]);
+        if (!is_null($this->role)) {
+            $vagrantBundle->getPlaybook()->addRole($this->role);
+        }
+
+        $vagrantBundle->getVarsFile()->addMultipleVars([$this->getSlug() => $config]);
     }
 
     /**

@@ -58,7 +58,11 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Mariadb($this));
         $this['roles']->register(new Roles\Pgsql($this));
 
-        // PHP should always be the last role!!
+        // Deploy rols
+        $this['roles']->register(new Roles\VagrantLocal($this));
+
+        // PHP should always be the last role!! this way we can detect other
+        // roles and check if we need to add extra packages
         $this['roles']->register(new Roles\Php($this));
     }
 

@@ -2,8 +2,7 @@
 
 namespace Phansible;
 
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
+use Phansible\Model\VagrantBundle;
 
 class RoleManager
 {
@@ -46,11 +45,11 @@ class RoleManager
     /**
      * {@inheritdoc}
      */
-    public function setupRole(array $requestVars, PlaybookRenderer $playbook, VarfileRenderer $varFile)
+    public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
     {
         foreach ($this->roles as $role) {
             /** @var RoleInterface $role */
-            $role->setup($requestVars, $playbook, $varFile);
+            $role->setup($requestVars, $vagrantBundle);
         }
     }
 

@@ -3,9 +3,7 @@
 namespace Phansible\Roles;
 
 use Phansible\BaseRole;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
-use Symfony\Component\HttpFoundation\Request;
+use Phansible\Model\VagrantBundle;
 
 class Hhvm extends BaseRole
 {
@@ -23,12 +21,14 @@ class Hhvm extends BaseRole
         ];
     }
 
-    public function setup(array $requestVars, PlaybookRenderer $playbook, VarfileRenderer $varFile)
+    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
     {
-        parent::setup($requestVars, $playbook, $varFile);
+        parent::setup($requestVars, $vagrantBundle);
 
-        if ($requestVars[$this->slug()]['composer'] == 1) {
-            $playbook->addRole('composer');
+        /*
+        if ($requestVars[$this->getSlug()]['composer'] == 1) {
+            $vagrantBundle->getPlaybook()->addRole('composer');
         }
+        */
     }
 }
