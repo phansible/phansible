@@ -8,7 +8,7 @@
             <div class="field">
                 <label for="baseBox">Base Box:</label>
 
-                <select id="baseBox" name="vagrantfile-local[vm][box_url]" class="select-one">
+                <select id="baseBox" name="vagrantfile-local[vm][base_box]" class="select-one">
                     <option value="trusty64">Ubuntu Trusty Tahr (14.04) [LTS] 64</option>
                     {% for key,info in config.boxes.virtualbox %}
                         <option value="{{ key }}">{{ info.name }}</option>
@@ -19,7 +19,7 @@
                 <div class="field">
                     <label for="name">Name:</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="vmname" name="vagrantfile-local[vm][name]" placeholder="Default" value="Default" />
+                        <input type="text" id="vmname" name="vagrantfile-local[vm][name]" placeholder="default" value="default" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>

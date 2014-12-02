@@ -50,20 +50,29 @@ class Application extends \Flint\Application
      */
     protected function initRoles()
     {
+        // Server settings
         $this['roles']->register(new Roles\Server($this));
+
+        // Webservers
         $this['roles']->register(new Roles\Apache($this));
         $this['roles']->register(new Roles\Nginx($this));
+
+        // Languages
         $this['roles']->register(new Roles\Hhvm($this));
+
+        // Databases
         $this['roles']->register(new Roles\Mysql($this));
         $this['roles']->register(new Roles\Mariadb($this));
         $this['roles']->register(new Roles\Pgsql($this));
 
-        // Deploy rols
+        // Deploy roles
         $this['roles']->register(new Roles\VagrantLocal($this));
 
-        // PHP should always be the last role!! this way we can detect other
+        // PHP roles should always be last! this way we can detect other
         // roles and check if we need to add extra packages
         $this['roles']->register(new Roles\Php($this));
+        $this['roles']->register(new Roles\Xdebug($this));
+        $this['roles']->register(new Roles\Composer($this));
     }
 
     /**

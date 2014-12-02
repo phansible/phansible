@@ -35,9 +35,5 @@ class Php extends BaseRole
         }
 
         parent::setup($requestVars, $vagrantBundle);
-
-        if ($requestVars[$this->getSlug()]['composer'] == 1) {
-            $playbook->addRole('composer');
-        }
     }
 }

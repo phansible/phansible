@@ -22,7 +22,7 @@ class BundleController extends Controller
     {
         $requestVars = $request->request->all();
 
-        $inventory = $this->getInventory($request);
+        $inventory = $this->getInventory($requestVars);
         $varsFile = new VarfileRenderer('all');
 
         $playbook = new PlaybookRenderer();
@@ -56,13 +56,15 @@ class BundleController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param array $requestVars
      * @return TemplateRenderer
+     * @todo: this needs some refactoring when we have more deployment methods
      */
-    public function getInventory(Request $request)
+    public function getInventory(array $requestVars)
     {
+        $ipAddress = $requestVars['vagrantfile-local']['vm']['ip'];
         $inventory = new TemplateRenderer();
-        $inventory->add('ipAddress', $request->get('ipAddress'));
+        $inventory->add('ipAddress', $ipAddress);
         $inventory->setTemplate('inventory.twig');
         $inventory->setFilePath('ansible/inventories/dev');
 

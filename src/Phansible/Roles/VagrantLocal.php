@@ -9,7 +9,7 @@ use Phansible\Renderer\VagrantfileRenderer;
 class VagrantLocal extends BaseRole
 {
     protected $name = 'Local';
-    protected $slug = 'vagrant-local';
+    protected $slug = 'vagrantfile-local';
     protected $role = null;
 
     public function getInitialValues()
@@ -30,27 +30,37 @@ class VagrantLocal extends BaseRole
      */
     public function getVagrantfile(array $requestVars)
     {
-        $config = $requestVars['vagrantfile-local'];
-        // $name = $config['vm']['name'];
-        // $boxName = $config['vm']['box_url'];
-        // $boxName = $request->get('baseBox') ?: 'precise64';
-        // $box = $this->getBox($boxName);
+        $config = $requestVars[$this->getSlug()];
+        $boxName = $config['vm']['base_box'];
+        $box = $this->getBox($boxName);
 
         $vagrantfile = new VagrantfileRenderer();
         $vagrantfile->setTemplate('vagrantfile-local.twig');
         $vagrantfile->setName($config['vm']['name']);
-        $vagrantfile->setBoxName($config['vm']['box_url']);
+        $vagrantfile->setBoxName($box['cloud']);
         $vagrantfile->setMemory($config['vm']['memory']);
         $vagrantfile->setIpAddress($config['vm']['ip']);
         $vagrantfile->setSyncedFolder($config['vm']['sharedfolder']);
         $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
-        ///if (!$request->get('useVagrantCloud')) {
-        //     $vagrantfile->setBoxUrl($box['url']);
-        //}
+        if ($config['vm']['useVagrantCloud'] == 1) {
+             $vagrantfile->setBoxUrl($box['url']);
+        }
 
         return $vagrantfile;
+    }
+
+    /**
+     * @param string $boxName
+     * @return string
+     */
+    public function getBox($boxName)
+    {
+        $boxes = $this->app['boxes']['virtualbox'];
+        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
+
+        return $boxes[$boxName];
     }
 
 }

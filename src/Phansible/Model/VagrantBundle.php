@@ -286,6 +286,10 @@ class VagrantBundle
         $base = 'roles/' . $role;
 
         /** tasks */
+        $dirTasks = $base . '/defaults';
+        $this->includeBundleFiles($zip, $dirTasks, '*.yml', 'ansible/' . $dirTasks);
+
+        /** tasks */
         $dirTasks = $base . '/tasks';
         $this->includeBundleFiles($zip, $dirTasks, '*.yml', 'ansible/' . $dirTasks);
 
