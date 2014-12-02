@@ -6,6 +6,5 @@ vagrant_ansible_inventory_default
 .vagrant
 build/*
 !app/cache/.gitkeep
-composer.lock
 *.swp
 .DS_Store
