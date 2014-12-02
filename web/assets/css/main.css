@@ -205,3 +205,12 @@ div.footerNotice {
     padding: 20px 0;
     color: #666666;
 }
+
+form input[name="vagrantfile-local[vm][name]"],
+form input[name="apache[docroot]"],
+form input[name="apache[servername]"],
+form input[name="nginx[docroot]"],
+form input[name="nginx[servername]"]
+{
+    text-transform: lowercase;
+}
