@@ -94,6 +94,10 @@ header p{
   color: #A24096;
 }
 
+#phansible .contributor-avatar {
+  min-width: 75px;
+}
+
 #phansible section:first-child
 #phansible .phansible:first-child,
 #phansible h2 + .phansible,
