@@ -23,16 +23,6 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\PlaybookRenderer::loadDefaults
-     */
-    public function testLoadDefaults()
-    {
-        $this->assertTrue(is_array($this->model->getVars()));
-        $this->assertTrue(is_array($this->model->getVarsFiles()));
-        $this->assertTrue(is_array($this->model->getRoles()));
-    }
-
-    /**
      * @covers Phansible\Renderer\PlaybookRenderer::getTemplate
      */
     public function testGetTemplate()
@@ -50,99 +40,6 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
         $path = 'ansible/playbook.yml';
 
         $this->assertEquals($path, $this->model->getFilePath());
-    }
-
-    /**
-     * @covers Phansible\Renderer\PlaybookRenderer::addVar
-     * @covers Phansible\Renderer\PlaybookRenderer::getVar
-     */
-    public function testShouldAddAndGetVar()
-    {
-        $key   = 'web_server';
-        $value = 'nginx';
-
-        $this->model->addVar($key, $value);
-
-        $this->assertEquals($value, $this->model->getVar($key));
-    }
-
-    /**
-     * @covers Phansible\Renderer\PlaybookRenderer::setVars
-     * @covers Phansible\Renderer\PlaybookRenderer::getVars
-     */
-    public function testShouldSetAndGetVars()
-    {
-        $vars = [
-            'web_server' => 'nginx',
-            'doc_root'   => '/vagrant'
-        ];
-
-        $this->model->setVars($vars);
-
-        $this->assertEquals($vars, $this->model->getVars());
-    }
-
-    /**
-     * @covers Phansible\Renderer\PlaybookRenderer::addVarsFile
-     * @covers Phansible\Renderer\PlaybookRenderer::getVarsFiles
-     * @covers Phansible\Renderer\PlaybookRenderer::setVarsFiles
-     */
-    public function testShouldAddAndGetVarsFile()
-    {
-        $varfile1 = new VarfileRenderer('common');
-        $varfile2 = new VarfileRenderer('test');
-
-        $this->model->addVarsFile($varfile1);
-
-        $this->assertContains($varfile1, $this->model->getVarsFiles());
-
-        $this->model->setVarsFiles([$varfile1, $varfile2]);
-
-        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRendererInterface', $this->model->getVarsFiles());
-    }
-
-    /**
-     * @covers Phansible\Renderer\PlaybookRenderer::getVarsFilesList
-     */
-    public function testShouldGetVarsFilesList()
-    {
-        $varfile1 = new VarfileRenderer('common');
-        $varfile2 = new VarfileRenderer('test');
-        $this->model->setVarsFiles([$varfile1, $varfile2]);
-
-        $list = $this->model->getVarsFilesList();
-        $this->assertContains('vars/common.yml', $list);
-        $this->assertContains('vars/test.yml', $list);
-    }
-
-    /**
-     * @covers Phansible\Renderer\PlaybookRenderer::createVarsFile
-     */
-    public function testShouldCreateVarFile()
-    {
-        $data = [ 'key' => 'value' ];
-
-        $this->model->createVarsFile('common', $data);
-
-        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRendererInterface', $this->model->getVarsFiles());
-        $this->assertContains('vars/common.yml', $this->model->getVarsFilesList());
-    }
-
-    /**
-     * @covers Phansible\Renderer\PlaybookRenderer::createVarsFile
-     */
-    public function testShouldCreateVarFileAndSetTemplate()
-    {
-        $data = [ 'testkey' => 'testvalue' ];
-
-        $this->model->createVarsFile('common', $data, 'test.twig');
-
-        $varsfiles = $this->model->getVarsFiles();
-
-        foreach ($varsfiles as $varfile) {
-            $this->assertSame('testvalue', $varfile->get('testkey'));
-            $this->assertSame('test.twig', $varfile->getTemplate());
-        }
     }
 
     /**
@@ -165,15 +62,17 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Phansible\Renderer\PlaybookRenderer::getData
+     * @covers Phansible\Renderer\PlaybookRenderer::setVarsFilename
      */
     public function testGetData()
     {
+        $this->model->setVarsFilename('test.yml');
         $data = $this->model->getData();
 
-        $this->assertArrayHasKey('web_server', $data);
-        $this->assertArrayHasKey('playbook_vars', $data);
-        $this->assertArrayHasKey('playbook_files', $data);
-        $this->assertArrayHasKey('playbook_roles', $data);
+
+        $this->assertArrayHasKey('varsfile', $data);
+        $this->assertArrayHasKey('roles', $data);
+        $this->assertEquals('test.yml', $data['varsfile']);
     }
 
     /**
@@ -196,4 +95,3 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
 
     }
 }
- 

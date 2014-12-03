@@ -2,6 +2,9 @@
 
 namespace Phansible\Controller;
 
+use Phansible\Application;
+use Phansible\RoleManager;
+
 class DefaultControllerTests extends \PHPUnit_Framework_TestCase
 {
     private $controller;
@@ -29,6 +32,7 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
     public function testShouldRenderIndexAction()
     {
         $container = new \Pimple();
+        $app = new Application(__DIR__ . '/..');
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -45,6 +49,7 @@ class DefaultControllerTests extends \PHPUnit_Framework_TestCase
         $container['phppackages']  = [];
         $container['databases']    = [];
         $container['peclpackages'] = [];
+        $container['roles']        = new RoleManager($app);
 
         $this->controller->setPimple($container);
         $this->controller->indexAction();

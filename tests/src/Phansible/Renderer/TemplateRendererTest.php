@@ -98,7 +98,7 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Phansible\Renderer\TemplateRenderer::arrayToYAML
      */
-    public function testArrayToYAML()
+    public function ttestArrayToYAML()
     {
         $test = ['value1', 'value2'];
 

@@ -68,6 +68,6 @@ class PlaybookRenderer extends TemplateRenderer
      */
     public function hasRole($role)
     {
-        return (bool) array_search($role, $this->roles);
+        return array_search($role, $this->roles) !== false;
     }
 }
