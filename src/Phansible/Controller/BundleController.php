@@ -60,7 +60,7 @@ class BundleController extends Controller
      * @return TemplateRenderer
      * @todo: this needs some refactoring when we have more deployment methods
      */
-    public function getInventory(array $requestVars)
+    protected function getInventory(array $requestVars)
     {
         $ipAddress = $requestVars['vagrantfile-local']['vm']['ip'];
         $inventory = new TemplateRenderer();
@@ -77,7 +77,7 @@ class BundleController extends Controller
      * @param string $filename
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    public function outputBundle($zipPath, Application $app, $filename)
+    protected function outputBundle($zipPath, Application $app, $filename)
     {
         $stream = function () use ($zipPath) {
             readfile($zipPath);
