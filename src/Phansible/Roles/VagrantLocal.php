@@ -9,8 +9,8 @@ use Phansible\Renderer\VagrantfileRenderer;
 class VagrantLocal extends BaseRole
 {
     protected $name = 'Local';
-    protected $slug = 'vagrantfile-local';
-    protected $role = null;
+    protected $slug = 'vagrant_local';
+    protected $role = 'vagrant_local';
 
     public function getInitialValues()
     {
@@ -35,8 +35,8 @@ class VagrantLocal extends BaseRole
         $box = $this->getBox($boxName);
 
         $vagrantfile = new VagrantfileRenderer();
-        $vagrantfile->setTemplate('vagrantfile-local.twig');
-        $vagrantfile->setName($config['vm']['name']);
+        $vagrantfile->setTemplate('vagrant_local.twig');
+        $vagrantfile->setName($config['vm']['hostname']);
         $vagrantfile->setBoxName($box['cloud']);
         $vagrantfile->setMemory($config['vm']['memory']);
         $vagrantfile->setIpAddress($config['vm']['ip']);
@@ -44,7 +44,8 @@ class VagrantLocal extends BaseRole
         $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
-        if ($config['vm']['useVagrantCloud'] == 1) {
+        // Add box url when NOT using the vagrant cloud
+        if ($config['vm']['useVagrantCloud'] != 1) {
              $vagrantfile->setBoxUrl($box['url']);
         }
 

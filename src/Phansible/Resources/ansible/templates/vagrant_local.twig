@@ -50,10 +50,6 @@ Vagrant.configure("2") do |config|
             ansible.playbook = "ansible/playbook.yml"
             ansible.inventory_path = "ansible/inventories/dev"
             ansible.limit = 'all'
-            ansible.extra_vars = {
-                private_interface: "{{ ipAddress }}",
-                hostname: "{{ vmName }}"
-            }
         end
     else
         config.vm.provision :shell, path: "ansible/windows.sh"
@@ -65,10 +61,6 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "ansible/playbook.yml"
         ansible.inventory_path = "ansible/inventories/dev"
         ansible.limit = 'all'
-        ansible.extra_vars = {
-            private_interface: "{{ ipAddress }}",
-            hostname: "{{ vmName }}"
-        }
     end
     {% endif %}
 

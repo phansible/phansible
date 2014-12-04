@@ -53,6 +53,9 @@ class Application extends \Flint\Application
         // Server settings
         $this['roles']->register(new Roles\Server($this));
 
+        // Deploy roles
+        $this['roles']->register(new Roles\VagrantLocal($this));
+
         // Webservers
         $this['roles']->register(new Roles\Apache($this));
         $this['roles']->register(new Roles\Nginx($this));
@@ -64,9 +67,6 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Mysql($this));
         $this['roles']->register(new Roles\Mariadb($this));
         $this['roles']->register(new Roles\Pgsql($this));
-
-        // Deploy roles
-        $this['roles']->register(new Roles\VagrantLocal($this));
 
         // PHP roles should always be last! this way we can detect other
         // roles and check if we need to add extra packages

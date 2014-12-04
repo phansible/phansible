@@ -1,14 +1,14 @@
 <h2 class="ui dividing header" id="section-vagrant">Vagrant Settings</h2>
 <p>Choose the options for your virtual machine.</p>
 <section>
-    <input type="hidden" name="vagrantfile-local[install]" value="1"/>
+    <input type="hidden" name="vagrant_local[install]" value="1"/>
     <div class="ui piled segment">
         <div class="ui top attached black label">Vagrant / VirtualBox Options</div>
             <h3>Basic Options</h3>
             <div class="field">
                 <label for="baseBox">Base Box:</label>
 
-                <select id="baseBox" name="vagrantfile-local[vm][base_box]" class="select-one">
+                <select id="baseBox" name="vagrant_local[vm][base_box]" class="select-one">
                     <option value="trusty64">Ubuntu Trusty Tahr (14.04) [LTS] 64</option>
                     {% for key,info in config.boxes.virtualbox %}
                         <option value="{{ key }}">{{ info.name }}</option>
@@ -17,9 +17,9 @@
             </div>
             <div class="two fields">
                 <div class="field">
-                    <label for="name">Name:</label>
+                    <label for="name">Hostname:</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="vmname" name="vagrantfile-local[vm][name]" placeholder="default" value="default" />
+                        <input type="text" id="vmname" name="vagrant_local[vm][hostname]" placeholder="default" value="default" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -28,7 +28,7 @@
                 <div class="field">
                     <label for="ipAddress">IP Address:</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="ipAddress" name="vagrantfile-local[vm][ip]" value="192.168.33.99" />
+                        <input type="text" id="ipAddress" name="vagrant_local[vm][ip]" value="192.168.33.99" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -39,7 +39,7 @@
                 <div class="field">
                     <label for="memory">Memory</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="memory" name="vagrantfile-local[vm][memory]" placeholder="512" value="512" />
+                        <input type="text" id="memory" name="vagrant_local[vm][memory]" placeholder="512" value="512" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -48,7 +48,7 @@
                 <div class="field">
                     <label for="memory">Shared Folder</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="sharedFolder" name="vagrantfile-local[vm][sharedfolder]" placeholder="./" value="./" />
+                        <input type="text" id="sharedFolder" name="vagrant_local[vm][sharedfolder]" placeholder="./" value="./" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -62,20 +62,20 @@
                 <div class="content">
                     <div class="inline field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="enableWindows" name="vagrantfile-local[vm][enableWindows]" value="1" checked="checked">
+                            <input type="checkbox" id="enableWindows" name="vagrant_local[vm][enableWindows]" value="1" checked="checked">
                             <label for="enableWindows">Include windows.sh script to enable provisioning on Windows Hosts</label>
                         </div>
                     </div>
                     <div class="inline field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="useVagrantCloud" name="vagrantfile-local[vm][useVagrantCloud]" value="1" checked="checked">
+                            <input type="checkbox" id="useVagrantCloud" name="vagrant_local[vm][useVagrantCloud]" value="1" checked="checked">
                             <label for="useVagrantCloud">Use Vagrant Cloud</label>
                         </div>
                     </div>
                     <div class="field">
                         <label for="syncType">Synced Folders Type:</label>
 
-                        <select id="syncType" name="vagrantfile-local[vm][syncType]" class="select-one">
+                        <select id="syncType" name="vagrant_local[vm][syncType]" class="select-one">
                             <option value="nfs">NFS</option>
                             <option value="0">VBox Default</option>
                             <option value="rsync">RSync</option>

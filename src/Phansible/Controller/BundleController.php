@@ -62,7 +62,7 @@ class BundleController extends Controller
      */
     protected function getInventory(array $requestVars)
     {
-        $ipAddress = $requestVars['vagrantfile-local']['vm']['ip'];
+        $ipAddress = $requestVars['vagrant_local']['vm']['ip'];
         $inventory = new TemplateRenderer();
         $inventory->add('ipAddress', $ipAddress);
         $inventory->setTemplate('inventory.twig');
