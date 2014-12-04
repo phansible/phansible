@@ -7,6 +7,7 @@
 
     <Directory {{ apache.docroot }}>
         AllowOverride All
+        Options -Indexes +FollowSymLinks
         Require all granted
     </Directory>
 </VirtualHost>

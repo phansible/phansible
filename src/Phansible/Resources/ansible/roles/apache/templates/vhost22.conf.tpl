@@ -7,6 +7,7 @@
 
     <Directory {{ apache.docroot }}>
         AllowOverride All
+        Options -Indexes FollowSymLinks
         Order allow,deny
         Allow from all
     </Directory>
