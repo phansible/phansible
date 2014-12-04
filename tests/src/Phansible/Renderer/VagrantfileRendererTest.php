@@ -30,7 +30,7 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(512, $this->model->getMemory());
         $this->assertEquals('Default', $this->model->getName());
         $this->assertEquals('ubuntu/trusty64', $this->model->getBoxName());
-        $this->assertEquals('https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box', $this->model->getBoxUrl());
+        $this->assertEquals('', $this->model->getBoxUrl());
         $this->assertEquals('192.168.33.99', $this->model->getIpAddress());
         $this->assertEquals('./', $this->model->getSyncedFolder());
         $this->assertEquals('nfs', $this->model->getSyncedType());
