@@ -4,29 +4,29 @@ boxes:
       name: Ubuntu Precise Pangolin (12.04) [LTS] 32
       deb: precise
       cloud: hashicorp/precise32
-      url: https://vagrantcloud.com/hashicorp/precise32/version/1/provider/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/precise32/versions/12.04.4/providers/virtualbox.box
     precise64:
       name: Ubuntu Precise Pangolin (12.04) [LTS] 64
       deb: precise
       cloud: hashicorp/precise64
-      url: https://vagrantcloud.com/hashicorp/precise64/version/2/provider/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/precise64/versions/12.04.4/providers/virtualbox.box
     saucy32:
       name: Ubuntu Saucy Salamander (13.10) 32
       deb: saucy
       cloud: chef/ubuntu-13.10-i386
-      url: https://vagrantcloud.com/chef/ubuntu-13.10-i386/version/1/provider/virtualbox.box
+      url: https://vagrantcloud.com/chef/boxes/ubuntu-13.10-i386/versions/1.0.0/providers/virtualbox.box
     saucy64:
       name: Ubuntu Saucy Salamander (13.10) 64
       deb: saucy
       cloud: chef/ubuntu-13.10
-      url: https://vagrantcloud.com/chef/ubuntu-13.10/version/1/provider/virtualbox.box
+      url: hhttps://vagrantcloud.com/chef/boxes/ubuntu-13.10/versions/1.0.0/providers/virtualbox.box
     trusty32:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 32
       deb: trusty
       cloud: ubuntu/trusty32
-      url: https://vagrantcloud.com/ubuntu/trusty32/version/1/provider/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/trusty32/versions/14.04/providers/virtualbox.box
     trusty64:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 64
       deb: trusty
       cloud: ubuntu/trusty64
-      url: https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box

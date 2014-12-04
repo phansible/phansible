@@ -42,7 +42,7 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setName('Default');
         $this->setMemory('512');
         $this->setBoxName('ubuntu/trusty64');
-        $this->setBoxUrl('');
+        $this->setBoxUrl('https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box');
         $this->setIpAddress('192.168.33.99');
         $this->setSyncedFolder('./');
         $this->setSyncedType('nfs');
