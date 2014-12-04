@@ -2,12 +2,12 @@
 <section>
     <h3 class="ui header">Instructions:</h3>
     <p>Choose the Database you want to use.</p>
-    <div class="ui pointing database menu tabs">
+    <div class="ui top attached pointing database menu tabs">
         {% for key,database in config.databases %}
         <a class="item" data-tab="{{ key }}">{{ database.name }}</a>
         {% endfor %}
     </div>
-    <div class="ui tab segment" data-tab="mysql">
+    <div class="ui tab bottom attached segment" data-tab="mysql">
         <div class="inline field">
             <div class="ui checkbox">
                 <input class="update-other-input" type="checkbox" name="mysql[install]" data-update-mariadb[install]="0" value="1" />
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="ui tab segment" data-tab="mariadb">
+    <div class="ui tab bottom attached segment" data-tab="mariadb">
         <div class="inline field">
             <div class="ui checkbox">
                 <input class="update-other-input" type="checkbox" name="mariadb[install]" data-update-mysql[install]="0" value="1" />
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-    <div class="ui tab segment" data-tab="pgsql">
+    <div class="ui tab bottom attached segment" data-tab="pgsql">
         <div class="inline field">
             <div class="ui checkbox">
                 <input type="checkbox" name="pgsql[install]" value="1" />
