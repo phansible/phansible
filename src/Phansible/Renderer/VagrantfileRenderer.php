@@ -39,7 +39,7 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setTemplate('Vagrantfile.twig');
         $this->setFilePath('Vagrantfile');
 
-        $this->setName('Default');
+        $this->setName('default');
         $this->setMemory('512');
         $this->setBoxName('ubuntu/trusty64');
         $this->setBoxUrl('');
@@ -55,7 +55,7 @@ class VagrantfileRenderer extends TemplateRenderer
     public function getData()
     {
         return [
-            'vmName'        => $this->getName(),
+            'vmName'        => strtolower($this->getName()),
             'memory'        => $this->getMemory(),
             'boxUrl'        => $this->getBoxUrl(),
             'boxName'       => $this->getBoxName(),
