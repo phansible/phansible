@@ -15,7 +15,7 @@ use DateTimeZone;
 class DefaultController extends Controller
 {
     /**
-     * @var Github\Client
+     * @var Client
      */
     private $githubClient;
 
