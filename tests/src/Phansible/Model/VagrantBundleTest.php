@@ -174,38 +174,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::renderFiles
-     */
-    public function testShouldRenderFile()
-    {
-        $this->markTestSkipped('must be revisited.');
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $renderer = $this->getMockBuilder('Phansible\Renderer\VagrantfileRenderer')
-            ->setMethods(['renderFile'])
-            ->getMock();
-
-        $renderer->expects($this->once())
-            ->method('renderFile')
-            ->with($this->identicalTo($twig))
-            ->will($this->returnValue('Vagrantfile'));
-
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(['addFromString'])
-            ->getMock();
-
-        $mockedZip->expects($this->once())
-            ->method('addFromString')
-            ->with($this->equalTo('Vagrantfile'), 'Vagrantfile');
-
-        $this->model->setTwig($twig);
-        // $this->model->addRenderer($renderer);
-        // $this->model->renderFiles($mockedZip);
-    }
-
-    /**
      * @covers Phansible\Model\VagrantBundle::generateBundle
      */
     public function testShouldRetrieveZeroWhenGenerateBundleNotOpenFilePath()
