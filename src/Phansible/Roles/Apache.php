@@ -13,7 +13,7 @@ class Apache extends BaseRole
     public function getInitialValues()
     {
         return [
-            'install' => 1,
+            'install' => 0,
             'docroot' => '/vagrant',
             'servername' => 'myApp.vb'
         ];

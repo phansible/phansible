@@ -11,7 +11,7 @@ class Nginx extends Apache
     public function getInitialValues()
     {
         return [
-          'install' => 0,
+          'install' => 1,
           'docroot' => '/vagrant',
           'servername' => 'myApp.vb'
         ];
