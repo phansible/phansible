@@ -8,6 +8,7 @@ class Pgsql extends BaseRole
 {
     protected $name = 'PostgreSQL';
     protected $slug = 'pgsql';
+    protected $role = 'pgsql';
 
     public function getInitialValues()
     {
