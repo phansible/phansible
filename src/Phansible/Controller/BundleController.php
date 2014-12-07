@@ -28,7 +28,6 @@ class BundleController extends Controller
         $playbook = new PlaybookRenderer();
         // @todo fix str_replace
         $playbook->setVarsFilename(str_replace('ansible/', '', $varsFile->getFilePath()));
-        $playbook->addRole('app');
 
         $vagrantBundle = new VagrantBundle(
             $this->get('ansible.path')
@@ -39,6 +38,7 @@ class BundleController extends Controller
           ->setInventory($inventory);
 
         $app['roles']->setupRole($requestVars, $vagrantBundle);
+        $playbook->addRole('app');
 
         $tmpName = 'bundle_' . time();
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
