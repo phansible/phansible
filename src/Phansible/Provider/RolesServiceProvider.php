@@ -14,11 +14,11 @@ class RolesServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['roles'] = $app->share(
-          function ($app) {
-              $roles = new RoleManager($app);
+            function ($app) {
+                $roles = new RoleManager($app);
 
-              return $roles;
-          }
+                return $roles;
+            }
         );
     }
 

@@ -57,7 +57,8 @@ abstract class BaseRole implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle) {
+    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
+    {
         if (!array_key_exists($this->getSlug(), $requestVars)) {
             return;
         }
@@ -73,7 +74,8 @@ abstract class BaseRole implements RoleInterface
         $vagrantBundle->getVarsFile()->addMultipleVars([$this->getSlug() => $config]);
     }
 
-    protected function installRole($requestVars) {
+    protected function installRole($requestVars)
+    {
         $config = $requestVars[$this->getSlug()];
         if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
             return false;
@@ -84,7 +86,7 @@ abstract class BaseRole implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public abstract function getInitialValues();
+    abstract public function getInitialValues();
 
     /**
      * {@inheritdoc}

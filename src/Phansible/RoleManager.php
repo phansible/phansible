@@ -69,7 +69,7 @@ class RoleManager
     public function getAvailableOptions()
     {
         $available = [];
-        foreach($this->roles as $role) {
+        foreach ($this->roles as $role) {
             $available[$role->getSlug()] = $role->getAvailableOptions();
         }
         return $available;

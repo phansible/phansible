@@ -49,7 +49,8 @@ class Php extends BaseRole
      * @param array $requestVars
      * @throws \Exception
      */
-    protected function addPhpPackage($package, &$requestVars) {
+    protected function addPhpPackage($package, &$requestVars)
+    {
         if (in_array($package, $requestVars[$this->getSlug()]['packages']) === false) {
             $requestVars[$this->getSlug()]['packages'][] = $package;
         }

@@ -31,7 +31,7 @@ class BundleController extends Controller
         $playbook->addRole('app');
 
         $vagrantBundle = new VagrantBundle(
-          $this->get('ansible.path')
+            $this->get('ansible.path')
         );
 
         $vagrantBundle->setPlaybook($playbook)
@@ -44,8 +44,8 @@ class BundleController extends Controller
         $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
 
         if ($vagrantBundle->generateBundle(
-          $zipPath,
-          $playbook->getRoles()
+            $zipPath,
+            $playbook->getRoles()
         )
         ) {
             $vagrantfile = $vagrantBundle->getVagrantFile();
@@ -84,14 +84,13 @@ class BundleController extends Controller
         };
 
         return $app->stream(
-          $stream,
-          200,
-          array(
+            $stream,
+            200,
+            array(
             'Content-length' => filesize($zipPath),
             'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"',
             'Content-Type' => 'application/zip'
-          )
+            )
         );
     }
-
 }

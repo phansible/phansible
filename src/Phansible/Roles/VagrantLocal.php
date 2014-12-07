@@ -63,5 +63,4 @@ class VagrantLocal extends BaseRole
 
         return $boxes[$boxName];
     }
-
 }

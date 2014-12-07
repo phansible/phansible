@@ -229,7 +229,6 @@ class VagrantBundle
         $res = $zip->open($filepath, \ZipArchive::CREATE);
 
         if ($res === true) {
-
             /** template files rendering */
             $this->renderFiles($zip);
 
