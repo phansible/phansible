@@ -1,6 +1,6 @@
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="../bootstrap.php"
+         bootstrap="bootstrap.php"
          cacheTokens="true"
          colors="true"
          convertErrorsToExceptions="true"
@@ -12,23 +12,23 @@
          verbose="false">
     <testsuites>
         <testsuite name="Phpansible">
-            <directory>./src/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory>../src/</directory>
+            <directory>./src/</directory>
             <exclude>
-                <directory>../src/Phansible/Resources/ansible</directory>
+                <directory>./src/Phansible/Resources/ansible</directory>
             </exclude>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="../build/coverage" title="Phpansible"
+        <log type="coverage-html" target="./build/coverage" title="Phpansible"
             charset="UTF-8" yui="true" highlight="true" lowUpperBound="5"
             highLowerBound="70" />
-        <log type="coverage-clover" target="../build/logs/clover.xml" />
-        <log type="junit" target="../build/logs/junit.xml"
+        <log type="coverage-clover" target="./build/logs/clover.xml" />
+        <log type="junit" target="./build/logs/junit.xml"
             logIncompleteSkipped="false" />
     </logging>
 </phpunit>
