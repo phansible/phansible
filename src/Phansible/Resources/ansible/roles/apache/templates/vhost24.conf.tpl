@@ -2,18 +2,12 @@
 
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    DocumentRoot {{ doc_root }}
-{% set servernames = servername.split() %}
-{% for servername in servernames %}
-{% if loop.first %}
-    ServerName {{ servername }}
-{% else %}
-    ServerAlias {{ servername }}
-{% endif %}
-{% endfor %}
+    DocumentRoot {{ apache.docroot }}
+    ServerName {{ apache.servername }}
 
-    <Directory {{ doc_root }}>
+    <Directory {{ apache.docroot }}>
         AllowOverride All
+        Options -Indexes +FollowSymLinks
         Require all granted
     </Directory>
 </VirtualHost>

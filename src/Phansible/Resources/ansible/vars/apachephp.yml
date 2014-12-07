@@ -1,8 +1,0 @@
----
-
-# Apache variables
-
-ws_vhost_path: /etc/apache2/sites-available
-#we must find a sane way to overwrite this value so its compatible with apache 2.2 and 2.4
-ws_vhost_file: 000-default.conf
-ws_template: vhost.conf.tpl

@@ -5,5 +5,5 @@
 
 - name: Change default nginx site
   sudo: yes
-  template: src={{ ws_template }} dest={{ ws_vhost_path }}/{{ ws_vhost_file }}
+  template: src=default.tpl dest=/etc/nginx/sites-available/default
   notify: restart nginx

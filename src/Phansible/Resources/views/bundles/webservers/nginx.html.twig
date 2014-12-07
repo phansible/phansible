@@ -1,0 +1,25 @@
+<div class="ui tab bottom attached segment" data-tab="nginx">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input class="update-other-input" type="checkbox" name="nginx[install]" data-update-apache[install]="0" value="1" {% if nginx.install %}checked="checked"{% endif %} />
+            <label>Install Nginx</label>
+        </div>
+    </div>
+    <p>If you install Nginx, you cannot install Apache.</p>
+
+    <div class="field">
+        <label for="nginx_docroot">Document Root:</label>
+        <div class="ui left labeled input">
+            <input type="text" id="nginx_docroot" name="nginx[docroot]" value="{{ nginx.docroot }}" />
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label for="nginx_servername">Server name: (space separated)</label>
+        <div class="ui left labeled input">
+            <input type="text" id="nginx_servername" name="nginx[servername]" value="{{ nginx.servername }}" />
+        </div>
+    </div>
+</div>

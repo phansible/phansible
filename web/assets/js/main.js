@@ -198,5 +198,19 @@ $(document).ready(function(){
         .dropdown()
     ;
 
-    $('.tabs .item').tab();
+    $('.webservers.tabs .item').tab(
+        {
+            context: 'section.webservers-tabs'
+        }
+    );
+    $('.databases.tabs .item').tab(
+        {
+            context: 'section.databases-tabs'
+        }
+    );
+    $('.languages.tabs .item').tab(
+        {
+            context: 'section.languages-tabs'
+        }
+    );
 });

@@ -114,18 +114,4 @@ class TemplateRenderer implements FileRendererInterface
     {
         return $this->filePath;
     }
-
-    /**
-     * Returns a string with a YAML array
-     * @param array $array
-     * @return string
-     */
-    public function arrayToYAML(array $array)
-    {
-        $quoted = array_map(function ($value) {
-            return "\"$value\"";
-        }, $array);
-
-        return '[' . implode(',', $quoted) . ']';
-    }
 }

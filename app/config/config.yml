@@ -4,8 +4,6 @@ ansible.path: "%root_dir%/src/Phansible/Resources/ansible"
 routing.resource: "%root_dir%/app/config/routing.yml"
 docs.path: "%root_dir%/src/Phansible/Resources/docs"
 
-debug: true
-
 @import:
     - app/config/phansible/boxes.yml
     - app/config/phansible/webservers.yml
