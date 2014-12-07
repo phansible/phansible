@@ -34,5 +34,14 @@ As an alternative, you can also use the included Vagrant setup (requires Ansible
 ## Tests
 To run the tests just do:
 ```
- phpunit -c tests/
+ ./vendor/bin/phpunit
 ```
+
+## Code style
+To check the code style just do:
+```
+ ./vendor/bin/phpcs --standard=psr2 ./src
+ ./vendor/bin/phpmd src/ text codesize,controversial,design,naming,unusedcode
+```
+
+When no errors appear you are ready to push your commits!
