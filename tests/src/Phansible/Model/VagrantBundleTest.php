@@ -91,6 +91,18 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::getVagrantFile
+     * @covers Phansible\Model\VagrantBundle::setVagrantFile
+     */
+    public function testShouldSetAndGetVagrantFile()
+    {
+        $vagrantFile = new VagrantfileRenderer();
+        $this->model->setVagrantFile($vagrantFile);
+
+        $this->assertEquals($vagrantFile, $this->model->getVagrantFile());
+    }
+
+    /**
      * @covers Phansible\Model\VagrantBundle::getZipArchive
      */
     public function testShouldRetrieveZipArchive()
