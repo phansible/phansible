@@ -77,6 +77,10 @@ abstract class BaseRole implements RoleInterface
     protected function installRole($requestVars)
     {
         $config = $requestVars[$this->getSlug()];
+        /*
+         * If the configuration doesn't have a section for this role
+         * or if it'say not to install return false.
+         */
         if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
             return false;
         }
