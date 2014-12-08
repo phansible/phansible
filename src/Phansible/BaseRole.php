@@ -8,6 +8,11 @@ use Phansible\Renderer\VarfileRenderer;
 
 abstract class BaseRole implements RoleInterface
 {
+
+    protected $name;
+    protected $slug;
+    protected $role;
+
     /**
      * @var \Phansible\Application
      */
