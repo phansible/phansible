@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @package Phansible
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Application extends \Flint\Application
 {
