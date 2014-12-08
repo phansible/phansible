@@ -37,8 +37,14 @@ class Php extends BaseRole
         $playbook = $vagrantBundle->getPlaybook();
         if ($playbook->hasRole('mysql') || $playbook->hasRole('mariadb')) {
             $this->addPhpPackage('php5-mysql', $requestVars);
-        } elseif ($playbook->hasRole('pgsql')) {
+        }
+
+        if ($playbook->hasRole('pgsql')) {
             $this->addPhpPackage('php5-pgsql', $requestVars);
+        }
+
+        if ($playbook->hasRole('sqlite')) {
+            $this->addPhpPackage('php5-sqlite', $requestVars);
         }
 
         parent::setup($requestVars, $vagrantBundle);
