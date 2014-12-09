@@ -3,6 +3,7 @@
 namespace Phansible\Roles;
 
 use Phansible\BaseRole;
+use Phansible\Model\VagrantBundle;
 
 class Xdebug extends BaseRole
 {
@@ -16,5 +17,18 @@ class Xdebug extends BaseRole
           'install' => 0,
           'settings' => [],
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
+    {
+        $playbook = $vagrantBundle->getPlaybook();
+        if (!$playbook->hasRole('php')) {
+            return;
+        }
+
+        parent::setup($requestVars, $vagrantBundle);
     }
 }
