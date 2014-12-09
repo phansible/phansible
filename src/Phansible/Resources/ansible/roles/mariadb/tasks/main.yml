@@ -25,7 +25,7 @@
 - name: mariadb | Update root password for all root accounts
   mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mariadb.root_password }} login_user=root login_password={{ mariadb.root_password }}
   with_items:
-    - "{{ current_hostname | lower }}"
+    - "{{ current_hostname.stdout | lower }}"
     - 127.0.0.1
     - ::1
     - localhost
@@ -34,7 +34,7 @@
   mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mariadb.root_password }}
   with_items:
     - localhost
-    - "{{ current_hostname | lower }}"
+    - "{{ current_hostname.stdout | lower }}"
 
 - name: mariadb | Create databases
   mysql_db: name={{ mariadb.database }} state=present login_user=root login_password={{ mariadb.root_password }}
