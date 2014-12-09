@@ -5,6 +5,7 @@ namespace Phansible;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VarfileRenderer;
+use Phansible\Roles\Php;
 use Phansible\Roles\Composer;
 use Phansible\Roles\Xdebug;
 use Phansible\Roles\Hhvm;
@@ -37,13 +38,13 @@ class RoleManagerTest extends \PHPUnit_Framework_TestCase
         $vagrantBundle = new VagrantBundle();
         $vagrantBundle->setPlaybook(new PlaybookRenderer());
         $vagrantBundle->setVarsFile(new VarfileRenderer('all'));
-        $requestVars = ['composer' => ['install' => 1], 'xdebug' => ['install' => 0]];
-        $this->roleManager->register(new Composer($this->app));
+        $requestVars = ['php' => ['install' => 1], 'xdebug' => ['install' => 0]];
+        $this->roleManager->register(new Php($this->app));
         $this->roleManager->register(new Xdebug($this->app));
         $this->roleManager->register(new Hhvm($this->app));
         $this->roleManager->setupRole($requestVars, $vagrantBundle);
 
-        $this->assertTrue($vagrantBundle->getPlaybook()->hasRole('composer'));
+        $this->assertTrue($vagrantBundle->getPlaybook()->hasRole('php'));
         $this->assertFalse($vagrantBundle->getPlaybook()->hasRole('xdebug'));
         $this->assertFalse($vagrantBundle->getPlaybook()->hasRole('hhvm'));
     }
