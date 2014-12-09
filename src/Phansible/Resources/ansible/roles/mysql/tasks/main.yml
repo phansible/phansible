@@ -23,10 +23,10 @@
   mysql_db: name={{ mysql.database }} state=present login_user=root login_password={{ mysql.root_password }}
 
 - name: mysql | Ensure anonymous users are not in the database
-  mysql_user: name='' host={{ item }} state=absent
+  mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mysql.root_password }}
   with_items:
     - localhost
-    - "{{ hostname }}"
+    - "{{ current_hostname.stdout | lower }}"
 
 - name: mysql | Create users
   mysql_user: name={{ mysql.user }} password={{ mysql.password }} priv={{ mysql.database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}
