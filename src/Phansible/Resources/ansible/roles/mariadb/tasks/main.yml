@@ -25,10 +25,16 @@
 - name: mariadb | Update root password for all root accounts
   mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mariadb.root_password }} login_user=root login_password={{ mariadb.root_password }}
   with_items:
-    - "{{ ansible_hostname | lower }}"
+    - "{{ current_hostname | lower }}"
     - 127.0.0.1
     - ::1
     - localhost
+
+- name: mariadb | Ensure anonymous users are not in the database
+  mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mariadb.root_password }}
+  with_items:
+    - localhost
+    - "{{ current_hostname | lower }}"
 
 - name: mariadb | Create databases
   mysql_db: name={{ mariadb.database }} state=present login_user=root login_password={{ mariadb.root_password }}
