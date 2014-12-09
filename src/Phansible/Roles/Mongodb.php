@@ -16,7 +16,6 @@ class Mongodb extends BaseRole
     {
         return [
           'install' => 0,
-          'port' => 27017,
         ];
     }
 }

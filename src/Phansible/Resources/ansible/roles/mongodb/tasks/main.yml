@@ -10,7 +10,7 @@
 - name: MongoDB | Install latest MongoDB release
   apt: pkg=mongodb-10gen state=present update_cache=yes
 
-- name: MongoDB | Push default configuration template
+- name: MongoDB | Create default configuration template
   template:
     src=mongodb.conf.tpl
     dest=/etc/mongodb.conf
