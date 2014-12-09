@@ -79,6 +79,13 @@ abstract class BaseRole implements RoleInterface
         $vagrantBundle->getVarsFile()->addMultipleVars([$this->getSlug() => $config]);
     }
 
+    /**
+     * Check if we need to install the role based on the requestvars.
+     *
+     * @param array $requestVars
+     * @return bool
+     * @throws \Exception
+     */
     protected function installRole($requestVars)
     {
         $config = $requestVars[$this->getSlug()];
@@ -86,7 +93,7 @@ abstract class BaseRole implements RoleInterface
          * If the configuration doesn't have a section for this role
          * or if it'say not to install return false.
          */
-        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0) {
+        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
             return false;
         }
         return true;
