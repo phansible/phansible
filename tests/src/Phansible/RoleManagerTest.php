@@ -17,7 +17,7 @@ class RoleManagerTest extends \PHPUnit_Framework_TestCase
     public function setup()
     {
         $this->app = new Application(__DIR__ . '../');
-        $this->roleManager = new RoleManager($this->app);
+        $this->roleManager = new RoleManager();
     }
 
     public function testRegisterRoles()

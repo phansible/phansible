@@ -15,9 +15,7 @@ class RolesServiceProvider implements ServiceProviderInterface
     {
         $app['roles'] = $app->share(
             function ($app) {
-                $roles = new RoleManager($app);
-
-                return $roles;
+                return new RoleManager();
             }
         );
     }
