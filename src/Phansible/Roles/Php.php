@@ -45,11 +45,11 @@ class Php extends BaseRole
             $this->addPhpPackage('php5-pgsql', $requestVars);
         }
 
-        if ($playbook->hasRole('sqlite')) {
+        if ($this->installRole($requestVars, 'sqlite')) {
             $this->addPhpPackage('php5-sqlite', $requestVars);
         }
 
-        if ($playbook->hasRole('mongodb')) {
+        if ($this->installRole($requestVars, 'mongodb')) {
             $this->addPhpPackage('php5-mongo', $requestVars);
         }
 
