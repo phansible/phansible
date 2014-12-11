@@ -2,7 +2,8 @@
 
 namespace Phansible;
 
-use Phansible\Roles\Composer;
+use Phansible\Model\VagrantBundle;
+use Exception;
 
 class BaseRoleTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,33 +12,46 @@ class BaseRoleTest extends \PHPUnit_Framework_TestCase
     public function setup()
     {
         $app = new Application('.');
-        $this->role = new Composer($app);
+        $this->role = $this->getMockForAbstractClass('Phansible\BaseRole', [$app]);
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testGetName()
     {
-        $this->assertEquals('Composer', $this->role->getName());
+       $this->role->getName();
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testGetSlug()
     {
-        $this->assertEquals('composer', $this->role->getSlug());
+        $this->role->getSlug();
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testGetRole()
     {
-        $this->assertEquals('composer', $this->role->getRole());
+        $this->role->getRole();
     }
 
-    public function testGetInitialValues()
+    /**
+     * @expectedException Exception
+     */
+    public function testSetup()
     {
-        $expected =  ['install' => 0];
-        $this->assertEquals($expected, $this->role->getInitialValues());
+        $vagrantBundle = new VagrantBundle('.');
+        $this->role->setup([], $vagrantBundle);
     }
+
 
     public function testGetAvailableOptions()
     {
-        $expected =  [];
+        $expected = [];
         $this->assertEquals($expected, $this->role->getAvailableOptions());
     }
 }
