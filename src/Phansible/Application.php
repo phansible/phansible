@@ -68,6 +68,7 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Mysql($this));
         $this['roles']->register(new Roles\Mariadb($this));
         $this['roles']->register(new Roles\Pgsql($this));
+        $this['roles']->register(new Roles\Mongodb($this));
         $this['roles']->register(new Roles\Sqlite($this));
 
         // PHP roles should always be last! this way we can detect other
