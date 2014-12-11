@@ -11,6 +11,9 @@ class Xdebug extends BaseRole
     protected $slug = 'xdebug';
     protected $role = 'xdebug';
 
+    /**
+     * {@inheritdoc}
+     */
     public function getInitialValues()
     {
         return [
@@ -24,8 +27,7 @@ class Xdebug extends BaseRole
      */
     public function setup(array $requestVars, VagrantBundle $vagrantBundle)
     {
-        $playbook = $vagrantBundle->getPlaybook();
-        if (!$playbook->hasRole('php')) {
+        if (!$this->installRole($requestVars, 'php')) {
             return;
         }
 

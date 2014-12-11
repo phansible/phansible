@@ -3,8 +3,7 @@
 namespace Phansible;
 
 use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
+use Exception;
 
 abstract class BaseRole implements RoleInterface
 {
@@ -32,7 +31,7 @@ abstract class BaseRole implements RoleInterface
     public function getName()
     {
         if (!$this->name) {
-            throw new \Exception('Role name has not been defined');
+            throw new Exception('Role name has not been defined');
         }
         return $this->name;
     }
@@ -43,7 +42,7 @@ abstract class BaseRole implements RoleInterface
     public function getSlug()
     {
         if (!$this->slug) {
-            throw new \Exception('Role slug has not been defined');
+            throw new Exception('Role slug has not been defined');
         }
         return $this->slug;
     }
@@ -54,7 +53,7 @@ abstract class BaseRole implements RoleInterface
     public function getRole()
     {
         if (!$this->role) {
-            throw new \Exception('Role roles name has not been defined');
+            throw new Exception('Role roles name has not been defined');
         }
         return $this->role;
     }
@@ -70,12 +69,8 @@ abstract class BaseRole implements RoleInterface
         if (!$this->installRole($requestVars)) {
             return;
         }
+        $vagrantBundle->getPlaybook()->addRole($this->getRole());
         $config = $requestVars[$this->getSlug()];
-
-        if (!is_null($this->role)) {
-            $vagrantBundle->getPlaybook()->addRole($this->role);
-        }
-
         $vagrantBundle->getVarsFile()->addMultipleVars([$this->getSlug() => $config]);
     }
 
@@ -83,17 +78,28 @@ abstract class BaseRole implements RoleInterface
      * Check if we need to install the role based on the requestvars.
      *
      * @param array $requestVars
+     * @param null|string $roleSlug
      * @return bool
      * @throws \Exception
      */
-    protected function installRole($requestVars)
+    protected function installRole(array $requestVars, $roleSlug = null)
     {
-        $config = $requestVars[$this->getSlug()];
+        if (is_null($roleSlug)) {
+            $roleSlug = $this->getSlug();
+        }
+
+        if (!array_key_exists($roleSlug, $requestVars)) {
+            return false;
+        }
+
+        $config = $requestVars[$roleSlug];
         /*
          * If the configuration doesn't have a section for this role
          * or if it'say not to install return false.
          */
-        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
+        if (!is_array($config) ||
+          !array_key_exists('install', $config) ||
+          (!is_array($config['install']) && intval($config['install']) === 0)) {
             return false;
         }
         return true;

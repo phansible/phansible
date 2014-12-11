@@ -11,6 +11,9 @@ class Composer extends BaseRole
     protected $slug = 'composer';
     protected $role = 'composer';
 
+    /**
+     * {@inheritdoc}
+     */
     public function getInitialValues()
     {
         return [
@@ -23,8 +26,8 @@ class Composer extends BaseRole
      */
     public function setup(array $requestVars, VagrantBundle $vagrantBundle)
     {
-        $playbook = $vagrantBundle->getPlaybook();
-        if (!$playbook->hasRole('php')) {
+
+        if (!$this->installRole($requestVars, 'php')) {
             return;
         }
 

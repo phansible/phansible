@@ -12,6 +12,9 @@ class Php extends BaseRole
     protected $role = 'php';
 
 
+    /**
+     * {@inheritdoc}
+     */
     public function getInitialValues()
     {
         return [
@@ -34,12 +37,11 @@ class Php extends BaseRole
             return;
         }
 
-        $playbook = $vagrantBundle->getPlaybook();
-        if ($playbook->hasRole('mysql') || $playbook->hasRole('mariadb')) {
+        if ($this->installRole($requestVars, 'mysql') || $this->installRole($requestVars, 'mariadb')) {
             $this->addPhpPackage('php5-mysql', $requestVars);
         }
 
-        if ($playbook->hasRole('pgsql')) {
+        if ($this->installRole($requestVars, 'pgsql')) {
             $this->addPhpPackage('php5-pgsql', $requestVars);
         }
 
