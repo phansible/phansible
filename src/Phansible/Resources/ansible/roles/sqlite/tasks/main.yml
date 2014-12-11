@@ -1,0 +1,4 @@
+---
+- name: Install SQLite package
+  apt: name=sqlite3 state=present update_cache=yes
+  when: ansible_os_family == 'Debian'
