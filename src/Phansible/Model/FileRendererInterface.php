@@ -35,6 +35,7 @@ interface FileRendererInterface
 
     /**
      * FilePath for saving the rendered template
+     * @return string
      */
     public function getFilePath();
 }

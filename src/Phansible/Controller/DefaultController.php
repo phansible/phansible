@@ -8,7 +8,6 @@ use Github\HttpClient\CachedHttpClient;
 use Github\HttpClient\Message\ResponseMediator;
 use Michelf\Markdown;
 use DateTimeZone;
-use Phansible\Application;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

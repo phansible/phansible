@@ -171,7 +171,7 @@ class VagrantBundle
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return mixed
      */
     protected function getRenderer($name)

@@ -7,9 +7,7 @@ use Phansible\Application;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\TemplateRenderer;
-use Phansible\Renderer\VagrantfileRenderer;
 use Phansible\Renderer\VarfileRenderer;
-use Phansible\RoleManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

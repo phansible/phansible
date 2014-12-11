@@ -100,7 +100,7 @@ class TemplateRenderer implements FileRendererInterface
 
     /**
      * Defines the path where the rendered file should be saved
-     * @param $filePath
+     * @param string $filePath
      */
     public function setFilePath($filePath)
     {

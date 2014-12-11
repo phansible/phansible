@@ -3,8 +3,6 @@
 namespace Phansible;
 
 use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
 
 abstract class BaseRole implements RoleInterface
 {

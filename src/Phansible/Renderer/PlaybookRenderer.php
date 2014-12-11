@@ -33,6 +33,9 @@ class PlaybookRenderer extends TemplateRenderer
         ];
     }
 
+    /**
+     * @param string $varsFilename
+     */
     public function setVarsFilename($varsFilename)
     {
         $this->varsFilename = $varsFilename;
@@ -63,7 +66,7 @@ class PlaybookRenderer extends TemplateRenderer
     }
 
     /**
-     * @param $role
+     * @param string $role
      * @return boolean
      */
     public function hasRole($role)
