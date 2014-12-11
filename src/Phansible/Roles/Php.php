@@ -43,6 +43,10 @@ class Php extends BaseRole
             $this->addPhpPackage('php5-pgsql', $requestVars);
         }
 
+        if ($playbook->hasRole('mongodb')) {
+            $this->addPhpPackage('php5-mongo', $requestVars);
+        }
+
         parent::setup($requestVars, $vagrantBundle);
     }
 
