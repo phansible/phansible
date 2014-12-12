@@ -3,7 +3,6 @@
 namespace Phansible\Roles;
 
 use Phansible\BaseRole;
-use Phansible\Model\VagrantBundle;
 
 class Mongodb extends BaseRole
 {

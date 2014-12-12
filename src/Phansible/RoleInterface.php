@@ -10,6 +10,7 @@ interface RoleInterface
      * Constructor
      *
      * @param \Phansible\Application $app
+     * @return void
      */
     public function __construct(Application $app);
 
@@ -57,6 +58,7 @@ interface RoleInterface
      * @param array $requestVars
      * @param \Phansible\Model\VagrantBundle $vagrantBundle
      * @throws \Exception
+     * @return void
      */
     public function setup(array $requestVars, VagrantBundle $vagrantBundle);
 }
