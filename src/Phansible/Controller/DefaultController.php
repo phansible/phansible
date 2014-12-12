@@ -8,13 +8,10 @@ use DateTimeZone;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * @package Skeleton
+ * @package Phansible
  */
 class DefaultController extends Controller
 {
-    /**
-     * @return string
-     */
     public function indexAction()
     {
         $config = $this->get('config');
@@ -32,6 +29,7 @@ class DefaultController extends Controller
 
         $initialValues = $roles->getInitialValues();
         $config = ['config' => $config];
+
         return $this->render('index.html.twig', array_merge($initialValues, $config));
     }
 
