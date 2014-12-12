@@ -35,6 +35,7 @@ class GithubAdapter
      *
      * @param  string $resource The name of the resource. Should be a key in $resources.
      * @return array
+     * @throws InvalidArgumentException If the requested resource is not in the list of valid ones.
      */
     public function get($resource)
     {
