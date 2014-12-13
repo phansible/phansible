@@ -5,6 +5,7 @@ namespace Phansible;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VarfileRenderer;
+use Symfony\Component\Yaml\Yaml;
 
 abstract class BaseRole implements RoleInterface
 {
@@ -12,6 +13,8 @@ abstract class BaseRole implements RoleInterface
     protected $name;
     protected $slug;
     protected $role;
+
+    protected $customData = [];
 
     /**
      * @var \Phansible\Application
@@ -62,15 +65,12 @@ abstract class BaseRole implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
+    public function setup(VagrantBundle $vagrantBundle)
     {
-        if (!array_key_exists($this->getSlug(), $requestVars)) {
+        $config = $this->getData();
+        if (!$this->installRole($config)) {
             return;
         }
-        if (!$this->installRole($requestVars)) {
-            return;
-        }
-        $config = $requestVars[$this->getSlug()];
 
         if (!is_null($this->role)) {
             $vagrantBundle->getPlaybook()->addRole($this->role);
@@ -79,9 +79,8 @@ abstract class BaseRole implements RoleInterface
         $vagrantBundle->getVarsFile()->addMultipleVars([$this->getSlug() => $config]);
     }
 
-    protected function installRole($requestVars)
+    protected function installRole($config)
     {
-        $config = $requestVars[$this->getSlug()];
         /*
          * If the configuration doesn't have a section for this role
          * or if it'say not to install return false.
@@ -93,15 +92,89 @@ abstract class BaseRole implements RoleInterface
     }
 
     /**
+     * Return data needed for the templates
+     *
+     * @param bool $returnAvailableData
+     * @return array
+     */
+    public function getData($returnAvailableData = false)
+    {
+        // User-specified, or the default filled-on data
+        $dataToMerge = empty($this->customData)
+          ? $this->getInitialValues()
+          : $this->customData;
+
+        if (is_null($dataToMerge)) {
+            $dataToMerge = [];
+        }
+
+        // All available options. Don't want these in generated user-facing yaml file
+        if ($returnAvailableData) {
+            $dataToMerge = array_merge(
+              $this->getAvailableOptions(),
+              $dataToMerge
+            );
+        }
+
+        // Sane defaults for all data options
+        $data = array_replace_recursive(
+          $this->getBaseData(),
+          $dataToMerge
+        );
+
+        return $data;
+    }
+
+    /**
+     * Add user-supplied values
+     *
+     * @param array $data
+     * @return $this
+     */
+    public function setCustomData(array $data = [])
+    {
+        $this->customData = $data;
+
+        return $this;
+    }
+
+    /**
+     * Base data
+     * @return array
+     */
+    protected function getBaseData()
+    {
+        return $this->yamlParse('data.yml');
+    }
+
+    /**
      * {@inheritdoc}
      */
-    abstract public function getInitialValues();
+    public function getInitialValues()
+    {
+        return $this->yamlParse('initial.yml');
+    }
 
     /**
      * {@inheritdoc}
      */
     public function getAvailableOptions()
     {
-        return [];
+        return $this->yamlParse('available.yml');
+    }
+
+    /**
+     * Parse a YAML file from dataLocation root
+     *
+     * @param string $file
+     * @return array
+     */
+    protected function yamlParse($file)
+    {
+        $data = Yaml::parse(__DIR__ . '/Resources/config/roles/' . $this->getRole() . '/' . $file);
+        if (!is_array($data)) {
+            return [];
+        }
+        return $data;
     }
 }

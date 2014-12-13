@@ -1,0 +1,10 @@
+---
+install: 1
+vm:
+    basebox: trusty64
+    hostname: default
+    memory: 512
+    ip: 192.168.33.99
+    sharedfolder: ./
+    enableWindows: 1
+    useVagrantCloud: 1

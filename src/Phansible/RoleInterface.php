@@ -54,9 +54,8 @@ interface RoleInterface
     /**
      * Setup the role
      *
-     * @param array $requestVars
      * @param \Phansible\Model\VagrantBundle $vagrantBundle
      * @throws \Exception
      */
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle);
+    public function setup(VagrantBundle $vagrantBundle);
 }

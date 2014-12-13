@@ -12,25 +12,20 @@ class VagrantLocal extends BaseRole
     protected $slug = 'vagrant_local';
     protected $role = 'vagrant_local';
 
-    public function getInitialValues()
+    public function setup(VagrantBundle $vagrantBundle)
     {
-    }
-
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
-    {
-        parent::setup($requestVars, $vagrantBundle);
+        parent::setup($vagrantBundle);
         // Add vagrant file
-        $vagrantFile = $this->getVagrantfile($requestVars);
+        $vagrantFile = $this->getVagrantfile();
         $vagrantBundle->setVagrantFile($vagrantFile);
     }
 
     /**
-     * @param array $requestVars
      * @return VagrantfileRenderer
      */
-    public function getVagrantfile(array $requestVars)
+    public function getVagrantfile()
     {
-        $config = $requestVars[$this->getSlug()];
+        $config = $this->getData();
         $boxName = $config['vm']['base_box'];
         $box = $this->getBox($boxName);
 
@@ -58,7 +53,8 @@ class VagrantLocal extends BaseRole
      */
     public function getBox($boxName)
     {
-        $boxes = $this->app['boxes']['virtualbox'];
+        $availableData = $this->getAvailableOptions();
+        $boxes = $availableData['boxes']['virtualbox'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
 
         return $boxes[$boxName];

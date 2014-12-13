@@ -39,9 +39,8 @@ class DefaultController extends Controller
 
         $roles = $this->get('roles');
 
-        $initialValues = $roles->getInitialValues();
-        $config = ['config' => $config];
-        return $this->render('index.html.twig', array_merge($initialValues, $config));
+        $initialValues = $roles->getData(true);
+        return $this->render('index.html.twig', $initialValues);
     }
 
     public function docsAction($doc)

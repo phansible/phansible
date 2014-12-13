@@ -49,7 +49,10 @@ class RoleManager
     {
         foreach ($this->roles as $role) {
             /** @var RoleInterface $role */
-            $role->setup($requestVars, $vagrantBundle);
+            if (array_key_exists($role->getSlug(), $requestVars)) {
+                $role->setCustomData($requestVars[$role->getSlug()]);
+            }
+            $role->setup($vagrantBundle);
         }
     }
 
@@ -57,21 +60,12 @@ class RoleManager
      * Get initial values for each role
      * @return array
      */
-    public function getInitialValues()
+    public function getData($returnAvailableData = false)
     {
-        $initials = [];
+        $data = [];
         foreach ($this->roles as $role) {
-            $initials[$role->getSlug()] = $role->getInitialValues();
+            $data[$role->getSlug()] = $role->getData($returnAvailableData);
         }
-        return $initials;
-    }
-
-    public function getAvailableOptions()
-    {
-        $available = [];
-        foreach ($this->roles as $role) {
-            $available[$role->getSlug()] = $role->getAvailableOptions();
-        }
-        return $available;
+        return $data;
     }
 }

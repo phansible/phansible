@@ -10,7 +10,7 @@
 
                 <select id="baseBox" name="vagrant_local[vm][base_box]" class="select-one">
                     <option value="trusty64">Ubuntu Trusty Tahr (14.04) [LTS] 64</option>
-                    {% for key,info in config.boxes.virtualbox %}
+                    {% for key,info in vagrant_local.boxes.virtualbox %}
                         <option value="{{ key }}">{{ info.name }}</option>
                     {% endfor %}
                 </select>
@@ -19,7 +19,7 @@
                 <div class="field">
                     <label for="name">Hostname:</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="vmname" name="vagrant_local[vm][hostname]" placeholder="default" value="default" />
+                        <input type="text" id="vmname" name="vagrant_local[vm][hostname]" placeholder="default" value="{{ vagrant_local.vm.hostname }}" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -28,7 +28,7 @@
                 <div class="field">
                     <label for="ipAddress">IP Address:</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="ipAddress" name="vagrant_local[vm][ip]" value="192.168.33.99" />
+                        <input type="text" id="ipAddress" name="vagrant_local[vm][ip]" value="{{ vagrant_local.vm.ip }}" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -39,7 +39,7 @@
                 <div class="field">
                     <label for="memory">Memory</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="memory" name="vagrant_local[vm][memory]" placeholder="512" value="512" />
+                        <input type="text" id="memory" name="vagrant_local[vm][memory]" placeholder="512" value="{{ vagrant_local.vm.memory }}" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -48,7 +48,7 @@
                 <div class="field">
                     <label for="memory">Shared Folder</label>
                     <div class="ui left labeled input">
-                        <input type="text" id="sharedFolder" name="vagrant_local[vm][sharedfolder]" placeholder="./" value="./" />
+                        <input type="text" id="sharedFolder" name="vagrant_local[vm][sharedfolder]" placeholder="./" value="{{ vagrant_local.vm.sharedfolder }}" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
@@ -62,13 +62,13 @@
                 <div class="content">
                     <div class="inline field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="enableWindows" name="vagrant_local[vm][enableWindows]" value="1" checked="checked">
+                            <input type="checkbox" id="enableWindows" name="vagrant_local[vm][enableWindows]" value="1"{% if vagrant_local.vm.enableWindows %} checked="checked"{% endif %}>
                             <label for="enableWindows">Include windows.sh script to enable provisioning on Windows Hosts</label>
                         </div>
                     </div>
                     <div class="inline field">
                         <div class="ui checkbox">
-                            <input type="checkbox" id="useVagrantCloud" name="vagrant_local[vm][useVagrantCloud]" value="1" checked="checked">
+                            <input type="checkbox" id="useVagrantCloud" name="vagrant_local[vm][useVagrantCloud]" value="1"{% if vagrant_local.vm.useVagrantCloud %} checked="checked"{% endif %}>
                             <label for="useVagrantCloud">Use Vagrant Cloud</label>
                         </div>
                     </div>

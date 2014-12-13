@@ -1,0 +1,10 @@
+---
+install: 0
+vm:
+    basebox: ~
+    hostname: ~
+    memory: 512
+    ip: ~
+    sharedfolder: ~
+    enableWindows: 0
+    useVagrantCloud: 0
