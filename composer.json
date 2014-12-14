@@ -1,5 +1,5 @@
 {
-    "name": "Phansible/phansible",
+    "name": "phansible/phansible",
     "description": "Phansible - generate Vagrant + Ansible dev environments for PHP",
     "homepage": "http://phansible.com",
     "authors": [
