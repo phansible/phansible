@@ -6,14 +6,7 @@ class GithubAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testThatGetRetrievesListOfContributors()
     {
-        $response = ['user' => 'data'];
-
-        $httpResponse = $this->getMockBuilder('\Guzzle\Http\Message\Response')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $httpResponse->expects($this->once())
-            ->method('getBody')
-            ->will($this->returnValue('{"user": "data"}'));
+        $httpResponse = new \Guzzle\Http\Message\Response(200, null, '{"user": "data"}');
 
         $client = $this->getMockBuilder('\Github\HttpClient\CachedHttpClient')
             ->disableOriginalConstructor()
@@ -25,7 +18,7 @@ class GithubAdapterTest extends \PHPUnit_Framework_TestCase
         $adapter = new GithubAdapter($client);
 
         $this->assertSame(
-            $response,
+            ['user' => 'data'],
             $adapter->get('contributors')
         );
     }
