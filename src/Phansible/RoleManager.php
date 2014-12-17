@@ -7,22 +7,9 @@ use Phansible\Model\VagrantBundle;
 class RoleManager
 {
     /**
-     * @var \Phansible\Application
-     */
-    protected $app;
-
-    /**
      * @var array
      */
     protected $roles = [];
-
-    /**
-     * @param \Phansible\Application $app
-     */
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
 
     /**
      * Register role
