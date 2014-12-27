@@ -25,3 +25,7 @@
   sudo: yes
   file: src=/usr/share/zoneinfo/{{server.timezone}} dest=/etc/localtime state=link force=yes backup=yes
 
+- name: Set default system language pack
+  shell: locale-gen en_US.UTF-8
+  sudo: yes
+
