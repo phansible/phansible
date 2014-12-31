@@ -19,6 +19,9 @@ class BundleController extends Controller
     public function indexAction(Request $request, Application $app)
     {
         $requestVars = $request->request->all();
+        $requestVars['server']['locale'] = $this->extractLocale(
+            $request->getLanguages()
+        );
 
         $inventory = $this->getInventory($requestVars);
         $varsFile = new VarfileRenderer('all');
@@ -67,6 +70,24 @@ class BundleController extends Controller
         $inventory->setFilePath('ansible/inventories/dev');
 
         return $inventory;
+    }
+
+    public function extractLocale($languages)
+    {
+        $locale = 'en_US';
+
+        if (is_array($languages)) {
+            foreach ($languages as $language) {
+                if (preg_match('/[a-z]_[A-Z]/', $language)) {
+                    $locale = $language;
+                    break;
+                }
+            }
+        }
+
+        $locale .= '.UTF-8';
+
+        return $locale;
     }
 
     /**
