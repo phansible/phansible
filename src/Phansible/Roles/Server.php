@@ -15,6 +15,7 @@ class Server extends BaseRole
         return [
           'install' => 1,
           'timezone' => 'UTC',
+          'locale' => 'en_US.UTF-8',
         ];
     }
 }
