@@ -45,15 +45,15 @@ class VagrantLocal extends BaseRole
         $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
-		if (!isset($config['vm']['enableVerboseMode'])) {
+        if (!isset($config['vm']['enableVerboseMode'])) {
             $vagrantfile->setEnableVerboseMode(false);
-		} else {
-			$vagrantfile->setEnableVerboseMode($config['vm']['enableVerboseMode']);
-		}
+        } else {
+            $vagrantfile->setEnableVerboseMode($config['vm']['enableVerboseMode']);
+        }
 
         // Add box url when NOT using the vagrant cloud
         if ($config['vm']['useVagrantCloud'] != 1) {
-             $vagrantfile->setBoxUrl($box['url']);
+            $vagrantfile->setBoxUrl($box['url']);
         }
 
         return $vagrantfile;

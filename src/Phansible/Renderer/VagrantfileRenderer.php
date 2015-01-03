@@ -31,10 +31,10 @@ class VagrantfileRenderer extends TemplateRenderer
     /** @var  bool Enables or Disables Windows support (windows.sh) */
     protected $enableWindows;
 
-	/**
-	 * @var bool whether to enable verbose mode or not (-vvvv)
-	 */
-	protected $enableVerboseMode;
+    /**
+     * @var bool whether to enable verbose mode or not (-vvvv)
+     */
+    protected $enableVerboseMode;
 
     /**
      * {@inheritdoc}
@@ -52,7 +52,7 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setSyncedFolder('./');
         $this->setSyncedType('nfs');
         $this->setEnableWindows(true);
-		$this->setEnableVerboseMode(true);
+        $this->setEnableVerboseMode(true);
     }
 
     /**
@@ -69,7 +69,7 @@ class VagrantfileRenderer extends TemplateRenderer
             'syncedFolder'  	=> $this->getSyncedFolder(),
             'syncedType'    	=> $this->getSyncedType(),
             'enableWindows' 	=> $this->isWindowsEnabled(),
-			'enableVerboseMode'	=> $this->isVerboseModeEnabled(),
+            'enableVerboseMode'	=> $this->isVerboseModeEnabled(),
         ];
     }
 
@@ -209,11 +209,11 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->enableVerboseMode = $enableVerboseMode;
     }
 
-	/**
-	 * @return boolean
-	 */
-	public function isVerboseModeEnabled()
-	{
+    /**
+     * @return boolean
+     */
+    public function isVerboseModeEnabled()
+    {
         return $this->enableVerboseMode;
-	}
+    }
 }
