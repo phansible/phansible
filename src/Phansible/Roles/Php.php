@@ -35,20 +35,12 @@ class Php extends BaseRole
         }
 
         $playbook = $vagrantBundle->getPlaybook();
-        if ($playbook->hasRole('mysql') || $playbook->hasRole('mariadb')) {
-            $this->addPhpPackage('php5-mysql', $requestVars);
-        }
+        $roleMap  = $this->getRolePackageMap();
 
-        if ($playbook->hasRole('pgsql')) {
-            $this->addPhpPackage('php5-pgsql', $requestVars);
-        }
-
-        if ($playbook->hasRole('sqlite')) {
-            $this->addPhpPackage('php5-sqlite', $requestVars);
-        }
-
-        if ($playbook->hasRole('mongodb')) {
-            $this->addPhpPackage('php5-mongo', $requestVars);
+        foreach ($roleMap as $role => $package) {
+            if ($playbook->hasRole($role)) {
+                $this->addPhpPackage($package, $requestVars);
+            }
         }
 
         parent::setup($requestVars, $vagrantBundle);
@@ -64,5 +56,17 @@ class Php extends BaseRole
         if (in_array($package, $requestVars[$this->getSlug()]['packages']) === false) {
             $requestVars[$this->getSlug()]['packages'][] = $package;
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function getRolePackageMap()
+    {
+        if (!isset($this->app['rolepackagemap'][$this->getSlug()])) {
+            return [];
+        }
+
+        return $this->app['rolepackagemap'][$this->getSlug()];
     }
 }
