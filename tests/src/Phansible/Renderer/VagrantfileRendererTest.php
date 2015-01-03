@@ -35,6 +35,7 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('./', $this->model->getSyncedFolder());
         $this->assertEquals('nfs', $this->model->getSyncedType());
         $this->assertEquals(true, $this->model->isWindowsEnabled());
+		$this->assertEquals(true, $this->model->isVerboseModeEnabled());
     }
 
     /**
@@ -172,6 +173,28 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(true, $this->model->isWindowsEnabled());
     }
+
+	/**
+	 * @covers Phansible\Renderer\VagrantfileRenderer::isWindowsEnabled
+	 * @covers Phansible\Renderer\VagrantfileRenderer::setEnableWindows
+	 */
+	public function testShouldDisableVerboseMode()
+	{
+		$this->model->setEnableVerboseMode(false);
+
+		$this->assertFalse($this->model->isVerboseModeEnabled());
+	}
+
+	/**
+	 * @covers Phansible\Renderer\VagrantfileRenderer::isWindowsEnabled
+	 * @covers Phansible\Renderer\VagrantfileRenderer::setEnableWindows
+	 */
+	public function testShouldEnableVerboseMode()
+	{
+		$this->model->setEnableVerboseMode(true);
+
+		$this->assertTrue($this->model->isVerboseModeEnabled());
+	}
 
     /**
      * @covers Phansible\Renderer\VagrantfileRenderer::getData
