@@ -51,7 +51,6 @@ class VagrantLocal extends BaseRole
 			$vagrantfile->setEnableVerboseMode($config['vm']['enableVerboseMode']);
 		}
 
-
         // Add box url when NOT using the vagrant cloud
         if ($config['vm']['useVagrantCloud'] != 1) {
              $vagrantfile->setBoxUrl($box['url']);
