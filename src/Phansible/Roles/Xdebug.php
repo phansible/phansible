@@ -17,4 +17,19 @@ class Xdebug extends BaseRole
           'settings' => [],
         ];
     }
+
+    protected function installRole($requestVars)
+    {
+        return parent::installRole($requestVars) && $this->phpWillBeInstalled($requestVars);
+    }
+
+    private function phpWillBeInstalled($requestVars)
+    {
+        $config = $requestVars['php'];
+
+        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
+            return false;
+        }
+        return true;
+    }
 }
