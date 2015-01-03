@@ -3,6 +3,7 @@
 namespace Phansible;
 
 use Phansible\Provider\RolesServiceProvider;
+use Phansible\Provider\GithubProvider;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -44,6 +45,7 @@ class Application extends \Flint\Application
     protected function initProviders()
     {
         $this->register(new RolesServiceProvider());
+        $this->register(new GithubProvider());
     }
 
     /**

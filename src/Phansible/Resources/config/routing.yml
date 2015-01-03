@@ -4,7 +4,7 @@ phansible_default:
 
 phansible_about:
     path: /about
-    defaults: { _controller: "Phansible\Controller\DefaultController::aboutAction" }
+    defaults: { _controller: "Phansible\Controller\AboutController::indexAction" }
 
 phansible_docs:
     path: /docs/{doc}
