@@ -14,6 +14,6 @@
 - include: php-cli.yml
   when: phpcli.stat.exists
 
-- include: mod_php.yml
+- include: mod-php.yml
   when: modphp.stat.exists
 
