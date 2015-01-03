@@ -46,7 +46,7 @@ class VagrantLocal extends BaseRole
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
 		if (!isset($config['vm']['enableVerboseMode'])) {
-			$vagrantfile->setEnableVerboseMode(false);
+            $vagrantfile->setEnableVerboseMode(false);
 		} else {
 			$vagrantfile->setEnableVerboseMode($config['vm']['enableVerboseMode']);
 		}

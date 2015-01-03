@@ -201,19 +201,19 @@ class VagrantfileRenderer extends TemplateRenderer
         return $this->enableWindows;
     }
 
-	/**
-	 * @param boolean $enableVerboseMode
-	 */
-	public function setEnableVerboseMode($enableVerboseMode)
-	{
-		$this->enableVerboseMode = $enableVerboseMode;
-	}
+    /**
+     * @param boolean $enableVerboseMode
+     */
+    public function setEnableVerboseMode($enableVerboseMode)
+    {
+        $this->enableVerboseMode = $enableVerboseMode;
+    }
 
 	/**
 	 * @return boolean
 	 */
 	public function isVerboseModeEnabled()
 	{
-		return $this->enableVerboseMode;
+        return $this->enableVerboseMode;
 	}
 }
