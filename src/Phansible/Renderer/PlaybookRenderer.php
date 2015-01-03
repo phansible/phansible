@@ -7,14 +7,11 @@ namespace Phansible\Renderer;
 
 class PlaybookRenderer extends TemplateRenderer
 {
-    /** @var array Playbook Variables */
-    protected $vars;
-
-    /** @var array[VarfileRenderer] VarsFiles */
-    protected $varsFiles;
+    /** @var string */
+    protected $varsFilename;
 
     /** @var array Playbook Roles */
-    protected $roles;
+    protected $roles = [];
 
     /**
      * {@inheritdoc}
@@ -23,10 +20,6 @@ class PlaybookRenderer extends TemplateRenderer
     {
         $this->setTemplate('playbook.yml.twig');
         $this->setFilePath('ansible/playbook.yml');
-
-        $this->vars      = [];
-        $this->varsFiles = [];
-        $this->roles     = [];
     }
 
     /**
@@ -35,81 +28,17 @@ class PlaybookRenderer extends TemplateRenderer
     public function getData()
     {
         return [
-            'web_server'      => isset($this->vars['web_server']) ? $this->vars['web_server'] : 'nginxphp',
-            'playbook_vars'   => $this->vars,
-            'playbook_files'  => $this->getVarsFilesList(),
-            'playbook_roles'  => $this->roles,
+            'varsfile' => $this->varsFilename,
+            'roles'  => $this->roles,
         ];
     }
 
     /**
-     * @param array $vars
+     * @param string $varsFilename
      */
-    public function setVars(array $vars = [])
+    public function setVarsFilename($varsFilename)
     {
-        $this->vars = $vars;
-    }
-
-    /**
-     * @return array
-     */
-    public function getVars()
-    {
-        return $this->vars;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     */
-    public function addVar($key, $value)
-    {
-        $this->vars[$key] = $value;
-    }
-
-    /**
-     * @param string $key
-     * @return mixed
-     */
-    public function getVar($key)
-    {
-        return isset($this->vars[$key]) ? $this->vars[$key] : null;
-    }
-
-    /**
-     * @param array $varsFiles
-     */
-    public function setVarsFiles(array $varsFiles = [])
-    {
-        foreach ($varsFiles as $varFile) {
-            $this->addVarsFile($varFile);
-        }
-    }
-
-    /**
-     * @return array
-     */
-    public function getVarsFiles()
-    {
-        return $this->varsFiles;
-    }
-
-    public function getVarsFilesList()
-    {
-        $include = [];
-        foreach ($this->varsFiles as $varFile) {
-            $include[] = 'vars/'. $varFile->getName() . '.yml';
-        }
-
-        return $include;
-    }
-
-    /**
-     * @param VarFileRenderer $varfile
-     */
-    public function addVarsFile(VarfileRenderer $varfile)
-    {
-        $this->varsFiles[] = $varfile;
+        $this->varsFilename = $varsFilename;
     }
 
     /**
@@ -136,15 +65,12 @@ class PlaybookRenderer extends TemplateRenderer
         $this->roles[] = $role;
     }
 
-    public function createVarsFile($name, array $data, $template = null)
+    /**
+     * @param string $role
+     * @return boolean
+     */
+    public function hasRole($role)
     {
-        $varfile = new VarfileRenderer($name);
-        $varfile->setData($data);
-
-        if ($template) {
-            $varfile->setTemplate($template);
-        }
-
-        $this->addVarsFile($varfile);
+        return array_search($role, $this->roles) !== false;
     }
 }

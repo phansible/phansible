@@ -1,26 +1,68 @@
 ---
+- name: Add PPA (12.04 Boost)
+  apt_repository: repo=ppa:mapnik/boost state=present update_cache=yes
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '12.04'
 
-- name: Add PPA repo
-  apt_repository: repo=ppa:mapnik/boost
-  when: dist == 'precise'
+- name: Add APT Key
+  apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key
+           state=present
+  when: ansible_distribution == 'Ubuntu'
 
-- name: Add HHVM repo key
-  shell: wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
-
-- name: Add HHVM repo
-  shell: echo deb http://dl.hhvm.com/ubuntu {{ dist }} main | sudo tee /etc/apt/sources.list.d/hhvm.list
-
-- name: Update apt
-  apt: update_cache=yes
+- name: Add APT Repo (Ubuntu)
+  apt_repository: repo='deb http://dl.hhvm.com/ubuntu {{ ansible_distribution_release }} main'
+                  state=present
+                  update_cache=yes
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install HHVM and php5-cli (for command-line php)
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - hhvm
-    - php5-cli
+  apt: pkg=hhvm state=latest
+  notify: restart hhvm
+  when: ansible_distribution == 'Ubuntu'
 
+- name: Create php cli symlink
+  file: src=/usr/bin/hhvm dest=/usr/bin/php owner=root group=root state=link
+
+# Enable Apache
+- shell: apache2 -v
+  register: apache_version
+  when: apache is defined and apache.install == '1'
+
+- name: Enable apache proxy fcgi
+  apache2_module: state=present name={{ item }}
+  with_items:
+    - proxy
+    - proxy_fcgi
+  when: apache is defined and apache.install == '1' and apache_version.stdout.find('Apache/2.4.') != -1
+
+- name: Create hhvm fcgi config
+  template: src=hhvm_proxy_fcgi.conf.tpl dest=/etc/apache2/mods-available/hhvm_proxy_fcgi.conf
+  when: apache is defined and apache.install == '1' and apache_version.stdout.find('Apache/2.4.') != -1
+
+- name: Enable hhvm module
+  file: src=/etc/apache2/mods-available/hhvm_proxy_fcgi.conf dest=/etc/apache2/mods-enabled/hhvm_proxy_fcgi.conf owner=root group=root state=link
+  notify: restart apache
+  when: apache is defined and apache.install == '1' apache_version.stdout.find('Apache/2.4.') != -1
+
+- name: Install mod fastcgi for apache 2.2.x
+  apt: pkg=libapache2-mod-fastcgi state=latest
+  when: apache is defined and apache.install == '1' and apache_version.stdout.find('Apache/2.2.') != -1
+
+- name: Enable apache proxy fcgi
+  apache2_module: state=present name={{ item }}
+  with_items:
+    - actions
+    - alias
+    - mod_fastcgi
+  when: apache is defined and apache.install == '1' and apache_version.stdout.find('Apache/2.2.') != -1
+
+- name: Change default apache2.2 site
+  sudo: yes
+  template: src=vhost22.conf.tpl dest=/etc/apache2/sites-available/default
+  notify: restart apache
+  when: apache is defined and apache.install == '1' and apache_version.stdout.find('Apache/2.2.') != -1
+
+# Enable Nginx
 - name: Change default nginx site
   template: src=nginx.tpl dest=/etc/nginx/sites-available/default
-  notify:
-    - restart nginx
-    - restart hhvm
+  notify: restart nginx
+  when: nginx is defined and nginx.install == '1'

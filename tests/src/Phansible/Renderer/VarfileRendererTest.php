@@ -5,9 +5,13 @@
 
 namespace Phansible\Renderer;
 
+use Symfony\Component\Yaml\Parser;
 
 class VarfileRendererTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var VarfileRenderer
+     */
     private $model;
 
     public function setUp()
@@ -88,24 +92,13 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $data = $this->model->getData();
+        $parser = new Parser();
 
         $this->assertArrayHasKey('variables', $data);
-        $this->assertArrayHasKey('key', $data['variables']);
-    }
-
-    /**
-     * @covers Phansible\Renderer\VarfileRenderer::add
-     */
-    public function testShouldConvertArrayValue()
-    {
-        $key   = 'packages';
-        $value = ['git', 'curl'];
-
-        $this->model->add($key, $value);
-
         $this->assertTrue(is_array(
-            json_decode($this->model->get('packages'), 1)
-        ));
+            $parser->parse($data['variables'], 1)
+          ));
+
     }
 
     /**
@@ -129,19 +122,6 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
         $path = 'ansible/vars/common.yml';
 
         $this->assertEquals($path, $this->model->getFilePath());
-    }
-
-    /**
-     * @covers Phansible\Renderer\VarfileRenderer::getData
-     */
-    public function testGetData()
-    {
-        $this->model->add('test', 'test');
-
-        $data = $this->model->getData();
-
-        $this->assertArrayHasKey('variables', $data);
-        $this->assertArrayHasKey('test', $data['variables']);
     }
 
     /**

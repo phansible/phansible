@@ -100,7 +100,7 @@ class TemplateRenderer implements FileRendererInterface
 
     /**
      * Defines the path where the rendered file should be saved
-     * @param $filePath
+     * @param string $filePath
      */
     public function setFilePath($filePath)
     {
@@ -113,19 +113,5 @@ class TemplateRenderer implements FileRendererInterface
     public function getFilePath()
     {
         return $this->filePath;
-    }
-
-    /**
-     * Returns a string with a YAML array
-     * @param array $array
-     * @return string
-     */
-    public function arrayToYAML(array $array)
-    {
-        $quoted = array_map(function ($value) {
-            return "\"$value\"";
-        }, $array);
-
-        return '[' . implode(',', $quoted) . ']';
     }
 }

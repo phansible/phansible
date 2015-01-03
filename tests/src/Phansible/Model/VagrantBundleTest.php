@@ -91,25 +91,15 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::addRenderer
-     * @covers Phansible\Model\VagrantBundle::getRenderers
-     * @covers Phansible\Model\VagrantBundle::setRenderers
+     * @covers Phansible\Model\VagrantBundle::getVagrantFile
+     * @covers Phansible\Model\VagrantBundle::setVagrantFile
      */
-    public function testShouldSetAndGetRenderer()
+    public function testShouldSetAndGetVagrantFile()
     {
-        $renderer = $this->getMockBuilder('Phansible\Renderer\VagrantfileRenderer')
-            ->getMock();
+        $vagrantFile = new VagrantfileRenderer();
+        $this->model->setVagrantFile($vagrantFile);
 
-        $this->model->addRenderer($renderer);
-
-        $this->assertContains($renderer, $this->model->getRenderers());
-
-        $renderer2 = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
-            ->getMock();
-
-        $this->model->setRenderers([$renderer, $renderer2]);
-
-        $this->assertContainsOnlyInstancesOf('Phansible\Model\FileRendererInterface', $this->model->getRenderers());
+        $this->assertEquals($vagrantFile, $this->model->getVagrantFile());
     }
 
     /**
@@ -154,12 +144,12 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->method('includeBundleFiles')
             ->with(
                 $this->identicalTo($mockedZip),
-                $this->equalTo('roles/nginx/tasks'),
+                $this->equalTo('roles/nginx/defaults'),
                 $this->equalTo('*.yml'),
-                $this->equalTo('ansible/roles/nginx/tasks')
+                $this->equalTo('ansible/roles/nginx/defaults')
             );
 
-        $model->expects($this->at(2))
+        $model->expects($this->at(3))
             ->method('includeBundleFiles')
             ->with(
                 $this->identicalTo($mockedZip),
@@ -193,37 +183,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
         $this->model->setAnsiblePath($ansiblePath);
         $this->model->includeBundleFiles($mockedZip, 'vars');
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::renderFiles
-     */
-    public function testShouldRenderFile()
-    {
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $renderer = $this->getMockBuilder('Phansible\Renderer\VagrantfileRenderer')
-            ->setMethods(['renderFile'])
-            ->getMock();
-
-        $renderer->expects($this->once())
-            ->method('renderFile')
-            ->with($this->identicalTo($twig))
-            ->will($this->returnValue('Vagrantfile'));
-
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(['addFromString'])
-            ->getMock();
-
-        $mockedZip->expects($this->once())
-            ->method('addFromString')
-            ->with($this->equalTo('Vagrantfile'), 'Vagrantfile');
-
-        $this->model->setTwig($twig);
-        $this->model->addRenderer($renderer);
-        $this->model->renderFiles($mockedZip);
     }
 
     /**

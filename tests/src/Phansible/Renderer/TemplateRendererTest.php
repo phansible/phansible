@@ -94,16 +94,4 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
 
         $this->model->renderFile($twig);
     }
-
-    /**
-     * @covers Phansible\Renderer\TemplateRenderer::arrayToYAML
-     */
-    public function testArrayToYAML()
-    {
-        $test = ['value1', 'value2'];
-
-        $yaml = $this->model->arrayToYAML($test);
-
-        $this->assertEquals('["value1","value2"]', $yaml);
-    }
 }

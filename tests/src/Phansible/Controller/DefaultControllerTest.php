@@ -2,6 +2,8 @@
 
 namespace Phansible\Controller;
 
+use Phansible\RoleManager;
+
 class DefaultControllerTest extends \PHPUnit_Framework_TestCase
 {
     private $controller;
@@ -9,8 +11,6 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->controller = new DefaultController();
         $this->twig       = $this->getMockBuilder('\Twig_Environment')
             ->setMethods(['render'])
@@ -45,6 +45,7 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
         $container['phppackages']  = [];
         $container['databases']    = [];
         $container['peclpackages'] = [];
+        $container['roles']        = new RoleManager();
 
         $this->controller->setPimple($container);
         $this->controller->indexAction();
@@ -103,23 +104,11 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Phansible\Controller\DefaultController::docsAction
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function testShouldRenderUsageActionWhenDocFileNotExists()
+    public function testShouldThrowExceptionWhenDocFileNotExists()
     {
-        $container = new \Pimple();
-
-        $this->twig->expects($this->once())
-            ->method('render')
-            ->with(
-                $this->equalTo('docs.html.twig'),
-                $this->equalTo(['content' => ''])
-            );
-
-        $container['twig'] = $this->twig;
-        $container['docs.path'] = '';
         $doc = '';
-
-        $this->controller->setPimple($container);
         $this->controller->docsAction($doc);
     }
 
@@ -139,10 +128,10 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
                 })
             );
 
-        $docFile = new \SplFileObject('/tmp/phansible.md', 'w+');
+        $docFile = new \SplFileObject('/tmp/vagrant.md', 'w+');
         $docFile->fwrite('Phansible');
 
-        $doc = 'phansible';
+        $doc = 'vagrant';
 
         $container['twig'] = $this->twig;
         $container['docs.path'] = '/tmp';

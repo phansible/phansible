@@ -62,7 +62,7 @@ class VagrantfileRenderer extends TemplateRenderer
             'ipAddress'     => $this->getIpAddress(),
             'syncedFolder'  => $this->getSyncedFolder(),
             'syncedType'    => $this->getSyncedType(),
-            'enableWindows' => $this->getEnableWindows(),
+            'enableWindows' => $this->isWindowsEnabled(),
         ];
     }
 
@@ -189,7 +189,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return boolean
      */
-    public function getEnableWindows()
+    public function isWindowsEnabled()
     {
         return $this->enableWindows;
     }

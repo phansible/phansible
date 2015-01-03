@@ -9,6 +9,11 @@ install:
    - php vendor/autoload.php
 script:
    - mkdir -p build/logs
-   - php vendor/bin/phpunit -c tests/phpunit.xml
+   - php vendor/bin/phpcs --standard=psr2 ./src
+   - php vendor/bin/phpmd src/ text codesize,controversial,design,naming,unusedcode
+   - php vendor/bin/phpunit
 after_script:
    - php vendor/bin/coveralls
+   ## Scrutinizer
+   - wget https://scrutinizer-ci.com/ocular.phar
+   - php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml

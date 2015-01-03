@@ -5,8 +5,19 @@
 
 namespace Phansible\Model;
 
+use Phansible\Renderer\PlaybookRenderer;
+use Phansible\Renderer\TemplateRenderer;
+use Phansible\Renderer\VagrantfileRenderer;
+use Phansible\Renderer\VarfileRenderer;
+
 class VagrantBundle
 {
+    const VARSFILE = 'varsfile';
+    const PLAYBOOK = 'playbook';
+    const VAGRANTFILE = 'vagrantfile';
+    const INVENTORY = 'inventory';
+
+
     /** @var array File Renderers */
     protected $renderers = [];
 
@@ -34,6 +45,12 @@ class VagrantBundle
 
         $loader = new \Twig_Loader_Filesystem($this->tplPath);
         $this->twig = new \Twig_Environment($loader);
+
+        $this->renderers = [
+            self::VARSFILE => null,
+            self::PLAYBOOK => null,
+            self::VAGRANTFILE => null,
+        ];
     }
 
     /**
@@ -85,34 +102,81 @@ class VagrantBundle
     }
 
     /**
-     * @param array $renderers
+     * @param \Phansible\Renderer\PlaybookRenderer $playbook
+     * @return $this
      */
-    public function setRenderers(array $renderers)
+    public function setPlaybook(PlaybookRenderer $playbook)
     {
-        foreach ($renderers as $renderer) {
-            $this->addRenderer($renderer);
-        }
-
+        $this->addRenderer(self::PLAYBOOK, $playbook);
         return $this;
     }
 
     /**
-     * @return array
+     * @return \Phansible\Renderer\PlaybookRenderer
      */
-    public function getRenderers()
+    public function getPlaybook()
     {
-        return $this->renderers;
+        return $this->getRenderer(self::PLAYBOOK);
     }
 
     /**
-     * @param FileRendererInterface $renderer
+     * @param \Phansible\Renderer\VarfileRenderer $varsfile
+     * @return $this
      */
-
-    public function addRenderer(FileRendererInterface $renderer)
+    public function setVarsFile(VarfileRenderer $varsfile)
     {
-        $this->renderers[] = $renderer;
-
+        $this->addRenderer(self::VARSFILE, $varsfile);
         return $this;
+    }
+
+    /**
+     * @return \Phansible\Renderer\VarfileRenderer
+     */
+    public function getVarsFile()
+    {
+        return $this->getRenderer(self::VARSFILE);
+    }
+
+    /**
+     * @param \Phansible\Renderer\VagrantfileRenderer $vagrantFile
+     * @return $this
+     */
+    public function setVagrantFile(VagrantfileRenderer $vagrantFile)
+    {
+        $this->addRenderer(self::VAGRANTFILE, $vagrantFile);
+        return $this;
+    }
+
+    /**
+     * @return \Phansible\Renderer\VagrantfileRenderer
+     */
+    public function getVagrantFile()
+    {
+        return $this->getRenderer(self::VAGRANTFILE);
+    }
+
+    public function setInventory(TemplateRenderer $inventory)
+    {
+        $this->addRenderer(self::INVENTORY, $inventory);
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param \Phansible\Model\FileRendererInterface $renderer
+     */
+    protected function addRenderer($name, FileRendererInterface $renderer)
+    {
+        $this->renderers[$name] = $renderer;
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    protected function getRenderer($name)
+    {
+        return $this->renderers[$name];
     }
 
     /**
@@ -144,7 +208,7 @@ class VagrantBundle
      * @param \ZipArchive $zip
      * @return \ZipArchive
      */
-    public function renderFiles(\ZipArchive $zip)
+    protected function renderFiles(\ZipArchive $zip)
     {
         foreach ($this->renderers as $renderer) {
             $zip->addFromString($renderer->getFilePath(), $renderer->renderFile($this->twig));
@@ -165,7 +229,6 @@ class VagrantBundle
         $res = $zip->open($filepath, \ZipArchive::CREATE);
 
         if ($res === true) {
-
             /** template files rendering */
             $this->renderFiles($zip);
 
@@ -220,6 +283,10 @@ class VagrantBundle
     public function addRoleFiles($role, \ZipArchive $zip)
     {
         $base = 'roles/' . $role;
+
+        /** tasks */
+        $dirTasks = $base . '/defaults';
+        $this->includeBundleFiles($zip, $dirTasks, '*.yml', 'ansible/' . $dirTasks);
 
         /** tasks */
         $dirTasks = $base . '/tasks';

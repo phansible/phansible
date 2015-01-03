@@ -8,6 +8,7 @@ use Github\HttpClient\CachedHttpClient;
 use Github\HttpClient\Message\ResponseMediator;
 use Michelf\Markdown;
 use DateTimeZone;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @package Skeleton
@@ -35,11 +36,18 @@ class DefaultController extends Controller
 
         $config['timezones'] = DateTimeZone::listIdentifiers();
 
-        return $this->render('index.html.twig', ['config' => $config]);
+        $roles = $this->get('roles');
+
+        $initialValues = $roles->getInitialValues();
+        $config = ['config' => $config];
+        return $this->render('index.html.twig', array_merge($initialValues, $config));
     }
 
     public function docsAction($doc)
     {
+        if (!in_array($doc, ['contributing', 'customize', 'usage', 'vagrant'])) {
+            throw new NotFoundHttpException();
+        }
         $docfile = $this->get('docs.path') . DIRECTORY_SEPARATOR . $doc . '.md';
 
         $content = "";

@@ -6,11 +6,9 @@
         <div class="ui top attached black label">Details</div>
         <div class="field">
             <label for="timezone">timezone:</label>
-
-            <select id="timezone" name="timezone" class="select-one">
-                <option value="UTC">UTC</option>
+            <select id="timezone" name="server[timezone]" class="select-one">
                 {% for timezone in config.timezones %}
-                    <option value="{{ timezone }}">{{ timezone }}</option>
+                    <option value="{{ timezone }}"{% if timezone == server.timezone %} selected="selected"{% endif %}>{{ timezone }}</option>
                 {% endfor %}
             </select>
         </div>
