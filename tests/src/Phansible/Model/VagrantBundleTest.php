@@ -20,38 +20,17 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->model    = new VagrantBundle();
+        $twig = $this->getMockBuilder('\Twig_Environment')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->model    = new VagrantBundle(null, $twig);
         $this->playbook = new PlaybookRenderer();
     }
 
     public function tearDown()
     {
         $this->model = null;
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     */
-    public function testShouldConstructBundle()
-    {
-        $this->assertInstanceOf('Twig_Environment', $this->model->getTwig());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getTwig
-     * @covers Phansible\Model\VagrantBundle::setTwig
-     */
-    public function testShouldSetAndGetTwig()
-    {
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->model->setTwig($twig);
-
-        $result = $this->model->getTwig();
-
-        $this->assertEquals($twig, $result);
     }
 
     /**

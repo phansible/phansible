@@ -35,38 +35,21 @@ class VagrantBundle
 
     /**
      * @param string $ansiblePath
+     * @param \Twig_Environment $twig
      */
-    public function __construct($ansiblePath = null)
+    public function __construct($ansiblePath = null, \Twig_Environment $twig)
     {
+        $this->twig = $twig;
         $this->ansiblePath = $ansiblePath ?: __DIR__ . '/../Resources/ansible';
 
         $this->tplPath   = $this->ansiblePath . '/templates';
         $this->rolesPath = $this->ansiblePath . '/roles';
-
-        $loader = new \Twig_Loader_Filesystem($this->tplPath);
-        $this->twig = new \Twig_Environment($loader);
 
         $this->renderers = [
             self::VARSFILE => null,
             self::PLAYBOOK => null,
             self::VAGRANTFILE => null,
         ];
-    }
-
-    /**
-     * @param \Twig_Environment $twig
-     */
-    public function setTwig(\Twig_Environment $twig)
-    {
-        $this->twig = $twig;
-    }
-
-    /**
-     * @return \Twig_Environment
-     */
-    public function getTwig()
-    {
-        return $this->twig;
     }
 
     /**
