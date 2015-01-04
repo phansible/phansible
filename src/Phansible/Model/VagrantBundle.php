@@ -140,22 +140,6 @@ class VagrantBundle
     }
 
     /**
-     * @return string
-     */
-    public function getRolesPath()
-    {
-        return $this->rolesPath;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setRolesPath($path)
-    {
-        $this->rolesPath = $path;
-    }
-
-    /**
      * Renders the files defined via FileRenderers
      * @param \ZipArchive $zip
      * @return \ZipArchive

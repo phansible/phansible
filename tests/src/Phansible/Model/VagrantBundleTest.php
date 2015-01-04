@@ -33,18 +33,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::getRolesPath
-     * @covers Phansible\Model\VagrantBundle::setRolesPath
-     */
-    public function testShouldSetAndGetRolesPath()
-    {
-        $path = __DIR__ . '/../src/Resources/ansible';
-        $this->model->setRolesPath($path);
-
-        $this->assertEquals($path, $this->model->getRolesPath());
-    }
-
-    /**
      * @covers Phansible\Model\VagrantBundle::getVagrantFile
      * @covers Phansible\Model\VagrantBundle::setVagrantFile
      */
@@ -64,19 +52,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->getZipArchive();
 
         $this->assertInstanceOf('\ZipArchive', $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getRolesPath
-     */
-    public function testShoulRetrieveDefaultRolesPath()
-    {
-        $expected = '/../Resources/ansible/roles';
-        $result   = $this->model->getRolesPath();
-
-        $expected = strpos($result, $expected) !== false;
-
-        $this->assertTrue($expected);
     }
 
     /**
