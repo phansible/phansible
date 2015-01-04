@@ -53,22 +53,6 @@ class VagrantBundle
     }
 
     /**
-     * @param string $tplPath
-     */
-    public function setTplPath($tplPath)
-    {
-        $this->tplPath = $tplPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTplPath()
-    {
-        return $this->tplPath;
-    }
-
-    /**
      * @param string $ansiblePath
      */
     public function setAnsiblePath($ansiblePath)

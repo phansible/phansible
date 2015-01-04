@@ -46,18 +46,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::getTplPath
-     * @covers Phansible\Model\VagrantBundle::setTplPath
-     */
-    public function testShouldSetAndGetTplPath()
-    {
-        $path = __DIR__ . '/../src/Resources/ansible';
-        $this->model->setTplPath($path);
-
-        $this->assertEquals($path, $this->model->getTplPath());
-    }
-
-    /**
      * @covers Phansible\Model\VagrantBundle::getRolesPath
      * @covers Phansible\Model\VagrantBundle::setRolesPath
      */
