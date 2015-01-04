@@ -89,6 +89,7 @@ class VagrantBundle
     }
 
     /**
+     * @see Phansible\Roles\VagrantLocal::setup
      * @param \Phansible\Renderer\VagrantfileRenderer $vagrantFile
      * @return $this
      */
