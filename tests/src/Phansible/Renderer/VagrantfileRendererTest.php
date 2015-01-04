@@ -35,7 +35,7 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('./', $this->model->getSyncedFolder());
         $this->assertEquals('nfs', $this->model->getSyncedType());
         $this->assertEquals(true, $this->model->isWindowsEnabled());
-		$this->assertEquals(true, $this->model->isVerboseModeEnabled());
+        $this->assertEquals(true, $this->model->isVerboseModeEnabled());
     }
 
     /**
