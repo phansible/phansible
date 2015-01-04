@@ -52,7 +52,7 @@ class RoleManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->roleManager->setupRole(['a list of valid variables'], new VagrantBundle(null, $twig));
+        $this->roleManager->setupRole(['a list of valid variables'], new VagrantBundle('path/to/ansible', $twig));
     }
 
     public function testWeAreAbleToRetrieveRolesInitialValues()

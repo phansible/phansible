@@ -37,10 +37,10 @@ class VagrantBundle
      * @param string $ansiblePath
      * @param \Twig_Environment $twig
      */
-    public function __construct($ansiblePath = null, \Twig_Environment $twig)
+    public function __construct($ansiblePath, \Twig_Environment $twig)
     {
         $this->twig = $twig;
-        $this->ansiblePath = $ansiblePath ?: __DIR__ . '/../Resources/ansible';
+        $this->ansiblePath = $ansiblePath;
 
         $this->tplPath   = $this->ansiblePath . '/templates';
         $this->rolesPath = $this->ansiblePath . '/roles';

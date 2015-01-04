@@ -23,7 +23,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->model    = new VagrantBundle(null, $this->twig);
+        $this->model = new VagrantBundle('path/to/ansible', $this->twig);
     }
 
     public function tearDown()
