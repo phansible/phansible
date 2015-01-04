@@ -53,22 +53,6 @@ class VagrantBundle
     }
 
     /**
-     * @param string $ansiblePath
-     */
-    public function setAnsiblePath($ansiblePath)
-    {
-        $this->ansiblePath = $ansiblePath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAnsiblePath()
-    {
-        return $this->ansiblePath;
-    }
-
-    /**
      * @param \Phansible\Renderer\PlaybookRenderer $playbook
      * @return $this
      */
@@ -208,10 +192,10 @@ class VagrantBundle
             $this->includeBundleFiles($zip, 'vars', '*.yml', 'ansible/vars');
 
             /** include windows.sh */
-            $zip->addFile($this->getAnsiblePath() . '/windows.sh', 'ansible/windows.sh');
+            $zip->addFile($this->ansiblePath . '/windows.sh', 'ansible/windows.sh');
 
             /** include default public key */
-            $zip->addFile($this->getAnsiblePath() . '/files/authorized_keys', 'ansible/files/authorized_keys');
+            $zip->addFile($this->ansiblePath . '/files/authorized_keys', 'ansible/files/authorized_keys');
 
             $zip->close();
 
@@ -233,7 +217,7 @@ class VagrantBundle
     {
         $includePath = $includePath ?: $sourceDir;
 
-        $resources = $this->getAnsiblePath();
+        $resources = $this->ansiblePath;
 
         if (is_dir($resources . '/' . $sourceDir)) {
             foreach (glob($resources . '/' . $sourceDir . '/' . $pattern) as $file) {

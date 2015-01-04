@@ -2,7 +2,6 @@
 
 namespace Phansible\Model;
 
-use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VagrantfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,35 +13,23 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     private $model;
 
     /**
-     * @var PlaybookRenderer
+     * @var Twig_Environment
      */
-    private $playbook;
+    private $twig;
 
     public function setUp()
     {
-        $twig = $this->getMockBuilder('\Twig_Environment')
+        $this->twig = $this->getMockBuilder('\Twig_Environment')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->model    = new VagrantBundle(null, $twig);
-        $this->playbook = new PlaybookRenderer();
+        $this->model    = new VagrantBundle(null, $this->twig);
     }
 
     public function tearDown()
     {
         $this->model = null;
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getAnsiblePath
-     * @covers Phansible\Model\VagrantBundle::setAnsiblePath
-     */
-    public function testShouldSetAndGetAnsiblePath()
-    {
-        $path = __DIR__ . '/../src/Resources/ansible';
-        $this->model->setAnsiblePath($path);
-
-        $this->assertEquals($path, $this->model->getAnsiblePath());
+        $this->twig = null;
     }
 
     /**
@@ -145,10 +132,10 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             );
 
         $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
+        $this->model = new VagrantBundle($ansiblePath, $this->twig);
 
         $this->assertTrue(is_dir($ansiblePath));
 
-        $this->model->setAnsiblePath($ansiblePath);
         $this->model->includeBundleFiles($mockedZip, 'vars');
     }
 
