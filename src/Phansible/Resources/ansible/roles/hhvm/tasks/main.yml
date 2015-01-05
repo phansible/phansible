@@ -2,13 +2,13 @@
 
 - name: Add PPA repo
   apt_repository: repo=ppa:mapnik/boost
-  when: dist == 'precise'
+  when: ansible_distribution_release == 'precise'
 
 - name: Add HHVM repo key
   shell: wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
 
 - name: Add HHVM repo
-  shell: echo deb http://dl.hhvm.com/ubuntu {{ dist }} main | sudo tee /etc/apt/sources.list.d/hhvm.list
+  shell: echo deb http://dl.hhvm.com/ubuntu {{ ansible_distribution_release }} main | sudo tee /etc/apt/sources.list.d/hhvm.list
 
 - name: Update apt
   apt: update_cache=yes
