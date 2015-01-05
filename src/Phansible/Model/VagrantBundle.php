@@ -17,18 +17,11 @@ class VagrantBundle
     const VAGRANTFILE = 'vagrantfile';
     const INVENTORY = 'inventory';
 
-
     /** @var array File Renderers */
     protected $renderers = [];
 
     /** @var string Path to Ansible Resources */
     protected $ansiblePath;
-
-    /** @var string Path to Ansible Templates */
-    protected $tplPath;
-
-    /** @var string Path to Roles */
-    private $rolesPath;
 
     /** @var \Twig_Environment */
     protected $twig;
@@ -41,9 +34,6 @@ class VagrantBundle
     {
         $this->twig = $twig;
         $this->ansiblePath = $ansiblePath;
-
-        $this->tplPath   = $this->ansiblePath . '/templates';
-        $this->rolesPath = $this->ansiblePath . '/roles';
 
         $this->renderers = [
             self::VARSFILE => null,
