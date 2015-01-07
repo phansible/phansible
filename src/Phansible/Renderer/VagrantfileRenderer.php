@@ -32,6 +32,11 @@ class VagrantfileRenderer extends TemplateRenderer
     protected $enableWindows;
 
     /**
+     * @var bool whether to enable verbose mode or not (-vvvv)
+     */
+    protected $enableVerboseMode;
+
+    /**
      * {@inheritdoc}
      */
     public function loadDefaults()
@@ -47,6 +52,7 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setSyncedFolder('./');
         $this->setSyncedType('nfs');
         $this->setEnableWindows(true);
+        $this->setEnableVerboseMode(true);
     }
 
     /**
@@ -55,14 +61,15 @@ class VagrantfileRenderer extends TemplateRenderer
     public function getData()
     {
         return [
-            'vmName'        => strtolower($this->getName()),
-            'memory'        => $this->getMemory(),
-            'boxUrl'        => $this->getBoxUrl(),
-            'boxName'       => $this->getBoxName(),
-            'ipAddress'     => $this->getIpAddress(),
-            'syncedFolder'  => $this->getSyncedFolder(),
-            'syncedType'    => $this->getSyncedType(),
-            'enableWindows' => $this->isWindowsEnabled(),
+            'vmName'        	=> strtolower($this->getName()),
+            'memory'        	=> $this->getMemory(),
+            'boxUrl'        	=> $this->getBoxUrl(),
+            'boxName'       	=> $this->getBoxName(),
+            'ipAddress'     	=> $this->getIpAddress(),
+            'syncedFolder'  	=> $this->getSyncedFolder(),
+            'syncedType'    	=> $this->getSyncedType(),
+            'enableWindows' 	=> $this->isWindowsEnabled(),
+            'enableVerboseMode'	=> $this->isVerboseModeEnabled(),
         ];
     }
 
@@ -192,5 +199,21 @@ class VagrantfileRenderer extends TemplateRenderer
     public function isWindowsEnabled()
     {
         return $this->enableWindows;
+    }
+
+    /**
+     * @param boolean $enableVerboseMode
+     */
+    public function setEnableVerboseMode($enableVerboseMode)
+    {
+        $this->enableVerboseMode = $enableVerboseMode;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isVerboseModeEnabled()
+    {
+        return $this->enableVerboseMode;
     }
 }
