@@ -20,15 +20,4 @@ class Hhvm extends BaseRole
           'port' => 9000,
         ];
     }
-
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
-    {
-        parent::setup($requestVars, $vagrantBundle);
-
-        /*
-        if ($requestVars[$this->getSlug()]['composer'] == 1) {
-            $vagrantBundle->getPlaybook()->addRole('composer');
-        }
-        */
-    }
 }

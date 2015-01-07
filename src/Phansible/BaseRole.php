@@ -94,12 +94,4 @@ abstract class BaseRole implements RoleInterface
      * {@inheritdoc}
      */
     abstract public function getInitialValues();
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAvailableOptions()
-    {
-        return [];
-    }
 }

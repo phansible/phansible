@@ -46,13 +46,6 @@ interface RoleInterface
     public function getInitialValues();
 
     /**
-     * Get available options for the form
-     *
-     * @return array
-     */
-    public function getAvailableOptions();
-
-    /**
      * Setup the role
      *
      * @param array $requestVars

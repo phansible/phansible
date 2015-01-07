@@ -2,7 +2,6 @@
 
 namespace Phansible\Model;
 
-use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\VagrantfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,80 +13,23 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     private $model;
 
     /**
-     * @var PlaybookRenderer
+     * @var Twig_Environment
      */
-    private $playbook;
+    private $twig;
 
     public function setUp()
     {
-        $this->model    = new VagrantBundle();
-        $this->playbook = new PlaybookRenderer();
+        $this->twig = $this->getMockBuilder('\Twig_Environment')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->model = new VagrantBundle('path/to/ansible', $this->twig);
     }
 
     public function tearDown()
     {
         $this->model = null;
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     */
-    public function testShouldConstructBundle()
-    {
-        $this->assertInstanceOf('Twig_Environment', $this->model->getTwig());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getTwig
-     * @covers Phansible\Model\VagrantBundle::setTwig
-     */
-    public function testShouldSetAndGetTwig()
-    {
-        $twig = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->model->setTwig($twig);
-
-        $result = $this->model->getTwig();
-
-        $this->assertEquals($twig, $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getAnsiblePath
-     * @covers Phansible\Model\VagrantBundle::setAnsiblePath
-     */
-    public function testShouldSetAndGetAnsiblePath()
-    {
-        $path = __DIR__ . '/../src/Resources/ansible';
-        $this->model->setAnsiblePath($path);
-
-        $this->assertEquals($path, $this->model->getAnsiblePath());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getTplPath
-     * @covers Phansible\Model\VagrantBundle::setTplPath
-     */
-    public function testShouldSetAndGetTplPath()
-    {
-        $path = __DIR__ . '/../src/Resources/ansible';
-        $this->model->setTplPath($path);
-
-        $this->assertEquals($path, $this->model->getTplPath());
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getRolesPath
-     * @covers Phansible\Model\VagrantBundle::setRolesPath
-     */
-    public function testShouldSetAndGetRolesPath()
-    {
-        $path = __DIR__ . '/../src/Resources/ansible';
-        $this->model->setRolesPath($path);
-
-        $this->assertEquals($path, $this->model->getRolesPath());
+        $this->twig = null;
     }
 
     /**
@@ -110,19 +52,6 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->getZipArchive();
 
         $this->assertInstanceOf('\ZipArchive', $result);
-    }
-
-    /**
-     * @covers Phansible\Model\VagrantBundle::getRolesPath
-     */
-    public function testShoulRetrieveDefaultRolesPath()
-    {
-        $expected = '/../Resources/ansible/roles';
-        $result   = $this->model->getRolesPath();
-
-        $expected = strpos($result, $expected) !== false;
-
-        $this->assertTrue($expected);
     }
 
     /**
@@ -178,10 +107,10 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
             );
 
         $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
+        $this->model = new VagrantBundle($ansiblePath, $this->twig);
 
         $this->assertTrue(is_dir($ansiblePath));
 
-        $this->model->setAnsiblePath($ansiblePath);
         $this->model->includeBundleFiles($mockedZip, 'vars');
     }
 

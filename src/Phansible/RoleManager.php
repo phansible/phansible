@@ -52,13 +52,4 @@ class RoleManager
         }
         return $initials;
     }
-
-    public function getAvailableOptions()
-    {
-        $available = [];
-        foreach ($this->roles as $role) {
-            $available[$role->getSlug()] = $role->getAvailableOptions();
-        }
-        return $available;
-    }
 }

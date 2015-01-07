@@ -17,88 +17,29 @@ class VagrantBundle
     const VAGRANTFILE = 'vagrantfile';
     const INVENTORY = 'inventory';
 
-
     /** @var array File Renderers */
     protected $renderers = [];
 
     /** @var string Path to Ansible Resources */
     protected $ansiblePath;
 
-    /** @var string Path to Ansible Templates */
-    protected $tplPath;
-
-    /** @var string Path to Roles */
-    private $rolesPath;
-
     /** @var \Twig_Environment */
     protected $twig;
 
     /**
      * @param string $ansiblePath
+     * @param \Twig_Environment $twig
      */
-    public function __construct($ansiblePath = null)
+    public function __construct($ansiblePath, \Twig_Environment $twig)
     {
-        $this->ansiblePath = $ansiblePath ?: __DIR__ . '/../Resources/ansible';
-
-        $this->tplPath   = $this->ansiblePath . '/templates';
-        $this->rolesPath = $this->ansiblePath . '/roles';
-
-        $loader = new \Twig_Loader_Filesystem($this->tplPath);
-        $this->twig = new \Twig_Environment($loader);
+        $this->twig = $twig;
+        $this->ansiblePath = $ansiblePath;
 
         $this->renderers = [
             self::VARSFILE => null,
             self::PLAYBOOK => null,
             self::VAGRANTFILE => null,
         ];
-    }
-
-    /**
-     * @param \Twig_Environment $twig
-     */
-    public function setTwig(\Twig_Environment $twig)
-    {
-        $this->twig = $twig;
-    }
-
-    /**
-     * @return \Twig_Environment
-     */
-    public function getTwig()
-    {
-        return $this->twig;
-    }
-
-    /**
-     * @param string $tplPath
-     */
-    public function setTplPath($tplPath)
-    {
-        $this->tplPath = $tplPath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTplPath()
-    {
-        return $this->tplPath;
-    }
-
-    /**
-     * @param string $ansiblePath
-     */
-    public function setAnsiblePath($ansiblePath)
-    {
-        $this->ansiblePath = $ansiblePath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAnsiblePath()
-    {
-        return $this->ansiblePath;
     }
 
     /**
@@ -138,6 +79,7 @@ class VagrantBundle
     }
 
     /**
+     * @see Phansible\Roles\VagrantLocal::setup
      * @param \Phansible\Renderer\VagrantfileRenderer $vagrantFile
      * @return $this
      */
@@ -188,22 +130,6 @@ class VagrantBundle
     }
 
     /**
-     * @return string
-     */
-    public function getRolesPath()
-    {
-        return $this->rolesPath;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setRolesPath($path)
-    {
-        $this->rolesPath = $path;
-    }
-
-    /**
      * Renders the files defined via FileRenderers
      * @param \ZipArchive $zip
      * @return \ZipArchive
@@ -241,10 +167,10 @@ class VagrantBundle
             $this->includeBundleFiles($zip, 'vars', '*.yml', 'ansible/vars');
 
             /** include windows.sh */
-            $zip->addFile($this->getAnsiblePath() . '/windows.sh', 'ansible/windows.sh');
+            $zip->addFile($this->ansiblePath . '/windows.sh', 'ansible/windows.sh');
 
             /** include default public key */
-            $zip->addFile($this->getAnsiblePath() . '/files/authorized_keys', 'ansible/files/authorized_keys');
+            $zip->addFile($this->ansiblePath . '/files/authorized_keys', 'ansible/files/authorized_keys');
 
             $zip->close();
 
@@ -266,7 +192,7 @@ class VagrantBundle
     {
         $includePath = $includePath ?: $sourceDir;
 
-        $resources = $this->getAnsiblePath();
+        $resources = $this->ansiblePath;
 
         if (is_dir($resources . '/' . $sourceDir)) {
             foreach (glob($resources . '/' . $sourceDir . '/' . $pattern) as $file) {

@@ -30,8 +30,11 @@ class BundleController extends Controller
         // @todo fix str_replace
         $playbook->setVarsFilename(str_replace('ansible/', '', $varsFile->getFilePath()));
 
+        $loader = new \Twig_Loader_Filesystem($this->get('ansible.templates'));
+
         $vagrantBundle = new VagrantBundle(
-            $this->get('ansible.path')
+            $this->get('ansible.path'),
+            new \Twig_Environment($loader)
         );
 
         $vagrantBundle->setPlaybook($playbook)
