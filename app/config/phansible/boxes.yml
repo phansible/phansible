@@ -19,7 +19,7 @@ boxes:
       name: Ubuntu Saucy Salamander (13.10) 64
       deb: saucy
       cloud: chef/ubuntu-13.10
-      url: hhttps://vagrantcloud.com/chef/boxes/ubuntu-13.10/versions/1.0.0/providers/virtualbox.box
+      url: https://vagrantcloud.com/chef/boxes/ubuntu-13.10/versions/1.0.0/providers/virtualbox.box
     trusty32:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 32
       deb: trusty
