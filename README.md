@@ -18,10 +18,11 @@ You can also join us on [gitter](https://gitter.im/phansible/phansible).
 
 ## TO DO
 
-- More customization options
-- More packages to choose from and option to add custom packages
-- More documentation
-- More Tests
+- Deprecate 1.0 branch and put master into production
+- CI our generated roles (@naxhh is working on this)
+- API for generating roles outside the Web (@erikaheidi is working on this)
+- New technologies (request for your favourite ones!)
+- More documentation on how to customize things 
 - Take a look at our [issues](https://github.com/phansible/phansible/issues).
 
 ## Setup
