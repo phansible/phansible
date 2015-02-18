@@ -26,6 +26,12 @@
   sudo_user: postgres
   postgresql_db: name={{ pgsql.database }} state=present
 
+- name: Import dump
+  sudo: yes
+  sudo_user: postgres
+  shell: psql {{ pgsql.database }} < /vagrant/{{ pgsql.dump }}
+  when: pgsql.dump
+
 - name: Create users
   sudo: yes
   sudo_user: postgres

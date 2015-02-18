@@ -22,6 +22,10 @@
 - name: mysql | Create databases
   mysql_db: name={{ mysql.database }} state=present login_user=root login_password={{ mysql.root_password }}
 
+- name: mysql | Import dump
+  mysql_db: name={{ mysql.database }} state=import login_user=root login_password={{ mysql.root_password }} target=/vagrant/{{ mysql.dump }}
+  when: mysql.dump
+
 - name: mysql | Ensure anonymous users are not in the database
   mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mysql.root_password }}
   with_items:
