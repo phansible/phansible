@@ -39,5 +39,9 @@
 - name: mariadb | Create databases
   mysql_db: name={{ mariadb.database }} state=present login_user=root login_password={{ mariadb.root_password }}
 
+- name: mariadb | Import dump
+  mysql_db: name={{ mariadb.database }} state=import login_user=root login_password={{ mariadb.root_password }} target=/vagrant/{{ mariadb.dump }}
+  when: mariadb.dump
+
 - name: mariadb | Create users
   mysql_user: name={{ mariadb.user }} password={{ mariadb.password }} priv={{ mariadb.database }}.*:ALL state=present login_user=root login_password={{ mariadb.root_password }}
