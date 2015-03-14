@@ -1,0 +1,6 @@
+---
+redis_version: 2.8.19
+redis_path: '/opt/redis'
+redis_conf_path: '/etc/redis'
+redis_db_path: '/var/lib/redis'
+redis_pid_path: '/var/run/redis'

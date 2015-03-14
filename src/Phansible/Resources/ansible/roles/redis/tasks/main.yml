@@ -1,0 +1,58 @@
+---
+- name: Install dependencies
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - make
+
+- name: Download
+  get_url: >
+    url=http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz
+    dest=/tmp/redis-{{ redis_version }}.tar.gz
+
+- name: Extract
+  unarchive: >
+    src=/tmp/redis-{{ redis_version }}.tar.gz
+    dest=/tmp
+    copy=no
+
+- name: Compile
+  command: make -j5
+           chdir=/tmp/redis-{{ redis_version }}
+           creates=/tmp/redis-{{ redis_version }}/src/redis-server
+
+- name: Create directory
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ redis_path }}"
+    - "{{ redis_conf_path }}"
+    - "{{ redis_pid_path }}"
+    - "{{ redis_db_path }}/{{ redis.port }}"
+
+- name: Install
+  command: make PREFIX={{ redis_path }} install
+           chdir=/tmp/redis-{{ redis_version }}
+           creates={{ redis_path }}/bin/redis-server
+
+- name: Create init script
+  template: src=init.tpl dest=/etc/init.d/redis_{{ redis.port }} mode=0755
+
+- name: Set to start boot
+  service: name=redis_{{ redis.port }} enabled=yes
+
+- name: Create config file
+  template: src=conf.tpl dest={{ redis_conf_path }}/{{ redis.port }}.conf
+  notify: restart redis
+
+- name: Set bin folder into environment file
+  lineinfile: >
+    dest=/etc/environment
+    state=present
+    backrefs=yes
+    regexp='PATH=(["]*)((?!.*?{{ redis_path }}/bin).*?)(["]*)$'
+    line="PATH=\1\2:{{ redis_path }}/bin\3"
+
+- name: Flush handlers to apply config changes
+  meta: flush_handlers
+
+- name: Ensure redis is started
+  service: name=redis_{{ redis.port }} state=started
