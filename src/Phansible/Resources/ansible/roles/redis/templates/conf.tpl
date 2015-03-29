@@ -108,7 +108,7 @@ logfile ""
 syslog-enabled yes
 
 # Specify the syslog identity.
-syslog-ident redis_{{ redis.port }}
+syslog-ident redis
 
 # Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.
 syslog-facility USER
