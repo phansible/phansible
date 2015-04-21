@@ -119,15 +119,15 @@ Main.prototype.form = function() {
 Main.prototype.waypoints = function(){
 
     //Sticky menu
-    var menu = $('.ui.secondary.vertical.pointing.menu');
+    var menu = $('aside');
     menu.waypoint('sticky', {
         offset: 50 // Apply "stuck" when element 50px from top
     });
 
     //Activate menu items if passed on scroll
     $('h2').waypoint(function() {
-        menu.find('a').removeClass('active teal');
-        menu.find('a[href="#'+$(this).attr('id')+'"]').addClass('active teal');
+        menu.find('.menu a').removeClass('active teal');
+        menu.find('.menu a[href="#'+$(this).attr('id')+'"]').addClass('active teal');
     }, { offset: 250 });
 }
 

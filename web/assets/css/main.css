@@ -123,7 +123,7 @@ header p{
   padding: 0.65em 1em;
 }
 
-.ui.secondary.vertical.pointing.menu.stuck{
+aside.stuck {
   position: fixed;
   top:50px;
 }
