@@ -10,6 +10,7 @@ use Phansible\Renderer\TemplateRenderer;
 use Phansible\Renderer\VarfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * @package Phansible
@@ -38,8 +39,8 @@ class BundleController extends Controller
         );
 
         $vagrantBundle->setPlaybook($playbook)
-          ->setVarsFile($varsFile)
-          ->setInventory($inventory);
+            ->setVarsFile($varsFile)
+            ->setInventory($inventory);
 
         $app['roles']->setupRole($requestVars, $vagrantBundle);
         $playbook->addRole('app');
@@ -105,14 +106,22 @@ class BundleController extends Controller
             readfile($zipPath);
         };
 
-        return $app->stream(
+        $response = $app->stream(
             $stream,
-            200,
+            Response::HTTP_OK,
             array(
-            'Content-length' => filesize($zipPath),
-            'Content-Disposition' => 'attachment; filename="phansible_' . $filename . '.zip"',
-            'Content-Type' => 'application/zip'
+                'Content-length' => filesize($zipPath),
+                'Content-Type' => 'application/zip'
             )
         );
+
+        $dispositionHeader = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'phansible_' . $filename . '.zip'
+        );
+
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+
+        return $response;
     }
 }

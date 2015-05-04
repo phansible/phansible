@@ -10,7 +10,6 @@ interface RoleInterface
      * Constructor
      *
      * @param \Phansible\Application $app
-     * @return void
      */
     public function __construct(Application $app);
 

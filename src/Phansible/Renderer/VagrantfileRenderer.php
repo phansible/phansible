@@ -55,13 +55,13 @@ class VagrantfileRenderer extends TemplateRenderer
     public function getData()
     {
         return [
-            'vmName'        => strtolower($this->getName()),
-            'memory'        => $this->getMemory(),
-            'boxUrl'        => $this->getBoxUrl(),
-            'boxName'       => $this->getBoxName(),
-            'ipAddress'     => $this->getIpAddress(),
-            'syncedFolder'  => $this->getSyncedFolder(),
-            'syncedType'    => $this->getSyncedType(),
+            'vmName' => strtolower($this->getName()),
+            'memory' => $this->getMemory(),
+            'boxUrl' => $this->getBoxUrl(),
+            'boxName' => $this->getBoxName(),
+            'ipAddress' => $this->getIpAddress(),
+            'syncedFolder' => $this->getSyncedFolder(),
+            'syncedType' => $this->getSyncedType(),
             'enableWindows' => $this->isWindowsEnabled(),
         ];
     }

@@ -3,21 +3,19 @@
 {% extends "main.html.twig" %}
 
 {% block content %}
-    <div class="ui grid">
-        <div class="left floated four wide column">
 
-            <div class="ui vertical pointing secondary menu">
-
-                <a class="active teal item" href="#section-vagrant">Machine Settings</a>
-                <a class="item" href="#section-serverpackages">Server Packages</a>
-                <a class="item" href="#section-webservers">Webservers</a>
-                <a class="item" href="#section-languages">Languages</a>
-                <a class="item" href="#section-databases">Databases</a>
-                <a class="item" href="#section-timezone">Timezone</a>
+    <div class="html ui top">
+        <div class="ui segment">
+            <div class="ui right very close rail">
+                <div class="ui secondary vertical pointing menu">
+                    <a class="active teal item" href="#section-vagrant">Machine Settings</a>
+                    <a class="item" href="#section-serverpackages">Server Packages</a>
+                    <a class="item" href="#section-webservers">Webservers</a>
+                    <a class="item" href="#section-languages">Languages</a>
+                    <a class="item" href="#section-databases">Databases</a>
+                    <a class="item" href="#section-timezone">Timezone</a>
+                </div>
             </div>
-        </div>
-
-        <div class="right floated twelve wide column">
             <form class="ui form" method="POST" action="{{ path('phansible_bundle') }}">
 
                 {% include "bundles/vagrant.html.twig" %}
@@ -28,11 +26,13 @@
                 {% include "bundles/timezone.html.twig" %}
 
                 <section>
-                    <button class="ui fluid labeled purple icon button" type="submit"><i class="download cloud icon"></i> Generate</button>
+                    <button class="ui fluid labeled purple icon button" type="submit"><i
+                                class="download cloud icon"></i> Generate
+                    </button>
                 </section>
 
             </form>
-
         </div>
     </div>
+
 {% endblock %}
