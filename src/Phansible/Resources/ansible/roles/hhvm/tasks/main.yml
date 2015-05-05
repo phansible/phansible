@@ -41,7 +41,7 @@
 - name: Enable hhvm module
   file: src=/etc/apache2/mods-available/hhvm_proxy_fcgi.conf dest=/etc/apache2/mods-enabled/hhvm_proxy_fcgi.conf owner=root group=root state=link
   notify: restart apache
-  when: apache is defined and apache.install == '1' apache_version.stdout.find('Apache/2.4.') != -1
+  when: apache is defined and apache.install == '1' and apache_version.stdout.find('Apache/2.4.') != -1
 
 - name: Install mod fastcgi for apache 2.2.x
   apt: pkg=libapache2-mod-fastcgi state=latest
