@@ -213,4 +213,18 @@ $(document).ready(function(){
             context: 'section.languages-tabs'
         }
     );
+    $('#php_install').on('change', function(){
+        if (! $(this).is(':checked')) {
+            $('#php_install_details').addClass('nodisplay');
+        } else {
+            $('#php_install_details').removeClass('nodisplay');
+        }
+    });
+    $('#hhvm_install').on('change', function(){
+        if ($(this).is(':checked')) {
+            $('#php_install_details').addClass('nodisplay');
+        } else {
+            $('#php_install_details').removeClass('nodisplay');
+        }
+    });
 });

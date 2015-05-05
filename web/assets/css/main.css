@@ -47,6 +47,10 @@ header img.logo {
     margin: 20px 0px 0px 0px;
 }
 
+.nodisplay {
+    display: none;
+}
+
 #forkme {
     position: absolute;
     z-index: 1000;
