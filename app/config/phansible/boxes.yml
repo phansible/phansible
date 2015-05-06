@@ -10,16 +10,6 @@ boxes:
       deb: precise
       cloud: hashicorp/precise64
       url: https://vagrantcloud.com/ubuntu/boxes/precise64/versions/12.04.4/providers/virtualbox.box
-    saucy32:
-      name: Ubuntu Saucy Salamander (13.10) 32
-      deb: saucy
-      cloud: chef/ubuntu-13.10-i386
-      url: https://vagrantcloud.com/chef/boxes/ubuntu-13.10-i386/versions/1.0.0/providers/virtualbox.box
-    saucy64:
-      name: Ubuntu Saucy Salamander (13.10) 64
-      deb: saucy
-      cloud: chef/ubuntu-13.10
-      url: https://vagrantcloud.com/chef/boxes/ubuntu-13.10/versions/1.0.0/providers/virtualbox.box
     trusty32:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 32
       deb: trusty
