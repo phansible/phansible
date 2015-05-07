@@ -13,24 +13,24 @@ body {
 }
 
 p {
-  margin: 1em 0em;
+    margin: 1em 0em;
 }
 
 p:first-child {
-  margin-top: 0em;
+    margin-top: 0em;
 }
 
 p:last-child {
-  margin-bottom: 0em;
+    margin-bottom: 0em;
 }
 
 a {
-  color: #009FDA;
-  text-decoration: none;
+    color: #009FDA;
+    text-decoration: none;
 }
 
 a:hover {
-  color: #00BAFF;
+    color: #00BAFF;
 }
 
 header {
@@ -55,47 +55,49 @@ header img.logo {
     border: 0;
 }
 
-header p{
+header p {
     color: #FFF;
 }
 
 #phansible .main.menu {
-  min-width: 320px;
-  z-index: 900;
+    min-width: 320px;
+    z-index: 900;
 }
 
 .ui.transparent.menu {
-  opacity: 0.90;
+    opacity: 0.90;
 }
 
 #phansible .container {
-  width: 1050px;
-  margin: 0px auto;
+    /*width: 1050px;*/
+    max-width: 900px;
+    margin: 0px auto;
 }
 
 #phansible .main.container {
-  position: relative;
-  padding-bottom: 150px;
-}
-#phansible .main.container > h2 {
-  -webkit-transition: 0.5s color ease;
-  -moz-transition: 0.5s color ease;
-  -o-transition: 0.5s color ease;
-  -ms-transition: 0.5s color ease;
-  transition: 0.5s color ease;
+    position: relative;
+    padding-bottom: 150px;
 }
 
-#phansible .phansible > p ,
+#phansible .main.container > h2 {
+    -webkit-transition: 0.5s color ease;
+    -moz-transition: 0.5s color ease;
+    -o-transition: 0.5s color ease;
+    -ms-transition: 0.5s color ease;
+    transition: 0.5s color ease;
+}
+
+#phansible .phansible > p,
 #phansible section > p {
-  color: #888888;
+    color: #888888;
 }
 
 #phansible .main h2.group {
-  color: #A24096;
+    color: #A24096;
 }
 
 #phansible .contributor-avatar {
-  min-width: 75px;
+    min-width: 75px;
 }
 
 #phansible section:first-child
@@ -106,49 +108,79 @@ header p{
 #phansible h2 + section,
 #phansible h3 + section,
 #phansible h4 + section {
-  margin-top: 0px;
-  padding-top: 0px;
-  border-top: none;
+    margin-top: 0px;
+    padding-top: 0px;
+    border-top: none;
 }
 
 #phansible section,
 #phansible .phansible {
-  margin: 1em 0em;
-  padding: 1em 0em;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
+    margin: 1em 0em;
+    padding: 1em 0em;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 .ui.selection.dropdown {
-  padding: 0.65em 1em;
+    padding: 0.65em 1em;
 }
 
-.ui.secondary.vertical.pointing.menu.stuck{
-  position: fixed;
-  top:50px;
+.ui.secondary.vertical.pointing.menu.stuck {
+    position: fixed;
+    top: 50px;
 }
 
-@media only screen and (max-width : 1725px) {
+@media only screen and (max-width: 1725px) {
     header {
         margin: 0px 0px 3em;
         padding-top: 60px;
         padding-bottom: 60px;
     }
+
+    #phansible .fixed .container {
+        width: auto;
+        /*max-width: 700px;*/
+    }
+
+    #phansible .container {
+        width: auto;
+        /*max-width: 700px;*/
+    }
 }
 
-@media only screen and (max-width : 1100px) {
-  #phansible .fixed .container {
-    width: auto;
-    margin: 0px auto;
-  }
+@media only screen and (max-width: 1300px) {
+    #phansible .fixed .container {
+        width: auto;
+        max-width: 800px;
+        margin: 0px auto;
+    }
 
-  #phansible .container {
-    width: auto;
-    margin: 0% 30px 0px;
-  }
+    #phansible .container {
+        width: auto;
+        max-width: 800px;
+        margin: 0% 30px 0px;
+    }
 }
 
-@media only screen and (max-width : 480px) {
+
+@media only screen and (max-width: 1160px) {
+    #main_menu {
+        display: none;
+    }
+    #phansible .fixed .container {
+        width: auto;
+        /*max-width: 800px;*/
+        margin: 0px auto;
+    }
+
+    #phansible .container {
+        width: auto;
+        /*max-width: 800px;*/
+        margin: 0% 30px 0px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
 
     #phansible .main.menu .icon.item {
         display: none;
@@ -214,7 +246,6 @@ form input[name="vagrantfile-local[vm][name]"],
 form input[name="apache[docroot]"],
 form input[name="apache[servername]"],
 form input[name="nginx[docroot]"],
-form input[name="nginx[servername]"]
-{
+form input[name="nginx[servername]"] {
     text-transform: lowercase;
 }
