@@ -20,7 +20,7 @@
   with_items: php.pecl_packages
   when: php.pecl_packages is defined
 
-- name: Enable extesion
+- name: Enable extension
   shell: php5enmod {{ item }}
   with_items: php.pecl_packages
   when: php.pecl_packages is defined
