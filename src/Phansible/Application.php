@@ -74,6 +74,9 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Sqlite($this));
         $this['roles']->register(new Roles\Redis($this));
 
+        //Workers
+        $this['roles']->register(new Roles\RabbitMQ($this));
+
         // PHP roles should always be last! this way we can detect other
         // roles and check if we need to add extra packages
         $this['roles']->register(new Roles\Php($this));

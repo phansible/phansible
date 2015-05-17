@@ -3,4 +3,4 @@ workers:
     name: RabbitMQ
     checked: yes
     include:
-      - ampq
+      - rabbitmq

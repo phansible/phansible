@@ -1,14 +1,9 @@
 <h2 class="ui dividing header" id="section-workers">Work Queues</h2>
 <section class="workers-tabs">
     <h3 class="ui header">Instructions:</h3>
-    <p>Choose the Database you want to use.</p>
-    <div class="ui top attached databases menu tabs">
-        <a class="item active" data-tab="mysql">MySQL</a>
-        <a class="item" data-tab="mariadb">MariaDb</a>
-        <a class="item" data-tab="pgsql">PostgreSQL</a>
-        <a class="item" data-tab="mongodb">MongoDB</a>
-        <a class="item" data-tab="sqlite">SQLite</a>
-        <a class="item" data-tab="redis">Redis</a>
+    <p>Choose the Worker you want to use.</p>
+    <div class="ui top attached workers menu tabs">
+        <a class="item active" data-tab="rabbitmq">MySQL</a>
     </div>
     {% include "bundles/workers/rabbitmq.html.twig" %}
 </section>
