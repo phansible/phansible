@@ -21,6 +21,7 @@ class DefaultController extends Controller
         $config['syspackages']  = $this->get('syspackages');
         $config['phppackages']  = $this->get('phppackages');
         $config['databases']    = $this->get('databases');
+        $config['workers']      = $this->get('workers');
         $config['peclpackages'] = $this->get('peclpackages');
 
         $config['timezones'] = DateTimeZone::listIdentifiers();

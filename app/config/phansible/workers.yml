@@ -1,0 +1,6 @@
+workers:
+  rabbitmq:
+    name: RabbitMQ
+    checked: yes
+    include:
+      - ampq

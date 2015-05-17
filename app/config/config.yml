@@ -10,6 +10,7 @@ docs.path: "%root_dir%/src/Phansible/Resources/docs"
     - app/config/phansible/syspackages.yml
     - app/config/phansible/phppackages.yml
     - app/config/phansible/databases.yml
+    - app/config/phansible/workers.yml
     - app/config/phansible/peclpackages.yml
     - app/config/phansible/rolepackagemap.yml
 

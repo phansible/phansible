@@ -44,6 +44,7 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
         $container['syspackages']  = [];
         $container['phppackages']  = [];
         $container['databases']    = [];
+        $container['workqueues']   = [];
         $container['peclpackages'] = [];
         $container['roles']        = new RoleManager();
 
