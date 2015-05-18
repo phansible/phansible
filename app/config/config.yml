@@ -20,5 +20,6 @@ config:
     - webserver
     - php
     - database
+    - workers
     - syspackages
     - timezone

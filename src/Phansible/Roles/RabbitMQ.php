@@ -14,12 +14,7 @@ class RabbitMQ extends BaseRole
     {
         return [
             'install' => 0,
-            'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
-                'password' => 123,
-            ]
+            'port'    => 5672,
         ];
     }
 }
