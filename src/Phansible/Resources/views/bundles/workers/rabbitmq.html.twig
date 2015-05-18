@@ -7,10 +7,26 @@
     </div>
     <div class="three fields">
         <div class="field">
-            <label for="port">Port:</label>
+            <label for="port">Admin User:</label>
             <div class="ui left labeled input">
-                <input type="text" name="rabbitmq[port]" value="{{ rabbitmq.port }}" />
+                <input type="text" name="rabbitmq[user]" value="{{ rabbitmq.user }}" />
             </div>
+        </div>
+        <div class="field">
+            <label for="port">Password:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="rabbitmq[password]" value="{{ rabbitmq.password }}" />
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <div class="field">
+            <label for="rabbitmq-plugins">Plugins:</label>
+            <select id="rabbitmq-plugins" name="rabbitmq[plugins][]" class="selectized" multiple>
+                {% for plugin in config.rabbitmqplugins %}
+                    <option value="{{ plugin }}">{{ plugin }}</option>
+                {% endfor %}
+            </select>
         </div>
     </div>
 </div>

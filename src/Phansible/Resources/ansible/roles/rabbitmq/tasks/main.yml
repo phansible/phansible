@@ -17,12 +17,11 @@
   apt: pkg=rabbitmq-server state=installed force=yes
 
 - name: enable rabbitmq plugins
-  rabbitmq_plugin: names=rabbitmq_management state=enabled
+  rabbitmq_plugin: names={{ item }} state=enabled
+  with_items: rabbitmq.plugins
 
-- name: add users
-  rabbitmq_user: user={{item}} password=changeme tags=administrator,{{item}} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
-  with_items:
-  - user
+- name: add user
+  rabbitmq_user: user={{ rabbitmq.user }} password={{ rabbitmq.password }} tags=administrator,{{ rabbitmq.user }} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
 
 - name: restart rabbitmq
   service: name=rabbitmq-server state=reloaded

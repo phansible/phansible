@@ -16,13 +16,14 @@ class DefaultController extends Controller
     {
         $config = $this->get('config');
 
-        $config['boxes']        = $this->get('boxes');
-        $config['webservers']   = $this->get('webservers');
-        $config['syspackages']  = $this->get('syspackages');
-        $config['phppackages']  = $this->get('phppackages');
-        $config['databases']    = $this->get('databases');
-        $config['workers']      = $this->get('workers');
-        $config['peclpackages'] = $this->get('peclpackages');
+        $config['boxes']           = $this->get('boxes');
+        $config['webservers']      = $this->get('webservers');
+        $config['syspackages']     = $this->get('syspackages');
+        $config['phppackages']     = $this->get('phppackages');
+        $config['databases']       = $this->get('databases');
+        $config['workers']         = $this->get('workers');
+        $config['peclpackages']    = $this->get('peclpackages');
+        $config['rabbitmqplugins'] = $this->get('rabbitmqplugins');
 
         $config['timezones'] = DateTimeZone::listIdentifiers();
 

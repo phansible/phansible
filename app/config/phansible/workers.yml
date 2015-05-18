@@ -1,4 +1,6 @@
 workers:
   rabbitmq:
     name: RabbitMQ
-    checked: yes
+    checked: no
+    include:
+      - rabbitmq

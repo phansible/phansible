@@ -13,8 +13,10 @@ class RabbitMQ extends BaseRole
     public function getInitialValues()
     {
         return [
-            'install' => 0,
-            'port'    => 5672,
+            'install'  => 0,
+            'plugins'  => [],
+            'user'     => 'user',
+            'password' => 'password'
         ];
     }
 }
