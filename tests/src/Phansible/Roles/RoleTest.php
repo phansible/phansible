@@ -5,7 +5,7 @@ namespace Phansible\Roles;
 class RoleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Phansible\Roles\BaseRole::getInitialValues
+     * @use Phansible\Roles\BaseRole::getInitialValues
      */
     public function testInitialValuesShouldReturnArray()
     {
