@@ -1,0 +1,42 @@
+<div class="ui tab bottom attached segment" data-tab="beanstalkd">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input type="checkbox" name="beanstalkd[install]"  value="1" {% if beanstalkd.install %}checked="checked"{% endif %} />
+            <label>Install Beanstalkd</label>
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label for="port">Listen Address:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[listenAddress]" value="{{ beanstalkd.listenAddress }}" />
+            </div>
+        </div>
+        <div class="field">
+            <label for="port">Listen Port:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[listenPort]" value="{{ beanstalkd.listenPort }}" />
+            </div>
+        </div>
+        <div class="field">
+            <label for="port">Max Connections:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[maxConnections]" value="{{ beanstalkd.maxConnections }}" />
+            </div>
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label for="port">Max Job Size:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[maxJobSize]" value="{{ beanstalkd.maxJobSize }}" />
+            </div>
+        </div>
+        <div class="field">
+            <label for="port">Binlog Directory:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[binLog]" value="{{ beanstalkd.binLog }}" />
+            </div>
+        </div>
+    </div>
+</div>

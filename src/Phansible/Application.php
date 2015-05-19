@@ -76,6 +76,7 @@ class Application extends \Flint\Application
 
         //Workers
         $this['roles']->register(new Roles\RabbitMQ($this));
+        $this['roles']->register(new Roles\Beanstalkd($this));
 
         // PHP roles should always be last! this way we can detect other
         // roles and check if we need to add extra packages

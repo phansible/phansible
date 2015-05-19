@@ -4,6 +4,8 @@
     <p>Choose the Workers you want to use.</p>
     <div class="ui top attached workers menu tabs">
         <a class="item active" data-tab="rabbitmq">RabbitMQ</a>
+        <a class="item" data-tab="beanstalkd">Beanstalkd</a>
     </div>
     {% include "bundles/workers/rabbitmq.html.twig" %}
+    {% include "bundles/workers/beanstalkd.html.twig" %}
 </section>

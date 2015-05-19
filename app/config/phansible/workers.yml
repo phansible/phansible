@@ -4,3 +4,8 @@ workers:
     checked: no
     include:
       - rabbitmq
+  beanstalkd:
+    name: Beanstalkd
+    checked: no
+    include:
+      - beanstalkd
