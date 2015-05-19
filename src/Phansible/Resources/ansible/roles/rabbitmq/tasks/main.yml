@@ -1,8 +1,4 @@
 ---
-- name: ensure python-software-properties is installed
-  sudo: yes
-  apt: pkg=python-software-properties state=installed
-
 - name: add rabbitmq official apt repository
   apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
 
@@ -19,9 +15,10 @@
 - name: enable rabbitmq plugins
   rabbitmq_plugin: names={{ item }} state=enabled
   with_items: rabbitmq.plugins
+  when: rabbitmq.plugins is defined
 
 - name: add user
-  rabbitmq_user: user={{ rabbitmq.user }} password={{ rabbitmq.password }} tags=administrator,{{ rabbitmq.user }} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
+  rabbitmq_user: user={{ rabbitmq.user }} password={{ rabbitmq.password }} node=rabbit@{{ vagrant_local.vm.hostname }} tags=administrator,{{ rabbitmq.user }} vhost=/ configure_priv=.* write_priv=.* read_priv=.* state=present
 
 - name: restart rabbitmq
   service: name=rabbitmq-server state=reloaded
