@@ -15,9 +15,10 @@ class Beanstalkd extends BaseRole
         return [
             'listenAddress'  => '0.0.0.0',
             'listenPort'     => '13000',
-            'maxJobSize'     => '65535',
-            'maxConnections' => '1024',
-            'binLog'         => '/var/lib/beanstalkd/binlog',
+            'version'        => '1.10',
+            'user'           => 'beanstalkd',
+            'persistent'     => 'yes',
+            'storage'        => '/var/lib/beanstalkd',
         ];
     }
 }

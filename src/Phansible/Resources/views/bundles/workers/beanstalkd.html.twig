@@ -19,23 +19,31 @@
             </div>
         </div>
         <div class="field">
-            <label for="port">Max Connections:</label>
+            <label for="port">Version:</label>
             <div class="ui left labeled input">
-                <input type="text" name="beanstalkd[maxConnections]" value="{{ beanstalkd.maxConnections }}" />
+                <input type="text" name="beanstalkd[version]" value="{{ beanstalkd.version }}" />
             </div>
         </div>
     </div>
     <div class="three fields">
         <div class="field">
-            <label for="port">Max Job Size:</label>
+            <label for="storage">User:</label>
             <div class="ui left labeled input">
-                <input type="text" name="beanstalkd[maxJobSize]" value="{{ beanstalkd.maxJobSize }}" />
+                <input type="text" name="beanstalkd[user]" value="{{ beanstalkd.user }}" />
             </div>
         </div>
         <div class="field">
-            <label for="port">Binlog Directory:</label>
+            <label for="persistent">Persistent:</label>
+            <select id="persistent" name="beanstalkd[persistent]" class="select-one single">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+        </div>
+        <div class="field">
+            <label for="storage">Storage:</label>
             <div class="ui left labeled input">
-                <input type="text" name="beanstalkd[binLog]" value="{{ beanstalkd.binLog }}" />
+                <input type="text" name="beanstalkd[storage]" value="{{ beanstalkd.storage }}" />
             </div>
         </div>
     </div>

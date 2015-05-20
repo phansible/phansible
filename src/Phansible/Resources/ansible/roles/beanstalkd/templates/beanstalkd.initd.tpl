@@ -66,7 +66,7 @@ STARTTIME=1             # Time to wait for the server to start, in seconds
 
 #LOGFILE=$LOGDIR/$NAME.log          # Server logfile
 
-DAEMONUSER={{ beanstalkd_user }}    # User to run the daemons as. If this value
+DAEMONUSER={{ beanstalkd.user }}    # User to run the daemons as. If this value
                                     # is set start-stop-daemon will chuid the server
 
 # Include defaults if available
