@@ -79,6 +79,7 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Php($this));
         $this['roles']->register(new Roles\Xdebug($this));
         $this['roles']->register(new Roles\Composer($this));
+        $this['roles']->register(new Roles\Blackfire($this));
     }
 
     /**
