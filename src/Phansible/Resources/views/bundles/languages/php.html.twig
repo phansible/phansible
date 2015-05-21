@@ -53,18 +53,21 @@
         <div class="field">
             <label for="blackfire[install]">BlackFire:</label>
             <div class="field inline">
-               <div class="ui checkbox">
-                  <input type="checkbox" name="blackfire[install]" value="1" {% if blackfire.install %}checked="checked"{% endif %} /><label>Install BlackFire</label>
-               </div>
+                <div class="ui checkbox">
+                    <input type="checkbox" name="blackfire[install]" value="1" {% if blackfire.install %}checked="checked"{% endif %} /><label>Install BlackFire</label>
+                </div>
             </div>
             <div class="field">
-               <label for="blackfire[server_id]">Blackfire Server ID:</label>
-               <input type="text" id="blackfire_server_id" name="blackfire[server_id]" value="{{ blackfire.server_id }}" />
+                <label for="blackfire[server_id]">Blackfire Server ID:</label>
+                <input type="text" id="blackfire_server_id" name="blackfire[server_id]" value="{{ blackfire.server_id }}" />
             </div>
             <div class="field">
-               <label for="blackfire[server_token]">Blackfire Server Token:</label>
-               <input type="text" id="blackfire_server_token" name="blackfire[server_token]" value="{{ blackfire.server_token }}" />
+                <label for="blackfire[server_token]">Blackfire Server Token:</label>
+                <input type="text" id="blackfire_server_token" name="blackfire[server_token]" value="{{ blackfire.server_token }}" />
             </div>
+            <p>
+                You can get your credentials from <a href="https://blackfire.io/account/credentials">Blackfire website</a>.
+            </p>
         </div>
     </div>
 </div>
