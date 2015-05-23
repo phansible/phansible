@@ -21,9 +21,6 @@
     - name: Run Composer
       shell: /usr/local/bin/composer install --no-dev --no-progress chdir={{ project_root }}
 
-    - name: Run Composer update
-      shell: /usr/local/bin/composer update --no-progress chdir={{ project_root }}
-
     - name: Read ACLs for web_user
       sudo: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'
