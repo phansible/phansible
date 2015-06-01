@@ -14,7 +14,6 @@ script:
    - php vendor/bin/phpmd src/ text codesize,controversial,design,naming,unusedcode
    - php vendor/bin/phpunit
 after_script:
-   - php vendor/bin/coveralls
    ## Scrutinizer
    - wget https://scrutinizer-ci.com/ocular.phar
    - php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml
