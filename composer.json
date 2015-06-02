@@ -13,7 +13,7 @@
         "psr-0" : { "" : "src/" }
     },
     "require" : {
-        "php"                 : ">=5.4.0",
+        "php"                 : ">=5.5.0",
         "flint/flint"         : "~1.7",
         "symfony/yaml"        : "~2.6",
         "symfony/twig-bridge" : "~2.6",
