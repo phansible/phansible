@@ -2,7 +2,7 @@
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/phansible/phansible?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Build Status](https://travis-ci.org/phansible/phansible.svg?branch=master)](https://travis-ci.org/phansible/phansible)
-[![Coverage Status](https://coveralls.io/repos/Phansible/phansible/badge.png)](https://coveralls.io/r/Phansible/phansible)
+[![Code Coverage](https://scrutinizer-ci.com/g/Phansible/phansible/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Phansible/phansible/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phansible/phansible/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Phansible/phansible/?branch=master)
 
 [Phansible](http://phansible.com) is a simple generator for Vagrant projects, targeting PHP development environments, using Ansible as Provisioner.
