@@ -33,6 +33,13 @@
       sudo: yes
       file: path={{ project_root }}/app/cache state=directory owner={{ system_user }} group={{ system_group }}
 
+    - name: Clean cache directories
+      sudo: yes
+      file: path={{ project_root }}/app/cache/{{ item }} state=absent owner={{ system_user }} group={{ system_group }}
+      with_items:
+        - config
+        - github-api-cache
+
     - name: Read and Write ACLs cache dir
       sudo: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}'
