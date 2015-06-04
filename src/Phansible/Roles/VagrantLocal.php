@@ -45,7 +45,7 @@ class VagrantLocal extends BaseRole
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
         // Add box url when NOT using the vagrant cloud
-        if ($config['vm']['useVagrantCloud'] != 1) {
+        if (! isset($config['vm']['useVagrantCloud'])) {
              $vagrantfile->setBoxUrl($box['url']);
         }
 
