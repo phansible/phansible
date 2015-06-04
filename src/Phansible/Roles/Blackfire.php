@@ -18,5 +18,4 @@ class Blackfire extends BaseRole
           'server_token' => '',
         ];
     }
-
 }
