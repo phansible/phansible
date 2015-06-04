@@ -34,6 +34,10 @@ class VagrantLocal extends BaseRole
         $boxName = $config['vm']['base_box'];
         $box = $this->getBox($boxName);
 
+        if(! isset($config['vm']['enableWindows'])) {
+            $config['vm']['enableWindows'] = false;
+        }
+
         $vagrantfile = new VagrantfileRenderer();
         $vagrantfile->setTemplate('vagrant_local.twig');
         $vagrantfile->setName($config['vm']['hostname']);
@@ -43,6 +47,8 @@ class VagrantLocal extends BaseRole
         $vagrantfile->setSyncedFolder($config['vm']['sharedfolder']);
         $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
         $vagrantfile->setSyncedType($config['vm']['syncType']);
+
+
 
         // Add box url when NOT using the vagrant cloud
         if (! isset($config['vm']['useVagrantCloud'])) {
