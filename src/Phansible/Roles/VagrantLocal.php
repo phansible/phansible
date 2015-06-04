@@ -34,7 +34,7 @@ class VagrantLocal extends BaseRole
         $boxName = $config['vm']['base_box'];
         $box = $this->getBox($boxName);
 
-        if(! isset($config['vm']['enableWindows'])) {
+        if (! isset($config['vm']['enableWindows'])) {
             $config['vm']['enableWindows'] = false;
         }
 
