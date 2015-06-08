@@ -57,6 +57,19 @@ Main.prototype.form = function() {
         }
     });
 
+    toggle.filter('.solr').state({
+        text: {
+            active: 'Enabled',
+            inactive: 'Disabled'
+        },
+        onActivate: function() {
+            $('input#solr_cloudmode').val(1);
+        },
+        onDeactivate: function() {
+            $('input#solr_cloudmode').val(0);
+        }
+    });
+
     buttons.filter('.phpversion').on('click', function(){
         $(this)
             .addClass('active')
@@ -227,4 +240,10 @@ $(document).ready(function(){
             $('#php_install_details').removeClass('nodisplay');
         }
     });
+
+    $('.searchengines.tabs .item').tab(
+        {
+            context: 'section.searchengines-tabs'
+        }
+    );
 });

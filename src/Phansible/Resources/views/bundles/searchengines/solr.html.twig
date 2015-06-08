@@ -1,0 +1,20 @@
+<div class="ui tab bottom attached segment active" data-tab="solr">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input type="checkbox" name="solr[install]" value="1" {% if solr.install  %}checked="checked"{% endif %} />
+            <label>Install Solr</label>
+        </div>
+    </div>
+    <div class="six fields">
+        <div class="field">
+            <label for="solr_port">Port:</label>
+            <input id="solr_port" type="text" name="solr[port]" value="{{ solr.port }}" />
+        </div>
+        <div class="field">
+            <label for="solr_cloudmode">Cloud Mode:</label>
+            <input type="hidden" id="solr_cloudmode" name="solr[cloud_mode]" value="0" />
+            <div class="ui fluid toggle black button solr">Disabled</div>
+        </div>
+    </div>
+    <p>If the cloud mode is enabled, the Apache Zookeeper will be installed.<br />We recommend set 1G of memory for VM to run Solr.</p>
+</div>

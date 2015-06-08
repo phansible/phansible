@@ -1,0 +1,15 @@
+<div class="ui tab bottom attached segment" data-tab="elasticsearch">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input type="checkbox" name="elasticsearch[install]" value="1" {% if elasticsearch.install %}checked="checked"{% endif %} />
+            <label>Install Elastic Search</label>
+        </div>
+    </div>
+    <div class="six fields">
+        <div class="field">
+            <label for="version">Port:</label>
+            <input type="text" name="elasticsearch[port]" value="{{ elasticsearch.port }}" />
+        </div>
+    </div>
+</div>
+
