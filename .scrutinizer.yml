@@ -12,7 +12,7 @@ checks:
         duplication: true
 
 tools:
-    php_analizer: true
+    php_analyzer: true
     php_mess_detector: true
     external_code_coverage: true
     php_code_sniffer:
