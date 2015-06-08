@@ -64,9 +64,11 @@ Main.prototype.form = function() {
         },
         onActivate: function() {
             $('input#solr_cloudmode').val(1);
+            $('input#zookeeper').val(1);
         },
         onDeactivate: function() {
             $('input#solr_cloudmode').val(0);
+            $('input#zookeeper').val(0);
         }
     });
 

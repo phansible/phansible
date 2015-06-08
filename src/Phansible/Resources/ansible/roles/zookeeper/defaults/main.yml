@@ -1,0 +1,9 @@
+---
+zookeeper_filename: "zookeeper-{{ zookeeper.version }}"
+zookeeper_filename_extension: .tar.gz
+
+zookeeper_path: /opt/zookeeper
+zookeeper_user: zookeeper
+zookeeper_var_path: /var/zookeeper
+
+zookeeper_discover_url: http://www.apache.org/dyn/closer.cgi/zookeeper

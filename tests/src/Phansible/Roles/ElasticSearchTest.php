@@ -4,100 +4,57 @@ namespace Phansible\Roles;
 
 class ElasticSearchTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers Phansible\Roles\ElasticSearch::getInitialValues
-     */
-    public function testShouldGetInitialValues()
+    private $role;
+
+    public function setUp()
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $role = new ElasticSearch($app);
+        $this->role = new ElasticSearch($app);
+    }
 
+    public function tearDown()
+    {
+        unset($this->role);
+    }
+
+    /**
+     * @covers Phansible\Roles\ElasticSearch::getName
+     */
+    public function testShouldGetName()
+    {
+        $this->assertEquals('ElasticSearch', $this->role->getName());
+    }
+
+    /**
+     * @covers Phansible\Roles\ElasticSearch::getSlug
+     */
+    public function testShouldGetSlug()
+    {
+        $this->assertEquals('elasticsearch', $this->role->getSlug());
+    }
+
+    /**
+     * @covers Phansible\Roles\ElasticSearch::getRole
+     */
+    public function testShouldGetRole()
+    {
+        $this->assertEquals('elasticsearch', $this->role->getRole());
+    }
+
+    /**
+     * @covers Phansible\Roles\ElasticSearch::getInitialValues
+     */
+    public function testShouldGetInitialValues()
+    {
         $expected = [
             'install'   => 0,
             'port'      => '9200',
             'version'   => '1.5.2'
         ];
 
-        $this->assertEquals($expected, $role->getInitialValues());
-    }
-
-    /**
-     * @covers Phansible\Roles\ElasticSearch::setup
-     */
-    public function testShouldRetriveNullWhenRoleIsNotInstalled()
-    {
-        $app = $this->getMockBuilder('\Phansible\Application')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $role = new ElasticSearch($app);
-
-        $requestVars = [
-            'elasticsearch' => [
-                'install' => '0'
-            ]
-        ];
-
-        $twig = $this->getMockBuilder('\Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $playbook = new \Phansible\Renderer\PlaybookRenderer();
-
-        $bundle = new \Phansible\Model\VagrantBundle('/path/ansible', $twig);
-        $bundle->setPlaybook($playbook);
-
-        $role->setup($requestVars, $bundle);
-
-        $this->assertEmpty($bundle->getPlaybook()->getRoles());
-    }
-
-    /**
-     * @covers Phansible\Roles\ElasticSearch::setup
-     */
-    public function testShouldSetupRole()
-    {
-        $app = $this->getMockBuilder('\Phansible\Application')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $role = new ElasticSearch($app);
-
-        $requestVars = [
-            'elasticsearch' => [
-                'install' => '1'
-            ]
-        ];
-
-        $varfile = $this->getMockBuilder('\Phansible\Renderer\VarfileRenderer')
-            ->disableOriginalConstructor()
-            ->setMethods(['addMultipleVars'])
-            ->getMock();
-
-        $varfile->expects($this->once())
-            ->method('addMultipleVars')
-            ->with([
-                'elasticsearch' => [
-                    'install' => '1',
-                    'version' => '1.5.2'
-                ]
-            ]);
-
-        $twig = $this->getMockBuilder('\Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $playbook = new \Phansible\Renderer\PlaybookRenderer();
-
-        $bundle = new \Phansible\Model\VagrantBundle('/path/ansible', $twig);
-        $bundle->setPlaybook($playbook);
-        $bundle->setVarsfile($varfile);
-
-        $role->setup($requestVars, $bundle);
-
-        $this->assertContains($role->getSlug(), $bundle->getPlaybook()->getRoles());
+        $this->assertEquals($expected, $this->role->getInitialValues());
     }
 }

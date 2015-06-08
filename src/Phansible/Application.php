@@ -74,6 +74,8 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Sqlite());
         $this['roles']->register(new Roles\Redis());
 
+        // Only if Solr cloud mode is enabled
+        $this['roles']->register(new Roles\Zookeeper($this));
         // Search Engines
         $this['roles']->register(new Roles\Solr($this));
         $this['roles']->register(new Roles\ElasticSearch($this));

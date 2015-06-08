@@ -26,7 +26,7 @@
   user: name={{ solr_user }} system=yes shell=/bin/bash
 
 - name: Discover the closest mirror
-  shell: curl -s {{ solr_discover_url }} | sed -n '/id="http"/,/id="backup"/p' | sed -nr 's/.*href=\"(.*)\".*/\1/p' | sed -n 1p
+  shell: curl -s {{ solr_discover_url }} | sed -n '/id="http"/,/id="backup"/p' | sed -nr 's/.*href=\"(.*)\".*/\1/p' | sed -n 2p
   register: solr_mirror_url
   when: not is_installed
 

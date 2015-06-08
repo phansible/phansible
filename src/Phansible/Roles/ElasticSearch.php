@@ -2,15 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
-use Phansible\Model\VagrantBundle;
+use Phansible\Role;
 
-class ElasticSearch extends BaseRole
+class ElasticSearch implements Role
 {
-    protected $name = 'ElasticSearch';
-    protected $slug = 'elasticsearch';
-    protected $role = 'elasticsearch';
+    public function getName()
+    {
+        return 'ElasticSearch';
+    }
 
+    public function getSlug()
+    {
+        return 'elasticsearch';
+    }
+
+    public function getRole()
+    {
+        return 'elasticsearch';
+    }
 
     public function getInitialValues()
     {
@@ -19,16 +28,5 @@ class ElasticSearch extends BaseRole
             'version' => '1.5.2',
             'port'    => '9200'
         ];
-    }
-
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
-    {
-        if (!$this->installRole($requestVars)) {
-            return;
-        }
-
-        $requestVars[$this->getSlug()]['version'] = $this->getInitialValues()['version'];
-
-        parent::setup($requestVars, $vagrantBundle);
     }
 }
