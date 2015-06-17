@@ -1,11 +1,11 @@
 language: php
 
+php:
+   - 5.5
+   - 5.6
+   - 7.0
+
 matrix:
-  include:
-    - php: 5.5
-    - php: 5.6
-      env: SCRUTINIZER_REPORT=true
-    - php: 7.0
   allow_failures:
     - php: 7.0
 
@@ -14,15 +14,10 @@ before_install:
 
 install:
    - composer install --optimize-autoloader --prefer-source --no-interaction
-   - php vendor/autoload.php
 
 script:
-   - mkdir -p build/logs
-   - php vendor/bin/phpcs --standard=psr2 ./src
-   - php vendor/bin/phpmd src/ text codesize,controversial,design,naming,unusedcode
-   - php vendor/bin/phpunit
+   - php vendor/bin/phpunit -c phpunit.xml --color --coverage-clover=build/logs/clover.xml
 
-after_script: >
-  [ "$SCRUTINIZER_REPORT" = true ]
-  && wget https://scrutinizer-ci.com/ocular.phar
-  && php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml
+after_script:
+   - wget https://scrutinizer-ci.com/ocular.phar
+   - php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml
