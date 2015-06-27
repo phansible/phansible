@@ -54,32 +54,32 @@ class Application extends \Flint\Application
     protected function initRoles()
     {
         // Server settings
-        $this['roles']->register(new Roles\Server($this));
+        $this['roles']->register(new Roles\Server());
 
         // Deploy roles
         $this['roles']->register(new Roles\VagrantLocal($this));
 
         // Webservers
-        $this['roles']->register(new Roles\Apache($this));
-        $this['roles']->register(new Roles\Nginx($this));
+        $this['roles']->register(new Roles\Apache());
+        $this['roles']->register(new Roles\Nginx());
 
         // Languages
-        $this['roles']->register(new Roles\Hhvm($this));
+        $this['roles']->register(new Roles\Hhvm());
 
         // Databases
-        $this['roles']->register(new Roles\Mysql($this));
-        $this['roles']->register(new Roles\Mariadb($this));
-        $this['roles']->register(new Roles\Pgsql($this));
-        $this['roles']->register(new Roles\Mongodb($this));
-        $this['roles']->register(new Roles\Sqlite($this));
-        $this['roles']->register(new Roles\Redis($this));
+        $this['roles']->register(new Roles\Mysql());
+        $this['roles']->register(new Roles\Mariadb());
+        $this['roles']->register(new Roles\Pgsql());
+        $this['roles']->register(new Roles\Mongodb());
+        $this['roles']->register(new Roles\Sqlite());
+        $this['roles']->register(new Roles\Redis());
 
         // PHP roles should always be last! this way we can detect other
         // roles and check if we need to add extra packages
-        $this['roles']->register(new Roles\Php($this));
-        $this['roles']->register(new Roles\Xdebug($this));
-        $this['roles']->register(new Roles\Composer($this));
-        $this['roles']->register(new Roles\Blackfire($this));
+        $this['roles']->register(new Roles\Php());
+        $this['roles']->register(new Roles\Xdebug());
+        $this['roles']->register(new Roles\Composer());
+        $this['roles']->register(new Roles\Blackfire());
     }
 
     /**
