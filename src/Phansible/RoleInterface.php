@@ -7,17 +7,9 @@ use Phansible\Model\VagrantBundle;
 interface RoleInterface
 {
     /**
-     * Constructor
-     *
-     * @param \Phansible\Application $app
-     */
-    #public function __construct(Application $app);
-
-    /**
      * Get extension's English name, eg "Apache"
      *
      * @return string
-     * @throws \Exception
      */
     public function getName();
 
@@ -25,7 +17,6 @@ interface RoleInterface
      * Get url-friendly slug, eg "vagrantfile-local"
      *
      * @return string
-     * @throws \Exception
      */
     public function getSlug();
 
@@ -33,9 +24,16 @@ interface RoleInterface
      * Get role name, eg "php"
      *
      * @return string
-     * @throws \Exception
      */
     public function getRole();
+
+    /**
+     * Set a list of roles slugs that this role depends on.
+     * If any of this roles is not installed we will not add this one.
+     *
+     * @return array The list of slug roles that should be installed
+     */
+    public function requiresRoles();
 
     /**
      * Get initial values for the form
@@ -43,14 +41,4 @@ interface RoleInterface
      * @return array
      */
     public function getInitialValues();
-
-    /**
-     * Setup the role
-     *
-     * @param array $requestVars
-     * @param \Phansible\Model\VagrantBundle $vagrantBundle
-     * @throws \Exception
-     * @return void
-     */
-    #public function setup(array $requestVars, VagrantBundle $vagrantBundle);
 }

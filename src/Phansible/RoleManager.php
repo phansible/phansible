@@ -48,14 +48,17 @@ class RoleManager
     public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
     {
         array_walk($this->roles, function(RoleInterface $role) use($requestVars, $vagrantBundle) {
-            if (!array_key_exists($role->getSlug(), $requestVars)) {
+            if (! $this->willBeInstalled($role->getSlug())) {
                 return;
             }
 
-            $config = $requestVars[$role->getSlug()];
-
-            if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
-                return;
+            // Stop if the roles we rely on are not going to be installed.
+            if ($role->requiresRoles()) {
+                foreach ($role->requiresRoles() as $roleSlug) {
+                    if (! $this->willBeInstalled($roleSlug)) {
+                        return;
+                    }
+                }
             }
 
             $vagrantBundle->getPlaybook()->addRole($role->getRole());
@@ -63,5 +66,20 @@ class RoleManager
 
             $role->setup($requestVars, $vagrantBundle);
         });
+    }
+
+    private function willBeInstalled($roleSlug)
+    {
+        if (!array_key_exists($roleSlug, $requestVars)) {
+            return false;
+        }
+
+        $config = $requestVars[$roleSlug];
+
+        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Xdebug extends BaseRole
+class Xdebug implements RoleInterface
 {
     public function getName()
     {
@@ -20,26 +20,17 @@ class Xdebug extends BaseRole
     {
         return 'xdebug';
     }
+
+    public function requiresRoles()
+    {
+        return ['php'];
+    }
+
     public function getInitialValues()
     {
         return [
           'install' => 0,
           'settings' => [],
         ];
-    }
-
-    protected function installRole($requestVars)
-    {
-        return parent::installRole($requestVars) && $this->phpWillBeInstalled($requestVars);
-    }
-
-    private function phpWillBeInstalled($requestVars)
-    {
-        $config = $requestVars['php'];
-
-        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
-            return false;
-        }
-        return true;
     }
 }

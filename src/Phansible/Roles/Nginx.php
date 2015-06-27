@@ -20,6 +20,12 @@ class Nginx implements RoleInterface
     {
         return 'nginx';
     }
+
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

@@ -21,6 +21,11 @@ class Mongodb implements RoleInterface
         return 'mongodb';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

@@ -21,6 +21,11 @@ class Redis implements RoleInterface
         return 'redis';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

@@ -21,6 +21,11 @@ class Server implements RoleInterface
         return 'server';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

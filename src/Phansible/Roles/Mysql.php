@@ -21,6 +21,11 @@ class Mysql implements RoleInterface
         return 'mysql';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

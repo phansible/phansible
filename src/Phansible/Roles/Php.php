@@ -22,6 +22,10 @@ class Php extends BaseRole
         return 'php';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
 
     public function getInitialValues()
     {

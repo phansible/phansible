@@ -21,6 +21,11 @@ class Mariadb implements RoleInterface
         return 'mariadb';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

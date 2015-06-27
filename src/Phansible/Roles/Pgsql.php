@@ -21,6 +21,11 @@ class Pgsql implements RoleInterface
         return 'postgresql';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [

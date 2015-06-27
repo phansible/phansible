@@ -22,6 +22,11 @@ class Hhvm implements RoleInterface
         return 'hhvm';
     }
 
+    public function requiresRoles()
+    {
+        return [];
+    }
+
     public function getInitialValues()
     {
         return [
