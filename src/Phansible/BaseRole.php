@@ -62,19 +62,6 @@ abstract class BaseRole implements RoleInterface
      */
     public function setup(array $requestVars, VagrantBundle $vagrantBundle)
     {
-        if (!array_key_exists($this->getSlug(), $requestVars)) {
-            return;
-        }
-        if (!$this->installRole($requestVars)) {
-            return;
-        }
-        $config = $requestVars[$this->getSlug()];
-
-        if (!is_null($this->role)) {
-            $vagrantBundle->getPlaybook()->addRole($this->role);
-        }
-
-        $vagrantBundle->getVarsFile()->addMultipleVars([$this->getSlug() => $config]);
     }
 
     protected function installRole($requestVars)
