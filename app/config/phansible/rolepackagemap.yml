@@ -1,7 +1,0 @@
-rolepackagemap:
-  php:
-    mysql:   php5-mysql
-    mariadb: php5-mysql
-    pgsql:   php5-pgsql
-    sqlite:  php5-sqlite
-    mongodb: php5-mongo

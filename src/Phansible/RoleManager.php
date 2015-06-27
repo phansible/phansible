@@ -48,27 +48,37 @@ class RoleManager
     public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
     {
         array_walk($this->roles, function(RoleInterface $role) use($requestVars, $vagrantBundle) {
-            if (! $this->willBeInstalled($role->getSlug())) {
+            if (! $this->willBeInstalled($role->getSlug(), $requestVars)) {
                 return;
             }
 
+            // @TOOD: add a interface for this.
             // Stop if the roles we rely on are not going to be installed.
             if ($role->requiresRoles()) {
                 foreach ($role->requiresRoles() as $roleSlug) {
-                    if (! $this->willBeInstalled($roleSlug)) {
+                    if (! $this->willBeInstalled($roleSlug, $requestVars)) {
                         return;
                     }
                 }
             }
 
-            $vagrantBundle->getPlaybook()->addRole($role->getRole());
-            $vagrantBundle->getVarsFile()->addMultipleVars([$role->getSlug() => $config]);
+            $values = $requestVars[$role->getSlug()];
 
-            $role->setup($requestVars, $vagrantBundle);
+            if ($role instanceof RoleValuesTransformer) {
+                $values = $role->transformValues($values, $vagrantBundle);
+            }
+
+            $vagrantBundle->getPlaybook()->addRole($role->getRole());
+            $vagrantBundle->getVarsFile()->addMultipleVars([$role->getSlug() => $values]);
+
+            # @TODO: This should be removed out...
+            if ($role instanceof \Phansible\Roles\VagrantLocal) {
+                $role->setup($requestVars, $vagrantBundle);
+            }
         });
     }
 
-    private function willBeInstalled($roleSlug)
+    private function willBeInstalled($roleSlug, $requestVars)
     {
         if (!array_key_exists($roleSlug, $requestVars)) {
             return false;
