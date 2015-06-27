@@ -7,9 +7,20 @@ use Phansible\Model\VagrantBundle;
 
 class Php extends BaseRole
 {
-    protected $name = 'PHP';
-    protected $slug = 'php';
-    protected $role = 'php';
+    public function getName()
+    {
+        return 'PHP';
+    }
+
+    public function getSlug()
+    {
+        return 'php';
+    }
+
+    public function getRole()
+    {
+        return 'php';
+    }
 
 
     public function getInitialValues()

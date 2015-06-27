@@ -7,10 +7,20 @@ use Phansible\Model\VagrantBundle;
 
 class Hhvm extends BaseRole
 {
-    protected $name = 'HHVM';
-    protected $slug = 'hhvm';
-    protected $role = 'hhvm';
+    public function getName()
+    {
+        return 'HHVM';
+    }
 
+    public function getSlug()
+    {
+        return 'hhvm';
+    }
+
+    public function getRole()
+    {
+        return 'hhvm';
+    }
 
     public function getInitialValues()
     {

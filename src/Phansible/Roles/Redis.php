@@ -6,9 +6,20 @@ use Phansible\BaseRole;
 
 class Redis extends BaseRole
 {
-    protected $name = 'Redis';
-    protected $slug = 'redis';
-    protected $role = 'redis';
+    public function getName()
+    {
+        return 'Redis';
+    }
+
+    public function getSlug()
+    {
+        return 'redis';
+    }
+
+    public function getRole()
+    {
+        return 'redis';
+    }
 
 
     public function getInitialValues()

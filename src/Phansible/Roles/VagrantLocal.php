@@ -8,9 +8,20 @@ use Phansible\Renderer\VagrantfileRenderer;
 
 class VagrantLocal extends BaseRole
 {
-    protected $name = 'Local';
-    protected $slug = 'vagrant_local';
-    protected $role = 'vagrant_local';
+    public function getName()
+    {
+        return 'Local';
+    }
+
+    public function getSlug()
+    {
+        return 'vagrant_local';
+    }
+
+    public function getRole()
+    {
+        return 'vagrant_local';
+    }
 
     public function getInitialValues()
     {

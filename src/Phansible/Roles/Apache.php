@@ -6,9 +6,20 @@ use Phansible\BaseRole;
 
 class Apache extends BaseRole
 {
-    protected $name = 'Apache';
-    protected $slug = 'apache';
-    protected $role = 'apache';
+    public function getName()
+    {
+        return 'Apache';
+    }
+
+    public function getSlug()
+    {
+        return 'apache';
+    }
+
+    public function getRole()
+    {
+        return 'apache';
+    }
 
     public function getInitialValues()
     {

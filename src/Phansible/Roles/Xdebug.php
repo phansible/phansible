@@ -6,10 +6,20 @@ use Phansible\BaseRole;
 
 class Xdebug extends BaseRole
 {
-    protected $name = 'XDebug';
-    protected $slug = 'xdebug';
-    protected $role = 'xdebug';
+    public function getName()
+    {
+        return 'XDebug';
+    }
 
+    public function getSlug()
+    {
+        return 'xdebug';
+    }
+
+    public function getRole()
+    {
+        return 'xdebug';
+    }
     public function getInitialValues()
     {
         return [

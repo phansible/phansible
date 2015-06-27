@@ -6,9 +6,20 @@ use Phansible\BaseRole;
 
 class Mysql extends BaseRole
 {
-    protected $name = 'MySQL';
-    protected $slug = 'mysql';
-    protected $role = 'mysql';
+    public function getName()
+    {
+        return 'MySQL';
+    }
+
+    public function getSlug()
+    {
+        return 'mysql';
+    }
+
+    public function getRole()
+    {
+        return 'mysql';
+    }
 
     public function getInitialValues()
     {

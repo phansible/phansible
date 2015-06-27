@@ -6,9 +6,20 @@ use Phansible\BaseRole;
 
 class Blackfire extends BaseRole
 {
-    protected $name = 'BlackFire';
-    protected $slug = 'blackfire';
-    protected $role = 'blackfire';
+    public function getName()
+    {
+        return 'Blackfire';
+    }
+
+    public function getSlug()
+    {
+        return 'blackfire';
+    }
+
+    public function getRole()
+    {
+        return 'blackfire';
+    }
 
     public function getInitialValues()
     {
