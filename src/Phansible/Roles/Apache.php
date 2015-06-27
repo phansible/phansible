@@ -21,11 +21,6 @@ class Apache implements RoleInterface
         return 'apache';
     }
 
-    public function requiresRoles()
-    {
-        return [];
-    }
-
     public function getInitialValues()
     {
         return [

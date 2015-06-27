@@ -3,8 +3,9 @@
 namespace Phansible\Roles;
 
 use Phansible\RoleInterface;
+use Phansible\RoleWithDependencies;
 
-class Xdebug implements RoleInterface
+class Xdebug implements RoleInterface, RoleWithDependencies
 {
     public function getName()
     {
@@ -21,7 +22,7 @@ class Xdebug implements RoleInterface
         return 'xdebug';
     }
 
-    public function requiresRoles()
+    public function requiredRolesToBeInstalled()
     {
         return ['php'];
     }

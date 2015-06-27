@@ -21,11 +21,6 @@ class Sqlite implements RoleInterface
         return 'sqlite';
     }
 
-    public function requiresRoles()
-    {
-        return [];
-    }
-
     public function getInitialValues()
     {
         return [

@@ -23,11 +23,6 @@ class VagrantLocal extends BaseRole
         return 'vagrant_local';
     }
 
-    public function requiresRoles()
-    {
-        return [];
-    }
-
     public function getInitialValues()
     {
         return [];

@@ -23,11 +23,6 @@ class Php implements RoleInterface, RoleValuesTransformer
         return 'php';
     }
 
-    public function requiresRoles()
-    {
-        return [];
-    }
-
     public function getInitialValues()
     {
         return [

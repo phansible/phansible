@@ -28,14 +28,6 @@ interface RoleInterface
     public function getRole();
 
     /**
-     * Set a list of roles slugs that this role depends on.
-     * If any of this roles is not installed we will not add this one.
-     *
-     * @return array The list of slug roles that should be installed
-     */
-    public function requiresRoles();
-
-    /**
      * Get initial values for the form
      *
      * @return array

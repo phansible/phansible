@@ -3,8 +3,9 @@
 namespace Phansible\Roles;
 
 use Phansible\RoleInterface;
+use Phansible\RoleWithDependencies;
 
-class Composer implements RoleInterface
+class Composer implements RoleInterface, RoleWithDependencies
 {
     public function getName()
     {
@@ -21,7 +22,7 @@ class Composer implements RoleInterface
         return 'composer';
     }
 
-    public function requiresRoles()
+    public function requiredRolesToBeInstalled()
     {
         return ['php'];
     }

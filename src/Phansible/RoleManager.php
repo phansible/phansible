@@ -52,10 +52,9 @@ class RoleManager
                 return;
             }
 
-            // @TOOD: add a interface for this.
             // Stop if the roles we rely on are not going to be installed.
-            if ($role->requiresRoles()) {
-                foreach ($role->requiresRoles() as $roleSlug) {
+            if ($role instanceof RoleWithDependencies) {
+                foreach ($role->requiredRolesToBeInstalled() as $roleSlug) {
                     if (! $this->willBeInstalled($roleSlug, $requestVars)) {
                         return;
                     }

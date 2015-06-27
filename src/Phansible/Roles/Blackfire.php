@@ -21,11 +21,6 @@ class Blackfire implements RoleInterface
         return 'blackfire';
     }
 
-    public function requiresRoles()
-    {
-        return [];
-    }
-
     public function getInitialValues()
     {
         return [
