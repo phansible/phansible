@@ -2,10 +2,10 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 use Phansible\Model\VagrantBundle;
 
-class Hhvm extends BaseRole
+class Hhvm implements RoleInterface
 {
     public function getName()
     {

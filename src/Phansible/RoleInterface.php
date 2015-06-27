@@ -11,7 +11,7 @@ interface RoleInterface
      *
      * @param \Phansible\Application $app
      */
-    public function __construct(Application $app);
+    #public function __construct(Application $app);
 
     /**
      * Get extension's English name, eg "Apache"
@@ -52,5 +52,5 @@ interface RoleInterface
      * @throws \Exception
      * @return void
      */
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle);
+    #public function setup(array $requestVars, VagrantBundle $vagrantBundle);
 }

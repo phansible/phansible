@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Sqlite extends BaseRole
+class Sqlite implements RoleInterface
 {
     public function getName()
     {

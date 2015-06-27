@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Redis extends BaseRole
+class Redis implements RoleInterface
 {
     public function getName()
     {
@@ -20,7 +20,6 @@ class Redis extends BaseRole
     {
         return 'redis';
     }
-
 
     public function getInitialValues()
     {

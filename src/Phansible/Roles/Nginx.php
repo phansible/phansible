@@ -2,7 +2,9 @@
 
 namespace Phansible\Roles;
 
-class Nginx extends Apache
+use Phansible\RoleInterface;
+
+class Nginx implements RoleInterface
 {
     public function getName()
     {

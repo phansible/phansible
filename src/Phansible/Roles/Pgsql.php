@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Pgsql extends BaseRole
+class Pgsql implements RoleInterface
 {
     public function getName()
     {

@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Server extends BaseRole
+class Server implements RoleInterface
 {
     public function getName()
     {

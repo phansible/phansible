@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Mongodb extends BaseRole
+class Mongodb implements RoleInterface
 {
     public function getName()
     {

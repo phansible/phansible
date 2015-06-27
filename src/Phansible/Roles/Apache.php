@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\RoleInterface;
 
-class Apache extends BaseRole
+class Apache implements RoleInterface
 {
     public function getName()
     {

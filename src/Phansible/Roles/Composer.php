@@ -6,10 +6,6 @@ use Phansible\BaseRole;
 
 class Composer extends BaseRole
 {
-    protected $name = 'Composer';
-    protected $slug = 'composer';
-    protected $role = 'composer';
-
     public function getName()
     {
         return 'Composer';

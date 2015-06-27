@@ -2,7 +2,9 @@
 
 namespace Phansible\Roles;
 
-class Mariadb extends Mysql
+use Phansible\RoleInterface;
+
+class Mariadb implements RoleInterface
 {
     public function getName()
     {
