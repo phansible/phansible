@@ -2,12 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Application;
+use Phansible\RoleInterface;
+use Phansible\RoleValuesTransformer;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\VagrantfileRenderer;
 
-class VagrantLocal extends BaseRole
+class VagrantLocal implements RoleInterface, RoleValuesTransformer
 {
+    /**
+     * @var \Phansible\Application
+     */
+    private $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
+
     public function getName()
     {
         return 'Local';
@@ -28,21 +40,18 @@ class VagrantLocal extends BaseRole
         return [];
     }
 
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
+    public function transformValues(array $values, VagrantBundle $vagrantBundle)
     {
-        parent::setup($requestVars, $vagrantBundle);
-        // Add vagrant file
-        $vagrantFile = $this->getVagrantfile($requestVars);
+        $vagrantFile = $this->getVagrantfile($values);
         $vagrantBundle->setVagrantFile($vagrantFile);
     }
 
     /**
-     * @param array $requestVars
+     * @param array $config
      * @return VagrantfileRenderer
      */
-    public function getVagrantfile(array $requestVars)
+    private function getVagrantfile(array $config)
     {
-        $config = $requestVars[$this->getSlug()];
         $boxName = $config['vm']['base_box'];
         $box = $this->getBox($boxName);
 
@@ -60,8 +69,6 @@ class VagrantLocal extends BaseRole
         $vagrantfile->setEnableWindows($config['vm']['enableWindows']);
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
-
-
         // Add box url when NOT using the vagrant cloud
         if (! isset($config['vm']['useVagrantCloud'])) {
              $vagrantfile->setBoxUrl($box['url']);
@@ -70,11 +77,7 @@ class VagrantLocal extends BaseRole
         return $vagrantfile;
     }
 
-    /**
-     * @param string $boxName
-     * @return string
-     */
-    public function getBox($boxName)
+    private function getBox($boxName)
     {
         $boxes = $this->app['boxes']['virtualbox'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';

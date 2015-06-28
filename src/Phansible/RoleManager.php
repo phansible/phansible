@@ -69,11 +69,6 @@ class RoleManager
 
             $vagrantBundle->getPlaybook()->addRole($role->getRole());
             $vagrantBundle->getVarsFile()->addMultipleVars([$role->getSlug() => $values]);
-
-            # @TODO: This should be removed out...
-            if ($role instanceof \Phansible\Roles\VagrantLocal) {
-                $role->setup($requestVars, $vagrantBundle);
-            }
         });
     }
 
