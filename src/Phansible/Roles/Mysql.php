@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 
-class Mysql implements RoleInterface
+class Mysql implements Role
 {
     public function getName()
     {

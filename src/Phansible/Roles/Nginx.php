@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 
-class Nginx implements RoleInterface
+class Nginx implements Role
 {
     public function getName()
     {

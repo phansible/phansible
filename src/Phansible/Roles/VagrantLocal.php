@@ -3,12 +3,12 @@
 namespace Phansible\Roles;
 
 use Phansible\Application;
-use Phansible\RoleInterface;
+use Phansible\Role;
 use Phansible\RoleValuesTransformer;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\VagrantfileRenderer;
 
-class VagrantLocal implements RoleInterface, RoleValuesTransformer
+class VagrantLocal implements Role, RoleValuesTransformer
 {
     /**
      * @var \Phansible\Application

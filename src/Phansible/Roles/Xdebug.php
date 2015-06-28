@@ -2,10 +2,10 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 use Phansible\RoleWithDependencies;
 
-class Xdebug implements RoleInterface, RoleWithDependencies
+class Xdebug implements Role, RoleWithDependencies
 {
     public function getName()
     {

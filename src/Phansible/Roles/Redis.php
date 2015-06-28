@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 
-class Redis implements RoleInterface
+class Redis implements Role
 {
     public function getName()
     {

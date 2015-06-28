@@ -2,11 +2,11 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 use Phansible\RoleValuesTransformer;
 use Phansible\Model\VagrantBundle;
 
-class Php implements RoleInterface, RoleValuesTransformer
+class Php implements Role, RoleValuesTransformer
 {
     public function getName()
     {

@@ -2,10 +2,10 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 use Phansible\RoleWithDependencies;
 
-class Composer implements RoleInterface, RoleWithDependencies
+class Composer implements Role, RoleWithDependencies
 {
     public function getName()
     {

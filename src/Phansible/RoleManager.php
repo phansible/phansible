@@ -13,9 +13,9 @@ class RoleManager
 
     /**
      * Register role
-     * @param \Phansible\RoleInterface $role
+     * @param \Phansible\Role $role
      */
-    public function register(RoleInterface $role)
+    public function register(Role $role)
     {
         $this->roles[] = $role;
     }
@@ -47,7 +47,7 @@ class RoleManager
      */
     public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
     {
-        array_walk($this->roles, function(RoleInterface $role) use($requestVars, $vagrantBundle) {
+        array_walk($this->roles, function(Role $role) use($requestVars, $vagrantBundle) {
             if (! $this->willBeInstalled($role->getSlug(), $requestVars)) {
                 return;
             }

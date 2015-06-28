@@ -2,9 +2,7 @@
 
 namespace Phansible;
 
-use Phansible\Model\VagrantBundle;
-
-interface RoleInterface
+interface Role
 {
     /**
      * Get extension's English name, eg "Apache"

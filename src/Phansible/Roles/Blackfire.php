@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 
-class Blackfire implements RoleInterface
+class Blackfire implements Role
 {
     public function getName()
     {

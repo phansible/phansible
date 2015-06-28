@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
-use Phansible\RoleInterface;
+use Phansible\Role;
 
-class Mariadb implements RoleInterface
+class Mariadb implements Role
 {
     public function getName()
     {
