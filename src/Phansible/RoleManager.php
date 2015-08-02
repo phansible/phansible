@@ -43,7 +43,10 @@ class RoleManager
     }
 
     /**
-     * {@inheritdoc}
+     * Adds a role to bundle shipped to the user.
+     *
+     * @param  array         $requestVars   List of roles required
+     * @param  VagrantBundle $vagrantBundle
      */
     public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
     {
@@ -72,6 +75,14 @@ class RoleManager
         });
     }
 
+    /**
+     * Checks if a given role will be installed.
+     * Used to know if a cross dependency needs to be set up
+     *
+     * @param  string $roleSlug    The slug of the role
+     * @param  array  $requestVars The information of the request
+     * @return boolean
+     */
     private function willBeInstalled($roleSlug, $requestVars)
     {
         if (!array_key_exists($roleSlug, $requestVars)) {

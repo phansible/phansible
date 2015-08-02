@@ -21,11 +21,6 @@ class Nginx implements Role
         return 'nginx';
     }
 
-    public function requiresRoles()
-    {
-        return [];
-    }
-
     public function getInitialValues()
     {
         return [
