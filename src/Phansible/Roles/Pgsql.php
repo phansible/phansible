@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Pgsql extends BaseRole
+class Pgsql implements Role
 {
-    protected $name = 'PostgreSQL';
-    protected $slug = 'pgsql';
-    protected $role = 'pgsql';
+    public function getName()
+    {
+        return 'PostgreSQL';
+    }
+
+    public function getSlug()
+    {
+        return 'postgresql';
+    }
+
+    public function getRole()
+    {
+        return 'postgresql';
+    }
 
     public function getInitialValues()
     {

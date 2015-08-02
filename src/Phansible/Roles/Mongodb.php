@@ -2,14 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Mongodb extends BaseRole
+class Mongodb implements Role
 {
-    protected $name = 'MongoDB';
-    protected $slug = 'mongodb';
-    protected $role = 'mongodb';
+    public function getName()
+    {
+        return 'MongoDb';
+    }
 
+    public function getSlug()
+    {
+        return 'mongodb';
+    }
+
+    public function getRole()
+    {
+        return 'mongodb';
+    }
 
     public function getInitialValues()
     {

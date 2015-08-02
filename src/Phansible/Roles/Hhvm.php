@@ -2,15 +2,25 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 use Phansible\Model\VagrantBundle;
 
-class Hhvm extends BaseRole
+class Hhvm implements Role
 {
-    protected $name = 'HHVM';
-    protected $slug = 'hhvm';
-    protected $role = 'hhvm';
+    public function getName()
+    {
+        return 'HHVM';
+    }
 
+    public function getSlug()
+    {
+        return 'hhvm';
+    }
+
+    public function getRole()
+    {
+        return 'hhvm';
+    }
 
     public function getInitialValues()
     {

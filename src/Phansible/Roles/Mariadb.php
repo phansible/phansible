@@ -2,11 +2,24 @@
 
 namespace Phansible\Roles;
 
-class Mariadb extends Mysql
+use Phansible\Role;
+
+class Mariadb implements Role
 {
-    protected $name = 'MariaDb';
-    protected $slug = 'mariadb';
-    protected $role = 'mariadb';
+    public function getName()
+    {
+        return 'MariaDb';
+    }
+
+    public function getSlug()
+    {
+        return 'mariadb';
+    }
+
+    public function getRole()
+    {
+        return 'mariadb';
+    }
 
     public function getInitialValues()
     {

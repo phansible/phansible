@@ -2,14 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Redis extends BaseRole
+class Redis implements Role
 {
-    protected $name = 'Redis';
-    protected $slug = 'redis';
-    protected $role = 'redis';
+    public function getName()
+    {
+        return 'Redis';
+    }
 
+    public function getSlug()
+    {
+        return 'redis';
+    }
+
+    public function getRole()
+    {
+        return 'redis';
+    }
 
     public function getInitialValues()
     {

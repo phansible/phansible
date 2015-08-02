@@ -2,15 +2,26 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
+use Phansible\RoleValuesTransformer;
 use Phansible\Model\VagrantBundle;
 
-class Php extends BaseRole
+class Php implements Role, RoleValuesTransformer
 {
-    protected $name = 'PHP';
-    protected $slug = 'php';
-    protected $role = 'php';
+    public function getName()
+    {
+        return 'PHP';
+    }
 
+    public function getSlug()
+    {
+        return 'php';
+    }
+
+    public function getRole()
+    {
+        return 'php';
+    }
 
     public function getInitialValues()
     {
@@ -25,48 +36,37 @@ class Php extends BaseRole
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setup(array $requestVars, VagrantBundle $vagrantBundle)
+    public function transformValues(array $values, VagrantBundle $vagrantBundle)
     {
-        if (!$this->installRole($requestVars)) {
-            return;
-        }
+        $map = [
+            "mysql"   => "php5-mysql",
+            "mariadb" => "php5-mysql",
+            "pgsql"   => "php5-pgsql",
+            "sqlite"  => "php5-sqlite",
+            "mongodb" => "php5-mongo",
+        ];
 
         $playbook = $vagrantBundle->getPlaybook();
-        $roleMap  = $this->getRolePackageMap();
 
-        foreach ($roleMap as $role => $package) {
+        foreach ($map as $role => $package) {
             if ($playbook->hasRole($role)) {
-                $this->addPhpPackage($package, $requestVars);
+                $values = $this->addPhpPackage($package, $values);
             }
         }
 
-        parent::setup($requestVars, $vagrantBundle);
+        return $values;
     }
 
     /**
      * @param string $package
      * @param array $requestVars
-     * @throws \Exception
      */
-    protected function addPhpPackage($package, &$requestVars)
+    protected function addPhpPackage($package, $values)
     {
-        if (in_array($package, $requestVars[$this->getSlug()]['packages']) === false) {
-            $requestVars[$this->getSlug()]['packages'][] = $package;
-        }
-    }
-
-    /**
-     * @return array
-     */
-    private function getRolePackageMap()
-    {
-        if (!isset($this->app['rolepackagemap'][$this->getSlug()])) {
-            return [];
+        if (in_array($package, $values['packages']) === false) {
+            $values['packages'][] = $package;
         }
 
-        return $this->app['rolepackagemap'][$this->getSlug()];
+        return $values;
     }
 }

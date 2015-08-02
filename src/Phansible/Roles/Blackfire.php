@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Blackfire extends BaseRole
+class Blackfire implements Role
 {
-    protected $name = 'BlackFire';
-    protected $slug = 'blackfire';
-    protected $role = 'blackfire';
+    public function getName()
+    {
+        return 'Blackfire';
+    }
+
+    public function getSlug()
+    {
+        return 'blackfire';
+    }
+
+    public function getRole()
+    {
+        return 'blackfire';
+    }
 
     public function getInitialValues()
     {
