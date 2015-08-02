@@ -13,12 +13,12 @@ class Pgsql implements Role
 
     public function getSlug()
     {
-        return 'postgresql';
+        return 'pgsql';
     }
 
     public function getRole()
     {
-        return 'postgresql';
+        return 'pgsql';
     }
 
     public function getInitialValues()
