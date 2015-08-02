@@ -21,9 +21,6 @@
     - name: Run Composer
       shell: /usr/local/bin/composer install --no-dev --no-progress chdir={{ project_root }}
 
-    - name: Run Composer update
-      shell: /usr/local/bin/composer update --no-progress chdir={{ project_root }}
-
     - name: Read ACLs for web_user
       sudo: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'
@@ -35,6 +32,13 @@
     - name: Make sure cache directory exists
       sudo: yes
       file: path={{ project_root }}/app/cache state=directory owner={{ system_user }} group={{ system_group }}
+
+    - name: Clean cache directories
+      sudo: yes
+      file: path={{ project_root }}/app/cache/{{ item }} state=absent owner={{ system_user }} group={{ system_group }}
+      with_items:
+        - config
+        - github-api-cache
 
     - name: Read and Write ACLs cache dir
       sudo: yes

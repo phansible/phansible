@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Apache extends BaseRole
+class Apache implements Role
 {
-    protected $name = 'Apache';
-    protected $slug = 'apache';
-    protected $role = 'apache';
+    public function getName()
+    {
+        return 'Apache';
+    }
+
+    public function getSlug()
+    {
+        return 'apache';
+    }
+
+    public function getRole()
+    {
+        return 'apache';
+    }
 
     public function getInitialValues()
     {

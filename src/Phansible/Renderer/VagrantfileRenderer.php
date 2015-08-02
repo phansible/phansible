@@ -28,9 +28,6 @@ class VagrantfileRenderer extends TemplateRenderer
     /** @var  string Synced Folder Type */
     protected $syncedType;
 
-    /** @var  bool Enables or Disables Windows support (windows.sh) */
-    protected $enableWindows;
-
     /**
      * {@inheritdoc}
      */
@@ -46,7 +43,6 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setIpAddress('192.168.33.99');
         $this->setSyncedFolder('./');
         $this->setSyncedType('nfs');
-        $this->setEnableWindows(true);
     }
 
     /**
@@ -62,7 +58,6 @@ class VagrantfileRenderer extends TemplateRenderer
             'ipAddress' => $this->getIpAddress(),
             'syncedFolder' => $this->getSyncedFolder(),
             'syncedType' => $this->getSyncedType(),
-            'enableWindows' => $this->isWindowsEnabled(),
         ];
     }
 
@@ -176,21 +171,5 @@ class VagrantfileRenderer extends TemplateRenderer
     public function getSyncedType()
     {
         return $this->syncedType;
-    }
-
-    /**
-     * @param boolean $enableWindows
-     */
-    public function setEnableWindows($enableWindows)
-    {
-        $this->enableWindows = $enableWindows;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isWindowsEnabled()
-    {
-        return $this->enableWindows;
     }
 }

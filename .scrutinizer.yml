@@ -1,6 +1,25 @@
+filter:
+    excluded_paths:
+        - 'app/*'
+        - 'tests/*'
+        - 'ansible/*'
+        - 'web/*'
+        - 'src/Phansible/Resources/ansible'
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
+
 tools:
-    external_code_coverage:
-        timeout: 300
+    php_analyzer: true
+    php_mess_detector: true
+    external_code_coverage: true
+    php_code_sniffer:
+        config:
+            standard: "PSR2"
+    php_cpd: true
+    php_pdepend: true
     php_sim:
         enabled: true
         min_mass: 16
@@ -21,12 +40,4 @@ tools:
         feature_patterns:
             - '\badd(?:s|ed)?\b'
             - '\bimplement(?:s|ed)?\b'
-filter:
-    excluded_paths:
-        - 'app/*'
-        - 'tests/*'
-        - 'ansible/*'
-        - 'web/*'
-        - 'src/Phansible/Resources/ansible'
-    paths: {  }
-build_failure_conditions: {  }
+    sensiolabs_security_checker: true

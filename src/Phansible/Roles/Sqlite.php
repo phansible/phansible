@@ -2,14 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Sqlite extends BaseRole
+class Sqlite implements Role
 {
-    protected $name = 'SQLite';
-    protected $slug = 'sqlite';
-    protected $role = 'sqlite';
+    public function getName()
+    {
+        return 'SQLite';
+    }
 
+    public function getSlug()
+    {
+        return 'sqlite';
+    }
+
+    public function getRole()
+    {
+        return 'sqlite';
+    }
 
     public function getInitialValues()
     {

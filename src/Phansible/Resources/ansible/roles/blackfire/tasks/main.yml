@@ -1,0 +1,23 @@
+---
+- name: Add Blackfire GPG key
+  apt_key: url=https://packagecloud.io/gpg.key state=present
+
+- name: add Blackfire repo
+  apt_repository: repo='deb http://packages.blackfire.io/debian any main' state=present update_cache=yes
+
+- name: Install Blackfire Agent
+  apt: pkg=blackfire-agent state=latest
+
+- name: Set server ID
+  lineinfile: dest=/etc/blackfire/agent
+              regexp='server-id='
+              line='server-id={{ blackfire.server_id }}'
+
+- name: Set server token
+  lineinfile: dest=/etc/blackfire/agent
+              regexp='server-token='
+              line='server-token={{ blackfire.server_token }}'
+  notify: restart blackfire-agent
+
+- name: Install Blackfire PHP Probe
+  apt: pkg=blackfire-php state=latest

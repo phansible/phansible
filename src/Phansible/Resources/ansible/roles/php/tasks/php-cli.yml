@@ -6,5 +6,5 @@
 
 - name: enabling opcache cli
   lineinfile: dest=/etc/php5/cli/php.ini
-              regexp=';opcache.enable_cli=0'
+              regexp=';?opcache.enable_cli=\d'
               line='opcache.enable_cli=1'

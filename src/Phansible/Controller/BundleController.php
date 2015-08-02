@@ -45,8 +45,7 @@ class BundleController extends Controller
         $app['roles']->setupRole($requestVars, $vagrantBundle);
         $playbook->addRole('app');
 
-        $tmpName = 'bundle_' . time();
-        $zipPath = sys_get_temp_dir() . "/$tmpName.zip";
+        $zipPath = tempnam(sys_get_temp_dir(), "phansible_bundle_");
 
         if ($vagrantBundle->generateBundle(
             $zipPath,
@@ -103,7 +102,8 @@ class BundleController extends Controller
     protected function outputBundle($zipPath, Application $app, $filename)
     {
         $stream = function () use ($zipPath) {
-            readfile($zipPath);
+            echo file_get_contents($zipPath);
+            unlink($zipPath);
         };
 
         $response = $app->stream(
@@ -111,16 +111,16 @@ class BundleController extends Controller
             Response::HTTP_OK,
             array(
                 'Content-length' => filesize($zipPath),
-                'Content-Type' => 'application/zip'
+                'Content-Type' => 'application/zip',
+                'Pragma' => 'no-cache',
+                'Cache-Control' => 'no-cache'
             )
         );
 
-        $dispositionHeader = $response->headers->makeDisposition(
+        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             'phansible_' . $filename . '.zip'
-        );
-
-        $response->headers->set('Content-Disposition', $dispositionHeader);
+        ));
 
         return $response;
     }

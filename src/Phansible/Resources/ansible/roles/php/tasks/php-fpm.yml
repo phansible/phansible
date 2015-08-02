@@ -15,5 +15,5 @@
               line='date.timezone = {{ server.timezone }}'
 - name: enabling opcache
   lineinfile: dest=/etc/php5/fpm/php.ini
-              regexp=';opcache.enable=0'
+              regexp=';?opcache.enable=\d'
               line='opcache.enable=1'
