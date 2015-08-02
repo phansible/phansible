@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Rabbitmq extends BaseRole
+class Rabbitmq implements Role
 {
-    protected $name = 'RabbitMQ';
-    protected $slug = 'rabbitmq';
-    protected $role = 'rabbitmq';
+    public function getName()
+    {
+        return 'RabbitMQ';
+    }
+
+    public function getSlug()
+    {
+        return 'rabbitmq';
+    }
+
+    public function getRole()
+    {
+        return 'rabbitmq';
+    }
 
     public function getInitialValues()
     {
