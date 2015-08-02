@@ -44,6 +44,8 @@ class VagrantLocal implements Role, RoleValuesTransformer
     {
         $vagrantFile = $this->getVagrantfile($values);
         $vagrantBundle->setVagrantFile($vagrantFile);
+
+        return $values;
     }
 
     /**
