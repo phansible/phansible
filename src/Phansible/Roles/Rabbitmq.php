@@ -4,7 +4,7 @@ namespace Phansible\Roles;
 
 use Phansible\BaseRole;
 
-class RabbitMQ extends BaseRole
+class Rabbitmq extends BaseRole
 {
     protected $name = 'RabbitMQ';
     protected $slug = 'rabbitmq';
