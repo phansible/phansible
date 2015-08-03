@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Beanstalkd extends BaseRole
+class Beanstalkd implements Role
 {
-    protected $name = 'Beanstalkd';
-    protected $slug = 'beanstalkd';
-    protected $role = 'beanstalkd';
+    public function getName()
+    {
+        return 'Beanstalkd';
+    }
+
+    public function getSlug()
+    {
+        return 'beanstalkd';
+    }
+
+    public function getRole()
+    {
+        return 'beanstalkd';
+    }
 
     public function getInitialValues()
     {

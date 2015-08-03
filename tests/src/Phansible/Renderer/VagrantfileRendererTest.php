@@ -34,7 +34,6 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('192.168.33.99', $this->model->getIpAddress());
         $this->assertEquals('./', $this->model->getSyncedFolder());
         $this->assertEquals('nfs', $this->model->getSyncedType());
-        $this->assertEquals(true, $this->model->isWindowsEnabled());
     }
 
     /**
@@ -160,17 +159,6 @@ class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->getSyncedType();
 
         $this->assertEquals($syncedType, $result);
-    }
-
-    /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::isWindowsEnabled
-     * @covers Phansible\Renderer\VagrantfileRenderer::setEnableWindows
-     */
-    public function testShouldSetAndGetEnableWindows()
-    {
-        $this->model->setEnableWindows(true);
-
-        $this->assertEquals(true, $this->model->isWindowsEnabled());
     }
 
     /**

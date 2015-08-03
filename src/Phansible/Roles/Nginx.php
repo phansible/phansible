@@ -2,11 +2,24 @@
 
 namespace Phansible\Roles;
 
-class Nginx extends Apache
+use Phansible\Role;
+
+class Nginx implements Role
 {
-    protected $name = 'Nginx';
-    protected $slug = 'nginx';
-    protected $role = 'nginx';
+    public function getName()
+    {
+        return 'Nginx';
+    }
+
+    public function getSlug()
+    {
+        return 'nginx';
+    }
+
+    public function getRole()
+    {
+        return 'nginx';
+    }
 
     public function getInitialValues()
     {

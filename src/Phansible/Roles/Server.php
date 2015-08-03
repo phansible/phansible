@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Server extends BaseRole
+class Server implements Role
 {
-    protected $name = 'Server';
-    protected $slug = 'server';
-    protected $role = 'server';
+    public function getName()
+    {
+        return 'Server';
+    }
+
+    public function getSlug()
+    {
+        return 'server';
+    }
+
+    public function getRole()
+    {
+        return 'server';
+    }
 
     public function getInitialValues()
     {

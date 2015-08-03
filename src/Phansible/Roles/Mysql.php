@@ -2,13 +2,24 @@
 
 namespace Phansible\Roles;
 
-use Phansible\BaseRole;
+use Phansible\Role;
 
-class Mysql extends BaseRole
+class Mysql implements Role
 {
-    protected $name = 'MySQL';
-    protected $slug = 'mysql';
-    protected $role = 'mysql';
+    public function getName()
+    {
+        return 'MySQL';
+    }
+
+    public function getSlug()
+    {
+        return 'mysql';
+    }
+
+    public function getRole()
+    {
+        return 'mysql';
+    }
 
     public function getInitialValues()
     {

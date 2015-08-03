@@ -3,31 +3,31 @@
 namespace Phansible\Roles;
 
 use Phansible\Role;
-use Phansible\Model\VagrantBundle;
 
-class Hhvm implements Role
+class Rabbitmq implements Role
 {
     public function getName()
     {
-        return 'HHVM';
+        return 'RabbitMQ';
     }
 
     public function getSlug()
     {
-        return 'hhvm';
+        return 'rabbitmq';
     }
 
     public function getRole()
     {
-        return 'hhvm';
+        return 'rabbitmq';
     }
 
     public function getInitialValues()
     {
         return [
-          'install' => 0,
-          'host' => '127.0.0.1',
-          'port' => 9000,
+            'install'  => 0,
+            'plugins'  => [],
+            'user'     => 'user',
+            'password' => 'password'
         ];
     }
 }

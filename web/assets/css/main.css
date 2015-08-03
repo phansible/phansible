@@ -37,7 +37,7 @@ header {
     margin: 0px 0px 3em;
     padding-top: 70px;
     padding-bottom: 70px;
-    background: #56508D url(../images/header.jpg) center no-repeat;
+    background: #136B79 url(../images/header.jpg) center no-repeat;
     border-bottom: 4px solid #36677A;
 }
 
@@ -45,6 +45,10 @@ header img.logo {
     color: #FFF;
     font-size: 60px;
     margin: 20px 0px 0px 0px;
+}
+
+.nodisplay {
+    display: none;
 }
 
 #forkme {

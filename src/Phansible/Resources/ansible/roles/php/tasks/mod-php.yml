@@ -6,5 +6,5 @@
 
 - name: enabling opcache
   lineinfile: dest=/etc/php5/apache2/php.ini
-              regexp=';opcache.enable=0'
+              regexp=';?opcache.enable=\d'
               line='opcache.enable=1'
