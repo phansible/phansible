@@ -66,7 +66,7 @@ Main.prototype.form = function() {
             .removeClass('green')
             .addClass('black');
 
-        $('input[name=phpppa]').val($(this)
+        $('#php_version').val($(this)
             .data('value'));
     });
 
