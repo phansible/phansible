@@ -1,0 +1,148 @@
+---
+- name: Check installation
+  shell: 'test -f {{ solr_path }}/bin/solr && echo "yes" || echo "no"'
+  changed_when: false
+  register: installed_status
+
+- name: Get installed version
+  shell: readlink -f {{ solr_path }} | sed -nr 's/.*solr\-(.*)/\1/p'
+  when: installed_status.stdout == "yes"
+  register: installed_version
+
+- name: Set installed variable
+  set_fact: is_installed='{{ installed_status.stdout == "yes" and installed_version.stdout == solr.version }}'
+
+- name: Add dependencies repository
+  apt_repository: repo='ppa:webupd8team/java' update_cache=yes
+
+- name: Set dependencies License
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  changed_when: false
+
+- name: Install Dependencies
+  apt: pkg=oracle-java8-installer state=latest
+
+- name: Create User
+  user: name={{ solr_user }} system=yes shell=/bin/bash
+
+- name: Discover the closest mirror
+  shell: curl -s {{ solr_discover_url }} | sed -n '/id="http"/,/id="backup"/p' | sed -nr 's/.*href=\"(.*)\".*/\1/p' | sed -n 2p
+  register: solr_mirror_url
+  when: not is_installed
+
+- name: Set source url
+  set_fact: solr_source="{{ solr_mirror_url.stdout }}/{{ solr_filename }}{{ solr_filename_extension }}"
+  when: not is_installed
+
+- name: Download
+  get_url: url={{ solr_source }} dest=/tmp
+  when: not is_installed
+
+- name: Unarchive
+  unarchive: >
+    src=/tmp/{{ solr_filename }}{{ solr_filename_extension }}
+    dest=/opt
+    copy=no
+  when: not is_installed
+
+- name: Apply permissions into unarchived file
+  file: >
+    path=/opt/{{ solr_filename }}
+    owner={{ solr_user }}
+    recurse=yes
+
+- name: Link folder
+  file: >
+    src=/opt/{{ solr_filename }}
+    dest={{ solr_path }}
+    owner={{ solr_user }}
+    state=link
+
+- name: Create /var folders
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ solr_var_path }}"
+    - "{{ solr_var_path }}/data"
+    - "/var/log/solr"
+
+- name: Copy Solr files config
+  command: cp {{ item.src }} {{ item.dest }}
+  with_items:
+     - { src: "{{ solr_path }}/server/solr/solr.xml", dest: "{{ solr_var_path }}/data/solr.xml" }
+     - { src: "{{ solr_path }}/bin/solr.in.sh", dest: "{{ solr_var_path }}/solr.in.sh" }
+     - { src: "{{ solr_path }}/server/resources/log4j.properties", dest: "{{ solr_var_path }}/log4j.properties" }
+  when: not is_installed
+
+- name: Configure log properties
+  replace: >
+    dest="{{ solr_var_path }}/log4j.properties"
+    regexp="^(solr.log\=)logs$"
+    replace="\1/var/log/solr"
+
+- name: Configure Solr start config file
+  replace: >
+    dest="{{ solr_var_path }}/solr.in.sh"
+    regexp="{{ item.regexp }}"
+    replace="{{ item.replace }}"
+  with_items:
+     - { regexp: '^#(SOLR_PID_DIR=).*', replace: '\1{{ solr_var_path }}' }
+     - { regexp: '^#(SOLR_HOME=).*', replace: '\1{{ solr_var_path }}/data' }
+     - { regexp: '^#(LOG4J_PROPS=).*', replace: '\1{{ solr_var_path }}/log4j.properties' }
+     - { regexp: '^#(SOLR_LOGS_DIR=).*', replace: '\1/var/log/solr' }
+     - { regexp: '^#(SOLR_PORT).*', replace: '\1={{ solr.port }}' }
+  when: not is_installed
+
+- name: Set Solr Cloud mode
+  lineinfile: dest="{{ solr_var_path }}/solr.in.sh" line="SOLR_MODE=solrcloud"
+  when: solr.cloud_mode == '1'
+
+- name: Configure Zookeeper host
+  replace: >
+    dest="{{ solr_var_path }}/solr.in.sh"
+    regexp="^#?(ZK_HOST=).*"
+    replace='\1"localhost:2181"'
+  when: solr.cloud_mode == '1'
+
+- name: Apply permission into /var/solr
+  file: >
+    path={{ item }}
+    owner={{ solr_user }}
+    group={{ solr_user }}
+    state=directory
+    recurse=yes
+  with_items:
+    - "{{ solr_var_path }}"
+    - "/var/log/solr"
+
+- name: Creating init.d script
+  command: cp {{ solr_path }}/bin/init.d/solr /etc/init.d/solr
+
+- name: Register service
+  service: name=solr enabled=yes
+
+- name: Configure init.d script file
+  lineinfile: >
+    dest="/etc/init.d/solr"
+    regexp={{ item.regexp }}
+    line={{ item.line }}
+  with_items:
+     - { regexp: "^SOLR_INSTALL_DIR=.*", line: "SOLR_INSTALL_DIR={{ solr_path }}" }
+     - { regexp: "^SOLR_ENV=.*", line: "SOLR_ENV={{ solr_var_path }}/solr.in.sh" }
+     - { regexp: "^RUNAS=.*", line: "RUNAS={{ solr_user }}" }
+
+- name: Apply init.d script permissions
+  file: >
+    path=/etc/init.d/solr
+    owner=root
+    group=root
+    mode=0744
+  notify: restart
+
+- name: Flush handlers to apply config changes
+  meta: flush_handlers
+
+- name: Ensure Solr is started
+  service: name=solr state=restarted
+
+- name: Remove tmp files
+  file: path=/tmp/{{ solr_filename }}{{ solr_filename_extension }} state=absent

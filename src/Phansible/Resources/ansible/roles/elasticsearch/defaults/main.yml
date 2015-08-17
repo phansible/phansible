@@ -1,0 +1,2 @@
+---
+elasticsearch_url: https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch.version }}.deb
