@@ -75,7 +75,7 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\Redis());
 
         //Workers
-        $this['roles']->register(new Roles\RabbitMQ());
+        $this['roles']->register(new Roles\Rabbitmq());
         $this['roles']->register(new Roles\Beanstalkd());
 
         // Only if Solr cloud mode is enabled
