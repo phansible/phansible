@@ -78,6 +78,13 @@ class Application extends \Flint\Application
         $this['roles']->register(new Roles\RabbitMQ());
         $this['roles']->register(new Roles\Beanstalkd());
 
+        // Only if Solr cloud mode is enabled
+        $this['roles']->register(new Roles\Zookeeper());
+
+        // Search Engines
+        $this['roles']->register(new Roles\Solr());
+        $this['roles']->register(new Roles\ElasticSearch());
+
         // PHP roles should always be last! this way we can detect other
         // roles and check if we need to add extra packages
         $this['roles']->register(new Roles\Php());
