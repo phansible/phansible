@@ -37,15 +37,17 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
                 $this->arrayHasKey('config')
             );
 
-        $container['twig']         = $this->twig;
-        $container['config']       = [];
-        $container['webservers']   = [];
-        $container['boxes']        = [];
-        $container['syspackages']  = [];
-        $container['phppackages']  = [];
-        $container['databases']    = [];
-        $container['peclpackages'] = [];
-        $container['roles']        = new RoleManager();
+        $container['twig']            = $this->twig;
+        $container['config']          = [];
+        $container['webservers']      = [];
+        $container['boxes']           = [];
+        $container['syspackages']     = [];
+        $container['phppackages']     = [];
+        $container['databases']       = [];
+        $container['workers']         = [];
+        $container['peclpackages']    = [];
+        $container['rabbitmqplugins'] = [];
+        $container['roles']           = new RoleManager();
 
         $this->controller->setPimple($container);
         $this->controller->indexAction();

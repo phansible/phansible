@@ -208,6 +208,11 @@ $(document).ready(function(){
             context: 'section.databases-tabs'
         }
     );
+    $('.workers.tabs .item').tab(
+        {
+            context: 'section.workers-tabs'
+        }
+    );
     $('.languages.tabs .item').tab(
         {
             context: 'section.languages-tabs'

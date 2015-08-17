@@ -1,0 +1,11 @@
+workers:
+  rabbitmq:
+    name: RabbitMQ
+    checked: no
+    include:
+      - rabbitmq
+  beanstalkd:
+    name: Beanstalkd
+    checked: no
+    include:
+      - beanstalkd

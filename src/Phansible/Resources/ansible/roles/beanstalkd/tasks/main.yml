@@ -1,0 +1,49 @@
+---
+- name: Discover if there is already a version of beanstalkd installed.
+  shell: which beanstalkd > /dev/null && beanstalkd -v | cut -d' ' -f2
+  changed_when: False
+  failed_when: False
+  register: installed_beanstalkd_version
+
+- name: Ensure beanstalkd user exists.
+  user: name={{ beanstalkd.user }} comment="Beanstalkd Server" createhome=no shell=/bin/false system=yes state=present
+  register: user_changed
+
+- name: Ensure persistence storage location exists and has proper ownership.
+  file: path="{{ beanstalkd.storage }}" state=directory owner={{ beanstalkd.user }} group={{ beanstalkd.user }} recurse=true
+  register: storage_dir_changed
+  notify: restart beanstalkd
+
+- name: Get tarfile.
+  command: wget https://github.com/kr/beanstalkd/archive/v{{ beanstalkd.version }}.tar.gz -q -O /tmp/beanstalkd-{{ beanstalkd.version }}.tar.gz creates=/tmp/beanstalkd-{{ beanstalkd.version }}.tar.gz
+  when: installed_beanstalkd_version.stdout != beanstalkd.version
+
+- name: Unarchive.
+  command: tar -zxvf /tmp/beanstalkd-{{ beanstalkd.version }}.tar.gz chdir=/tmp creates=/tmp/beanstalkd-{{ beanstalkd.version }}
+  when: installed_beanstalkd_version.stdout != beanstalkd.version
+
+- name: Make.
+  command: make chdir=/tmp/beanstalkd-{{ beanstalkd.version}}/ creates=/tmp/beanstalkd-{{ beanstalkd.version}}/beanstalkd
+  when: installed_beanstalkd_version.stdout != beanstalkd.version
+
+- name: Remove current version.
+  file: path=/usr/local/bin/beanstalkd state=absent
+  when: installed_beanstalkd_version.stdout != beanstalkd.version
+
+- name: Install.
+  command: make install chdir=/tmp/beanstalkd-{{ beanstalkd.version}}/
+  when: installed_beanstalkd_version.stdout != beanstalkd.version
+  notify: restart beanstalkd
+
+- name: Ensure startup script is correct.
+  template: src=beanstalkd.initd.tpl dest=/etc/init.d/beanstalkd mode=0755
+  
+- name: Stop service (in case beanstalkd.user changed, we can't wait for the handler).
+  service: name=beanstalkd state=stopped
+  when: user_changed.changed or storage_dir_changed.changed
+
+- name: Ensure configuration is correct.
+  template: src=beanstalkd.tpl dest=/etc/default/beanstalkd
+
+- name: Ensure service is running, and is configured to start on boot.
+  service: name=beanstalkd enabled=yes state=started

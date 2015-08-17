@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: "Jasper N. Brouwer, Ramon de la Fuente"
+  description: Install and start beanstalkd
+  company: Future500
+  license: LGPL
+  min_ansible_version: 1.4
+  platforms:
+  - name: Debian
+    versions:
+      - wheezy
+  categories:
+    - system
+dependencies: []
