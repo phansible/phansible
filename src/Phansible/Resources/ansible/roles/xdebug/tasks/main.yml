@@ -2,3 +2,11 @@
 - name: Install xDebug
   sudo: yes
   apt: pkg=php5-xdebug state=latest
+
+- name: Apply xDebug settings
+  sudo: true
+  lineinfile: dest=/etc/php5/mods-available/xdebug.ini
+              regexp='^;?{{ item.key }}'
+              line='{{ item.key }}={{ item.value }}'
+  notify: restart php5-fpm
+  with_dict: xdebug.settings | default({})
