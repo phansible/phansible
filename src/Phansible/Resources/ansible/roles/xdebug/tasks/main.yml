@@ -9,4 +9,4 @@
               regexp='^;?{{ item.key }}'
               line='{{ item.key }}={{ item.value }}'
   notify: restart php5-fpm
-  with_dict: xdebug.settings | default({})
+  with_dict: xdebug_settings | default({})
