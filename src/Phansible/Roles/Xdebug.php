@@ -30,8 +30,7 @@ class Xdebug implements Role, RoleWithDependencies
     public function getInitialValues()
     {
         return [
-          'install' => 0,
-          'settings' => [],
+          'install' => 0
         ];
     }
 }
