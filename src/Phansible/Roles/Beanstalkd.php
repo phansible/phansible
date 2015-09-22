@@ -24,6 +24,7 @@ class Beanstalkd implements Role
     public function getInitialValues()
     {
         return [
+            'install'        => false,
             'listenAddress'  => '0.0.0.0',
             'listenPort'     => '13000',
             'version'        => '1.10',
