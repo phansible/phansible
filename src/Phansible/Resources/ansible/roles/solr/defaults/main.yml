@@ -4,6 +4,6 @@ solr_filename_extension: .tgz
 
 solr_path: /opt/solr
 solr_user: solr
-solr_discover_url: http://www.apache.org/dyn/closer.cgi/lucene/solr/{{ solr.version }}
+solr_discover_url: http://www.apache.org/dyn/closer.lua/lucene/solr/{{ solr.version }}
 
 solr_var_path: /var/solr
