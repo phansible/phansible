@@ -16,10 +16,15 @@
                     <a class="item" href="#section-workers">Workers</a>
                     <a class="item" href="#section-searchengines">Search Engines</a>
                     <a class="item" href="#section-timezone">Timezone</a>
+                    <div style="width: 95%; margin: 33px 10px 0 2px ; float: left;">
+                        <a class="twitter-timeline" href="https://twitter.com/phansible"data-widget-id="539435624110239744">@phansible</a>
+                        <script>
+                            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+                        </script>
+                    </div>
                 </div>
             </div>
-            <form class="ui form" method="POST" action="{{ path('phansible_bundle') }}">
-
+            <form class="ui form" method="post" action="{{ path('phansible_bundle') }}">
                 {% include "bundles/vagrant.html.twig" %}
                 {% include "bundles/serverpackages.html.twig" %}
                 {% include "bundles/webservers.html.twig" %}
@@ -28,13 +33,11 @@
                 {% include "bundles/workers.html.twig" %}
                 {% include "bundles/searchengines.html.twig" %}
                 {% include "bundles/timezone.html.twig" %}
-
                 <section>
-                    <button class="ui fluid labeled purple icon button" type="submit"><i
-                                class="download cloud icon"></i> Generate
+                    <button class="ui fluid labeled purple icon button" type="submit">
+                        <i class="download cloud icon"></i> Generate
                     </button>
                 </section>
-
             </form>
         </div>
     </div>
