@@ -2,7 +2,7 @@
 
 namespace Phansible\Roles;
 
-class RedisTest extends \PHPUnit_Framework_TestCase
+class RabbitmqTest extends \PHPUnit_Framework_TestCase
 {
     private $role;
 
@@ -12,7 +12,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->role = new Redis($app);
+        $this->role = new Rabbitmq($app);
     }
 
     public function tearDown()
@@ -21,7 +21,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Redis
+     * @covers Phansible\Roles\Rabbitmq
      */
     public function testShouldInstanceOf()
     {
@@ -29,37 +29,39 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getName
+     * @covers Phansible\Roles\Rabbitmq::getName
      */
     public function testShouldGetName()
     {
-        $this->assertEquals('Redis', $this->role->getName());
+        $this->assertEquals('RabbitMQ', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getSlug
+     * @covers Phansible\Roles\Rabbitmq::getSlug
      */
     public function testShouldGetSlug()
     {
-        $this->assertEquals('redis', $this->role->getSlug());
+        $this->assertEquals('rabbitmq', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getRole
+     * @covers Phansible\Roles\Rabbitmq::getRole
      */
     public function testShouldGetRole()
     {
-        $this->assertEquals('redis', $this->role->getRole());
+        $this->assertEquals('rabbitmq', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getInitialValues
+     * @covers Phansible\Roles\Rabbitmq::getInitialValues
      */
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 0,
-            'port'    => 6379,
+            'install'  => 0,
+            'plugins'  => [],
+            'user'     => 'user',
+            'password' => 'password'
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

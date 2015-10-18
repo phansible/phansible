@@ -92,6 +92,33 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('playbook.yml.twig'), $this->model->getData());
 
         $result = $this->model->renderFile($twig);
+    }
 
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::hasRole
+     */
+    public function testShouldRetrieveFalseIfRoleNotExists()
+    {
+        $this->assertFalse($this->model->hasRole('something'));
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::hasRole
+     */
+    public function testShouldRetrieveTrueIfRoleExists()
+    {
+        $this->model->addRole('mysql');
+        $this->assertTrue($this->model->hasRole('mysql'));
+    }
+
+    /**
+     * @covers Phansible\Renderer\PlaybookRenderer::loadDefaults
+     */
+    public function testShouldLoadDefaults()
+    {
+        $this->model->loadDefaults();
+
+        $this->assertEquals('playbook.yml.twig', $this->model->getTemplate());
+        $this->assertEquals('ansible/playbook.yml', $this->model->getFilePath());
     }
 }

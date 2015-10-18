@@ -2,7 +2,7 @@
 
 namespace Phansible\Roles;
 
-class RedisTest extends \PHPUnit_Framework_TestCase
+class ServerTest extends \PHPUnit_Framework_TestCase
 {
     private $role;
 
@@ -12,7 +12,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->role = new Redis($app);
+        $this->role = new Server($app);
     }
 
     public function tearDown()
@@ -21,7 +21,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Redis
+     * @covers Phansible\Roles\Server
      */
     public function testShouldInstanceOf()
     {
@@ -29,37 +29,38 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getName
+     * @covers Phansible\Roles\Server::getName
      */
     public function testShouldGetName()
     {
-        $this->assertEquals('Redis', $this->role->getName());
+        $this->assertEquals('Server', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getSlug
+     * @covers Phansible\Roles\Server::getSlug
      */
     public function testShouldGetSlug()
     {
-        $this->assertEquals('redis', $this->role->getSlug());
+        $this->assertEquals('server', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getRole
+     * @covers Phansible\Roles\Server::getRole
      */
     public function testShouldGetRole()
     {
-        $this->assertEquals('redis', $this->role->getRole());
+        $this->assertEquals('server', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getInitialValues
+     * @covers Phansible\Roles\Server::getInitialValues
      */
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 0,
-            'port'    => 6379,
+            'install' => 1,
+            'timezone' => 'UTC',
+            'locale' => 'en_US.UTF-8',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

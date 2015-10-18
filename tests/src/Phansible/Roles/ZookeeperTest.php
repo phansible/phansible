@@ -23,6 +23,14 @@ class ZookeeperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Roles\Zookeeper
+     */
+    public function testShouldInstanceOf()
+    {
+        $this->assertInstanceOf('\Phansible\Role', $this->role);
+    }
+
+    /**
      * @covers Phansible\Roles\Zookeeper::getName
      */
     public function testShouldGetName()

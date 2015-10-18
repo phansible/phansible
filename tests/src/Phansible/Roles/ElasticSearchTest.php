@@ -21,6 +21,14 @@ class ElasticSearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Roles\ElasticSearch
+     */
+    public function testShouldInstanceOf()
+    {
+        $this->assertInstanceOf('\Phansible\Role', $this->role);
+    }
+
+    /**
      * @covers Phansible\Roles\ElasticSearch::getName
      */
     public function testShouldGetName()

@@ -2,7 +2,7 @@
 
 namespace Phansible\Roles;
 
-class RedisTest extends \PHPUnit_Framework_TestCase
+class MariadbTest extends \PHPUnit_Framework_TestCase
 {
     private $role;
 
@@ -12,7 +12,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->role = new Redis($app);
+        $this->role = new Mariadb($app);
     }
 
     public function tearDown()
@@ -21,7 +21,7 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Redis
+     * @covers Phansible\Roles\Mariadb
      */
     public function testShouldInstanceOf()
     {
@@ -29,37 +29,42 @@ class RedisTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getName
+     * @covers Phansible\Roles\Mariadb::getName
      */
     public function testShouldGetName()
     {
-        $this->assertEquals('Redis', $this->role->getName());
+        $this->assertEquals('MariaDb', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getSlug
+     * @covers Phansible\Roles\Mariadb::getSlug
      */
     public function testShouldGetSlug()
     {
-        $this->assertEquals('redis', $this->role->getSlug());
+        $this->assertEquals('mariadb', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getRole
+     * @covers Phansible\Roles\Mariadb::getRole
      */
     public function testShouldGetRole()
     {
-        $this->assertEquals('redis', $this->role->getRole());
+        $this->assertEquals('mariadb', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getInitialValues
+     * @covers Phansible\Roles\Mariadb::getInitialValues
      */
     public function testShouldGetInitialValues()
     {
         $expected = [
             'install' => 0,
-            'port'    => 6379,
+            'root_password' => 123,
+            'databases' => [
+                'name' => 'dbname',
+                'user' => 'name',
+                'password' => 123,
+            ]
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());
