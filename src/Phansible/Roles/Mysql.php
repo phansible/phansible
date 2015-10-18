@@ -3,8 +3,10 @@
 namespace Phansible\Roles;
 
 use Phansible\Role;
+use Phansible\RoleValuesTransformer;
+use Phansible\Model\VagrantBundle;
 
-class Mysql implements Role
+class Mysql implements Role, RoleValuesTransformer
 {
     public function getName()
     {
@@ -26,11 +28,20 @@ class Mysql implements Role
         return [
             'install' => 1,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
-                'password' => 123,
+            'dump'          => '',
+            'users'         => [
+                [
+                    'user'      => 'user',
+                    'password'  => 'password'
+                ]
             ]
         ];
+    }
+
+    public function transformValues(array $values, VagrantBundle $vagrantBundle)
+    {
+        $values['users'] = array_values($values['users']);
+
+        return $values;
     }
 }
