@@ -6,6 +6,7 @@
 namespace Phansible\Renderer;
 
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 
 class VarfileRendererTest extends \PHPUnit_Framework_TestCase
 {
@@ -140,5 +141,25 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->model->renderFile($twig);
 
+    }
+
+    /**
+     * @covers Phansible\Renderer\VarfileRenderer::addMultipleVars
+     */
+    public function testShouldAddMultipleVars()
+    {
+        $vars = [
+            'region' => 'brazil',
+            'os'     => 'debian'
+        ];
+
+        $this->model->addMultipleVars($vars);
+
+        $expected = [
+            'variables' => Yaml::dump($vars),
+            'name'      => 'common'
+        ];
+
+        $this->assertEquals($expected, $this->model->getData());
     }
 }

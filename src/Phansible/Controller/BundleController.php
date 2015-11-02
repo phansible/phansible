@@ -17,6 +17,11 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
  */
 class BundleController extends Controller
 {
+    /**
+     * @var \Phansible\Model\VagrantBundle
+     */
+    private $vagrantBundle;
+
     public function indexAction(Request $request, Application $app)
     {
         $requestVars = $request->request->all();
@@ -31,28 +36,22 @@ class BundleController extends Controller
         // @todo fix str_replace
         $playbook->setVarsFilename(str_replace('ansible/', '', $varsFile->getFilePath()));
 
-        $loader = new \Twig_Loader_Filesystem($this->get('ansible.templates'));
-
-        $vagrantBundle = new VagrantBundle(
-            $this->get('ansible.path'),
-            new \Twig_Environment($loader)
-        );
-
-        $vagrantBundle->setPlaybook($playbook)
+        $this->getVagrantBundle()
+            ->setPlaybook($playbook)
             ->setVarsFile($varsFile)
             ->setInventory($inventory);
 
-        $app['roles']->setupRole($requestVars, $vagrantBundle);
+        $app['roles']->setupRole($requestVars, $this->getVagrantBundle());
         $playbook->addRole('app');
 
         $zipPath = tempnam(sys_get_temp_dir(), "phansible_bundle_");
 
-        if ($vagrantBundle->generateBundle(
+        if ($this->getVagrantBundle()->generateBundle(
             $zipPath,
             $playbook->getRoles()
         )
         ) {
-            $vagrantfile = $vagrantBundle->getVagrantFile();
+            $vagrantfile = $this->getVagrantBundle()->getVagrantFile();
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
         }
 
@@ -64,7 +63,7 @@ class BundleController extends Controller
      * @return TemplateRenderer
      * @todo: this needs some refactoring when we have more deployment methods
      */
-    protected function getInventory(array $requestVars)
+    private function getInventory(array $requestVars)
     {
         $ipAddress = $requestVars['vagrant_local']['vm']['ip'];
         $inventory = new TemplateRenderer();
@@ -99,7 +98,7 @@ class BundleController extends Controller
      * @param string $filename
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
-    protected function outputBundle($zipPath, Application $app, $filename)
+    private function outputBundle($zipPath, Application $app, $filename)
     {
         $stream = function () use ($zipPath) {
             echo file_get_contents($zipPath);
@@ -123,5 +122,32 @@ class BundleController extends Controller
         ));
 
         return $response;
+    }
+
+    /**
+     * @return \Phansible\Model\VagrantBundle
+     */
+    private function getVagrantBundle()
+    {
+        if (!$this->vagrantBundle instanceof VagrantBundle) {
+            $twig = new \Twig_Environment(
+                new \Twig_Loader_Filesystem($this->get('ansible.templates'))
+            );
+
+            $this->vagrantBundle = new VagrantBundle(
+                $this->get('ansible.path'),
+                $twig
+            );
+        }
+
+        return $this->vagrantBundle;
+    }
+
+    /**
+     * @param \Phansible\Model\VagrantBundle $vagrantBundle
+     */
+    public function setVagrantBundle(VagrantBundle $vagrantBundle)
+    {
+        $this->vagrantBundle = $vagrantBundle;
     }
 }

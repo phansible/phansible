@@ -33,6 +33,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::__construct
      * @covers Phansible\Model\VagrantBundle::getVagrantFile
      * @covers Phansible\Model\VagrantBundle::setVagrantFile
      */
@@ -45,6 +46,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::__construct
      * @covers Phansible\Model\VagrantBundle::getZipArchive
      */
     public function testShouldRetrieveZipArchive()
@@ -91,6 +93,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Model\VagrantBundle::__construct
      * @covers Phansible\Model\VagrantBundle::includeBundleFiles
      */
     public function testDefaultIncludeBundleFiles()
@@ -176,4 +179,35 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $result);
     }
 
+    /**
+     * @covers Phansible\Model\VagrantBundle::__construct
+     * @covers Phansible\Model\VagrantBundle::getPlaybook
+     * @covers Phansible\Model\VagrantBundle::setPlaybook
+     * @covers Phansible\Model\VagrantBundle::addRenderer
+     * @covers Phansible\Model\VagrantBundle::getRenderer
+     */
+    public function testShouldSetAndGetPlaybook()
+    {
+        $playbook = $this->getMock('Phansible\Renderer\PlaybookRenderer');
+
+        $this->model->setPlaybook($playbook);
+        $this->assertSame($playbook, $this->model->getPlaybook());
+    }
+
+    /**
+     * @covers Phansible\Model\VagrantBundle::__construct
+     * @covers Phansible\Model\VagrantBundle::getVarsFile
+     * @covers Phansible\Model\VagrantBundle::setVarsFile
+     * @covers Phansible\Model\VagrantBundle::addRenderer
+     * @covers Phansible\Model\VagrantBundle::getRenderer
+     */
+    public function testShouldSetAndGetVarsFile()
+    {
+        $varsfile = $this->getMockBuilder('Phansible\Renderer\VarfileRenderer')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->model->setVarsFile($varsfile);
+        $this->assertSame($varsfile, $this->model->getVarsFile());
+    }
 }

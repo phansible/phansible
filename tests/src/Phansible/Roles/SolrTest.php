@@ -21,6 +21,14 @@ class SolrTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Phansible\Roles\Solr
+     */
+    public function testShouldInstanceOf()
+    {
+        $this->assertInstanceOf('\Phansible\Role', $this->role);
+    }
+
+    /**
      * @covers Phansible\Roles\Solr::getName
      */
     public function testShouldGetName()
@@ -49,15 +57,12 @@ class SolrTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldGetInitialValues()
     {
-
-        $role = new Solr($app);
-
         $expected = [
             'install'   => 0,
             'port'      => '8983',
             'version'   => '5.2.0'
         ];
 
-        $this->assertEquals($expected, $role->getInitialValues());
+        $this->assertEquals($expected, $this->role->getInitialValues());
     }
 }
