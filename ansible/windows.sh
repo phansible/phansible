@@ -7,4 +7,4 @@ sudo apt-get install -y ansible
 cp /vagrant/ansible/inventories/dev /etc/ansible/hosts -f
 chmod 666 /etc/ansible/hosts
 cat /vagrant/ansible/files/authorized_keys >> /home/vagrant/.ssh/authorized_keys
-sudo ansible-playbook /vagrant/ansible/playbook.yml --connection=local
+sudo ansible-playbook /vagrant/ansible/provision.yml --connection=local
