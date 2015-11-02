@@ -1,14 +1,14 @@
 - name: Install
   apt: pkg="php5-dev" state=present
-  when: php.pecl_packages is defined
+  when: php.peclpackages is defined
 
 - name: Install Package
   shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install {{ item }}
   register: pecl_result
   changed_when: "'already installed' not in pecl_result.stdout"
   failed_when: "pecl_result.stderr or ('ERROR' in pecl_result.stdout)"
-  with_items: php.pecl_packages
-  when: php.pecl_packages is defined
+  with_items: php.peclpackages
+  when: php.peclpackages is defined
 
 - name: Create extension .ini file
   template: >
@@ -17,10 +17,10 @@
     owner="root"
     group="root"
     mode=0644
-  with_items: php.pecl_packages
-  when: php.pecl_packages is defined
+  with_items: php.peclpackages
+  when: php.peclpackages is defined
 
 - name: Enable extension
   shell: php5enmod {{ item }}
-  with_items: php.pecl_packages
-  when: php.pecl_packages is defined
+  with_items: php.peclpackages
+  when: php.peclpackages is defined
