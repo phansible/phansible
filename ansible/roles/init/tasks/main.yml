@@ -11,6 +11,7 @@
     - wget
     - python-software-properties
     - acl
+    - git
 
 - name: Add ppa Repository
   sudo: yes

@@ -1,3 +1,0 @@
----
-- name: restart blackfire-agent
-  service: name=blackfire-agent enabled=yes state=restarted

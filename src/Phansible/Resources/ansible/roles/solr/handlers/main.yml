@@ -1,3 +1,0 @@
----
-- name: restart
-  service: name=solr state=restarted
