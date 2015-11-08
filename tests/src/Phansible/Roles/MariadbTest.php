@@ -60,13 +60,45 @@ class MariadbTest extends \PHPUnit_Framework_TestCase
         $expected = [
             'install' => 0,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
-                'password' => 123,
+            'dump'          => '',
+            'users'         => [
+                [
+                    'user'      => 'user',
+                    'password'  => 'password'
+                ]
             ]
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());
+    }
+
+    /**
+     * @covers Phansible\Roles\Mariadb::transformValues
+     */
+    public function testShoulTransformValues()
+    {
+        $values = [
+            'users' => [
+                0 => ['user' => 'user', 'password' => 'password'],
+                4 => ['user' => 'user', 'password' => 'password'],
+                7 => ['user' => 'user', 'password' => 'password']
+            ]
+        ];
+
+        $bundle = $this->getMockBuilder('\Phansible\Model\VagrantBundle')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $result = $this->role->transformValues($values, $bundle);
+
+        $expected = [
+            'users' => [
+                ['user' => 'user', 'password' => 'password'],
+                ['user' => 'user', 'password' => 'password'],
+                ['user' => 'user', 'password' => 'password']
+            ]
+        ];
+
+        $this->assertEquals($expected, $result);
     }
 }

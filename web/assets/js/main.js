@@ -6,9 +6,11 @@ Main.prototype.form = function() {
 
     var that = this;
 
-    var checkbox    = $('.ui.checkbox'),
-        toggle      = $('.ui.toggle.button'),
-        buttons     = $('.ui.buttons .button');
+    var checkbox        = $('.ui.checkbox'),
+        toggle          = $('.ui.toggle.button'),
+        buttons         = $('.ui.buttons .button')
+        addButton       = $('i.add').closest('a.button');
+        removeButton    = $('i.remove').closest('a.red.label');
 
     checkbox.checkbox({
         onChange: function() {
@@ -129,6 +131,14 @@ Main.prototype.form = function() {
         sortField: 'item',
         searchField: 'item'
     });
+
+    addButton.on('click', function() {
+        that.addSegment(this);
+    });
+
+    removeButton.on('click', function() {
+        that.removeSegment(this);
+    });
 }
 
 Main.prototype.waypoints = function(){
@@ -196,6 +206,46 @@ Main.prototype.updateOtherInput = function(input) {
             $target.val(value);
         }
     });
+}
+
+Main.prototype.addSegment = function(element) {
+    var segments = $(element).closest('.ui.segment')
+                             .find('.ui.segment');
+
+    var clone     = segments.first().clone(true, true);
+    var segmentId = segments.length;
+
+    clone.find(':input[name]').each(function(){
+        $(this).attr('name', $(this).attr('name').replace(/\d/gi, segmentId));
+        $(this).attr('id', $(this).attr('id').replace(/\d/gi, segmentId));
+        $(this).closest('.field').find('label').attr('for', $(this).closest('.field').find('label').attr('for').replace(/\d/gi, segmentId));
+    });
+
+    clone.find('select.selectized-single').selectize();
+    clone.find('select.selectized').selectize({
+        plugins: ['remove_button'],
+        delimiter: ',',
+        persist: false,
+        maxItems: null,
+        valueField: 'value',
+        labelField: 'text',
+        searchField: 'value'
+    });
+
+    clone.data('id', segmentId)
+        .attr('data-id', segmentId);
+
+    segments.last().after(clone);
+}
+
+Main.prototype.removeSegment = function(element) {
+    var segment = $(element).closest('.ui.segment');
+    var segments = $(element).closest('.field > .ui.segment').find('.ui.segment').length;
+
+    if (segments !== 1) {
+        segment.remove();
+        return;
+    }
 }
 
 $(document).ready(function(){

@@ -44,4 +44,5 @@
   when: mariadb.dump
 
 - name: mariadb | Create users
-  mysql_user: name={{ mariadb.user }} password={{ mariadb.password }} priv={{ mariadb.database }}.*:ALL state=present login_user=root login_password={{ mariadb.root_password }}
+  mysql_user: name={{ item.user }} password={{ item.password }} priv={{ mariadb.database }}.*:ALL state=present login_user=root login_password={{ mariadb.root_password }}
+  with_items: mariadb.users
