@@ -8,3 +8,6 @@ build/*
 !app/cache/.gitkeep
 *.swp
 .DS_Store
+
+src/Phansible/Resources/ansible/roles
+!src/Phansible/Resources/ansible/roles/app
