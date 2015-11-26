@@ -7,3 +7,4 @@
     - { role: php5-fpm, tags: [ 'php' ] }
     - { role: composer, tags: [ 'composer', 'php' ] }
     - { role: phpcommon, tags: [ 'php' ] }
+    - { role: app, tags: [ 'app' ] }
