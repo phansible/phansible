@@ -20,3 +20,13 @@ boxes:
       deb: trusty
       cloud: ubuntu/trusty64
       url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box
+    vivid32:
+      name: Ubuntu Vivid Vervet (15.04) 32
+      deb: vivid
+      cloud: ubuntu/vivid32
+      url: https://vagrantcloud.com/ubuntu/boxes/vivid32/versions/15.04/providers/virtualbox.box
+    vivid64:
+      name: Ubuntu Vivid Vervet (15.04) 64
+      deb: vivid
+      cloud: ubuntu/vivid64
+      url: https://vagrantcloud.com/ubuntu/boxes/vivid64/versions/15.04/providers/virtualbox.box
