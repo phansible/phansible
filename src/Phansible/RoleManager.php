@@ -50,7 +50,7 @@ class RoleManager
      */
     public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
     {
-        array_walk($this->roles, function(Role $role) use($requestVars, $vagrantBundle) {
+        array_walk($this->roles, function (Role $role) use ($requestVars, $vagrantBundle) {
             if (! $this->willBeInstalled($role->getSlug(), $requestVars)) {
                 return;
             }
