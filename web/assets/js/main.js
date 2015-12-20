@@ -78,7 +78,6 @@ Main.prototype.form = function() {
         var newSelected = [];
         $.each(selectize.items, function(index, moduleName){
             if(moduleName.indexOf(from)!=-1){
-                //selectize.removeItem(moduleName);
                 var newModuleName = moduleName.replace(from, to);
                 if(phpModules[newModuleName]!=undefined){
                     newSelected.push(newModuleName);
@@ -91,7 +90,7 @@ Main.prototype.form = function() {
 
         selectize.clearOptions();
         for(var moduleName in phpModules){
-            if(moduleName.indexOf(to)!=-1){
+            if(moduleName.indexOf(to)!=-1 || moduleName.indexOf(from)==-1){
                 selectize.addOption(phpModules[moduleName]);
             }
         }
@@ -100,7 +99,6 @@ Main.prototype.form = function() {
             selectize.addItem(newSelected[i]);
         }
         selectize.blur();
-        //selectize.close();
     };
 
     buttons.filter('.phpversion').on('click', function(){
