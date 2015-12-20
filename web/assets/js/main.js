@@ -117,8 +117,11 @@ Main.prototype.form = function() {
 
         if ($('#php_version').val().match(/php-7/)) {
             replacePhpModules($('#phppackages'), 'php5', 'php7.0');
+            toggle.filter('.xdebug').addClass('disabled').removeClass('active').text('Disabled');
+            $('#xdebug').val(0);
         } else {
             replacePhpModules($('#phppackages'), 'php7.0', 'php5');
+            toggle.filter('.xdebug').removeClass('disabled');
         }
     });
 
