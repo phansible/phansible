@@ -150,4 +150,47 @@ class PhpTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $result);
     }
+
+    /**
+     * @covers Phansible\Roles\Php::transformValues
+     * @covers Phansible\Roles\Php::addPhpPackage
+     */
+    public function testShouldTransformValuesPhp7()
+    {
+        $values = [
+            'packages' => ['php7.0-cli', 'php7.0-intl'],
+            'ppa' => 'php-7.0'
+        ];
+
+        $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
+            ->disableOriginalConstructor()
+            ->setMethods(['hasRole'])
+            ->getMock();
+
+        $playbook->expects($this->at(0))
+            ->method('hasRole')
+            ->will($this->returnValue(true));
+
+        $bundle = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+            ->disableOriginalConstructor()
+            ->setMethods(['getPlaybook'])
+            ->getMock();
+
+        $bundle->expects($this->once())
+            ->method('getPlaybook')
+            ->will($this->returnValue($playbook));
+
+        $result = $this->role->transformValues($values, $bundle);
+
+        $expected = [
+            'packages' => [
+                'php7.0-cli',
+                'php7.0-intl',
+                'php7.0-mysql'
+            ],
+            'ppa' => 'php-7.0'
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
 }
