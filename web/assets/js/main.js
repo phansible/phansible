@@ -72,6 +72,37 @@ Main.prototype.form = function() {
         }
     });
 
+    var phpModules = {};
+    var replacePhpModules = function($select, from, to){
+        var selectize = $select[0].selectize;
+        var newSelected = [];
+        $.each(selectize.items, function(index, moduleName){
+            if(moduleName.indexOf(from)!=-1){
+                //selectize.removeItem(moduleName);
+                var newModuleName = moduleName.replace(from, to);
+                if(phpModules[newModuleName]!=undefined){
+                    newSelected.push(newModuleName);
+                }
+            }
+            else{
+                newSelected.push(moduleName);
+            }
+        });
+
+        selectize.clearOptions();
+        for(var moduleName in phpModules){
+            if(moduleName.indexOf(to)!=-1){
+                selectize.addOption(phpModules[moduleName]);
+            }
+        }
+        selectize.refreshOptions();
+        for(var i in newSelected){
+            selectize.addItem(newSelected[i]);
+        }
+        selectize.blur();
+        //selectize.close();
+    };
+
     buttons.filter('.phpversion').on('click', function(){
         $(this)
             .addClass('active')
@@ -83,6 +114,12 @@ Main.prototype.form = function() {
 
         $('#php_version').val($(this)
             .data('value'));
+
+        if ($('#php_version').val().match(/php-7/)) {
+            replacePhpModules($('#phppackages'), 'php5', 'php7.0');
+        } else {
+            replacePhpModules($('#phppackages'), 'php7.0', 'php5');
+        }
     });
 
     buttons.filter('.webserver').on('click', function(){
@@ -129,6 +166,8 @@ Main.prototype.form = function() {
         sortField: 'item',
         searchField: 'item'
     });
+
+    phpModules = $.extend({}, $('#phppackages')[0].selectize.options);
 }
 
 Main.prototype.waypoints = function(){

@@ -38,12 +38,13 @@ class Php implements Role, RoleValuesTransformer
 
     public function transformValues(array $values, VagrantBundle $vagrantBundle)
     {
+        $prefix = strpos($values['ppa'], 'php-5')!==false ? 'php5' : 'php7.0';
         $map = [
-            "mysql"   => "php5-mysql",
-            "mariadb" => "php5-mysql",
-            "pgsql"   => "php5-pgsql",
-            "sqlite"  => "php5-sqlite",
-            "mongodb" => "php5-mongo",
+            "mysql"   => $prefix . "-mysql",
+            "mariadb" => $prefix . "-mysql",
+            "pgsql"   => $prefix . "-pgsql",
+            "sqlite"  => $prefix . "-sqlite",
+            "mongodb" => $prefix . "-mongo",
         ];
 
         $playbook = $vagrantBundle->getPlaybook();
