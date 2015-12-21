@@ -77,7 +77,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldNotTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl']
+            'packages' => ['php5-cli', 'php5-intl'],
+            'ppa' => 'php-5.5'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -104,7 +105,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
             'packages' => [
                 'php5-cli',
                 'php5-intl'
-            ]
+            ],
+            'ppa' => 'php-5.5'
         ];
 
         $this->assertEquals($expected, $result);
@@ -117,7 +119,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl']
+            'packages' => ['php5-cli', 'php5-intl'],
+            'ppa' => 'php-5.5'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -145,7 +148,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
                 'php5-cli',
                 'php5-intl',
                 'php5-mysql'
-            ]
+            ],
+            'ppa' => 'php-5.5'
         ];
 
         $this->assertEquals($expected, $result);
