@@ -30,3 +30,13 @@ boxes:
       deb: vivid
       cloud: ubuntu/vivid64
       url: https://vagrantcloud.com/ubuntu/boxes/vivid64/versions/15.04/providers/virtualbox.box
+    wily32:
+      name: Ubuntu Wily Werewolf (15.10) 32
+      deb: wily
+      cloud: ubuntu/wily32
+      url: https://vagrantcloud.com/ubuntu/boxes/ubuntu/wily32/versions/15.10/providers/virtualbox.box
+    wily64:
+      name: Ubuntu Wily Werewolf (15.10) 64
+      deb: wily
+      cloud: ubuntu/wily64
+      url: https://vagrantcloud.com/ubuntu/boxes/ubuntu/wily64/versions/15.10/providers/virtualbox.box
