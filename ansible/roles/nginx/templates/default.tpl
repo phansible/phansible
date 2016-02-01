@@ -1,5 +1,5 @@
 server {
-    listen  80;
+    listen 80;
 
     root {{ doc_root }};
     index index.html index.php;
