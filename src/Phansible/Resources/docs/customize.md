@@ -16,7 +16,7 @@ Let's say you want to run `composer install` to download the vendor libraries fo
     # application tasks to be customized and to run after the main provision
 
         - name: Run Composer
-          sudo: false
+          become: false
           shell: /usr/local/bin/composer install chdir={{ project_root }}
 
 To test the changes, run:
@@ -55,7 +55,7 @@ that are included in the "app" role:
 
     ---
     - hosts: all
-      sudo: true
+      become: true
       vars:
         web_server: nginxphp
         servername: myApp.vb www.myApp.vb
