@@ -1,120 +1,120 @@
 ---
 - name: PHP role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-php.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/php
        version=HEAD
 
 - name: Apache role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-apache.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/apache
        version=HEAD
 
 - name: Beanstalkd role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-beanstalkd.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/beanstalkd
        version=HEAD
 
 - name: Blackfire role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-blackfire.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/blackfire
        version=HEAD
 
 - name: Composer role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-composer.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/composer
        version=HEAD
 
 - name: Elasticsearch role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-elasticsearch.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/elasticsearch
        version=HEAD
 
 - name: HHVM role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-hhvm.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/hhvm
        version=HEAD
 
 - name: Mariadb role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-mariadb.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/mariadb
        version=HEAD
 
 - name: Mongodb role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-mongodb.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/mongodb
        version=HEAD
 
 - name: Mysql role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-mysql.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/mysql
        version=HEAD
 
 - name: Nginx role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-nginx.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/nginx
        version=HEAD
 
 - name: Pgsql role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-pgsql.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/pgsql
        version=HEAD
 
 - name: Rabbitmq role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-rabbitmq.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/rabbitmq
        version=HEAD
 
 - name: Redis role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-redis.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/redis
        version=HEAD
 
 - name: Server role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-server.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/server
        version=HEAD
 
 - name: Solr role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-solr.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/solr
        version=HEAD
 
 - name: Sqlite role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-sqlite.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/sqlite
        version=HEAD
 
 - name: vagrant_local role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-vagrant_local.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/vagrant_local
        version=HEAD
 
 - name: xdebug role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-xdebug.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/xdebug
        version=HEAD
 
 - name: zookeeper role
-  sudo: yes
+  become: yes
   git: repo=https://github.com/phansible/role-zookeeper.git
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/zookeeper
        version=HEAD

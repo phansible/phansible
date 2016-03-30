@@ -15,7 +15,7 @@
       git: repo=git@github.com:Phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
 
     - name: Self-update Composer
-      sudo: yes
+      become: yes
       shell: /usr/local/bin/composer self-update
 
     - name: Run Composer
@@ -26,26 +26,26 @@
 
   tasks:
     - name: Read ACLs for web_user
-      sudo: yes
+      become: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'
 
     - name: Read and Write ACLs for shell user
-      sudo: yes
+      become: yes
       shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX -m d:u:"{{ system_user }}":rwX {{ project_root }}'
 
     - name: Make sure cache directory exists
-      sudo: yes
+      become: yes
       file: path={{ project_root }}/app/cache state=directory owner={{ system_user }} group={{ system_group }}
 
     - name: Clean cache directories
-      sudo: yes
+      become: yes
       file: path={{ project_root }}/app/cache/{{ item }} state=absent owner={{ system_user }} group={{ system_group }}
       with_items:
         - config
         - github-api-cache
 
     - name: Read and Write ACLs cache dir
-      sudo: yes
+      become: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}'
 
     - name: Remove maintenance page
