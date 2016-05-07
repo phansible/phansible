@@ -120,7 +120,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     {
         $values = [
             'packages' => ['php5-cli', 'php5-intl'],
-            'ppa' => 'php-5.5'
+            'ppa' => 'php5-5.6'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -149,7 +149,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
                 'php5-intl',
                 'php5-mysql'
             ],
-            'ppa' => 'php-5.5'
+            'ppa' => 'php5-5.6'
         ];
 
         $this->assertEquals($expected, $result);
@@ -163,7 +163,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     {
         $values = [
             'packages' => ['php7.0-cli', 'php7.0-intl'],
-            'ppa' => 'php-7.0'
+            'ppa' => 'php'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -192,7 +192,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
                 'php7.0-intl',
                 'php7.0-mysql'
             ],
-            'ppa' => 'php-7.0'
+            'ppa' => 'php'
         ];
 
         $this->assertEquals($expected, $result);
