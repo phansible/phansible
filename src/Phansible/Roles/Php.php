@@ -68,7 +68,7 @@ class Php implements Role, RoleValuesTransformer
             'mongodb' => 'php7.0-mongo',
         ];
 
-        return  (false !== strpos($ppa, 'php-7')) ? $map_php7 : $map_php5;
+        return  (false !== strpos($ppa, 'php5')) ? $map_php5 : $map_php7;
     }
 
     /**

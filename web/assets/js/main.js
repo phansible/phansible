@@ -113,13 +113,13 @@ Main.prototype.form = function() {
         $('#php_version').val($(this)
             .data('value'));
 
-        if ($('#php_version').val().match(/php-7/)) {
+        if ($('#php_version').val().match(/php5/)) {
+            replacePhpModules($('#phppackages'), 'php7.0', 'php5');
+            toggle.filter('.xdebug').removeClass('disabled');
+        } else {
             replacePhpModules($('#phppackages'), 'php5', 'php7.0');
             toggle.filter('.xdebug').addClass('disabled').removeClass('active').text('Disabled');
             $('#xdebug').val(0);
-        } else {
-            replacePhpModules($('#phppackages'), 'php7.0', 'php5');
-            toggle.filter('.xdebug').removeClass('disabled');
         }
     });
 
