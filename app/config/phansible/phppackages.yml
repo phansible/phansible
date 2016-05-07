@@ -34,32 +34,97 @@ phppackages:
   - php5-xdebug
   - php5-xmlrpc
   - php5-xsl
+  - php7.0-amqp
+  - php7.0-apcu
+  - php7.0-apcu-bc
+  - php7.0-bcmath
   - php7.0-bz2
+  - php7.0-calendar
   - php7.0-cgi
   - php7.0-cli
   - php7.0-common
+  - php7.0-ctype
   - php7.0-curl
-  - php7.0-dbg
   - php7.0-dev
+  - php7.0-dom
+  - php7.0-enchant
+  - php7.0-exif
+  - php7.0-fileinfo
   - php7.0-fpm
+  - php7.0-ftp
   - php7.0-gd
+  - php7.0-gearman
+  - php7.0-geoip
+  - php7.0-gettext
+  - php7.0-gmagick
+  - php7.0-gmp
+  - php7.0-http
+  - php7.0-iconv
+  - php7.0-igbinary
+  - php7.0-imagick
   - php7.0-imap
   - php7.0-interbase
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
+  - php7.0-mailparse
+  - php7.0-mbstring
   - php7.0-mcrypt
-  - php7.0-modules-source
+  - php7.0-memcache
+  - php7.0-memcached
+  - php7.0-mongodb
+  - php7.0-msgpack
   - php7.0-mysql
+  - php7.0-mysqli
+  - php7.0-mysqlnd
+  - php7.0-oauth
   - php7.0-odbc
   - php7.0-opcache
+  - php7.0-pdo
+  - php7.0-pdo-dblib
+  - php7.0-pdo-firebird
+  - php7.0-pdo-mysql
+  - php7.0-pdo-odbc
+  - php7.0-pdo-pgsql
+  - php7.0-pdo-sqlite
   - php7.0-pgsql
+  - php7.0-phar
   - php7.0-phpdbg
+  - php7.0-posix
+  - php7.0-propro
   - php7.0-pspell
+  - php7.0-radius
+  - php7.0-raphf
   - php7.0-readline
   - php7.0-recode
+  - php7.0-redis
+  - php7.0-rrd
+  - php7.0-shmop
+  - php7.0-simplexml
+  - php7.0-smbclient
   - php7.0-snmp
+  - php7.0-soap
+  - php7.0-sockets
+  - php7.0-solr
   - php7.0-sqlite3
+  - php7.0-ssh2
+  - php7.0-stomp
   - php7.0-sybase
+  - php7.0-sysvmsg
+  - php7.0-sysvsem
+  - php7.0-sysvshm
+  - php7.0-tideways
   - php7.0-tidy
+  - php7.0-tokenizer
+  - php7.0-uploadprogress
+  - php7.0-uuid
+  - php7.0-wddx
+  - php7.0-xdebug
+  - php7.0-xml
+  - php7.0-xmlreader
   - php7.0-xmlrpc
+  - php7.0-xmlwriter
+  - php7.0-xsl
+  - php7.0-yac
+  - php7.0-zip
+  - php7.0-zmq
