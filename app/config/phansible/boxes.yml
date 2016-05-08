@@ -20,3 +20,13 @@ boxes:
       deb: trusty
       cloud: ubuntu/trusty64
       url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box
+    xenial32:
+      name: Ubuntu Xenial Xerus (16.04) [LTS] 32
+      deb: xenial
+      cloud: ubuntu/xenial32
+      url: https://atlas.hashicorp.com/ubuntu/boxes/xenial32/versions/20160507.0.0/providers/virtualbox.box
+    xenial64:
+      name: Ubuntu Xenial Xerus (16.04) [LTS] 64
+      deb: xenial
+      cloud: ubuntu/xenial64
+      url: https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20160507.0.0/providers/virtualbox.box
