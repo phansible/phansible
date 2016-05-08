@@ -20,23 +20,3 @@ boxes:
       deb: trusty
       cloud: ubuntu/trusty64
       url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box
-    vivid32:
-      name: Ubuntu Vivid Vervet (15.04) 32
-      deb: vivid
-      cloud: ubuntu/vivid32
-      url: https://vagrantcloud.com/ubuntu/boxes/vivid32/versions/15.04/providers/virtualbox.box
-    vivid64:
-      name: Ubuntu Vivid Vervet (15.04) 64
-      deb: vivid
-      cloud: ubuntu/vivid64
-      url: https://vagrantcloud.com/ubuntu/boxes/vivid64/versions/15.04/providers/virtualbox.box
-    wily32:
-      name: Ubuntu Wily Werewolf (15.10) 32
-      deb: wily
-      cloud: ubuntu/wily32
-      url: https://vagrantcloud.com/ubuntu/boxes/ubuntu/wily32/versions/15.10/providers/virtualbox.box
-    wily64:
-      name: Ubuntu Wily Werewolf (15.10) 64
-      deb: wily
-      cloud: ubuntu/wily64
-      url: https://vagrantcloud.com/ubuntu/boxes/ubuntu/wily64/versions/15.10/providers/virtualbox.box
