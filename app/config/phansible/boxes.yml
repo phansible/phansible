@@ -1,15 +1,5 @@
 boxes:
   virtualbox:
-    precise32:
-      name: Ubuntu Precise Pangolin (12.04) [LTS] 32
-      deb: precise
-      cloud: hashicorp/precise32
-      url: https://vagrantcloud.com/ubuntu/boxes/precise32/versions/12.04.4/providers/virtualbox.box
-    precise64:
-      name: Ubuntu Precise Pangolin (12.04) [LTS] 64
-      deb: precise
-      cloud: hashicorp/precise64
-      url: https://vagrantcloud.com/ubuntu/boxes/precise64/versions/12.04.4/providers/virtualbox.box
     trusty32:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 32
       deb: trusty
