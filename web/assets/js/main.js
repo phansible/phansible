@@ -73,24 +73,20 @@ Main.prototype.form = function() {
     });
 
     var phpModules = {};
-    var replacePhpModules = function($select, from, to){
+    var updatePhpModules = function($select, version){
+        var php_version = 'php'+version+'-';
         var selectize = $select[0].selectize;
         var newSelected = [];
         $.each(selectize.items, function(index, moduleName){
-            if(moduleName.indexOf(from)!=-1){
-                var newModuleName = moduleName.replace(from, to);
-                if(phpModules[newModuleName]!=undefined){
-                    newSelected.push(newModuleName);
-                }
-            }
-            else{
-                newSelected.push(moduleName);
+            var newModuleName = moduleName.replace(/php[0-9\.]+-/, php_version);
+            if(phpModules[newModuleName]!=undefined){
+                newSelected.push(newModuleName);
             }
         });
 
         selectize.clearOptions();
         for(var moduleName in phpModules){
-            if(moduleName.indexOf(to)!=-1 || moduleName.indexOf(from)==-1){
+            if(moduleName.indexOf(php_version)!=-1){
                 selectize.addOption(phpModules[moduleName]);
             }
         }
@@ -102,6 +98,7 @@ Main.prototype.form = function() {
     };
 
     buttons.filter('.phpversion').on('click', function(){
+        var value = $(this).data('value');
         $(this)
             .addClass('active')
             .addClass('green')
@@ -110,17 +107,9 @@ Main.prototype.form = function() {
             .removeClass('green')
             .addClass('black');
 
-        $('#php_version').val($(this)
-            .data('value'));
+        $('#php_version').val(value);
 
-        if ($('#php_version').val().match(/php5/)) {
-            replacePhpModules($('#phppackages'), 'php7.0', 'php5');
-            toggle.filter('.xdebug').removeClass('disabled');
-        } else {
-            replacePhpModules($('#phppackages'), 'php5', 'php7.0');
-            toggle.filter('.xdebug').addClass('disabled').removeClass('active').text('Disabled');
-            $('#xdebug').val(0);
-        }
+        updatePhpModules($('#phppackages'), value);
     });
 
     buttons.filter('.webserver').on('click', function(){

@@ -61,9 +61,9 @@ class PhpTest extends \PHPUnit_Framework_TestCase
         $expected = [
             'install' => 1,
             'packages' => [
-                'php5-cli',
-                'php5-intl',
-                'php5-mcrypt',
+                'php5.6-cli',
+                'php5.6-intl',
+                'php5.6-mcrypt',
             ],
             'peclpackages' => []
         ];
@@ -77,8 +77,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldNotTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl'],
-            'ppa' => 'php-5.5'
+            'packages' => ['php5.5-cli', 'php5.5-intl'],
+            'php_version' => '5.5'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -103,10 +103,10 @@ class PhpTest extends \PHPUnit_Framework_TestCase
 
         $expected = [
             'packages' => [
-                'php5-cli',
-                'php5-intl'
+                'php5.5-cli',
+                'php5.5-intl'
             ],
-            'ppa' => 'php-5.5'
+            'php_version' => '5.5'
         ];
 
         $this->assertEquals($expected, $result);
@@ -119,8 +119,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl'],
-            'ppa' => 'php5-5.6'
+            'packages' => ['php5.6-cli', 'php5.6-intl'],
+            'php_version' => '5.6'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -145,11 +145,11 @@ class PhpTest extends \PHPUnit_Framework_TestCase
 
         $expected = [
             'packages' => [
-                'php5-cli',
-                'php5-intl',
-                'php5-mysql'
+                'php5.6-cli',
+                'php5.6-intl',
+                'php5.6-mysql'
             ],
-            'ppa' => 'php5-5.6'
+            'php_version' => '5.6'
         ];
 
         $this->assertEquals($expected, $result);
@@ -163,7 +163,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     {
         $values = [
             'packages' => ['php7.0-cli', 'php7.0-intl'],
-            'ppa' => 'php'
+            'php_version' => '7.0'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -192,7 +192,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
                 'php7.0-intl',
                 'php7.0-mysql'
             ],
-            'ppa' => 'php'
+            'php_version' => '7.0'
         ];
 
         $this->assertEquals($expected, $result);
