@@ -24,6 +24,15 @@ developers can discuss it with you.
 
 We appreciate the use of PSR-2 coding standards.
 
+To make sure that your PR conform to those standart, you can use [php-cs-fixer](http://cs.sensiolabs.org/).
+The command to run is simply.
+
+    $ php-cs-fixer fix . --level=psr2
+    
+If you want to do that automaticaly, you can setup git a git hook.
+Just put that [gist](https://gist.github.com/mikeSimonson/05bfdc5a650cd7439044)
+into your .git/hooks/ folder under the name pre-commit.
+
 ## Installing Phansible
 
 First, clone your forked Phansible repo in your local machine. Then go to the project directory and
