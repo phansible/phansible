@@ -24,8 +24,11 @@ class Redis implements Role
     public function getInitialValues()
     {
         return [
-            'install' => 0,
-            'port'    => 6379,
+            'install'   => 0,
+            'conf_path' => "/etc/redis",
+            'db_path'   => "/var/lib/redis",
+            'pid_path'  => "/var/run/redis",
+            'port'      => 6379,
         ];
     }
 }
