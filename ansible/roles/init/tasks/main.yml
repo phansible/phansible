@@ -15,7 +15,7 @@
 
 - name: Add ppa Repository
   become: yes
-  apt_repository: repo=ppa:ondrej/{{ php_ppa }}
+  apt_repository: repo=ppa:ondrej/php
 
 - name: Update apt
   become: yes
