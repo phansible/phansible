@@ -24,4 +24,4 @@
 - name: Install Extra Packages
   become: yes
   apt: pkg={{ item }} state=latest
-  with_items: sys_packages
+  with_items: "{{ sys_packages }}"

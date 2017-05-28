@@ -2,7 +2,7 @@
 project_root: /vagrant
 doc_root: /vagrant/web
 
-sys_packages: ["vim"]
+sys_packages: ["vim", "git"]
 
 php_packages: ["php5-cli","php5-curl","php5-xdebug"]
 php_display_errors: 'On'
