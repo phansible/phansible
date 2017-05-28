@@ -28,9 +28,9 @@ class Php implements Role, RoleValuesTransformer
         return [
           'install' => 1,
           'packages' => [
-            'php5-cli',
-            'php5-intl',
-            'php5-mcrypt',
+            'php5.6-cli',
+            'php5.6-intl',
+            'php5.6-mcrypt',
           ],
           'peclpackages' => []
         ];
@@ -38,14 +38,8 @@ class Php implements Role, RoleValuesTransformer
 
     public function transformValues(array $values, VagrantBundle $vagrantBundle)
     {
-        $map = [
-            "mysql"   => "php5-mysql",
-            "mariadb" => "php5-mysql",
-            "pgsql"   => "php5-pgsql",
-            "sqlite"  => "php5-sqlite",
-            "mongodb" => "php5-mongo",
-        ];
 
+        $map = $this->getPackagesMap($values['php_version']);
         $playbook = $vagrantBundle->getPlaybook();
 
         foreach ($map as $role => $package) {
@@ -55,6 +49,19 @@ class Php implements Role, RoleValuesTransformer
         }
 
         return $values;
+    }
+
+    private function getPackagesMap($php_version)
+    {
+        $map_php = [
+            'mysql'   => 'php' . $php_version . '-mysql',
+            'mariadb' => 'php' . $php_version . '-mysql',
+            'pgsql'   => 'php' . $php_version . '-pgsql',
+            'sqlite'  => 'php' . $php_version . '-sqlite',
+            'mongodb' => 'php' . $php_version . '-mongo',
+        ];
+
+        return $map_php;
     }
 
     /**

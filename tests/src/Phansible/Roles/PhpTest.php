@@ -61,9 +61,9 @@ class PhpTest extends \PHPUnit_Framework_TestCase
         $expected = [
             'install' => 1,
             'packages' => [
-                'php5-cli',
-                'php5-intl',
-                'php5-mcrypt',
+                'php5.6-cli',
+                'php5.6-intl',
+                'php5.6-mcrypt',
             ],
             'peclpackages' => []
         ];
@@ -77,7 +77,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldNotTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl']
+            'packages' => ['php5.5-cli', 'php5.5-intl'],
+            'php_version' => '5.5'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -102,9 +103,10 @@ class PhpTest extends \PHPUnit_Framework_TestCase
 
         $expected = [
             'packages' => [
-                'php5-cli',
-                'php5-intl'
-            ]
+                'php5.5-cli',
+                'php5.5-intl'
+            ],
+            'php_version' => '5.5'
         ];
 
         $this->assertEquals($expected, $result);
@@ -117,7 +119,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl']
+            'packages' => ['php5.6-cli', 'php5.6-intl'],
+            'php_version' => '5.6'
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -142,10 +145,54 @@ class PhpTest extends \PHPUnit_Framework_TestCase
 
         $expected = [
             'packages' => [
-                'php5-cli',
-                'php5-intl',
-                'php5-mysql'
-            ]
+                'php5.6-cli',
+                'php5.6-intl',
+                'php5.6-mysql'
+            ],
+            'php_version' => '5.6'
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @covers Phansible\Roles\Php::transformValues
+     * @covers Phansible\Roles\Php::addPhpPackage
+     */
+    public function testShouldTransformValuesPhp7()
+    {
+        $values = [
+            'packages' => ['php7.0-cli', 'php7.0-intl'],
+            'php_version' => '7.0'
+        ];
+
+        $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
+            ->disableOriginalConstructor()
+            ->setMethods(['hasRole'])
+            ->getMock();
+
+        $playbook->expects($this->at(0))
+            ->method('hasRole')
+            ->will($this->returnValue(true));
+
+        $bundle = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+            ->disableOriginalConstructor()
+            ->setMethods(['getPlaybook'])
+            ->getMock();
+
+        $bundle->expects($this->once())
+            ->method('getPlaybook')
+            ->will($this->returnValue($playbook));
+
+        $result = $this->role->transformValues($values, $bundle);
+
+        $expected = [
+            'packages' => [
+                'php7.0-cli',
+                'php7.0-intl',
+                'php7.0-mysql'
+            ],
+            'php_version' => '7.0'
         ];
 
         $this->assertEquals($expected, $result);

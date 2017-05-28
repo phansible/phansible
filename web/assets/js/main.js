@@ -72,7 +72,33 @@ Main.prototype.form = function() {
         }
     });
 
+    var phpModules = {};
+    var updatePhpModules = function($select, version){
+        var php_version = 'php'+version+'-';
+        var selectize = $select[0].selectize;
+        var newSelected = [];
+        $.each(selectize.items, function(index, moduleName){
+            var newModuleName = moduleName.replace(/php[0-9\.]+-/, php_version);
+            if(phpModules[newModuleName]!=undefined){
+                newSelected.push(newModuleName);
+            }
+        });
+
+        selectize.clearOptions();
+        for(var moduleName in phpModules){
+            if(moduleName.indexOf(php_version)!=-1){
+                selectize.addOption(phpModules[moduleName]);
+            }
+        }
+        selectize.refreshOptions();
+        for(var i in newSelected){
+            selectize.addItem(newSelected[i]);
+        }
+        selectize.blur();
+    };
+
     buttons.filter('.phpversion').on('click', function(){
+        var value = $(this).data('value');
         $(this)
             .addClass('active')
             .addClass('green')
@@ -81,8 +107,9 @@ Main.prototype.form = function() {
             .removeClass('green')
             .addClass('black');
 
-        $('#php_version').val($(this)
-            .data('value'));
+        $('#php_version').val(value);
+
+        updatePhpModules($('#phppackages'), value);
     });
 
     buttons.filter('.webserver').on('click', function(){
@@ -129,6 +156,8 @@ Main.prototype.form = function() {
         sortField: 'item',
         searchField: 'item'
     });
+
+    phpModules = $.extend({}, $('#phppackages')[0].selectize.options);
 }
 
 Main.prototype.waypoints = function(){
