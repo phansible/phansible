@@ -33,5 +33,5 @@ Vagrant.configure("2") do |config|
         config.vm.provision :shell, path: "ansible/windows.sh"
     end
 
-    config.vm.synced_folder "./", "/vagrant", id: "vagrant-root", :nfs => true
+    config.vm.synced_folder '.', '/vagrant', :mount_options => ["dmode=777", "fmode=777"]
 end
