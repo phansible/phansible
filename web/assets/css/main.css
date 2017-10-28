@@ -134,6 +134,12 @@ header p {
     top: 50px;
 }
 
+.social-twitter {
+    width: 95%;
+    margin: 33px 10px 0px 2px;
+    float: left;
+}
+
 @media only screen and (max-width: 1725px) {
     header {
         margin: 0px 0px 3em;

@@ -25,6 +25,9 @@ class VagrantfileRenderer extends TemplateRenderer
     /** @var  string Synced Folder */
     protected $syncedFolder;
 
+    /** @var  string Mount Point */
+    protected $mountPoint;
+
     /** @var  string Synced Folder Type */
     protected $syncedType;
 
@@ -42,6 +45,7 @@ class VagrantfileRenderer extends TemplateRenderer
         $this->setBoxUrl('');
         $this->setIpAddress('192.168.33.99');
         $this->setSyncedFolder('./');
+        $this->setMountPoint('/vagrant');
         $this->setSyncedType('nfs');
     }
 
@@ -57,6 +61,7 @@ class VagrantfileRenderer extends TemplateRenderer
             'boxName' => $this->getBoxName(),
             'ipAddress' => $this->getIpAddress(),
             'syncedFolder' => $this->getSyncedFolder(),
+            'mountPoint' => $this->getMountPoint(),
             'syncedType' => $this->getSyncedType(),
         ];
     }
@@ -150,11 +155,27 @@ class VagrantfileRenderer extends TemplateRenderer
     }
 
     /**
+     * @param string $mountPoint
+     */
+    public function setMountPoint($mountPoint)
+    {
+        $this->mountPoint = $mountPoint;
+    }
+
+    /**
      * @return string
      */
     public function getSyncedFolder()
     {
         return $this->syncedFolder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMountPoint()
+    {
+        return $this->mountPoint;
     }
 
     /**

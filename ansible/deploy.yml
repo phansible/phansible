@@ -6,13 +6,15 @@
       default: master
       prompt: "Tag, Branch or Hash to deploy"
       private: no
+  roles:
+    - { role: app, tags: [ 'app' ] }
   tasks:
     - name: Set Maintenance Page
       shell: cp {{ doc_root }}/maintenance/maintenance.html {{ doc_root }}/maintenance.html
       ignore_errors: true
 
     - name: Checkout code
-      git: repo=git@github.com:Phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
+      git: repo=http://github.com/phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
 
     - name: Self-update Composer
       become: yes
@@ -21,10 +23,6 @@
     - name: Run Composer
       shell: /usr/local/bin/composer install --no-dev --no-progress chdir={{ project_root }}
 
-  roles:
-    - { role: app, tags: [ 'app' ] }
-
-  tasks:
     - name: Read ACLs for web_user
       become: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'

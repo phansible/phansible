@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="two fields">
+            <div class="three fields">
                 <div class="field">
                     <label for="memory">Memory</label>
                     <div class="ui left labeled input">
@@ -46,9 +46,18 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="memory">Shared Folder</label>
+                    <label for="sharedFolder">Shared Folder</label>
                     <div class="ui left labeled input">
                         <input type="text" id="sharedFolder" name="vagrant_local[vm][sharedfolder]" placeholder="./" value="./" />
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="mountPoint">Mount Point</label>
+                    <div class="ui left labeled input">
+                        <input type="text" id="mountPoint" name="vagrant_local[vm][mountPoint]" placeholder="/vagrant" value="/vagrant" />
                         <div class="ui corner label">
                             <i class="icon asterisk"></i>
                         </div>
