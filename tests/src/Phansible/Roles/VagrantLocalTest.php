@@ -77,6 +77,7 @@ class VagrantLocalTest extends \PHPUnit_Framework_TestCase
                 'ip'                => '192.168.33.99',
                 'memory'            => '512',
                 'sharedfolder'      => './',
+                'mountPoint'        => '/vagrant',
                 'syncType'          => 'nfs'
             ]
         ];

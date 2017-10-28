@@ -64,6 +64,7 @@ class VagrantLocal implements Role, RoleValuesTransformer
         $vagrantfile->setMemory($config['vm']['memory']);
         $vagrantfile->setIpAddress($config['vm']['ip']);
         $vagrantfile->setSyncedFolder($config['vm']['sharedfolder']);
+        $vagrantfile->setMountPoint($config['vm']['mountPoint']);
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
         // Add box url when NOT using the vagrant cloud
