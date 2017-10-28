@@ -4,19 +4,19 @@ boxes:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 32
       deb: trusty
       cloud: ubuntu/trusty32
-      url: https://atlas.hashicorp.com/ubuntu/boxes/trusty32/versions/20160406.0.0/providers/virtualbox.box
+      url: https://app.vagrantup.com/ubuntu/boxes/trusty32/versions/20171023.0.0/providers/virtualbox.box
     trusty64:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 64
       deb: trusty
       cloud: ubuntu/trusty64
-      url: https://atlas.hashicorp.com/ubuntu/boxes/trusty32/versions/20160406.0.0/providers/virtualbox.box
+      url: https://app.vagrantup.com/ubuntu/boxes/trusty64/versions/20171023.0.0/providers/virtualbox.box
     xenial32:
       name: Ubuntu Xenial Xerus (16.04) [LTS] 32
       deb: xenial
       cloud: ubuntu/xenial32
-      url: https://atlas.hashicorp.com/ubuntu/boxes/xenial32/versions/20160507.0.0/providers/virtualbox.box
+      url: https://app.vagrantup.com/ubuntu/boxes/xenial64/versions/20171028.0.0/providers/virtualbox.box
     xenial64:
       name: Ubuntu Xenial Xerus (16.04) [LTS] 64
       deb: xenial
       cloud: ubuntu/xenial64
-      url: https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20160507.0.0/providers/virtualbox.box
+      url: https://app.vagrantup.com/ubuntu/boxes/xenial64/versions/20171028.0.0/providers/virtualbox.box
