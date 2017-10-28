@@ -26,6 +26,7 @@ class Rabbitmq implements Role
         return [
             'install'  => 0,
             'plugins'  => [],
+            'hostname' => 'phansible',
             'user'     => 'user',
             'password' => 'password'
         ];

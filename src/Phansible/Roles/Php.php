@@ -28,9 +28,9 @@ class Php implements Role, RoleValuesTransformer
         return [
           'install' => 1,
           'packages' => [
-            'php5-cli',
-            'php5-intl',
-            'php5-mcrypt',
+            'cli',
+            'intl',
+            'mcrypt',
           ],
           'peclpackages' => []
         ];
@@ -39,11 +39,11 @@ class Php implements Role, RoleValuesTransformer
     public function transformValues(array $values, VagrantBundle $vagrantBundle)
     {
         $map = [
-            "mysql"   => "php5-mysql",
-            "mariadb" => "php5-mysql",
-            "pgsql"   => "php5-pgsql",
-            "sqlite"  => "php5-sqlite",
-            "mongodb" => "php5-mongo",
+            "mysql"   => "mysql",
+            "mariadb" => "mysql",
+            "pgsql"   => "pgsql",
+            "sqlite"  => "sqlite",
+            "mongodb" => "mongo",
         ];
 
         $playbook = $vagrantBundle->getPlaybook();
