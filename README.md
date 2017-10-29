@@ -3,7 +3,6 @@
 [![Build Status](https://img.shields.io/travis/phansible/phansible/master.svg?style=flat-square)](https://travis-ci.org/phansible/phansible)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/phansible/phansible/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/phansible/phansible/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/phansible/phansible/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/phansible/phansible/?branch=master)
-[![HHVM](https://img.shields.io/hhvm/phansible/phansible.svg?style=flat-square)](https://travis-ci.org/phansible/phansible)
 [![License](https://img.shields.io/github/license/phansible/phansible.svg?style=flat-square)](https://github.com/phansible/phansible)
 
 
