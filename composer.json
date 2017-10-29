@@ -12,6 +12,9 @@
     "autoload" : {
         "psr-0" : { "" : "src/" }
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "require" : {
         "php"                 : ">=5.5.0",
         "flint/flint"         : "~1.7",
