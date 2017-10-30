@@ -1,5 +1,5 @@
 # Phansible
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/phansible/phansible?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/phansible/phansible?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://img.shields.io/travis/phansible/phansible/master.svg?style=flat-square)](https://travis-ci.org/phansible/phansible)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/phansible/phansible/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/phansible/phansible/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/phansible/phansible/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/phansible/phansible/?branch=master)
