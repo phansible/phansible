@@ -1,7 +1,14 @@
 language: php
 
 php:
-  - 7.4
+   - 7.4
+   - 8.0
+   - 8.1
+
+matrix:
+  allow_failures:
+    - php: 7.4
+    - php: 8.0
 
 before_install:
   - composer self-update
