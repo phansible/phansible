@@ -4,19 +4,24 @@ boxes:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 32
       deb: trusty
       cloud: ubuntu/trusty32
-      url: https://vagrantcloud.com/ubuntu/boxes/trusty32/versions/20180302.0.0/providers/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/trusty32/versions/20190429.0.1/providers/virtualbox.box
     trusty64:
       name: Ubuntu Trusty Tahr (14.04) [LTS] 64
       deb: trusty
       cloud: ubuntu/trusty64
-      url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/20180302.0.0/providers/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/20190429.0.1/providers/virtualbox.box
     xenial32:
       name: Ubuntu Xenial Xerus (16.04) [LTS] 32
       deb: xenial
       cloud: ubuntu/xenial32
-      url: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20180306.0.0/providers/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20191024.0.0/providers/virtualbox.box
     xenial64:
       name: Ubuntu Xenial Xerus (16.04) [LTS] 64
       deb: xenial
       cloud: ubuntu/xenial64
-      url: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20180306.0.0/providers/virtualbox.box
+      url: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20191024.0.0/providers/virtualbox.box
+    bionic64:
+      name: Ubuntu Bionic Beaver (18.04) [LTS] 64
+      deb: bionic
+      cloud: ubuntu/bionic64
+      url: https://vagrantcloud.com/ubuntu/boxes/bionic64/versions/20191023.0.0/providers/virtualbox.box
