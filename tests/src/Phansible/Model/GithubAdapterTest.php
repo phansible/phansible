@@ -17,7 +17,7 @@ class GithubAdapterTest extends \PHPUnit_Framework_TestCase
 
         $adapter = new GithubAdapter($client);
         $this->assertSame(
-            ['user' => 'data'],
+            '{"user": "data"}',
             $adapter->get('contributors')
         );
     }
