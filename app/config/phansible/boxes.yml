@@ -25,3 +25,13 @@ boxes:
       deb: bionic
       cloud: ubuntu/bionic64
       url: https://vagrantcloud.com/ubuntu/boxes/bionic64/versions/20191023.0.0/providers/virtualbox.box
+    centos6:
+      name: CentOS Linux 6.10
+      rhel: centos6
+      cloud: centos/6
+      url: https://vagrantcloud.com/centos/boxes/6/versions/1905.01/providers/virtualbox.box
+    centos7:
+      name: CentOS Linux 7.6.1811
+      rhel: centos7
+      cloud: centos/7
+      url: https://vagrantcloud.com/centos/boxes/7/versions/1905.1/providers/virtualbox.box
