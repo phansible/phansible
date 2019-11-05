@@ -18,8 +18,6 @@ class Application extends \Flint\Application
      */
     public function __construct($rootDir, $debug = false, array $parameters = [])
     {
-        $parameters += ['config.cache_dir' => $rootDir . '/app/cache/config'];
-
         parent::__construct($rootDir, $debug, $parameters);
         $this->initialize();
     }

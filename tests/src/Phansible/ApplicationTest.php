@@ -14,6 +14,5 @@ class ApplicationTest extends TestCase
         $app = new Application(__DIR__);
 
         $this->assertFalse($app['debug']);
-        $this->assertStringContainsString('/app/cache/config', $app['config.cache_dir']);
     }
 }
