@@ -10,7 +10,7 @@ class GithubAdapterTest extends TestCase
 {
     public function testThatGetRetrievesListOfContributors()
     {
-        $httpResponse = new Response(200, [], '{"user": "data"}');
+        $httpResponse = '{"user": "data"}';
 
         $repo = $this->createMock('Github\Api\Repo');
 

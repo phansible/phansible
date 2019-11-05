@@ -3,7 +3,6 @@
 namespace Phansible\Model;
 
 use Github\Client;
-use Github\HttpClient\Message\ResponseMediator;
 use InvalidArgumentException;
 
 /**
@@ -43,6 +42,6 @@ class GithubAdapter
             throw new InvalidArgumentException('The requested resource is not in the list');
         }
 
-        return ResponseMediator::getContent(($this->client->api($this->resources[$resource]))->statistics('phansible', 'phansible'));
+        return ($this->client->api($this->resources[$resource]))->statistics('phansible', 'phansible');
     }
 }
