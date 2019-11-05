@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class HhvmTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class HhvmTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class HhvmTest extends \PHPUnit_Framework_TestCase
         $this->role = new Hhvm($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -59,8 +61,8 @@ class HhvmTest extends \PHPUnit_Framework_TestCase
     {
         $expected = [
             'install' => 0,
-            'host' => '127.0.0.1',
-            'port' => 9000,
+            'host'    => '127.0.0.1',
+            'port'    => 9000,
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class RabbitmqTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class RabbitmqTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class RabbitmqTest extends \PHPUnit_Framework_TestCase
         $this->role = new Rabbitmq($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -61,7 +63,7 @@ class RabbitmqTest extends \PHPUnit_Framework_TestCase
             'install'  => 0,
             'plugins'  => [],
             'user'     => 'user',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

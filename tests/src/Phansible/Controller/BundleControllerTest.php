@@ -2,17 +2,17 @@
 
 namespace Phansible\Controller;
 
-use Phansible\Application;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class BundleControllerTest extends \PHPUnit_Framework_TestCase
+class BundleControllerTest extends TestCase
 {
     /**
      * @var Phansible\Controller\BundleController
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -38,7 +38,7 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     {
         $langs = [
             'en_US',
-            'en'
+            'en',
         ];
 
         $result = $this->controller->extractLocale($langs);
@@ -59,14 +59,14 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
         $data = [
             'vagrant_local' => [
                 'vm' => [
-                    'ip' => ''
-                ]
-            ]
+                    'ip' => '',
+                ],
+            ],
         ];
 
         $request = new Request([], $data);
 
-        $roles = $this->getMock('Phansible\RoleManager');
+        $roles = $this->createMock('Phansible\RoleManager');
 
         $app = $this->getMockBuilder('Phansible\Application')
             ->disableOriginalConstructor()

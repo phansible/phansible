@@ -5,19 +5,21 @@
 
 namespace Phansible\Renderer;
 
-class VagrantfileRendererTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class VagrantfileRendererTest extends TestCase
 {
     /**
      * @var VagrantfileRenderer
      */
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->model = new VagrantfileRenderer();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
     }

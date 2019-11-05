@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class BlackfireTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class BlackfireTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class BlackfireTest extends \PHPUnit_Framework_TestCase
         $this->role = new Blackfire($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -58,8 +60,8 @@ class BlackfireTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 0,
-            'server_id' => '',
+            'install'      => 0,
+            'server_id'    => '',
             'server_token' => '',
         ];
 

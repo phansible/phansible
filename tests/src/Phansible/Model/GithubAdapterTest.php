@@ -2,20 +2,30 @@
 
 namespace Phansible\Model;
 
-class GithubAdapterTest extends \PHPUnit_Framework_TestCase
+use Github\Client;
+use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\TestCase;
+
+class GithubAdapterTest extends TestCase
 {
     public function testThatGetRetrievesListOfContributors()
     {
-        $httpResponse = new \Guzzle\Http\Message\Response(200, null, '{"user": "data"}');
+        $httpResponse = new Response(200, [], '{"user": "data"}');
 
-        $client = $this->getMockBuilder('\Github\HttpClient\CachedHttpClient')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $client->expects($this->once())
-            ->method('get')
+        $repo = $this->createMock('Github\Api\Repo');
+
+        $repo->expects($this->once())
+            ->method('statistics')
             ->will($this->returnValue($httpResponse));
 
+        $client = $this->createMock('Github\Client');
+
+        $client->expects($this->once())
+            ->method('api')
+            ->will($this->returnValue($repo));
+
         $adapter = new GithubAdapter($client);
+
         $this->assertSame(
             '{"user": "data"}',
             $adapter->get('contributors')
@@ -24,9 +34,9 @@ class GithubAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testThatANotValidResourceThrowsException()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
 
-        $client = $this->getMockBuilder('\Github\HttpClient\CachedHttpClient')
+        $client = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class ComposerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ComposerTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
         $this->role = new Composer($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -68,7 +70,7 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 0
+            'install' => 0,
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

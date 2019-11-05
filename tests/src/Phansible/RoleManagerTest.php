@@ -3,12 +3,13 @@
 namespace Phansible;
 
 use Phansible\Model\VagrantBundle;
+use PHPUnit\Framework\TestCase;
 
-class RoleManagerTest extends \PHPUnit_Framework_TestCase
+class RoleManagerTest extends TestCase
 {
     protected $roleManager;
 
-    public function setup()
+    public function setup(): void
     {
         $this->roleManager = new RoleManager();
     }

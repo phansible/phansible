@@ -2,7 +2,9 @@
 
 namespace Phansible;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ApplicationTest extends TestCase
 {
     /**
      * @covers \Phansible\Application::__construct
@@ -12,6 +14,6 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $app = new Application(__DIR__);
 
         $this->assertFalse($app['debug']);
-        $this->assertContains('/app/cache/config', $app['config.cache_dir']);
+        $this->assertStringContainsString('/app/cache/config', $app['config.cache_dir']);
     }
 }

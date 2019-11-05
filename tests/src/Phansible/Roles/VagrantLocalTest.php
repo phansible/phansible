@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class VagrantLocalTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class VagrantLocalTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class VagrantLocalTest extends \PHPUnit_Framework_TestCase
         $this->role = new VagrantLocal($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -72,23 +74,23 @@ class VagrantLocalTest extends \PHPUnit_Framework_TestCase
     {
         $values = [
             'vm' => [
-                'base_box'          => 'trusty64',
-                'hostname'          => 'default',
-                'ip'                => '192.168.33.99',
-                'memory'            => '512',
-                'sharedfolder'      => './',
-                'mountPoint'        => '/vagrant',
-                'syncType'          => 'nfs'
-            ]
+                'base_box'     => 'trusty64',
+                'hostname'     => 'default',
+                'ip'           => '192.168.33.99',
+                'memory'       => '512',
+                'sharedfolder' => './',
+                'mountPoint'   => '/vagrant',
+                'syncType'     => 'nfs',
+            ],
         ];
 
         $boxes = [
             'virtualbox' => [
                 'trusty64' => [
                     'cloud' => 'ubuntu/trusty64',
-                    'url'   => 'http://local.trusty64'
-                ]
-            ]
+                    'url'   => 'http://local.trusty64',
+                ],
+            ],
         ];
 
         $bundle = $this->getMockBuilder('Phansible\Model\VagrantBundle')

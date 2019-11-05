@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class SolrTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class SolrTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class SolrTest extends \PHPUnit_Framework_TestCase
         $this->role = new Solr($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -58,9 +60,9 @@ class SolrTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install'   => 0,
-            'port'      => '8983',
-            'version'   => '5.2.0'
+            'install' => 0,
+            'port'    => '8983',
+            'version' => '5.2.0',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

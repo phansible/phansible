@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class BeanstalkdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class BeanstalkdTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class BeanstalkdTest extends \PHPUnit_Framework_TestCase
         $this->role = new Beanstalkd($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -58,13 +60,13 @@ class BeanstalkdTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install'        => 0,
-            'listenAddress'  => '0.0.0.0',
-            'listenPort'     => '13000',
-            'version'        => '1.10',
-            'user'           => 'beanstalkd',
-            'persistent'     => 'yes',
-            'storage'        => '/var/lib/beanstalkd',
+            'install'       => 0,
+            'listenAddress' => '0.0.0.0',
+            'listenPort'    => '13000',
+            'version'       => '1.10',
+            'user'          => 'beanstalkd',
+            'persistent'    => 'yes',
+            'storage'       => '/var/lib/beanstalkd',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

@@ -5,22 +5,23 @@
 
 namespace Phansible\Renderer;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
 
-class VarfileRendererTest extends \PHPUnit_Framework_TestCase
+class VarfileRendererTest extends TestCase
 {
     /**
      * @var VarfileRenderer
      */
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->model = new VarfileRenderer('common');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
     }
@@ -89,16 +90,16 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     public function testShouldSetAndGetData()
     {
         $this->model->setData([
-            'key' => 'value'
+            'key' => 'value',
         ]);
 
-        $data = $this->model->getData();
+        $data   = $this->model->getData();
         $parser = new Parser();
 
         $this->assertArrayHasKey('variables', $data);
         $this->assertTrue(is_array(
             $parser->parse($data['variables'], 1)
-          ));
+        ));
 
     }
 
@@ -150,14 +151,14 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     {
         $vars = [
             'region' => 'brazil',
-            'os'     => 'debian'
+            'os'     => 'debian',
         ];
 
         $this->model->addMultipleVars($vars);
 
         $expected = [
             'variables' => Yaml::dump($vars),
-            'name'      => 'common'
+            'name'      => 'common',
         ];
 
         $this->assertEquals($expected, $this->model->getData());

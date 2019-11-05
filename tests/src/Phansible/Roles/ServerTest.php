@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class ServerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ServerTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->role = new Server($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -58,9 +60,9 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 1,
+            'install'  => 1,
             'timezone' => 'UTC',
-            'locale' => 'en_US.UTF-8',
+            'locale'   => 'en_US.UTF-8',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

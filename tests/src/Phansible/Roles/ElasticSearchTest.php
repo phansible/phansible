@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class ElasticSearchTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ElasticSearchTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class ElasticSearchTest extends \PHPUnit_Framework_TestCase
         $this->role = new ElasticSearch($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -58,9 +60,9 @@ class ElasticSearchTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install'   => 0,
-            'port'      => '9200',
-            'version'   => '1.5.2'
+            'install' => 0,
+            'port'    => '9200',
+            'version' => '1.5.2',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

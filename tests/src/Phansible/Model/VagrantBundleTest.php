@@ -3,9 +3,9 @@
 namespace Phansible\Model;
 
 use Phansible\Renderer\VagrantfileRenderer;
-use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class VagrantBundleTest extends \PHPUnit_Framework_TestCase
+class VagrantBundleTest extends TestCase
 {
     /**
      * @var VagrantBundle;
@@ -17,7 +17,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      */
     private $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->twig = $this->getMockBuilder('\Twig_Environment')
             ->disableOriginalConstructor()
@@ -26,10 +26,10 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
         $this->model = new VagrantBundle('path/to/ansible', $this->twig);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
-        $this->twig = null;
+        $this->twig  = null;
     }
 
     /**
@@ -188,7 +188,7 @@ class VagrantBundleTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldSetAndGetPlaybook()
     {
-        $playbook = $this->getMock('Phansible\Renderer\PlaybookRenderer');
+        $playbook = $this->createMock('Phansible\Renderer\PlaybookRenderer');
 
         $this->model->setPlaybook($playbook);
         $this->assertSame($playbook, $this->model->getPlaybook());

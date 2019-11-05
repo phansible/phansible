@@ -3,13 +3,15 @@
 namespace Phansible\Controller;
 
 use Phansible\RoleManager;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class DefaultControllerTest extends \PHPUnit_Framework_TestCase
+class DefaultControllerTest extends TestCase
 {
     private $controller;
     private $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->controller = new DefaultController();
         $this->twig       = $this->getMockBuilder('\Twig_Environment')
@@ -17,10 +19,10 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->controller = null;
-        $this->twig = null;
+        $this->twig       = null;
     }
 
     /**
@@ -52,13 +54,15 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setPimple($container);
         $this->controller->indexAction();
     }
+
     /**
      * @covers \Phansible\Controller\DefaultController::docsAction
-     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testShouldThrowExceptionWhenDocFileNotExists()
     {
         $doc = '';
+        $this->expectException(NotFoundHttpException::class);
         $this->controller->docsAction($doc);
     }
 
@@ -83,7 +87,7 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
 
         $doc = 'vagrant';
 
-        $container['twig'] = $this->twig;
+        $container['twig']      = $this->twig;
         $container['docs.path'] = '/tmp';
 
         $this->controller->setPimple($container);

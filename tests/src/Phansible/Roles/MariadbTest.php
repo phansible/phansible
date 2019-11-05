@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class MariadbTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class MariadbTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class MariadbTest extends \PHPUnit_Framework_TestCase
         $this->role = new Mariadb($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -58,13 +60,13 @@ class MariadbTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 0,
+            'install'       => 0,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
+            'databases'     => [
+                'name'     => 'dbname',
+                'user'     => 'name',
                 'password' => 123,
-            ]
+            ],
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

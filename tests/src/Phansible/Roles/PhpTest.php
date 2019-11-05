@@ -2,11 +2,13 @@
 
 namespace Phansible\Roles;
 
-class PhpTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PhpTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
         $app = $this->getMockBuilder('\Phansible\Application')
             ->disableOriginalConstructor()
@@ -15,7 +17,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
         $this->role = new Php($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
@@ -59,13 +61,13 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldGetInitialValues()
     {
         $expected = [
-            'install' => 1,
-            'packages' => [
+            'install'      => 1,
+            'packages'     => [
                 'php5-cli',
                 'php5-intl',
                 'php5-mcrypt',
             ],
-            'peclpackages' => []
+            'peclpackages' => [],
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());
@@ -77,7 +79,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldNotTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl']
+            'packages' => ['php5-cli', 'php5-intl'],
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -103,8 +105,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
         $expected = [
             'packages' => [
                 'php5-cli',
-                'php5-intl'
-            ]
+                'php5-intl',
+            ],
         ];
 
         $this->assertEquals($expected, $result);
@@ -117,7 +119,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     public function testShouldTransformValues()
     {
         $values = [
-            'packages' => ['php5-cli', 'php5-intl']
+            'packages' => ['php5-cli', 'php5-intl'],
         ];
 
         $playbook = $this->getMockBuilder('Phansible\Renderer\PlaybookRenderer')
@@ -144,8 +146,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
             'packages' => [
                 'php5-cli',
                 'php5-intl',
-                'php5-mysql'
-            ]
+                'php5-mysql',
+            ],
         ];
 
         $this->assertEquals($expected, $result);

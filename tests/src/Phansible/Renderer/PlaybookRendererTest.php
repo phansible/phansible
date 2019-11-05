@@ -5,19 +5,21 @@
 
 namespace Phansible\Renderer;
 
-class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PlaybookRendererTest extends TestCase
 {
     /**
      * @var PlaybookRenderer;
      */
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->model = new PlaybookRenderer();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
     }
@@ -49,7 +51,7 @@ class PlaybookRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldSetAndGetRoles()
     {
-        $roles = [ 'nginx', 'php' ];
+        $roles = ['nginx', 'php'];
 
         $this->model->setRoles($roles);
 

@@ -2,12 +2,14 @@
 
 namespace Phansible\Controller;
 
-class AboutControllerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class AboutControllerTest extends TestCase
 {
     private $controller;
     private $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->controller = new AboutController();
         $this->twig       = $this->getMockBuilder('\Twig_Environment')
@@ -15,10 +17,10 @@ class AboutControllerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->controller = null;
-        $this->twig = null;
+        $this->twig       = null;
     }
 
     /**
@@ -38,17 +40,18 @@ class AboutControllerTest extends \PHPUnit_Framework_TestCase
         $github = $this->getMockBuilder('\Phansible\Model\GithubAdapter')
             ->disableOriginalConstructor()
             ->getMock();
+
         $github->expects($this->any())
             ->method('get')
             ->will($this->returnValue(['contributors-data']));
 
-        $container['twig'] = $this->twig;
-        $container['config'] = [];
-        $container['webservers'] = [];
-        $container['boxes'] = [];
+        $container['twig']        = $this->twig;
+        $container['config']      = [];
+        $container['webservers']  = [];
+        $container['boxes']       = [];
         $container['syspackages'] = [];
         $container['phppackages'] = [];
-        $container['github'] = $github;
+        $container['github']      = $github;
 
         $this->controller->setPimple($container);
 

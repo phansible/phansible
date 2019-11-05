@@ -5,18 +5,20 @@
 
 namespace Phansible\Renderer;
 
-class TemplateRendererTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class TemplateRendererTest extends TestCase
 {
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->model = new TemplateRenderer();
         $this->model->setTemplate('Vagrantfile.twig');
         $this->model->setData(['key' => 'value']);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
     }
@@ -36,7 +38,7 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
             );
 
         $reflectedClass = new \ReflectionClass($className);
-        $constructor = $reflectedClass->getConstructor();
+        $constructor    = $reflectedClass->getConstructor();
         $constructor->invoke($mock);
     }
 

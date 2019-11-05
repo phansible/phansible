@@ -3,8 +3,9 @@
 namespace Phansible\Provider;
 
 use Phansible\Application;
+use PHPUnit\Framework\TestCase;
 
-class RolesServiceProviderTest extends \PHPUnit_Framework_TestCase
+class RolesServiceProviderTest extends TestCase
 {
     public function testRegister()
     {
