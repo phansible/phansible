@@ -21,7 +21,8 @@
     "symfony/twig-bridge": "~2.6",
     "michelf/php-markdown": "~1.4",
     "knplabs/github-api": "^2.12",
-    "php-http/guzzle6-adapter": "^1.1"
+    "php-http/guzzle6-adapter": "^1.1",
+    "cache/filesystem-adapter": "^1.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
