@@ -15,7 +15,7 @@
     }
   },
   "require": {
-    "php": "^7.2",
+    "php": "^7.1",
     "flint/flint": "~1.7",
     "symfony/yaml": "~2.6",
     "symfony/twig-bridge": "~2.6",
