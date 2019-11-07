@@ -24,9 +24,9 @@ class Nginx implements Role
     public function getInitialValues()
     {
         return [
-          'install' => 1,
-          'docroot' => '/vagrant',
-          'servername' => 'myApp.vb'
+            'install'    => 1,
+            'docroot'    => '/vagrant',
+            'servername' => 'myApp.vb',
         ];
     }
 }

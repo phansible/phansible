@@ -24,8 +24,8 @@ class Redis implements Role
     public function getInitialValues()
     {
         return [
-            'install'   => 0,
-            'port'      => 6379,
+            'install' => 0,
+            'port'    => 6379,
         ];
     }
 }

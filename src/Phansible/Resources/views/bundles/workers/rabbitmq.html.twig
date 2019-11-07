@@ -1,7 +1,8 @@
 <div class="ui tab bottom attached segment active" data-tab="rabbitmq">
     <div class="inline field">
         <div class="ui checkbox">
-            <input class="update-other-input" type="checkbox" name="rabbitmq[install]"  value="1" {% if rabbitmq.install %}checked="checked"{% endif %} />
+            <input class="update-other-input" type="checkbox" name="rabbitmq[install]" value="1"
+                   {% if rabbitmq.install %}checked="checked"{% endif %} />
             <label>Install RabbitMQ</label>
         </div>
     </div>
@@ -9,13 +10,13 @@
         <div class="field">
             <label for="port">Admin User:</label>
             <div class="ui left labeled input">
-                <input type="text" name="rabbitmq[user]" value="{{ rabbitmq.user }}" />
+                <input type="text" name="rabbitmq[user]" value="{{ rabbitmq.user }}"/>
             </div>
         </div>
         <div class="field">
             <label for="port">Password:</label>
             <div class="ui left labeled input">
-                <input type="text" name="rabbitmq[password]" value="{{ rabbitmq.password }}" />
+                <input type="text" name="rabbitmq[password]" value="{{ rabbitmq.password }}"/>
             </div>
         </div>
     </div>

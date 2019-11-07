@@ -3,7 +3,6 @@
 namespace Phansible\Roles;
 
 use Phansible\Role;
-use Phansible\Model\VagrantBundle;
 
 class Hhvm implements Role
 {
@@ -25,9 +24,9 @@ class Hhvm implements Role
     public function getInitialValues()
     {
         return [
-          'install' => 0,
-          'host' => '127.0.0.1',
-          'port' => 9000,
+            'install' => 0,
+            'host'    => '127.0.0.1',
+            'port'    => 9000,
         ];
     }
 }

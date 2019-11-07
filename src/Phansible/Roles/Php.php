@@ -2,9 +2,9 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Model\VagrantBundle;
 use Phansible\Role;
 use Phansible\RoleValuesTransformer;
-use Phansible\Model\VagrantBundle;
 
 class Php implements Role, RoleValuesTransformer
 {
@@ -26,13 +26,13 @@ class Php implements Role, RoleValuesTransformer
     public function getInitialValues()
     {
         return [
-          'install' => 1,
-          'packages' => [
-            'php5-cli',
-            'php5-intl',
-            'php5-mcrypt',
-          ],
-          'peclpackages' => []
+            'install'      => 1,
+            'packages'     => [
+                'php5-cli',
+                'php5-intl',
+                'php5-mcrypt',
+            ],
+            'peclpackages' => [],
         ];
     }
 

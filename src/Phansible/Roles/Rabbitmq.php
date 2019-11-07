@@ -27,7 +27,7 @@ class Rabbitmq implements Role
             'install'  => 0,
             'plugins'  => [],
             'user'     => 'user',
-            'password' => 'password'
+            'password' => 'password',
         ];
     }
 }

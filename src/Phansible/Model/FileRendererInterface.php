@@ -5,15 +5,17 @@
 
 namespace Phansible\Model;
 
+use Twig_Environment;
+
 interface FileRendererInterface
 {
     /**
      * Renders the template with current data
      *
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      * @return string Rendered template
      */
-    public function renderFile(\Twig_Environment $twig);
+    public function renderFile(Twig_Environment $twig);
 
     /**
      * Loads any default values

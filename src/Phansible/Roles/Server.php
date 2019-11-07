@@ -24,9 +24,9 @@ class Server implements Role
     public function getInitialValues()
     {
         return [
-          'install' => 1,
-          'timezone' => 'UTC',
-          'locale' => 'en_US.UTF-8',
+            'install'  => 1,
+            'timezone' => 'UTC',
+            'locale'   => 'en_US.UTF-8',
         ];
     }
 }

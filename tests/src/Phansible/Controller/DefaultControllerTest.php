@@ -4,6 +4,8 @@ namespace Phansible\Controller;
 
 use Phansible\RoleManager;
 use PHPUnit\Framework\TestCase;
+use Pimple;
+use SplFileObject;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultControllerTest extends TestCase
@@ -30,7 +32,7 @@ class DefaultControllerTest extends TestCase
      */
     public function testShouldRenderIndexAction()
     {
-        $container = new \Pimple();
+        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -71,7 +73,7 @@ class DefaultControllerTest extends TestCase
      */
     public function testShouldRenderDocsActionWhenFileExists()
     {
-        $container = new \Pimple();
+        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -82,7 +84,7 @@ class DefaultControllerTest extends TestCase
                 })
             );
 
-        $docFile = new \SplFileObject('/tmp/vagrant.md', 'w+');
+        $docFile = new SplFileObject('/tmp/vagrant.md', 'w+');
         $docFile->fwrite('Phansible');
 
         $doc = 'vagrant';

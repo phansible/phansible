@@ -24,9 +24,9 @@ class Apache implements Role
     public function getInitialValues()
     {
         return [
-            'install' => 0,
-            'docroot' => '/vagrant',
-            'servername' => 'myApp.vb'
+            'install'    => 0,
+            'docroot'    => '/vagrant',
+            'servername' => 'myApp.vb',
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace Phansible\Model;
 
 use Github\Client;
-use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class GithubAdapterTest extends TestCase
@@ -34,7 +34,7 @@ class GithubAdapterTest extends TestCase
 
     public function testThatANotValidResourceThrowsException()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $client = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()

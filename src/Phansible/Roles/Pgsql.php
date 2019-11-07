@@ -24,13 +24,13 @@ class Pgsql implements Role
     public function getInitialValues()
     {
         return [
-            'install' => 0,
+            'install'       => 0,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
+            'databases'     => [
+                'name'     => 'dbname',
+                'user'     => 'name',
                 'password' => 123,
-            ]
+            ],
         ];
     }
 }

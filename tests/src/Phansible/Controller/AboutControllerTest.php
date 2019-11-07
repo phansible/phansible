@@ -3,6 +3,7 @@
 namespace Phansible\Controller;
 
 use PHPUnit\Framework\TestCase;
+use Pimple;
 
 class AboutControllerTest extends TestCase
 {
@@ -28,7 +29,7 @@ class AboutControllerTest extends TestCase
      */
     public function testShouldRenderindexAction()
     {
-        $container = new \Pimple();
+        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')

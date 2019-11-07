@@ -33,22 +33,6 @@ class VarfileRenderer extends TemplateRenderer
     }
 
     /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function add($key, $value)
@@ -66,7 +50,7 @@ class VarfileRenderer extends TemplateRenderer
      */
     public function getData()
     {
-        return [ 'variables' => Yaml::dump($this->data), 'name' => $this->name ];
+        return ['variables' => Yaml::dump($this->data), 'name' => $this->name];
     }
 
     /**
@@ -75,5 +59,21 @@ class VarfileRenderer extends TemplateRenderer
     public function getFilePath()
     {
         return 'ansible/vars/' . $this->getName() . '.yml';
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }

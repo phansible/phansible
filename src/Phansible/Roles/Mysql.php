@@ -24,13 +24,13 @@ class Mysql implements Role
     public function getInitialValues()
     {
         return [
-            'install' => 1,
+            'install'       => 1,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
+            'databases'     => [
+                'name'     => 'dbname',
+                'user'     => 'name',
                 'password' => 123,
-            ]
+            ],
         ];
     }
 }

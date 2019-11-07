@@ -26,7 +26,7 @@ class Solr implements Role
         return [
             'install' => 0,
             'version' => '5.2.0',
-            'port'    => '8983'
+            'port'    => '8983',
         ];
     }
 }

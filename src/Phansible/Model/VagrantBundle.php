@@ -9,6 +9,8 @@ use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\TemplateRenderer;
 use Phansible\Renderer\VagrantfileRenderer;
 use Phansible\Renderer\VarfileRenderer;
+use Twig_Environment;
+use ZipArchive;
 
 class VagrantBundle
 {
@@ -23,93 +25,51 @@ class VagrantBundle
     /** @var string Path to Ansible Resources */
     protected $ansiblePath;
 
-    /** @var \Twig_Environment */
+    /** @var Twig_Environment */
     protected $twig;
 
     /**
      * @param string $ansiblePath
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      */
-    public function __construct($ansiblePath, \Twig_Environment $twig)
+    public function __construct($ansiblePath, Twig_Environment $twig)
     {
-        $this->twig = $twig;
+        $this->twig        = $twig;
         $this->ansiblePath = $ansiblePath;
 
         $this->renderers = [
-            self::VARSFILE => null,
-            self::PLAYBOOK => null,
+            self::VARSFILE    => null,
+            self::PLAYBOOK    => null,
             self::VAGRANTFILE => null,
         ];
     }
 
     /**
-     * @param \Phansible\Renderer\PlaybookRenderer $playbook
+     * @param PlaybookRenderer $playbook
      * @return $this
      */
     public function setPlaybook(PlaybookRenderer $playbook)
     {
         $this->addRenderer(self::PLAYBOOK, $playbook);
-        return $this;
-    }
 
-    /**
-     * @return \Phansible\Renderer\PlaybookRenderer
-     */
-    public function getPlaybook()
-    {
-        return $this->getRenderer(self::PLAYBOOK);
-    }
-
-    /**
-     * @param \Phansible\Renderer\VarfileRenderer $varsfile
-     * @return $this
-     */
-    public function setVarsFile(VarfileRenderer $varsfile)
-    {
-        $this->addRenderer(self::VARSFILE, $varsfile);
-        return $this;
-    }
-
-    /**
-     * @return \Phansible\Renderer\VarfileRenderer
-     */
-    public function getVarsFile()
-    {
-        return $this->getRenderer(self::VARSFILE);
-    }
-
-    /**
-     * @see Phansible\Roles\VagrantLocal::setup
-     * @param \Phansible\Renderer\VagrantfileRenderer $vagrantFile
-     * @return $this
-     */
-    public function setVagrantFile(VagrantfileRenderer $vagrantFile)
-    {
-        $this->addRenderer(self::VAGRANTFILE, $vagrantFile);
-        return $this;
-    }
-
-    /**
-     * @return \Phansible\Renderer\VagrantfileRenderer
-     */
-    public function getVagrantFile()
-    {
-        return $this->getRenderer(self::VAGRANTFILE);
-    }
-
-    public function setInventory(TemplateRenderer $inventory)
-    {
-        $this->addRenderer(self::INVENTORY, $inventory);
         return $this;
     }
 
     /**
      * @param string $name
-     * @param \Phansible\Model\FileRendererInterface $renderer
+     * @param FileRendererInterface $renderer
      */
     protected function addRenderer($name, FileRendererInterface $renderer)
     {
         $this->renderers[$name] = $renderer;
+    }
+
+    /**
+     * @return PlaybookRenderer
+     */
+    public function getPlaybook()
+    {
+        return $this->getRenderer(self::PLAYBOOK);
     }
 
     /**
@@ -122,25 +82,49 @@ class VagrantBundle
     }
 
     /**
-     * @return \ZipArchive
+     * @param VarfileRenderer $varsfile
+     * @return $this
      */
-    public function getZipArchive()
+    public function setVarsFile(VarfileRenderer $varsfile)
     {
-        return new \ZipArchive();
+        $this->addRenderer(self::VARSFILE, $varsfile);
+
+        return $this;
     }
 
     /**
-     * Renders the files defined via FileRenderers
-     * @param \ZipArchive $zip
-     * @return \ZipArchive
+     * @return VarfileRenderer
      */
-    protected function renderFiles(\ZipArchive $zip)
+    public function getVarsFile()
     {
-        foreach ($this->renderers as $renderer) {
-            $zip->addFromString($renderer->getFilePath(), $renderer->renderFile($this->twig));
-        }
+        return $this->getRenderer(self::VARSFILE);
+    }
 
-        return $zip;
+    /**
+     * @param VagrantfileRenderer $vagrantFile
+     * @return $this
+     * @see Phansible\Roles\VagrantLocal::setup
+     */
+    public function setVagrantFile(VagrantfileRenderer $vagrantFile)
+    {
+        $this->addRenderer(self::VAGRANTFILE, $vagrantFile);
+
+        return $this;
+    }
+
+    /**
+     * @return VagrantfileRenderer
+     */
+    public function getVagrantFile()
+    {
+        return $this->getRenderer(self::VAGRANTFILE);
+    }
+
+    public function setInventory(TemplateRenderer $inventory)
+    {
+        $this->addRenderer(self::INVENTORY, $inventory);
+
+        return $this;
     }
 
     /**
@@ -152,7 +136,7 @@ class VagrantBundle
     public function generateBundle($filepath, array $roles)
     {
         $zip = $this->getZipArchive();
-        $res = $zip->open($filepath, \ZipArchive::CREATE);
+        $res = $zip->open($filepath, ZipArchive::CREATE);
 
         if ($res === true) {
             /** template files rendering */
@@ -181,32 +165,33 @@ class VagrantBundle
     }
 
     /**
-     * Includes Files in the Vagrant Bundle
-     *
-     * @param \ZipArchive $zip
-     * @param string $sourceDir The source directory where to get the files from
-     * @param string $pattern   Pattern to be used with glob
-     * @param string $includePath Path to save the file inside the bundle, defaults to the same as sourceDir
+     * @return ZipArchive
      */
-    public function includeBundleFiles(\ZipArchive $zip, $sourceDir, $pattern = '*.*', $includePath = null)
+    public function getZipArchive()
     {
-        $includePath = $includePath ?: $sourceDir;
+        return new ZipArchive();
+    }
 
-        $resources = $this->ansiblePath;
-
-        if (is_dir($resources . '/' . $sourceDir)) {
-            foreach (glob($resources . '/' . $sourceDir . '/' . $pattern) as $file) {
-                $zip->addFile($file, $includePath . '/' . basename($file));
-            }
+    /**
+     * Renders the files defined via FileRenderers
+     * @param ZipArchive $zip
+     * @return ZipArchive
+     */
+    protected function renderFiles(ZipArchive $zip)
+    {
+        foreach ($this->renderers as $renderer) {
+            $zip->addFromString($renderer->getFilePath(), $renderer->renderFile($this->twig));
         }
+
+        return $zip;
     }
 
     /**
      * Adds a Role directory inside a Vagrant Bundle
      * @param $role
-     * @param \ZipArchive $zip
+     * @param ZipArchive $zip
      */
-    public function addRoleFiles($role, \ZipArchive $zip)
+    public function addRoleFiles($role, ZipArchive $zip)
     {
         $base = 'roles/' . $role;
 
@@ -225,5 +210,26 @@ class VagrantBundle
         /** templates */
         $dirTemplates = $base . '/templates';
         $this->includeBundleFiles($zip, $dirTemplates, '*.tpl', 'ansible/' . $dirTemplates);
+    }
+
+    /**
+     * Includes Files in the Vagrant Bundle
+     *
+     * @param ZipArchive $zip
+     * @param string $sourceDir The source directory where to get the files from
+     * @param string $pattern Pattern to be used with glob
+     * @param string $includePath Path to save the file inside the bundle, defaults to the same as sourceDir
+     */
+    public function includeBundleFiles(ZipArchive $zip, $sourceDir, $pattern = '*.*', $includePath = null)
+    {
+        $includePath = $includePath ?: $sourceDir;
+
+        $resources = $this->ansiblePath;
+
+        if (is_dir($resources . '/' . $sourceDir)) {
+            foreach (glob($resources . '/' . $sourceDir . '/' . $pattern) as $file) {
+                $zip->addFile($file, $includePath . '/' . basename($file));
+            }
+        }
     }
 }

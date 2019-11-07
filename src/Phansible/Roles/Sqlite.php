@@ -24,7 +24,7 @@ class Sqlite implements Role
     public function getInitialValues()
     {
         return [
-          'install' => 0,
+            'install' => 0,
         ];
     }
 }

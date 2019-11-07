@@ -26,7 +26,7 @@ class ElasticSearch implements Role
         return [
             'install' => 0,
             'version' => '1.5.2',
-            'port'    => '9200'
+            'port'    => '9200',
         ];
     }
 }

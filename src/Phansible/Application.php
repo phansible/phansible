@@ -2,10 +2,11 @@
 
 namespace Phansible;
 
-use Phansible\Provider\RolesServiceProvider;
+use Exception;
 use Phansible\Provider\GithubProvider;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Phansible\Provider\RolesServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @package Phansible
@@ -96,16 +97,17 @@ class Application extends \Flint\Application
      *
      * @todo: according to the docs of flint it should handle exceptions, but for some reason it doesn't seem to work.
      *
-     * @param  \Exception $exception
+     * @param Exception $exception
      * @return Response
      */
-    public function errorHandler(\Exception $exception)
+    public function errorHandler(Exception $exception)
     {
         if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
             $template = 'error.404.html.twig';
         } else {
             $template = 'error.html.twig';
         }
+
         return $this['twig']->render($template);
 
     }

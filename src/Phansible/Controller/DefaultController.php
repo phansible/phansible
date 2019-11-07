@@ -2,9 +2,9 @@
 
 namespace Phansible\Controller;
 
+use DateTimeZone;
 use Flint\Controller\Controller;
 use Michelf\Markdown;
-use DateTimeZone;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -30,7 +30,7 @@ class DefaultController extends Controller
         $roles = $this->get('roles');
 
         $initialValues = $roles->getInitialValues();
-        $config = ['config' => $config];
+        $config        = ['config' => $config];
 
         return $this->render('index.html.twig', array_merge($initialValues, $config));
     }

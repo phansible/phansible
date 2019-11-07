@@ -24,9 +24,9 @@ class Blackfire implements Role
     public function getInitialValues()
     {
         return [
-          'install' => 0,
-          'server_id' => '',
-          'server_token' => '',
+            'install'      => 0,
+            'server_id'    => '',
+            'server_token' => '',
         ];
     }
 }

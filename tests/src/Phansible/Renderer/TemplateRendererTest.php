@@ -6,6 +6,7 @@
 namespace Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class TemplateRendererTest extends TestCase
 {
@@ -37,7 +38,7 @@ class TemplateRendererTest extends TestCase
                 $this->returnValue(null)
             );
 
-        $reflectedClass = new \ReflectionClass($className);
+        $reflectedClass = new ReflectionClass($className);
         $constructor    = $reflectedClass->getConstructor();
         $constructor->invoke($mock);
     }

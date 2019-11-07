@@ -26,7 +26,7 @@ class Zookeeper implements Role
         return [
             'install' => 1,
             'version' => '3.4.6',
-            'port'    => '2181'
+            'port'    => '2181',
         ];
     }
 }

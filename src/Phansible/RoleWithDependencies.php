@@ -1,4 +1,5 @@
 <?php
+
 namespace Phansible;
 
 interface RoleWithDependencies

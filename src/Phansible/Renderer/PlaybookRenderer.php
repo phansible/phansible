@@ -29,7 +29,7 @@ class PlaybookRenderer extends TemplateRenderer
     {
         return [
             'varsfile' => $this->varsFilename,
-            'roles'  => $this->roles,
+            'roles'    => $this->roles,
         ];
     }
 
@@ -42,19 +42,19 @@ class PlaybookRenderer extends TemplateRenderer
     }
 
     /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles = [])
-    {
-        $this->roles = $roles;
-    }
-
-    /**
      * @return array
      */
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles = [])
+    {
+        $this->roles = $roles;
     }
 
     /**
