@@ -25,6 +25,11 @@ class BundleController extends Controller
      */
     private $vagrantBundle;
 
+    /**
+     * @param Request $request
+     * @param Application $app
+     * @return Response|StreamedResponse
+     */
     public function indexAction(Request $request, Application $app)
     {
         $requestVars                     = $request->request->all();
@@ -47,7 +52,7 @@ class BundleController extends Controller
         $app['roles']->setupRole($requestVars, $this->getVagrantBundle());
         $playbook->addRole('app');
 
-        $zipPath = tempnam(sys_get_temp_dir(), "phansible_bundle_");
+        $zipPath = tempnam(sys_get_temp_dir(), 'phansible_bundle_');
 
         if ($this->getVagrantBundle()->generateBundle(
             $zipPath,
@@ -62,6 +67,10 @@ class BundleController extends Controller
         return new Response('An error occurred.');
     }
 
+    /**
+     * @param $languages
+     * @return mixed|string
+     */
     public function extractLocale($languages)
     {
         $locale = 'en_US';
@@ -85,7 +94,7 @@ class BundleController extends Controller
      * @return TemplateRenderer
      * @todo: this needs some refactoring when we have more deployment methods
      */
-    private function getInventory(array $requestVars)
+    private function getInventory(array $requestVars): TemplateRenderer
     {
         $ipAddress = $requestVars['vagrant_local']['vm']['ip'];
         $inventory = new TemplateRenderer();
@@ -99,7 +108,7 @@ class BundleController extends Controller
     /**
      * @return VagrantBundle
      */
-    private function getVagrantBundle()
+    private function getVagrantBundle(): VagrantBundle
     {
         if (!$this->vagrantBundle instanceof VagrantBundle) {
             $twig = new Twig_Environment(
@@ -121,9 +130,9 @@ class BundleController extends Controller
      * @param string $filename
      * @return StreamedResponse
      */
-    private function outputBundle($zipPath, Application $app, $filename)
+    private function outputBundle($zipPath, Application $app, $filename): StreamedResponse
     {
-        $stream = function () use ($zipPath) {
+        $stream = static function () use ($zipPath) {
             echo file_get_contents($zipPath);
             unlink($zipPath);
         };
@@ -150,7 +159,7 @@ class BundleController extends Controller
     /**
      * @param VagrantBundle $vagrantBundle
      */
-    public function setVagrantBundle(VagrantBundle $vagrantBundle)
+    public function setVagrantBundle(VagrantBundle $vagrantBundle): void
     {
         $this->vagrantBundle = $vagrantBundle;
     }

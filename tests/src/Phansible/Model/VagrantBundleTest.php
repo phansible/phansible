@@ -4,6 +4,10 @@ namespace Phansible\Model;
 
 use Phansible\Renderer\VagrantfileRenderer;
 use PHPUnit\Framework\TestCase;
+use Twig_Environment;
+use Phansible\Model\VagrantBundle;
+use Phansible\Renderer\PlaybookRenderer;
+use Phansible\Renderer\VarfileRenderer;
 
 class VagrantBundleTest extends TestCase
 {
@@ -19,7 +23,7 @@ class VagrantBundleTest extends TestCase
 
     public function setUp(): void
     {
-        $this->twig = $this->getMockBuilder('\Twig_Environment')
+        $this->twig = $this->getMockBuilder(Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -33,11 +37,11 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     * @covers Phansible\Model\VagrantBundle::getVagrantFile
-     * @covers Phansible\Model\VagrantBundle::setVagrantFile
+     * @covers \Phansible\Model\VagrantBundle::__construct
+     * @covers \Phansible\Model\VagrantBundle::getVagrantFile
+     * @covers \Phansible\Model\VagrantBundle::setVagrantFile
      */
-    public function testShouldSetAndGetVagrantFile()
+    public function testShouldSetAndGetVagrantFile(): void
     {
         $vagrantFile = new VagrantfileRenderer();
         $this->model->setVagrantFile($vagrantFile);
@@ -46,29 +50,29 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     * @covers Phansible\Model\VagrantBundle::getZipArchive
+     * @covers \Phansible\Model\VagrantBundle::__construct
+     * @covers \Phansible\Model\VagrantBundle::getZipArchive
      */
-    public function testShouldRetrieveZipArchive()
+    public function testShouldRetrieveZipArchive(): void
     {
         $result = $this->model->getZipArchive();
 
-        $this->assertInstanceOf('\ZipArchive', $result);
+        $this->assertInstanceOf(\ZipArchive::class, $result);
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::addRoleFiles
-     * @covers Phansible\Model\VagrantBundle::includeBundleFiles
+     * @covers \Phansible\Model\VagrantBundle::addRoleFiles
+     * @covers \Phansible\Model\VagrantBundle::includeBundleFiles
      */
-    public function testShouldIncludeRole()
+    public function testShouldIncludeRole(): void
     {
-        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+        $model = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('includeBundleFiles'))
+            ->onlyMethods(['includeBundleFiles'])
             ->getMock();
 
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open'))
+        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+            ->onlyMethods(['open'])
             ->getMock();
 
         $model->expects($this->at(0))
@@ -93,13 +97,13 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     * @covers Phansible\Model\VagrantBundle::includeBundleFiles
+     * @covers \Phansible\Model\VagrantBundle::__construct
+     * @covers \Phansible\Model\VagrantBundle::includeBundleFiles
      */
-    public function testDefaultIncludeBundleFiles()
+    public function testDefaultIncludeBundleFiles(): void
     {
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('addFile'))
+        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+            ->onlyMethods(['addFile'])
             ->getMock();
 
         $mockedZip->expects($this->any())
@@ -112,34 +116,34 @@ class VagrantBundleTest extends TestCase
         $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
         $this->model = new VagrantBundle($ansiblePath, $this->twig);
 
-        $this->assertTrue(is_dir($ansiblePath));
+        $this->assertDirectoryExists($ansiblePath);
 
         $this->model->includeBundleFiles($mockedZip, 'vars');
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::generateBundle
+     * @covers \Phansible\Model\VagrantBundle::generateBundle
      */
-    public function testShouldRetrieveZeroWhenGenerateBundleNotOpenFilePath()
+    public function testShouldRetrieveZeroWhenGenerateBundleNotOpenFilePath(): void
     {
         $filePath = '/tmp/file.zip';
 
-        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+        $model = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('getZipArchive'))
+            ->onlyMethods(['getZipArchive'])
             ->getMock();
 
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open'))
+        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+            ->onlyMethods(['open'])
             ->getMock();
 
         $mockedZip->expects($this->once())
             ->method('open')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $model->expects($this->once())
             ->method('getZipArchive')
-            ->will($this->returnValue($mockedZip));
+            ->willReturn($mockedZip);
 
         $result = $model->generateBundle($filePath, ['nginx', 'php']);
 
@@ -147,32 +151,32 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::generateBundle
+     * @covers \Phansible\Model\VagrantBundle::generateBundle
      */
-    public function testShouldRetrieveOneWhenGenerateBundle()
+    public function testShouldRetrieveOneWhenGenerateBundle(): void
     {
         $filePath = '/tmp/file.zip';
 
-        $model = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+        $model = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('getZipArchive', 'renderFiles'))
+            ->onlyMethods(['getZipArchive', 'renderFiles'])
             ->getMock();
 
-        $mockedZip = $this->getMockBuilder('\ZipArchive')
-            ->setMethods(array('open', 'addFile', 'close'))
+        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+            ->onlyMethods(['open', 'addFile', 'close'])
             ->getMock();
 
         $mockedZip->expects($this->once())
             ->method('open')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $mockedZip->expects($this->any())
             ->method('addFile')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $model->expects($this->once())
             ->method('getZipArchive')
-            ->will($this->returnValue($mockedZip));
+            ->willReturn($mockedZip);
 
         $result = $model->generateBundle($filePath, ['nginx', 'php']);
 
@@ -180,30 +184,30 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     * @covers Phansible\Model\VagrantBundle::getPlaybook
-     * @covers Phansible\Model\VagrantBundle::setPlaybook
-     * @covers Phansible\Model\VagrantBundle::addRenderer
-     * @covers Phansible\Model\VagrantBundle::getRenderer
+     * @covers \Phansible\Model\VagrantBundle::__construct
+     * @covers \Phansible\Model\VagrantBundle::getPlaybook
+     * @covers \Phansible\Model\VagrantBundle::setPlaybook
+     * @covers \Phansible\Model\VagrantBundle::addRenderer
+     * @covers \Phansible\Model\VagrantBundle::getRenderer
      */
-    public function testShouldSetAndGetPlaybook()
+    public function testShouldSetAndGetPlaybook(): void
     {
-        $playbook = $this->createMock('Phansible\Renderer\PlaybookRenderer');
+        $playbook = $this->createMock(PlaybookRenderer::class);
 
         $this->model->setPlaybook($playbook);
         $this->assertSame($playbook, $this->model->getPlaybook());
     }
 
     /**
-     * @covers Phansible\Model\VagrantBundle::__construct
-     * @covers Phansible\Model\VagrantBundle::getVarsFile
-     * @covers Phansible\Model\VagrantBundle::setVarsFile
-     * @covers Phansible\Model\VagrantBundle::addRenderer
-     * @covers Phansible\Model\VagrantBundle::getRenderer
+     * @covers \Phansible\Model\VagrantBundle::__construct
+     * @covers \Phansible\Model\VagrantBundle::getVarsFile
+     * @covers \Phansible\Model\VagrantBundle::setVarsFile
+     * @covers \Phansible\Model\VagrantBundle::addRenderer
+     * @covers \Phansible\Model\VagrantBundle::getRenderer
      */
-    public function testShouldSetAndGetVarsFile()
+    public function testShouldSetAndGetVarsFile(): void
     {
-        $varsfile = $this->getMockBuilder('Phansible\Renderer\VarfileRenderer')
+        $varsfile = $this->getMockBuilder(VarfileRenderer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

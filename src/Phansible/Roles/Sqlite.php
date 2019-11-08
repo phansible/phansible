@@ -6,22 +6,22 @@ use Phansible\Role;
 
 class Sqlite implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'SQLite';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'sqlite';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'sqlite';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install' => 0,

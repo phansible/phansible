@@ -9,26 +9,26 @@ interface Role
      *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Get url-friendly slug, eg "vagrantfile-local"
      *
      * @return string
      */
-    public function getSlug();
+    public function getSlug(): string;
 
     /**
      * Get role name, eg "php"
      *
      * @return string
      */
-    public function getRole();
+    public function getRole(): string;
 
     /**
      * Get initial values for the form
      *
      * @return array
      */
-    public function getInitialValues();
+    public function getInitialValues(): array;
 }

@@ -6,22 +6,22 @@ use Phansible\Role;
 
 class Mongodb implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'MongoDb';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'mongodb';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'mongodb';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install' => 0,

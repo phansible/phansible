@@ -2,6 +2,8 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Application;
+use Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class SolrTest extends TestCase
@@ -10,7 +12,7 @@ class SolrTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +25,41 @@ class SolrTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Solr
+     * @covers \Phansible\Roles\Solr
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Solr::getName
+     * @covers \Phansible\Roles\Solr::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Solr', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Solr::getSlug
+     * @covers \Phansible\Roles\Solr::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('solr', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Solr::getRole
+     * @covers \Phansible\Roles\Solr::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('solr', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Solr::getInitialValues
+     * @covers \Phansible\Roles\Solr::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install' => 0,

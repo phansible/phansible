@@ -42,7 +42,7 @@ class DefaultController extends Controller
         }
         $docfile = $this->get('docs.path') . DIRECTORY_SEPARATOR . $doc . '.md';
 
-        $content = "";
+        $content = '';
 
         if (is_file($docfile)) {
             $content = Markdown::defaultTransform(file_get_contents($docfile));

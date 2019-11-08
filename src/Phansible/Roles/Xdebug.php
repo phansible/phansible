@@ -7,27 +7,27 @@ use Phansible\RoleWithDependencies;
 
 class Xdebug implements Role, RoleWithDependencies
 {
-    public function getName()
+    public function getName(): string
     {
         return 'XDebug';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'xdebug';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'xdebug';
     }
 
-    public function requiredRolesToBeInstalled()
+    public function requiredRolesToBeInstalled(): array
     {
         return ['php'];
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install' => 0,

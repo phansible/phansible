@@ -25,9 +25,9 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::loadDefaults
+     * @covers \Phansible\Renderer\VagrantfileRenderer::loadDefaults
      */
-    public function testLoadDefaults()
+    public function testLoadDefaults(): void
     {
         $this->assertEquals(512, $this->model->getMemory());
         $this->assertEquals('default', $this->model->getName());
@@ -39,9 +39,9 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getTemplate
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getTemplate
      */
-    public function testGetTemplate()
+    public function testGetTemplate(): void
     {
         $path = 'Vagrantfile.twig';
 
@@ -49,9 +49,9 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getFilePath
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getFilePath
      */
-    public function testGetFilePath()
+    public function testGetFilePath(): void
     {
         $path = 'Vagrantfile';
 
@@ -59,10 +59,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getMemory
-     * @covers Phansible\Renderer\VagrantfileRenderer::setMemory
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getMemory
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setMemory
      */
-    public function testShouldSetAndGetMemory()
+    public function testShouldSetAndGetMemory(): void
     {
         $memory = 512;
 
@@ -74,10 +74,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getName
-     * @covers Phansible\Renderer\VagrantfileRenderer::setName
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getName
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setName
      */
-    public function testShouldSetAndGetVmName()
+    public function testShouldSetAndGetVmName(): void
     {
         $vmName = 'phansible';
 
@@ -89,10 +89,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getBoxName
-     * @covers Phansible\Renderer\VagrantfileRenderer::setBoxName
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getBoxName
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setBoxName
      */
-    public function testShouldSetAndGetBox()
+    public function testShouldSetAndGetBox(): void
     {
         $box = 'precise64';
 
@@ -104,10 +104,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getBoxUrl
-     * @covers Phansible\Renderer\VagrantfileRenderer::setBoxUrl
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getBoxUrl
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setBoxUrl
      */
-    public function testShouldSetAndGetBoxUrl()
+    public function testShouldSetAndGetBoxUrl(): void
     {
         $boxUrl = 'http://files.vagrantup.com/precise64.box';
 
@@ -119,10 +119,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getIpAddress
-     * @covers Phansible\Renderer\VagrantfileRenderer::setIpAddress
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getIpAddress
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setIpAddress
      */
-    public function testShouldSetAndGetIpAddress()
+    public function testShouldSetAndGetIpAddress(): void
     {
         $ipAddress = '192.168.100.100';
 
@@ -134,10 +134,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getSyncedFolder
-     * @covers Phansible\Renderer\VagrantfileRenderer::setSyncedFolder
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getSyncedFolder
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setSyncedFolder
      */
-    public function testShouldSetAndGetSyncedFolder()
+    public function testShouldSetAndGetSyncedFolder(): void
     {
         $syncedFolder = './';
 
@@ -149,10 +149,10 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getSyncedType
-     * @covers Phansible\Renderer\VagrantfileRenderer::setSyncedType
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getSyncedType
+     * @covers \Phansible\Renderer\VagrantfileRenderer::setSyncedType
      */
-    public function testShouldSetAndGetSyncedFolderType()
+    public function testShouldSetAndGetSyncedFolderType(): void
     {
         $syncedType = 'nfs';
 
@@ -164,9 +164,9 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::getData
+     * @covers \Phansible\Renderer\VagrantfileRenderer::getData
      */
-    public function testGetData()
+    public function testGetData(): void
     {
         $data = $this->model->getData();
 
@@ -179,15 +179,15 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VagrantfileRenderer::renderFile
+     * @covers \Phansible\Renderer\VagrantfileRenderer::renderFile
      */
-    public function testShouldRenderVagrantfile()
+    public function testShouldRenderVagrantfile(): void
     {
         $this->model->setName('phansible');
 
-        $twig = $this->getMockBuilder('Twig_Environment')
+        $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())

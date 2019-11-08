@@ -6,22 +6,22 @@ use Phansible\Role;
 
 class Zookeeper implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Zookeeper';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'zookeeper';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'zookeeper';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install' => 1,

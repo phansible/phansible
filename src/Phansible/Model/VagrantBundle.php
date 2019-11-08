@@ -9,15 +9,16 @@ use Phansible\Renderer\PlaybookRenderer;
 use Phansible\Renderer\TemplateRenderer;
 use Phansible\Renderer\VagrantfileRenderer;
 use Phansible\Renderer\VarfileRenderer;
+use Phansible\Roles\VagrantLocal;
 use Twig_Environment;
 use ZipArchive;
 
 class VagrantBundle
 {
-    const VARSFILE = 'varsfile';
-    const PLAYBOOK = 'playbook';
-    const VAGRANTFILE = 'vagrantfile';
-    const INVENTORY = 'inventory';
+    public const VARSFILE = 'varsfile';
+    public const PLAYBOOK = 'playbook';
+    public const VAGRANTFILE = 'vagrantfile';
+    public const INVENTORY = 'inventory';
 
     /** @var array File Renderers */
     protected $renderers = [];
@@ -46,9 +47,9 @@ class VagrantBundle
 
     /**
      * @param PlaybookRenderer $playbook
-     * @return $this
+     * @return VagrantBundle
      */
-    public function setPlaybook(PlaybookRenderer $playbook)
+    public function setPlaybook(PlaybookRenderer $playbook): self
     {
         $this->addRenderer(self::PLAYBOOK, $playbook);
 
@@ -59,7 +60,7 @@ class VagrantBundle
      * @param string $name
      * @param FileRendererInterface $renderer
      */
-    protected function addRenderer($name, FileRendererInterface $renderer)
+    protected function addRenderer($name, FileRendererInterface $renderer): void
     {
         $this->renderers[$name] = $renderer;
     }
@@ -67,7 +68,7 @@ class VagrantBundle
     /**
      * @return PlaybookRenderer
      */
-    public function getPlaybook()
+    public function getPlaybook(): PlaybookRenderer
     {
         return $this->getRenderer(self::PLAYBOOK);
     }
@@ -83,9 +84,9 @@ class VagrantBundle
 
     /**
      * @param VarfileRenderer $varsfile
-     * @return $this
+     * @return VagrantBundle
      */
-    public function setVarsFile(VarfileRenderer $varsfile)
+    public function setVarsFile(VarfileRenderer $varsfile): self
     {
         $this->addRenderer(self::VARSFILE, $varsfile);
 
@@ -95,17 +96,18 @@ class VagrantBundle
     /**
      * @return VarfileRenderer
      */
-    public function getVarsFile()
+    public function getVarsFile(): VarfileRenderer
     {
         return $this->getRenderer(self::VARSFILE);
     }
 
     /**
      * @param VagrantfileRenderer $vagrantFile
-     * @return $this
+     * @return VagrantBundle
+     * @see VagrantLocal
      * @see Phansible\Roles\VagrantLocal::setup
      */
-    public function setVagrantFile(VagrantfileRenderer $vagrantFile)
+    public function setVagrantFile(VagrantfileRenderer $vagrantFile): self
     {
         $this->addRenderer(self::VAGRANTFILE, $vagrantFile);
 
@@ -115,12 +117,16 @@ class VagrantBundle
     /**
      * @return VagrantfileRenderer
      */
-    public function getVagrantFile()
+    public function getVagrantFile(): VagrantfileRenderer
     {
         return $this->getRenderer(self::VAGRANTFILE);
     }
 
-    public function setInventory(TemplateRenderer $inventory)
+    /**
+     * @param TemplateRenderer $inventory
+     * @return VagrantBundle
+     */
+    public function setInventory(TemplateRenderer $inventory): VagrantBundle
     {
         $this->addRenderer(self::INVENTORY, $inventory);
 
@@ -167,7 +173,7 @@ class VagrantBundle
     /**
      * @return ZipArchive
      */
-    public function getZipArchive()
+    public function getZipArchive(): ZipArchive
     {
         return new ZipArchive();
     }
@@ -177,7 +183,7 @@ class VagrantBundle
      * @param ZipArchive $zip
      * @return ZipArchive
      */
-    protected function renderFiles(ZipArchive $zip)
+    protected function renderFiles(ZipArchive $zip): ZipArchive
     {
         foreach ($this->renderers as $renderer) {
             $zip->addFromString($renderer->getFilePath(), $renderer->renderFile($this->twig));
@@ -191,7 +197,7 @@ class VagrantBundle
      * @param $role
      * @param ZipArchive $zip
      */
-    public function addRoleFiles($role, ZipArchive $zip)
+    public function addRoleFiles($role, ZipArchive $zip): void
     {
         $base = 'roles/' . $role;
 
@@ -220,7 +226,7 @@ class VagrantBundle
      * @param string $pattern Pattern to be used with glob
      * @param string $includePath Path to save the file inside the bundle, defaults to the same as sourceDir
      */
-    public function includeBundleFiles(ZipArchive $zip, $sourceDir, $pattern = '*.*', $includePath = null)
+    public function includeBundleFiles(ZipArchive $zip, $sourceDir, $pattern = '*.*', $includePath = null): void
     {
         $includePath = $includePath ?: $sourceDir;
 

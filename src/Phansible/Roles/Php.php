@@ -8,22 +8,22 @@ use Phansible\RoleValuesTransformer;
 
 class Php implements Role, RoleValuesTransformer
 {
-    public function getName()
+    public function getName(): string
     {
         return 'PHP';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'php';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'php';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install'      => 1,
@@ -36,14 +36,14 @@ class Php implements Role, RoleValuesTransformer
         ];
     }
 
-    public function transformValues(array $values, VagrantBundle $vagrantBundle)
+    public function transformValues(array $values, VagrantBundle $vagrantBundle): array
     {
         $map = [
-            "mysql"   => "php5-mysql",
-            "mariadb" => "mysql",
-            "pgsql"   => "pgsql",
-            "sqlite"  => "sqlite",
-            "mongodb" => "mongo",
+            'mysql'   => 'php5-mysql',
+            'mariadb' => 'mysql',
+            'pgsql'   => 'pgsql',
+            'sqlite'  => 'sqlite',
+            'mongodb' => 'mongo',
         ];
 
         $playbook = $vagrantBundle->getPlaybook();
@@ -59,11 +59,12 @@ class Php implements Role, RoleValuesTransformer
 
     /**
      * @param string $package
-     * @param array $requestVars
+     * @param $values
+     * @return array
      */
-    protected function addPhpPackage($package, $values)
+    protected function addPhpPackage($package, $values): array
     {
-        if (in_array($package, $values['packages']) === false) {
+        if (in_array($package, $values['packages'], true) === false) {
             $values['packages'][] = $package;
         }
 

@@ -27,7 +27,7 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::__construct
+     * @covers \Phansible\Renderer\VarfileRenderer::__construct
      */
     public function testShouldConstruct()
     {
@@ -35,7 +35,7 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::loadDefaults
+     * @covers \Phansible\Renderer\VarfileRenderer::loadDefaults
      */
     public function testLoadDefaults()
     {
@@ -43,8 +43,8 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::setName
-     * @covers Phansible\Renderer\VarfileRenderer::getName
+     * @covers \Phansible\Renderer\VarfileRenderer::setName
+     * @covers \Phansible\Renderer\VarfileRenderer::getName
      */
     public function testShouldSetAndGetName()
     {
@@ -55,8 +55,8 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::getTemplate
-     * @covers Phansible\Renderer\VarfileRenderer::setTemplate
+     * @covers \Phansible\Renderer\VarfileRenderer::getTemplate
+     * @covers \Phansible\Renderer\VarfileRenderer::setTemplate
      */
     public function testShouldSetAndGetTemplate()
     {
@@ -70,8 +70,8 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::add
-     * @covers Phansible\Renderer\VarfileRenderer::get
+     * @covers \Phansible\Renderer\VarfileRenderer::add
+     * @covers \Phansible\Renderer\VarfileRenderer::get
      */
     public function testShouldAddAndGetVar()
     {
@@ -84,8 +84,8 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::setData
-     * @covers Phansible\Renderer\VarfileRenderer::getData
+     * @covers \Phansible\Renderer\VarfileRenderer::setData
+     * @covers \Phansible\Renderer\VarfileRenderer::getData
      */
     public function testShouldSetAndGetData()
     {
@@ -104,7 +104,7 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::add
+     * @covers \Phansible\Renderer\VarfileRenderer::add
      */
     public function testShouldAddArrayValue()
     {
@@ -117,7 +117,7 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::getFilePath
+     * @covers \Phansible\Renderer\VarfileRenderer::getFilePath
      */
     public function testGetFilePath()
     {
@@ -127,13 +127,13 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::renderFile
+     * @covers \Phansible\Renderer\VarfileRenderer::renderFile
      */
     public function testShouldRenderVarfile()
     {
-        $twig = $this->getMockBuilder('Twig_Environment')
+        $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())
@@ -145,7 +145,7 @@ class VarfileRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::addMultipleVars
+     * @covers \Phansible\Renderer\VarfileRenderer::addMultipleVars
      */
     public function testShouldAddMultipleVars()
     {

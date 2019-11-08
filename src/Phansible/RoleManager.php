@@ -15,7 +15,7 @@ class RoleManager
      * Register role
      * @param Role $role
      */
-    public function register(Role $role)
+    public function register(Role $role): void
     {
         $this->roles[] = $role;
     }
@@ -24,7 +24,7 @@ class RoleManager
      * Get roles
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
@@ -33,7 +33,7 @@ class RoleManager
      * Get initial values for each role
      * @return array
      */
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         $initials = [];
         foreach ($this->roles as $role) {
@@ -49,7 +49,7 @@ class RoleManager
      * @param array $requestVars List of roles required
      * @param VagrantBundle $vagrantBundle
      */
-    public function setupRole(array $requestVars, VagrantBundle $vagrantBundle)
+    public function setupRole(array $requestVars, VagrantBundle $vagrantBundle): void
     {
         array_walk($this->roles, function (Role $role) use ($requestVars, $vagrantBundle) {
             if (!$this->willBeInstalled($role->getSlug(), $requestVars)) {
@@ -84,7 +84,7 @@ class RoleManager
      * @param array $requestVars The information of the request
      * @return boolean
      */
-    private function willBeInstalled($roleSlug, $requestVars)
+    private function willBeInstalled($roleSlug, $requestVars): bool
     {
         if (!array_key_exists($roleSlug, $requestVars)) {
             return false;
@@ -92,10 +92,6 @@ class RoleManager
 
         $config = $requestVars[$roleSlug];
 
-        if (!is_array($config) || !array_key_exists('install', $config) || $config['install'] == 0) {
-            return false;
-        }
-
-        return true;
+        return !(!is_array($config) || !array_key_exists('install', $config) || $config['install'] === 0);
     }
 }

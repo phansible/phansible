@@ -13,7 +13,7 @@ class GithubAdapter
     /**
      * Github SDK HttpClient.
      *
-     * @var HttpClient
+     * @var Client
      */
     private $client;
 
@@ -36,7 +36,7 @@ class GithubAdapter
      * @return array
      * @throws InvalidArgumentException If the requested resource is not in the list of valid ones.
      */
-    public function get($resource)
+    public function get($resource): array
     {
         if (!isset($this->resources[$resource])) {
             throw new InvalidArgumentException('The requested resource is not in the list');

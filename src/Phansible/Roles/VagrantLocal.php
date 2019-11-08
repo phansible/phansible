@@ -20,27 +20,27 @@ class VagrantLocal implements Role, RoleValuesTransformer
         $this->app = $app;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'Local';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'vagrant_local';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'vagrant_local';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [];
     }
 
-    public function transformValues(array $values, VagrantBundle $vagrantBundle)
+    public function transformValues(array $values, VagrantBundle $vagrantBundle): array
     {
         $vagrantFile = $this->getVagrantfile($values);
         $vagrantBundle->setVagrantFile($vagrantFile);

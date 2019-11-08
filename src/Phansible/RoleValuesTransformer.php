@@ -13,5 +13,5 @@ interface RoleValuesTransformer
      * @param VagrantBundle $vagrantBundle This is required biy PHP role, Should not be used.
      * @return array The final configuration of the role.
      */
-    public function transformValues(array $values, VagrantBundle $vagrantBundle);
+    public function transformValues(array $values, VagrantBundle $vagrantBundle): array;
 }

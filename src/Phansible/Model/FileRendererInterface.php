@@ -15,29 +15,29 @@ interface FileRendererInterface
      * @param Twig_Environment $twig
      * @return string Rendered template
      */
-    public function renderFile(Twig_Environment $twig);
+    public function renderFile(Twig_Environment $twig): string;
 
     /**
      * Loads any default values
      * @return void
      */
-    public function loadDefaults();
+    public function loadDefaults(): void;
 
     /**
      * Template to be used for rendering
      * @return string
      */
-    public function getTemplate();
+    public function getTemplate(): string;
 
     /**
      * Returns the data for the template
      * @return array
      */
-    public function getData();
+    public function getData(): array;
 
     /**
      * FilePath for saving the rendered template
      * @return string
      */
-    public function getFilePath();
+    public function getFilePath(): string;
 }

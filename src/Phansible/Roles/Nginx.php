@@ -6,22 +6,22 @@ use Phansible\Role;
 
 class Nginx implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Nginx';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'nginx';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'nginx';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install'    => 1,

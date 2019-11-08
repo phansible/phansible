@@ -44,7 +44,7 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::add
+     * @covers \Phansible\Renderer\TemplateRenderer::add
      */
     public function testShouldAddArrayValue()
     {
@@ -57,8 +57,8 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::setFilePath
-     * @covers Phansible\Renderer\TemplateRenderer::getFilePath
+     * @covers \Phansible\Renderer\TemplateRenderer::setFilePath
+     * @covers \Phansible\Renderer\TemplateRenderer::getFilePath
      */
     public function testShouldSetAndGetFilePath()
     {
@@ -70,7 +70,7 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::getData
+     * @covers \Phansible\Renderer\TemplateRenderer::getData
      */
     public function testGetData()
     {
@@ -82,13 +82,13 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::renderFile
+     * @covers \Phansible\Renderer\TemplateRenderer::renderFile
      */
     public function testRenderFile()
     {
-        $twig = $this->getMockBuilder('Twig_Environment')
+        $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())

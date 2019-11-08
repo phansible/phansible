@@ -16,8 +16,8 @@ class DefaultControllerTest extends TestCase
     public function setUp(): void
     {
         $this->controller = new DefaultController();
-        $this->twig       = $this->getMockBuilder('\Twig_Environment')
-            ->setMethods(['render'])
+        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
+            ->onlyMethods(['render'])
             ->getMock();
     }
 
@@ -30,7 +30,7 @@ class DefaultControllerTest extends TestCase
     /**
      * @covers \Phansible\Controller\DefaultController::indexAction
      */
-    public function testShouldRenderIndexAction()
+    public function testShouldRenderIndexAction(): void
     {
         $container = new Pimple();
 
@@ -61,7 +61,7 @@ class DefaultControllerTest extends TestCase
      * @covers \Phansible\Controller\DefaultController::docsAction
      * @expectException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function testShouldThrowExceptionWhenDocFileNotExists()
+    public function testShouldThrowExceptionWhenDocFileNotExists(): void
     {
         $doc = '';
         $this->expectException(NotFoundHttpException::class);
@@ -71,7 +71,7 @@ class DefaultControllerTest extends TestCase
     /**
      * @covers \Phansible\Controller\DefaultController::docsAction
      */
-    public function testShouldRenderDocsActionWhenFileExists()
+    public function testShouldRenderDocsActionWhenFileExists(): void
     {
         $container = new Pimple();
 

@@ -2,7 +2,9 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Role;
 use PHPUnit\Framework\TestCase;
+use Phansible\Application;
 
 class BlackfireTest extends TestCase
 {
@@ -10,7 +12,7 @@ class BlackfireTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +25,41 @@ class BlackfireTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Blackfire
+     * @covers \Phansible\Roles\Blackfire
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Blackfire::getName
+     * @covers \Phansible\Roles\Blackfire::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Blackfire', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Blackfire::getSlug
+     * @covers \Phansible\Roles\Blackfire::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('blackfire', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Blackfire::getRole
+     * @covers \Phansible\Roles\Blackfire::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('blackfire', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Blackfire::getInitialValues
+     * @covers \Phansible\Roles\Blackfire::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install'      => 0,

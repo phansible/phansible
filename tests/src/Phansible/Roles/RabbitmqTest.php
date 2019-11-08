@@ -2,6 +2,7 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class RabbitmqTest extends TestCase
@@ -10,7 +11,7 @@ class RabbitmqTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +24,41 @@ class RabbitmqTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq
+     * @covers \Phansible\Roles\Rabbitmq
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getName
+     * @covers \Phansible\Roles\Rabbitmq::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('RabbitMQ', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getSlug
+     * @covers \Phansible\Roles\Rabbitmq::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('rabbitmq', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getRole
+     * @covers \Phansible\Roles\Rabbitmq::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('rabbitmq', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getInitialValues
+     * @covers \Phansible\Roles\Rabbitmq::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install'  => 0,

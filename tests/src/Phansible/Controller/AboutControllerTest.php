@@ -4,6 +4,7 @@ namespace Phansible\Controller;
 
 use PHPUnit\Framework\TestCase;
 use Pimple;
+use Phansible\Model\GithubAdapter;
 
 class AboutControllerTest extends TestCase
 {
@@ -13,8 +14,8 @@ class AboutControllerTest extends TestCase
     public function setUp(): void
     {
         $this->controller = new AboutController();
-        $this->twig       = $this->getMockBuilder('\Twig_Environment')
-            ->setMethods(['render'])
+        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
+            ->onlyMethods(['render'])
             ->getMock();
     }
 
@@ -27,7 +28,7 @@ class AboutControllerTest extends TestCase
     /**
      * @covers \Phansible\Controller\AboutController::indexAction
      */
-    public function testShouldRenderindexAction()
+    public function testShouldRenderindexAction(): void
     {
         $container = new Pimple();
 
@@ -38,13 +39,13 @@ class AboutControllerTest extends TestCase
                 $this->arrayHasKey('contributors')
             );
 
-        $github = $this->getMockBuilder('\Phansible\Model\GithubAdapter')
+        $github = $this->getMockBuilder(GithubAdapter::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $github->expects($this->any())
             ->method('get')
-            ->will($this->returnValue(['contributors-data']));
+            ->willReturn(['contributors-data']);
 
         $container['twig']        = $this->twig;
         $container['config']      = [];

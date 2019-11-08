@@ -34,7 +34,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function loadDefaults()
+    public function loadDefaults(): void
     {
         $this->setTemplate('Vagrantfile.twig');
         $this->setFilePath('Vagrantfile');
@@ -52,7 +52,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getData(): array
     {
         return [
             'vmName'       => strtolower($this->getName()),
@@ -69,7 +69,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -77,7 +77,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -85,7 +85,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getMemory()
+    public function getMemory(): string
     {
         return $this->memory;
     }
@@ -93,7 +93,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $memory
      */
-    public function setMemory($memory)
+    public function setMemory($memory): void
     {
         $this->memory = $memory;
     }
@@ -101,7 +101,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getBoxUrl()
+    public function getBoxUrl(): string
     {
         return $this->boxUrl;
     }
@@ -109,7 +109,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $boxUrl
      */
-    public function setBoxUrl($boxUrl)
+    public function setBoxUrl($boxUrl): void
     {
         $this->boxUrl = $boxUrl;
     }
@@ -117,7 +117,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getBoxName()
+    public function getBoxName(): string
     {
         return $this->boxName;
     }
@@ -125,7 +125,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $boxName
      */
-    public function setBoxName($boxName)
+    public function setBoxName($boxName): void
     {
         $this->boxName = $boxName;
     }
@@ -133,7 +133,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getIpAddress()
+    public function getIpAddress(): string
     {
         return $this->ipAddress;
     }
@@ -141,7 +141,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $ipAddress
      */
-    public function setIpAddress($ipAddress)
+    public function setIpAddress($ipAddress): void
     {
         $this->ipAddress = $ipAddress;
     }
@@ -149,7 +149,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getSyncedFolder()
+    public function getSyncedFolder(): string
     {
         return $this->syncedFolder;
     }
@@ -157,7 +157,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $syncedFolder
      */
-    public function setSyncedFolder($syncedFolder)
+    public function setSyncedFolder($syncedFolder): void
     {
         $this->syncedFolder = $syncedFolder;
     }
@@ -165,7 +165,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getMountPoint()
+    public function getMountPoint(): string
     {
         return $this->mountPoint;
     }
@@ -173,7 +173,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $mountPoint
      */
-    public function setMountPoint($mountPoint)
+    public function setMountPoint($mountPoint): void
     {
         $this->mountPoint = $mountPoint;
     }
@@ -181,7 +181,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @return string
      */
-    public function getSyncedType()
+    public function getSyncedType(): string
     {
         return $this->syncedType;
     }
@@ -189,7 +189,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $syncedType
      */
-    public function setSyncedType($syncedType)
+    public function setSyncedType($syncedType): void
     {
         $this->syncedType = $syncedType;
     }

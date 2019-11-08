@@ -2,7 +2,9 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Role;
 use PHPUnit\Framework\TestCase;
+use Phansible\Application;
 
 class BeanstalkdTest extends TestCase
 {
@@ -10,7 +12,7 @@ class BeanstalkdTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +25,41 @@ class BeanstalkdTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd
+     * @covers \Phansible\Roles\Beanstalkd
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getName
+     * @covers \Phansible\Roles\Beanstalkd::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Beanstalkd', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getSlug
+     * @covers \Phansible\Roles\Beanstalkd::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('beanstalkd', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getRole
+     * @covers \Phansible\Roles\Beanstalkd::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('beanstalkd', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getInitialValues
+     * @covers \Phansible\Roles\Beanstalkd::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install'       => 0,

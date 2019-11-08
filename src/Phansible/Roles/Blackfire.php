@@ -6,22 +6,22 @@ use Phansible\Role;
 
 class Blackfire implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Blackfire';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'blackfire';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'blackfire';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install'      => 0,

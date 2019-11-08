@@ -7,6 +7,9 @@
 namespace Phansible\Renderer;
 
 use Phansible\Model\FileRendererInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig_Environment;
 
 class TemplateRenderer implements FileRendererInterface
@@ -32,17 +35,19 @@ class TemplateRenderer implements FileRendererInterface
      * Loads any default values
      * @return void
      */
-    public function loadDefaults()
+    public function loadDefaults(): void
     {
-        return null;
     }
 
     /**
      * Renders the Template
      * @param Twig_Environment $twig
      * @return string Rendered template contents
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function renderFile(Twig_Environment $twig)
+    public function renderFile(Twig_Environment $twig): string
     {
         return $twig->render($this->getTemplate(), $this->getData());
     }
@@ -51,21 +56,21 @@ class TemplateRenderer implements FileRendererInterface
      * Template to be used for rendering
      * @return string
      */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->templateFile;
     }
 
     /**
      * Returns the data for the template
-     * @return Array
+     * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
 
-    public function setData(array $data)
+    public function setData(array $data): void
     {
         foreach ($data as $key => $item) {
             $this->add($key, $item);
@@ -76,7 +81,7 @@ class TemplateRenderer implements FileRendererInterface
      * @param string $key
      * @param mixed $value
      */
-    public function add($key, $value)
+    public function add($key, $value): void
     {
         $this->data[$key] = $value;
     }
@@ -85,7 +90,7 @@ class TemplateRenderer implements FileRendererInterface
      * Sets the Template Path
      * @param string $templateFile
      */
-    public function setTemplate($templateFile)
+    public function setTemplate($templateFile): void
     {
         $this->templateFile = $templateFile;
     }
@@ -96,13 +101,13 @@ class TemplateRenderer implements FileRendererInterface
      */
     public function get($key)
     {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
+        return $this->data[$key] ?? null;
     }
 
     /**
      * FilePath for saving the rendered template
      */
-    public function getFilePath()
+    public function getFilePath(): string
     {
         return $this->filePath;
     }
@@ -111,7 +116,7 @@ class TemplateRenderer implements FileRendererInterface
      * Defines the path where the rendered file should be saved
      * @param string $filePath
      */
-    public function setFilePath($filePath)
+    public function setFilePath($filePath): void
     {
         $this->filePath = $filePath;
     }

@@ -26,7 +26,7 @@ class Application extends \Flint\Application
     /**
      * Initialize application
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->initProviders();
 
@@ -41,7 +41,7 @@ class Application extends \Flint\Application
     /**
      * Register service providers
      */
-    protected function initProviders()
+    protected function initProviders(): void
     {
         $this->register(new RolesServiceProvider());
         $this->register(new GithubProvider());
@@ -50,7 +50,7 @@ class Application extends \Flint\Application
     /**
      * Initialize roles
      */
-    protected function initRoles()
+    protected function initRoles(): void
     {
         // Server settings
         $this['roles']->register(new Roles\Server());
@@ -100,9 +100,9 @@ class Application extends \Flint\Application
      * @param Exception $exception
      * @return Response
      */
-    public function errorHandler(Exception $exception)
+    public function errorHandler(Exception $exception): Response
     {
-        if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
+        if ($exception instanceof HttpException && $exception->getStatusCode() === 404) {
             $template = 'error.404.html.twig';
         } else {
             $template = 'error.html.twig';

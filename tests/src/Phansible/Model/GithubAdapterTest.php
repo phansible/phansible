@@ -5,24 +5,25 @@ namespace Phansible\Model;
 use Github\Client;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Github\Api\Repo;
 
 class GithubAdapterTest extends TestCase
 {
-    public function testThatGetRetrievesListOfContributors()
+    public function testThatGetRetrievesListOfContributors(): void
     {
         $httpResponse = '{"user": "data"}';
 
-        $repo = $this->createMock('Github\Api\Repo');
+        $repo = $this->createMock(Repo::class);
 
         $repo->expects($this->once())
             ->method('statistics')
-            ->will($this->returnValue($httpResponse));
+            ->willReturn($httpResponse);
 
-        $client = $this->createMock('Github\Client');
+        $client = $this->createMock(Client::class);
 
         $client->expects($this->once())
             ->method('api')
-            ->will($this->returnValue($repo));
+            ->willReturn($repo);
 
         $adapter = new GithubAdapter($client);
 
@@ -32,7 +33,7 @@ class GithubAdapterTest extends TestCase
         );
     }
 
-    public function testThatANotValidResourceThrowsException()
+    public function testThatANotValidResourceThrowsException(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

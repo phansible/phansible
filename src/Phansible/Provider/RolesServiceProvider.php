@@ -11,9 +11,9 @@ class RolesServiceProvider implements ServiceProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function register(Application $app)
+    public function register(Application $app): void
     {
-        $app['roles'] = function () {
+        $app['roles'] = static function () {
             return new RoleManager();
         };
     }
@@ -21,7 +21,7 @@ class RolesServiceProvider implements ServiceProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function boot(Application $app)
+    public function boot(Application $app): void
     {
     }
 }

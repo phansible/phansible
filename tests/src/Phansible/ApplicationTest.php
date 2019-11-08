@@ -9,7 +9,7 @@ class ApplicationTest extends TestCase
     /**
      * @covers \Phansible\Application::__construct
      */
-    public function testShouldVerifyInformationPassedByConstructor()
+    public function testShouldVerifyInformationPassedByConstructor(): void
     {
         $app = new Application(__DIR__);
 

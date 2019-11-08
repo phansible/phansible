@@ -6,22 +6,22 @@ use Phansible\Role;
 
 class Hhvm implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'HHVM';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'hhvm';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'hhvm';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install' => 0,

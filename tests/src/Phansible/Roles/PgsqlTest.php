@@ -3,6 +3,8 @@
 namespace Phansible\Roles;
 
 use PHPUnit\Framework\TestCase;
+use Phansible\Application;
+use Phansible\Role;
 
 class PgsqlTest extends TestCase
 {
@@ -10,7 +12,7 @@ class PgsqlTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +25,41 @@ class PgsqlTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Pgsql
+     * @covers \Phansible\Roles\Pgsql
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Pgsql::getName
+     * @covers \Phansible\Roles\Pgsql::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('PostgreSQL', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Pgsql::getSlug
+     * @covers \Phansible\Roles\Pgsql::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('pgsql', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Pgsql::getRole
+     * @covers \Phansible\Roles\Pgsql::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('pgsql', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Pgsql::getInitialValues
+     * @covers \Phansible\Roles\Pgsql::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install'       => 0,

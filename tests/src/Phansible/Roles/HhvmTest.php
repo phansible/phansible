@@ -2,7 +2,9 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Role;
 use PHPUnit\Framework\TestCase;
+use Phansible\Application;
 
 class HhvmTest extends TestCase
 {
@@ -10,7 +12,7 @@ class HhvmTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +25,41 @@ class HhvmTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Hhvm
+     * @covers \Phansible\Roles\Hhvm
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Hhvm::getName
+     * @covers \Phansible\Roles\Hhvm::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('HHVM', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Hhvm::getSlug
+     * @covers \Phansible\Roles\Hhvm::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('hhvm', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Hhvm::getRole
+     * @covers \Phansible\Roles\Hhvm::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('hhvm', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Hhvm::getInitialValues
+     * @covers \Phansible\Roles\Hhvm::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install' => 0,

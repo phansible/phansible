@@ -2,7 +2,9 @@
 
 namespace Phansible\Roles;
 
+use Phansible\Role;
 use PHPUnit\Framework\TestCase;
+use Phansible\Application;
 
 class MariadbTest extends TestCase
 {
@@ -10,7 +12,7 @@ class MariadbTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -23,41 +25,41 @@ class MariadbTest extends TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Mariadb
+     * @covers \Phansible\Roles\Mariadb
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Mariadb::getName
+     * @covers \Phansible\Roles\Mariadb::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('MariaDb', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Mariadb::getSlug
+     * @covers \Phansible\Roles\Mariadb::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('mariadb', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Mariadb::getRole
+     * @covers \Phansible\Roles\Mariadb::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('mariadb', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Mariadb::getInitialValues
+     * @covers \Phansible\Roles\Mariadb::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install'       => 0,
