@@ -91,7 +91,8 @@ class PlaybookRendererTest extends TestCase
 
         $twig->expects($this->once())
             ->method('render')
-            ->with($this->equalTo('playbook.yml.twig'), $this->model->getData());
+            ->with($this->equalTo('playbook.yml.twig'), $this->model->getData())
+            ->willReturn('');
 
         $this->model->renderFile($twig);
     }

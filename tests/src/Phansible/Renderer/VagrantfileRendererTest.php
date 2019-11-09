@@ -192,10 +192,10 @@ class VagrantfileRendererTest extends TestCase
 
         $twig->expects($this->once())
             ->method('render')
-            ->with($this->equalTo('Vagrantfile.twig'), $this->model->getData());
+            ->with($this->equalTo('Vagrantfile.twig'), $this->model->getData())
+            ->willReturn('');
 
-        $result = $this->model->renderFile($twig);
-
+        $this->model->renderFile($twig);
     }
 
 

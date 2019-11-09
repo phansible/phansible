@@ -93,7 +93,8 @@ class TemplateRendererTest extends TestCase
 
         $twig->expects($this->once())
             ->method('render')
-            ->with($this->equalTo('Vagrantfile.twig'), $this->model->getData());
+            ->with($this->equalTo('Vagrantfile.twig'), $this->model->getData())
+            ->willReturn('');
 
         $this->model->renderFile($twig);
     }

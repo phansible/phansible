@@ -138,10 +138,10 @@ class VarfileRendererTest extends TestCase
 
         $twig->expects($this->once())
             ->method('render')
-            ->with($this->equalTo('vars.yml.twig'), $this->model->getData());
+            ->with($this->equalTo('vars.yml.twig'), $this->model->getData())
+            ->willReturn('');
 
-        $result = $this->model->renderFile($twig);
-
+        $this->model->renderFile($twig);
     }
 
     /**

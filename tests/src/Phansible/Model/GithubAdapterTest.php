@@ -11,7 +11,7 @@ class GithubAdapterTest extends TestCase
 {
     public function testThatGetRetrievesListOfContributors(): void
     {
-        $httpResponse = '{"user": "data"}';
+        $httpResponse = ['user' => 'data'];
 
         $repo = $this->createMock(Repo::class);
 
@@ -28,7 +28,7 @@ class GithubAdapterTest extends TestCase
         $adapter = new GithubAdapter($client);
 
         $this->assertSame(
-            '{"user": "data"}',
+            ['user' => 'data'],
             $adapter->get('contributors')
         );
     }
