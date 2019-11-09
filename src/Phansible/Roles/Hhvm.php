@@ -3,31 +3,30 @@
 namespace Phansible\Roles;
 
 use Phansible\Role;
-use Phansible\Model\VagrantBundle;
 
 class Hhvm implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'HHVM';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'hhvm';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'hhvm';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-          'install' => 0,
-          'host' => '127.0.0.1',
-          'port' => 9000,
+            'install' => 0,
+            'host'    => '127.0.0.1',
+            'port'    => 9000,
         ];
     }
 }

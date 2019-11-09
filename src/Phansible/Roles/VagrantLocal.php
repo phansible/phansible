@@ -3,15 +3,15 @@
 namespace Phansible\Roles;
 
 use Phansible\Application;
-use Phansible\Role;
-use Phansible\RoleValuesTransformer;
 use Phansible\Model\VagrantBundle;
 use Phansible\Renderer\VagrantfileRenderer;
+use Phansible\Role;
+use Phansible\RoleValuesTransformer;
 
 class VagrantLocal implements Role, RoleValuesTransformer
 {
     /**
-     * @var \Phansible\Application
+     * @var Application
      */
     private $app;
 
@@ -20,27 +20,27 @@ class VagrantLocal implements Role, RoleValuesTransformer
         $this->app = $app;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'Local';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'vagrant_local';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'vagrant_local';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [];
     }
 
-    public function transformValues(array $values, VagrantBundle $vagrantBundle)
+    public function transformValues(array $values, VagrantBundle $vagrantBundle): array
     {
         $vagrantFile = $this->getVagrantfile($values);
         $vagrantBundle->setVagrantFile($vagrantFile);
@@ -55,7 +55,7 @@ class VagrantLocal implements Role, RoleValuesTransformer
     private function getVagrantfile(array $config)
     {
         $boxName = $config['vm']['base_box'];
-        $box = $this->getBox($boxName);
+        $box     = $this->getBox($boxName);
 
         $vagrantfile = new VagrantfileRenderer();
         $vagrantfile->setTemplate('vagrant_local.twig');
@@ -68,8 +68,8 @@ class VagrantLocal implements Role, RoleValuesTransformer
         $vagrantfile->setSyncedType($config['vm']['syncType']);
 
         // Add box url when NOT using the vagrant cloud
-        if (! isset($config['vm']['useVagrantCloud'])) {
-             $vagrantfile->setBoxUrl($box['url']);
+        if (!isset($config['vm']['useVagrantCloud'])) {
+            $vagrantfile->setBoxUrl($box['url']);
         }
 
         return $vagrantfile;
@@ -77,7 +77,7 @@ class VagrantLocal implements Role, RoleValuesTransformer
 
     private function getBox($boxName)
     {
-        $boxes = $this->app['boxes']['virtualbox'];
+        $boxes   = $this->app['boxes']['virtualbox'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
 
         return $boxes[$boxName];

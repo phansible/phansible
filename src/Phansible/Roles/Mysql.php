@@ -6,31 +6,31 @@ use Phansible\Role;
 
 class Mysql implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'MySQL';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'mysql';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'mysql';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-            'install' => 1,
+            'install'       => 1,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
+            'databases'     => [
+                'name'     => 'dbname',
+                'user'     => 'name',
                 'password' => 123,
-            ]
+            ],
         ];
     }
 }

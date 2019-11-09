@@ -5,28 +5,29 @@
 
 namespace Phansible\Renderer;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
 
-class VarfileRendererTest extends \PHPUnit_Framework_TestCase
+class VarfileRendererTest extends TestCase
 {
     /**
      * @var VarfileRenderer
      */
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->model = new VarfileRenderer('common');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::__construct
+     * @covers \Phansible\Renderer\VarfileRenderer::__construct
      */
     public function testShouldConstruct()
     {
@@ -34,7 +35,7 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::loadDefaults
+     * @covers \Phansible\Renderer\VarfileRenderer::loadDefaults
      */
     public function testLoadDefaults()
     {
@@ -42,8 +43,8 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::setName
-     * @covers Phansible\Renderer\VarfileRenderer::getName
+     * @covers \Phansible\Renderer\VarfileRenderer::setName
+     * @covers \Phansible\Renderer\VarfileRenderer::getName
      */
     public function testShouldSetAndGetName()
     {
@@ -54,8 +55,8 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::getTemplate
-     * @covers Phansible\Renderer\VarfileRenderer::setTemplate
+     * @covers \Phansible\Renderer\VarfileRenderer::getTemplate
+     * @covers \Phansible\Renderer\VarfileRenderer::setTemplate
      */
     public function testShouldSetAndGetTemplate()
     {
@@ -69,8 +70,8 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::add
-     * @covers Phansible\Renderer\VarfileRenderer::get
+     * @covers \Phansible\Renderer\VarfileRenderer::add
+     * @covers \Phansible\Renderer\VarfileRenderer::get
      */
     public function testShouldAddAndGetVar()
     {
@@ -83,27 +84,27 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::setData
-     * @covers Phansible\Renderer\VarfileRenderer::getData
+     * @covers \Phansible\Renderer\VarfileRenderer::setData
+     * @covers \Phansible\Renderer\VarfileRenderer::getData
      */
     public function testShouldSetAndGetData()
     {
         $this->model->setData([
-            'key' => 'value'
+            'key' => 'value',
         ]);
 
-        $data = $this->model->getData();
+        $data   = $this->model->getData();
         $parser = new Parser();
 
         $this->assertArrayHasKey('variables', $data);
         $this->assertTrue(is_array(
             $parser->parse($data['variables'], 1)
-          ));
+        ));
 
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::add
+     * @covers \Phansible\Renderer\VarfileRenderer::add
      */
     public function testShouldAddArrayValue()
     {
@@ -116,7 +117,7 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::getFilePath
+     * @covers \Phansible\Renderer\VarfileRenderer::getFilePath
      */
     public function testGetFilePath()
     {
@@ -126,38 +127,38 @@ class VarfileRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::renderFile
+     * @covers \Phansible\Renderer\VarfileRenderer::renderFile
      */
     public function testShouldRenderVarfile()
     {
-        $twig = $this->getMockBuilder('Twig_Environment')
+        $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())
             ->method('render')
-            ->with($this->equalTo('vars.yml.twig'), $this->model->getData());
+            ->with($this->equalTo('vars.yml.twig'), $this->model->getData())
+            ->willReturn('');
 
-        $result = $this->model->renderFile($twig);
-
+        $this->model->renderFile($twig);
     }
 
     /**
-     * @covers Phansible\Renderer\VarfileRenderer::addMultipleVars
+     * @covers \Phansible\Renderer\VarfileRenderer::addMultipleVars
      */
     public function testShouldAddMultipleVars()
     {
         $vars = [
             'region' => 'brazil',
-            'os'     => 'debian'
+            'os'     => 'debian',
         ];
 
         $this->model->addMultipleVars($vars);
 
         $expected = [
             'variables' => Yaml::dump($vars),
-            'name'      => 'common'
+            'name'      => 'common',
         ];
 
         $this->assertEquals($expected, $this->model->getData());

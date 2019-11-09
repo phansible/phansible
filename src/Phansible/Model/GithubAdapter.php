@@ -2,8 +2,7 @@
 
 namespace Phansible\Model;
 
-use Github\HttpClient\HttpClient;
-use Github\HttpClient\Message\ResponseMediator;
+use Github\Client;
 use InvalidArgumentException;
 
 /**
@@ -14,7 +13,7 @@ class GithubAdapter
     /**
      * Github SDK HttpClient.
      *
-     * @var HttpClient
+     * @var Client
      */
     private $client;
 
@@ -23,9 +22,9 @@ class GithubAdapter
      *
      * @var string[]
      */
-    private $resources = ['contributors' => 'repos/Phansible/phansible/stats/contributors'];
+    private $resources = ['contributors' => 'repos'];
 
-    public function __construct(HttpClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
@@ -33,16 +32,16 @@ class GithubAdapter
     /**
      * Retrieves a resource information.
      *
-     * @param  string $resource The name of the resource. Should be a key in $resources.
+     * @param string $resource The name of the resource. Should be a key in $resources.
      * @return array
      * @throws InvalidArgumentException If the requested resource is not in the list of valid ones.
      */
-    public function get($resource)
+    public function get($resource): array
     {
         if (!isset($this->resources[$resource])) {
             throw new InvalidArgumentException('The requested resource is not in the list');
         }
 
-        return ResponseMediator::getContent($this->client->get($this->resources[$resource]));
+        return ($this->client->api($this->resources[$resource]))->statistics('phansible', 'phansible');
     }
 }

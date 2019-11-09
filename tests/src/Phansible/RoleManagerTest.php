@@ -3,19 +3,21 @@
 namespace Phansible;
 
 use Phansible\Model\VagrantBundle;
+use PHPUnit\Framework\TestCase;
+use Phansible\Role;
 
-class RoleManagerTest extends \PHPUnit_Framework_TestCase
+class RoleManagerTest extends TestCase
 {
     protected $roleManager;
 
-    public function setup()
+    public function setup(): void
     {
         $this->roleManager = new RoleManager();
     }
 
-    public function testThatRegisterAddsTheGivenRoleToTheListOfRoles()
+    public function testThatRegisterAddsTheGivenRoleToTheListOfRoles(): void
     {
-        $registeredRole = $this->getMockBuilder('Phansible\Role')
+        $registeredRole = $this->getMockBuilder(Role::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -29,16 +31,16 @@ class RoleManagerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function DisableForNowtestThatOurRolesAreBeingSetUp()
+    public function DisableForNowtestThatOurRolesAreBeingSetUp(): void
     {
-        $firstRole = $this->getMockBuilder('Phansible\Role')
+        $firstRole = $this->getMockBuilder(Role::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $firstRole->expects($this->once())
             ->method('setup');
 
-        $secondRole = $this->getMockBuilder('Phansible\Role')
+        $secondRole = $this->getMockBuilder(Role::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -48,26 +50,26 @@ class RoleManagerTest extends \PHPUnit_Framework_TestCase
         $this->roleManager->register($firstRole);
         $this->roleManager->register($secondRole);
 
-        $twig = $this->getMockBuilder('\Twig_Environment')
+        $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->roleManager->setupRole(['a list of valid variables'], new VagrantBundle('path/to/ansible', $twig));
     }
 
-    public function testWeAreAbleToRetrieveRolesInitialValues()
+    public function testWeAreAbleToRetrieveRolesInitialValues(): void
     {
-        $role = $this->getMockBuilder('Phansible\Role')
+        $role = $this->getMockBuilder(Role::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $role->expects($this->any())
             ->method('getSlug')
-            ->will($this->returnValue('MySlug'));
+            ->willReturn('MySlug');
 
         $role->expects($this->any())
             ->method('getInitialValues')
-            ->will($this->returnValue(['default values']));
+            ->willReturn(['default values']);
 
         $this->roleManager->register($role);
 

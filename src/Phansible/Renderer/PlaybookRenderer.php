@@ -16,7 +16,7 @@ class PlaybookRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function loadDefaults()
+    public function loadDefaults(): void
     {
         $this->setTemplate('playbook.yml.twig');
         $this->setFilePath('ansible/playbook.yml');
@@ -25,42 +25,42 @@ class PlaybookRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getData(): array
     {
         return [
             'varsfile' => $this->varsFilename,
-            'roles'  => $this->roles,
+            'roles'    => $this->roles,
         ];
     }
 
     /**
      * @param string $varsFilename
      */
-    public function setVarsFilename($varsFilename)
+    public function setVarsFilename($varsFilename): void
     {
         $this->varsFilename = $varsFilename;
     }
 
     /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles = [])
-    {
-        $this->roles = $roles;
-    }
-
-    /**
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
 
     /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles = []): void
+    {
+        $this->roles = $roles;
+    }
+
+    /**
      * @param string $role
      */
-    public function addRole($role)
+    public function addRole($role): void
     {
         $this->roles[] = $role;
     }
@@ -69,8 +69,8 @@ class PlaybookRenderer extends TemplateRenderer
      * @param string $role
      * @return boolean
      */
-    public function hasRole($role)
+    public function hasRole($role): bool
     {
-        return array_search($role, $this->roles) !== false;
+        return in_array($role, $this->roles, true);
     }
 }

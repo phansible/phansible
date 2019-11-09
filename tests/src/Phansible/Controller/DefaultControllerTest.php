@@ -3,32 +3,36 @@
 namespace Phansible\Controller;
 
 use Phansible\RoleManager;
+use PHPUnit\Framework\TestCase;
+use Pimple;
+use SplFileObject;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class DefaultControllerTest extends \PHPUnit_Framework_TestCase
+class DefaultControllerTest extends TestCase
 {
     private $controller;
     private $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->controller = new DefaultController();
-        $this->twig       = $this->getMockBuilder('\Twig_Environment')
-            ->setMethods(['render'])
+        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
+            ->onlyMethods(['render'])
             ->getMock();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->controller = null;
-        $this->twig = null;
+        $this->twig       = null;
     }
 
     /**
      * @covers \Phansible\Controller\DefaultController::indexAction
      */
-    public function testShouldRenderIndexAction()
+    public function testShouldRenderIndexAction(): void
     {
-        $container = new \Pimple();
+        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -52,22 +56,24 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setPimple($container);
         $this->controller->indexAction();
     }
+
     /**
      * @covers \Phansible\Controller\DefaultController::docsAction
-     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function testShouldThrowExceptionWhenDocFileNotExists()
+    public function testShouldThrowExceptionWhenDocFileNotExists(): void
     {
         $doc = '';
+        $this->expectException(NotFoundHttpException::class);
         $this->controller->docsAction($doc);
     }
 
     /**
      * @covers \Phansible\Controller\DefaultController::docsAction
      */
-    public function testShouldRenderDocsActionWhenFileExists()
+    public function testShouldRenderDocsActionWhenFileExists(): void
     {
-        $container = new \Pimple();
+        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -78,12 +84,12 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
                 })
             );
 
-        $docFile = new \SplFileObject('/tmp/vagrant.md', 'w+');
+        $docFile = new SplFileObject('/tmp/vagrant.md', 'w+');
         $docFile->fwrite('Phansible');
 
         $doc = 'vagrant';
 
-        $container['twig'] = $this->twig;
+        $container['twig']      = $this->twig;
         $container['docs.path'] = '/tmp';
 
         $this->controller->setPimple($container);

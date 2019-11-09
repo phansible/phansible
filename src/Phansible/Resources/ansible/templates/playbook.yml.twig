@@ -2,8 +2,8 @@
 - hosts: all
   become: yes
   vars_files:
-    - {{ varsfile }}
+      - {{ varsfile }}
   roles:
-{% for role in roles %}
-    - {{ role }}
-{% endfor %}
+          {% for role in roles %}
+      - {{ role }}
+        {% endfor %}

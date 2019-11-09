@@ -2,31 +2,35 @@
 
 namespace Phansible\Controller;
 
-class AboutControllerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Pimple;
+use Phansible\Model\GithubAdapter;
+
+class AboutControllerTest extends TestCase
 {
     private $controller;
     private $twig;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->controller = new AboutController();
-        $this->twig       = $this->getMockBuilder('\Twig_Environment')
-            ->setMethods(['render'])
+        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
+            ->onlyMethods(['render'])
             ->getMock();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->controller = null;
-        $this->twig = null;
+        $this->twig       = null;
     }
 
     /**
      * @covers \Phansible\Controller\AboutController::indexAction
      */
-    public function testShouldRenderindexAction()
+    public function testShouldRenderindexAction(): void
     {
-        $container = new \Pimple();
+        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -35,20 +39,21 @@ class AboutControllerTest extends \PHPUnit_Framework_TestCase
                 $this->arrayHasKey('contributors')
             );
 
-        $github = $this->getMockBuilder('\Phansible\Model\GithubAdapter')
+        $github = $this->getMockBuilder(GithubAdapter::class)
             ->disableOriginalConstructor()
             ->getMock();
+
         $github->expects($this->any())
             ->method('get')
-            ->will($this->returnValue(['contributors-data']));
+            ->willReturn(['contributors-data']);
 
-        $container['twig'] = $this->twig;
-        $container['config'] = [];
-        $container['webservers'] = [];
-        $container['boxes'] = [];
+        $container['twig']        = $this->twig;
+        $container['config']      = [];
+        $container['webservers']  = [];
+        $container['boxes']       = [];
         $container['syspackages'] = [];
         $container['phppackages'] = [];
-        $container['github'] = $github;
+        $container['github']      = $github;
 
         $this->controller->setPimple($container);
 

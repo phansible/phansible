@@ -2,50 +2,54 @@
 
 namespace Phansible\Roles;
 
-class ElasticSearchTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Phansible\Application;
+use Phansible\Role;
+
+class ElasticSearchTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new ElasticSearch($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\ElasticSearch
+     * @covers \Phansible\Roles\ElasticSearch
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\ElasticSearch::getName
+     * @covers \Phansible\Roles\ElasticSearch::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('ElasticSearch', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\ElasticSearch::getSlug
+     * @covers \Phansible\Roles\ElasticSearch::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('elasticsearch', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\ElasticSearch::getRole
+     * @covers \Phansible\Roles\ElasticSearch::getRole
      */
     public function testShouldGetRole()
     {
@@ -53,14 +57,14 @@ class ElasticSearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\ElasticSearch::getInitialValues
+     * @covers \Phansible\Roles\ElasticSearch::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
-            'install'   => 0,
-            'port'      => '9200',
-            'version'   => '1.5.2'
+            'install' => 0,
+            'port'    => '9200',
+            'version' => '1.5.2',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

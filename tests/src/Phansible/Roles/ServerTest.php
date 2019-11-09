@@ -2,65 +2,69 @@
 
 namespace Phansible\Roles;
 
-class ServerTest extends \PHPUnit_Framework_TestCase
+use Phansible\Application;
+use Phansible\Role;
+use PHPUnit\Framework\TestCase;
+
+class ServerTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new Server($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Server
+     * @covers \Phansible\Roles\Server
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Server::getName
+     * @covers \Phansible\Roles\Server::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Server', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Server::getSlug
+     * @covers \Phansible\Roles\Server::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('server', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Server::getRole
+     * @covers \Phansible\Roles\Server::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('server', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Server::getInitialValues
+     * @covers \Phansible\Roles\Server::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
-            'install' => 1,
+            'install'  => 1,
             'timezone' => 'UTC',
-            'locale' => 'en_US.UTF-8',
+            'locale'   => 'en_US.UTF-8',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

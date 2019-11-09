@@ -6,27 +6,27 @@ use Phansible\Role;
 
 class ElasticSearch implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'ElasticSearch';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'elasticsearch';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'elasticsearch';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
             'install' => 0,
             'version' => '1.5.2',
-            'port'    => '9200'
+            'port'    => '9200',
         ];
     }
 }

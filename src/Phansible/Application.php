@@ -2,10 +2,11 @@
 
 namespace Phansible;
 
-use Phansible\Provider\RolesServiceProvider;
+use Exception;
 use Phansible\Provider\GithubProvider;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Phansible\Provider\RolesServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @package Phansible
@@ -18,8 +19,6 @@ class Application extends \Flint\Application
      */
     public function __construct($rootDir, $debug = false, array $parameters = [])
     {
-        $parameters += ['config.cache_dir' => $rootDir . '/app/cache/config'];
-
         parent::__construct($rootDir, $debug, $parameters);
         $this->initialize();
     }
@@ -27,7 +26,7 @@ class Application extends \Flint\Application
     /**
      * Initialize application
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->initProviders();
 
@@ -42,7 +41,7 @@ class Application extends \Flint\Application
     /**
      * Register service providers
      */
-    protected function initProviders()
+    protected function initProviders(): void
     {
         $this->register(new RolesServiceProvider());
         $this->register(new GithubProvider());
@@ -51,7 +50,7 @@ class Application extends \Flint\Application
     /**
      * Initialize roles
      */
-    protected function initRoles()
+    protected function initRoles(): void
     {
         // Server settings
         $this['roles']->register(new Roles\Server());
@@ -98,16 +97,17 @@ class Application extends \Flint\Application
      *
      * @todo: according to the docs of flint it should handle exceptions, but for some reason it doesn't seem to work.
      *
-     * @param  \Exception $exception
+     * @param Exception $exception
      * @return Response
      */
-    public function errorHandler(\Exception $exception)
+    public function errorHandler(Exception $exception): Response
     {
-        if ($exception instanceof HttpException && $exception->getStatusCode() == 404) {
+        if ($exception instanceof HttpException && $exception->getStatusCode() === 404) {
             $template = 'error.404.html.twig';
         } else {
             $template = 'error.html.twig';
         }
+
         return $this['twig']->render($template);
 
     }

@@ -2,17 +2,21 @@
 
 namespace Phansible\Controller;
 
-use Phansible\Application;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Phansible\RoleManager;
+use Phansible\Application;
+use Phansible\Model\VagrantBundle;
+use Symfony\Component\HttpFoundation\Response;
 
-class BundleControllerTest extends \PHPUnit_Framework_TestCase
+class BundleControllerTest extends TestCase
 {
     /**
-     * @var Phansible\Controller\BundleController
+     * @var BundleController
      */
     private $controller;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -20,9 +24,9 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Controller\BundleController::extractLocale
+     * @covers \Phansible\Controller\BundleController::extractLocale
      */
-    public function testShouldExtractLocale()
+    public function testShouldExtractLocale(): void
     {
         $result = $this->controller->extractLocale('en');
 
@@ -32,13 +36,13 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Controller\BundleController::extractLocale
+     * @covers \Phansible\Controller\BundleController::extractLocale
      */
-    public function testShouldExtractLocaleIfArray()
+    public function testShouldExtractLocaleIfArray(): void
     {
         $langs = [
             'en_US',
-            'en'
+            'en',
         ];
 
         $result = $this->controller->extractLocale($langs);
@@ -49,48 +53,48 @@ class BundleControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Controller\BundleController::indexAction
-     * @covers Phansible\Controller\BundleController::getVagrantBundle
-     * @covers Phansible\Controller\BundleController::setVagrantBundle
-     * @covers Phansible\Controller\BundleController::getInventory
+     * @covers \Phansible\Controller\BundleController::indexAction
+     * @covers \Phansible\Controller\BundleController::getVagrantBundle
+     * @covers \Phansible\Controller\BundleController::setVagrantBundle
+     * @covers \Phansible\Controller\BundleController::getInventory
      */
-    public function testShouldResponseWithErrorMessage()
+    public function testShouldResponseWithErrorMessage(): void
     {
         $data = [
             'vagrant_local' => [
                 'vm' => [
-                    'ip' => ''
-                ]
-            ]
+                    'ip' => '',
+                ],
+            ],
         ];
 
         $request = new Request([], $data);
 
-        $roles = $this->getMock('Phansible\RoleManager');
+        $roles = $this->createMock(RoleManager::class);
 
-        $app = $this->getMockBuilder('Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
-            ->setMethods(['offsetGet'])
+            ->onlyMethods(['offsetGet'])
             ->getMock();
 
         $app->expects($this->once())
             ->method('offsetGet')
             ->with('roles')
-            ->will($this->returnValue($roles));
+            ->willReturn($roles);
 
-        $bundle = $this->getMockBuilder('Phansible\Model\VagrantBundle')
+        $bundle = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
-            ->setMethods(['generateBundle'])
+            ->onlyMethods(['generateBundle'])
             ->getMock();
 
         $bundle->expects($this->once())
             ->method('generateBundle')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $this->controller->setVagrantBundle($bundle);
         $response = $this->controller->indexAction($request, $app);
 
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals('An error occurred.', $response->getContent());
     }
 }

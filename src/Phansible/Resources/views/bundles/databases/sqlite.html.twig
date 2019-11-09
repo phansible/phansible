@@ -1,7 +1,8 @@
 <div class="ui tab bottom attached segment" data-tab="sqlite">
     <div class="inline field">
         <div class="ui checkbox">
-            <input type="checkbox" name="sqlite[install]" value="1" {% if sqlite.install %}checked="checked"{% endif %} />
+            <input type="checkbox" name="sqlite[install]" value="1"
+                   {% if sqlite.install %}checked="checked"{% endif %} />
             <label>Install SQLite</label>
         </div>
     </div>

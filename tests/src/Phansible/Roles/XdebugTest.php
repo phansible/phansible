@@ -2,61 +2,65 @@
 
 namespace Phansible\Roles;
 
-class XdebugTest extends \PHPUnit_Framework_TestCase
+use Phansible\Application;
+use Phansible\Role;
+use PHPUnit\Framework\TestCase;
+
+class XdebugTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new Xdebug($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Xdebug
+     * @covers \Phansible\Roles\Xdebug
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
         $this->assertInstanceOf('\Phansible\RoleWithDependencies', $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Xdebug::getName
+     * @covers \Phansible\Roles\Xdebug::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('XDebug', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Xdebug::getSlug
+     * @covers \Phansible\Roles\Xdebug::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('xdebug', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Xdebug::getRole
+     * @covers \Phansible\Roles\Xdebug::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('xdebug', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Xdebug::requiredRolesToBeInstalled
+     * @covers \Phansible\Roles\Xdebug::requiredRolesToBeInstalled
      */
-    public function testShouldGetRequiredRoles()
+    public function testShouldGetRequiredRoles(): void
     {
         $expected = ['php'];
 
@@ -64,12 +68,12 @@ class XdebugTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Roles\Xdebug::getInitialValues
+     * @covers \Phansible\Roles\Xdebug::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
-            'install'   => 0
+            'install' => 0,
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

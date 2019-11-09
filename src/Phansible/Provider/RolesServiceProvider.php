@@ -2,28 +2,26 @@
 
 namespace Phansible\Provider;
 
+use Phansible\RoleManager;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use Phansible\RoleManager;
 
 class RolesServiceProvider implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function register(Application $app)
+    public function register(Application $app): void
     {
-        $app['roles'] = $app->share(
-            function () {
-                return new RoleManager();
-            }
-        );
+        $app['roles'] = static function () {
+            return new RoleManager();
+        };
     }
 
     /**
      * {@inheritdoc}
      */
-    public function boot(Application $app)
+    public function boot(Application $app): void
     {
     }
 }

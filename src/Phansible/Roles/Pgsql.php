@@ -6,31 +6,31 @@ use Phansible\Role;
 
 class Pgsql implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'PostgreSQL';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'pgsql';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'pgsql';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-            'install' => 0,
+            'install'       => 0,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
+            'databases'     => [
+                'name'     => 'dbname',
+                'user'     => 'name',
                 'password' => 123,
-            ]
+            ],
         ];
     }
 }

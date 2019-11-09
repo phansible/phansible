@@ -6,27 +6,27 @@ use Phansible\Role;
 
 class Apache implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Apache';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'apache';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'apache';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-            'install' => 0,
-            'docroot' => '/vagrant',
-            'servername' => 'myApp.vb'
+            'install'    => 0,
+            'docroot'    => '/vagrant',
+            'servername' => 'myApp.vb',
         ];
     }
 }

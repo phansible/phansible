@@ -2,69 +2,73 @@
 
 namespace Phansible\Roles;
 
-class BeanstalkdTest extends \PHPUnit_Framework_TestCase
+use Phansible\Role;
+use PHPUnit\Framework\TestCase;
+use Phansible\Application;
+
+class BeanstalkdTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new Beanstalkd($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd
+     * @covers \Phansible\Roles\Beanstalkd
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getName
+     * @covers \Phansible\Roles\Beanstalkd::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Beanstalkd', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getSlug
+     * @covers \Phansible\Roles\Beanstalkd::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('beanstalkd', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getRole
+     * @covers \Phansible\Roles\Beanstalkd::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('beanstalkd', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Beanstalkd::getInitialValues
+     * @covers \Phansible\Roles\Beanstalkd::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
-            'install'        => 0,
-            'listenAddress'  => '0.0.0.0',
-            'listenPort'     => '13000',
-            'version'        => '1.10',
-            'user'           => 'beanstalkd',
-            'persistent'     => 'yes',
-            'storage'        => '/var/lib/beanstalkd',
+            'install'       => 0,
+            'listenAddress' => '0.0.0.0',
+            'listenPort'    => '13000',
+            'version'       => '1.10',
+            'user'          => 'beanstalkd',
+            'persistent'    => 'yes',
+            'storage'       => '/var/lib/beanstalkd',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

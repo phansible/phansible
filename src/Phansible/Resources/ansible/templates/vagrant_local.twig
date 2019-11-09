@@ -14,50 +14,50 @@ Vagrant.require_version ">= 1.5"
 # in the supported way for that host.
 # source: https://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby
 def which(cmd)
-    exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-    ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-        exts.each { |ext|
-            exe = File.join(path, "#{cmd}#{ext}")
-            return exe if File.executable? exe
-        }
-    end
-    return nil
+exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+exts.each { |ext|
+exe = File.join(path, "#{cmd}#{ext}")
+return exe if File.executable? exe
+}
+end
+return nil
 end
 
 Vagrant.configure("2") do |config|
 
-    config.vm.provider :virtualbox do |v|
-        v.name = "{{ vmName }}"
-        v.customize [
-            "modifyvm", :id,
-            "--name", "{{ vmName }}",
-            "--memory", {{ memory }},
-            "--natdnshostresolver1", "on",
-            "--cpus", 1,
-        ]
-    end
+config.vm.provider :virtualbox do |v|
+v.name = "{{ vmName }}"
+v.customize [
+"modifyvm", :id,
+"--name", "{{ vmName }}",
+"--memory", {{ memory }},
+"--natdnshostresolver1", "on",
+"--cpus", 1,
+]
+end
 
-    config.vm.box = "{{ boxName }}"
-    {% if boxUrl %}
+config.vm.box = "{{ boxName }}"
+{% if boxUrl %}
 
     config.vm.box_url = "{{ boxUrl }}"
-    {% endif %}
+{% endif %}
 
-    config.vm.network :private_network, ip: "{{ ipAddress }}"
-    config.ssh.forward_agent = true
+config.vm.network :private_network, ip: "{{ ipAddress }}"
+config.ssh.forward_agent = true
 
-    # If Ansible is in your path it will provision from your HOST machine
-    # If Ansible is not found in the path it will be installed in the VM and provisioned from there
-    if which('ansible-playbook')
-        config.vm.provision "ansible" do |ansible|
-            ansible.playbook = "ansible/playbook.yml"
-            ansible.inventory_path = "ansible/inventories/dev"
-            ansible.limit = 'all'
-        end
-    else
-        config.vm.provision :shell, path: "ansible/windows.sh", args: ["{{ vmName }}"]
-    end
+# If Ansible is in your path it will provision from your HOST machine
+# If Ansible is not found in the path it will be installed in the VM and provisioned from there
+if which('ansible-playbook')
+config.vm.provision "ansible" do |ansible|
+ansible.playbook = "ansible/playbook.yml"
+ansible.inventory_path = "ansible/inventories/dev"
+ansible.limit = 'all'
+end
+else
+config.vm.provision :shell, path: "ansible/windows.sh", args: ["{{ vmName }}"]
+end
 
-    config.vm.synced_folder "{{ syncedFolder }}", "{{ mountPoint }}"{% if syncedType %}, type: "{{ syncedType }}"{% if syncedType == "rsync" %}, rsync__exclude: ".git/"{% endif %}{% endif %}
+config.vm.synced_folder "{{ syncedFolder }}", "{{ mountPoint }}"{% if syncedType %}, type: "{{ syncedType }}"{% if syncedType == "rsync" %}, rsync__exclude: ".git/"{% endif %}{% endif %}
 
 end

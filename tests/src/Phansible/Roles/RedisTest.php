@@ -2,60 +2,64 @@
 
 namespace Phansible\Roles;
 
-class RedisTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Phansible\Application;
+use Phansible\Role;
+
+class RedisTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new Redis($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Redis
+     * @covers \Phansible\Roles\Redis
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getName
+     * @covers \Phansible\Roles\Redis::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Redis', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getSlug
+     * @covers \Phansible\Roles\Redis::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('redis', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getRole
+     * @covers \Phansible\Roles\Redis::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('redis', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Redis::getInitialValues
+     * @covers \Phansible\Roles\Redis::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install' => 0,

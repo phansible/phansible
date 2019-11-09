@@ -2,66 +2,69 @@
 
 namespace Phansible\Roles;
 
-class RabbitmqTest extends \PHPUnit_Framework_TestCase
+use Phansible\Role;
+use PHPUnit\Framework\TestCase;
+
+class RabbitmqTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new Rabbitmq($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq
+     * @covers \Phansible\Roles\Rabbitmq
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getName
+     * @covers \Phansible\Roles\Rabbitmq::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('RabbitMQ', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getSlug
+     * @covers \Phansible\Roles\Rabbitmq::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('rabbitmq', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getRole
+     * @covers \Phansible\Roles\Rabbitmq::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('rabbitmq', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Rabbitmq::getInitialValues
+     * @covers \Phansible\Roles\Rabbitmq::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
             'install'  => 0,
             'plugins'  => [],
             'user'     => 'user',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());

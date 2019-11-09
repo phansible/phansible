@@ -6,27 +6,27 @@ use Phansible\Role;
 
 class Server implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Server';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'server';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'server';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-          'install' => 1,
-          'timezone' => 'UTC',
-          'locale' => 'en_US.UTF-8',
+            'install'  => 1,
+            'timezone' => 'UTC',
+            'locale'   => 'en_US.UTF-8',
         ];
     }
 }

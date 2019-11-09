@@ -1,4 +1,5 @@
 <?php
+
 namespace Phansible;
 
 interface RoleWithDependencies
@@ -8,5 +9,5 @@ interface RoleWithDependencies
      *
      * @return array The list of slugs of the roles to be installed
      */
-    public function requiredRolesToBeInstalled();
+    public function requiredRolesToBeInstalled(): array;
 }

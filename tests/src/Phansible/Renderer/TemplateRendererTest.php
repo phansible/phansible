@@ -5,59 +5,59 @@
 
 namespace Phansible\Renderer;
 
-class TemplateRendererTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+
+class TemplateRendererTest extends TestCase
 {
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->model = new TemplateRenderer();
         $this->model->setTemplate('Vagrantfile.twig');
         $this->model->setData(['key' => 'value']);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->model = null;
     }
 
-    public function testConstructorShouldCallMethod()
+    public function testConstructorShouldCallMethod(): void
     {
-        $className = 'Phansible\Renderer\TemplateRenderer';
+        $className = TemplateRenderer::class;
 
         $mock = $this->getMockBuilder($className)
             ->disableOriginalConstructor()
             ->getMock();
 
         $mock->expects($this->once())
-            ->method('loadDefaults')
-            ->will(
-                $this->returnValue(null)
-            );
+            ->method('loadDefaults');
 
-        $reflectedClass = new \ReflectionClass($className);
-        $constructor = $reflectedClass->getConstructor();
+        $reflectedClass = new ReflectionClass($className);
+        $constructor    = $reflectedClass->getConstructor();
         $constructor->invoke($mock);
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::add
+     * @covers \Phansible\Renderer\TemplateRenderer::add
      */
-    public function testShouldAddArrayValue()
+    public function testShouldAddArrayValue(): void
     {
         $key   = 'packages';
         $value = ['git', 'curl'];
 
         $this->model->add($key, $value);
 
-        $this->assertTrue(is_array($this->model->get('packages')));
+        $this->assertIsArray($this->model->get('packages'));
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::setFilePath
-     * @covers Phansible\Renderer\TemplateRenderer::getFilePath
+     * @covers \Phansible\Renderer\TemplateRenderer::setFilePath
+     * @covers \Phansible\Renderer\TemplateRenderer::getFilePath
      */
-    public function testShouldSetAndGetFilePath()
+    public function testShouldSetAndGetFilePath(): void
     {
         $path = 'ansible/vars/common.yml';
 
@@ -67,9 +67,9 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::getData
+     * @covers \Phansible\Renderer\TemplateRenderer::getData
      */
-    public function testGetData()
+    public function testGetData(): void
     {
         $this->model->add('test', 'test');
 
@@ -79,18 +79,19 @@ class TemplateRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Phansible\Renderer\TemplateRenderer::renderFile
+     * @covers \Phansible\Renderer\TemplateRenderer::renderFile
      */
-    public function testRenderFile()
+    public function testRenderFile(): void
     {
-        $twig = $this->getMockBuilder('Twig_Environment')
+        $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('render'))
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())
             ->method('render')
-            ->with($this->equalTo('Vagrantfile.twig'), $this->model->getData());
+            ->with($this->equalTo('Vagrantfile.twig'), $this->model->getData())
+            ->willReturn('');
 
         $this->model->renderFile($twig);
     }

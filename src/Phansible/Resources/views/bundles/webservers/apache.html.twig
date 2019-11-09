@@ -1,7 +1,8 @@
 <div class="ui tab bottom attached segment" data-tab="apache">
     <div class="inline field">
         <div class="ui checkbox">
-            <input class="update-other-input" type="checkbox" name="apache[install]" data-update-nginx[install]="0" value="1" {% if apache.install %}checked="checked"{% endif %} />
+            <input class="update-other-input" type="checkbox" name="apache[install]" data-update-nginx[install]="0"
+                   value="1" {% if apache.install %}checked="checked"{% endif %} />
             <label>Install Apache</label>
         </div>
     </div>
@@ -10,7 +11,7 @@
     <div class="field">
         <label for="apache_docroot">Document Root:</label>
         <div class="ui left labeled input">
-            <input type="text" id="apache_docroot" name="apache[docroot]" value="{{ apache.docroot }}" />
+            <input type="text" id="apache_docroot" name="apache[docroot]" value="{{ apache.docroot }}"/>
             <div class="ui corner label">
                 <i class="icon asterisk"></i>
             </div>
@@ -19,7 +20,7 @@
     <div class="field">
         <label for="apache_servername">Server name: (space separated)</label>
         <div class="ui left labeled input">
-            <input type="text" id="apache_servername" name="apache[servername]" value="{{ apache.servername }}" />
+            <input type="text" id="apache_servername" name="apache[servername]" value="{{ apache.servername }}"/>
         </div>
     </div>
 </div>

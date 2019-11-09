@@ -6,26 +6,26 @@ use Phansible\Role;
 
 class Redis implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'Redis';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'redis';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'redis';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-            'install'   => 0,
-            'port'      => 6379,
+            'install' => 0,
+            'port'    => 6379,
         ];
     }
 }

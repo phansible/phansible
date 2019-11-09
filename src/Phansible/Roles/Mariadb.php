@@ -6,31 +6,31 @@ use Phansible\Role;
 
 class Mariadb implements Role
 {
-    public function getName()
+    public function getName(): string
     {
         return 'MariaDb';
     }
 
-    public function getSlug()
+    public function getSlug(): string
     {
         return 'mariadb';
     }
 
-    public function getRole()
+    public function getRole(): string
     {
         return 'mariadb';
     }
 
-    public function getInitialValues()
+    public function getInitialValues(): array
     {
         return [
-            'install' => 0,
+            'install'       => 0,
             'root_password' => 123,
-            'databases' => [
-                'name' => 'dbname',
-                'user' => 'name',
+            'databases'     => [
+                'name'     => 'dbname',
+                'user'     => 'name',
                 'password' => 123,
-            ]
+            ],
         ];
     }
 }

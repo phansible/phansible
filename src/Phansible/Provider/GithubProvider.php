@@ -2,34 +2,37 @@
 
 namespace Phansible\Provider;
 
+use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Github\Client;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+use Phansible\Model\GithubAdapter;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use Github\Client;
-use Phansible\Model\GithubAdapter;
-use Github\HttpClient\CachedHttpClient;
 
 class GithubProvider implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function register(Application $app)
+    public function register(Application $app): void
     {
-        $app['github'] = $app->share(
-            function () {
-                $client = new Client(new CachedHttpClient(
-                    ['cache_dir' => __DIR__ . '/../../../app/cache/github-api-cache']
-                ));
+        $app['github'] = static function () {
+            $filesystemAdapter = new Local(__DIR__ . '/../../../app/cache/github-api-cache');
+            $filesystem        = new Filesystem($filesystemAdapter);
+            $cache             = new FilesystemCachePool($filesystem);
 
-                return new GithubAdapter($client->getHttpClient());
-            }
-        );
+            $client = new Client();
+            $client->addCache($cache);
+
+            return new GithubAdapter($client);
+        };
     }
 
     /**
      * {@inheritdoc}
      */
-    public function boot(Application $app)
+    public function boot(Application $app): void
     {
     }
 }

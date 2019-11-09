@@ -11,6 +11,9 @@ use Phansible\Renderer\VarfileRenderer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Twig_Environment;
+use Twig_Loader_Filesystem;
 
 /**
  * @package Phansible
@@ -18,19 +21,24 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class BundleController extends Controller
 {
     /**
-     * @var \Phansible\Model\VagrantBundle
+     * @var VagrantBundle
      */
     private $vagrantBundle;
 
+    /**
+     * @param Request $request
+     * @param Application $app
+     * @return Response|StreamedResponse
+     */
     public function indexAction(Request $request, Application $app)
     {
-        $requestVars = $request->request->all();
+        $requestVars                     = $request->request->all();
         $requestVars['server']['locale'] = $this->extractLocale(
             $request->getLanguages()
         );
 
         $inventory = $this->getInventory($requestVars);
-        $varsFile = new VarfileRenderer('all');
+        $varsFile  = new VarfileRenderer('all');
 
         $playbook = new PlaybookRenderer();
         // @todo fix str_replace
@@ -44,7 +52,7 @@ class BundleController extends Controller
         $app['roles']->setupRole($requestVars, $this->getVagrantBundle());
         $playbook->addRole('app');
 
-        $zipPath = tempnam(sys_get_temp_dir(), "phansible_bundle_");
+        $zipPath = tempnam(sys_get_temp_dir(), 'phansible_bundle_');
 
         if ($this->getVagrantBundle()->generateBundle(
             $zipPath,
@@ -52,6 +60,7 @@ class BundleController extends Controller
         )
         ) {
             $vagrantfile = $this->getVagrantBundle()->getVagrantFile();
+
             return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
         }
 
@@ -59,21 +68,9 @@ class BundleController extends Controller
     }
 
     /**
-     * @param array $requestVars
-     * @return TemplateRenderer
-     * @todo: this needs some refactoring when we have more deployment methods
+     * @param $languages
+     * @return mixed|string
      */
-    private function getInventory(array $requestVars)
-    {
-        $ipAddress = $requestVars['vagrant_local']['vm']['ip'];
-        $inventory = new TemplateRenderer();
-        $inventory->add('ipAddress', $ipAddress);
-        $inventory->setTemplate('inventory.twig');
-        $inventory->setFilePath('ansible/inventories/dev');
-
-        return $inventory;
-    }
-
     public function extractLocale($languages)
     {
         $locale = 'en_US';
@@ -93,45 +90,29 @@ class BundleController extends Controller
     }
 
     /**
-     * @param string $zipPath
-     * @param Application $app
-     * @param string $filename
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @param array $requestVars
+     * @return TemplateRenderer
+     * @todo: this needs some refactoring when we have more deployment methods
      */
-    private function outputBundle($zipPath, Application $app, $filename)
+    private function getInventory(array $requestVars): TemplateRenderer
     {
-        $stream = function () use ($zipPath) {
-            echo file_get_contents($zipPath);
-            unlink($zipPath);
-        };
+        $ipAddress = $requestVars['vagrant_local']['vm']['ip'];
+        $inventory = new TemplateRenderer();
+        $inventory->add('ipAddress', $ipAddress);
+        $inventory->setTemplate('inventory.twig');
+        $inventory->setFilePath('ansible/inventories/dev');
 
-        $response = $app->stream(
-            $stream,
-            Response::HTTP_OK,
-            array(
-                'Content-length' => filesize($zipPath),
-                'Content-Type' => 'application/zip',
-                'Pragma' => 'no-cache',
-                'Cache-Control' => 'no-cache'
-            )
-        );
-
-        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            'phansible_' . $filename . '.zip'
-        ));
-
-        return $response;
+        return $inventory;
     }
 
     /**
-     * @return \Phansible\Model\VagrantBundle
+     * @return VagrantBundle
      */
-    private function getVagrantBundle()
+    private function getVagrantBundle(): VagrantBundle
     {
         if (!$this->vagrantBundle instanceof VagrantBundle) {
-            $twig = new \Twig_Environment(
-                new \Twig_Loader_Filesystem($this->get('ansible.templates'))
+            $twig = new Twig_Environment(
+                new Twig_Loader_Filesystem($this->get('ansible.templates'))
             );
 
             $this->vagrantBundle = new VagrantBundle(
@@ -144,9 +125,41 @@ class BundleController extends Controller
     }
 
     /**
-     * @param \Phansible\Model\VagrantBundle $vagrantBundle
+     * @param string $zipPath
+     * @param Application $app
+     * @param string $filename
+     * @return StreamedResponse
      */
-    public function setVagrantBundle(VagrantBundle $vagrantBundle)
+    private function outputBundle($zipPath, Application $app, $filename): StreamedResponse
+    {
+        $stream = static function () use ($zipPath) {
+            echo file_get_contents($zipPath);
+            unlink($zipPath);
+        };
+
+        $response = $app->stream(
+            $stream,
+            Response::HTTP_OK,
+            array(
+                'Content-length' => filesize($zipPath),
+                'Content-Type'   => 'application/zip',
+                'Pragma'         => 'no-cache',
+                'Cache-Control'  => 'no-cache',
+            )
+        );
+
+        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'phansible_' . $filename . '.zip'
+        ));
+
+        return $response;
+    }
+
+    /**
+     * @param VagrantBundle $vagrantBundle
+     */
+    public function setVagrantBundle(VagrantBundle $vagrantBundle): void
     {
         $this->vagrantBundle = $vagrantBundle;
     }

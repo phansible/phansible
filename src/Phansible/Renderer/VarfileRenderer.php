@@ -27,31 +27,15 @@ class VarfileRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function loadDefaults()
+    public function loadDefaults(): void
     {
         $this->setTemplate('vars.yml.twig');
     }
 
     /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function add($key, $value)
+    public function add($key, $value): void
     {
         $this->data[$key] = $value;
     }
@@ -64,16 +48,32 @@ class VarfileRenderer extends TemplateRenderer
     /**
      * {@inheritdoc}
      */
-    public function getData()
+    public function getData(): array
     {
-        return [ 'variables' => Yaml::dump($this->data), 'name' => $this->name ];
+        return ['variables' => Yaml::dump($this->data), 'name' => $this->name];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getFilePath()
+    public function getFilePath(): string
     {
         return 'ansible/vars/' . $this->getName() . '.yml';
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 }

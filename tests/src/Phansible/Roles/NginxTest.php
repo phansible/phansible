@@ -2,65 +2,69 @@
 
 namespace Phansible\Roles;
 
-class NginxTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Phansible\Application;
+use Phansible\Role;
+
+class NginxTest extends TestCase
 {
     private $role;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $app = $this->getMockBuilder('\Phansible\Application')
+        $app = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->role = new Nginx($app);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Nginx
+     * @covers \Phansible\Roles\Nginx
      */
-    public function testShouldInstanceOf()
+    public function testShouldInstanceOf(): void
     {
-        $this->assertInstanceOf('\Phansible\Role', $this->role);
+        $this->assertInstanceOf(Role::class, $this->role);
     }
 
     /**
-     * @covers Phansible\Roles\Nginx::getName
+     * @covers \Phansible\Roles\Nginx::getName
      */
-    public function testShouldGetName()
+    public function testShouldGetName(): void
     {
         $this->assertEquals('Nginx', $this->role->getName());
     }
 
     /**
-     * @covers Phansible\Roles\Nginx::getSlug
+     * @covers \Phansible\Roles\Nginx::getSlug
      */
-    public function testShouldGetSlug()
+    public function testShouldGetSlug(): void
     {
         $this->assertEquals('nginx', $this->role->getSlug());
     }
 
     /**
-     * @covers Phansible\Roles\Nginx::getRole
+     * @covers \Phansible\Roles\Nginx::getRole
      */
-    public function testShouldGetRole()
+    public function testShouldGetRole(): void
     {
         $this->assertEquals('nginx', $this->role->getRole());
     }
 
     /**
-     * @covers Phansible\Roles\Nginx::getInitialValues
+     * @covers \Phansible\Roles\Nginx::getInitialValues
      */
-    public function testShouldGetInitialValues()
+    public function testShouldGetInitialValues(): void
     {
         $expected = [
-            'install' => 1,
-            'docroot' => '/vagrant',
-            'servername' => 'myApp.vb'
+            'install'    => 1,
+            'docroot'    => '/vagrant',
+            'servername' => 'myApp.vb',
         ];
 
         $this->assertEquals($expected, $this->role->getInitialValues());
