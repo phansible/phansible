@@ -1,25 +1,4 @@
 {
-    "flint/flint": {
-        "version": "1.7.3"
-    },
-    "flint/tacker": {
-        "version": "0.6.0"
-    },
-    "ircmaxell/password-compat": {
-        "version": "v1.0.4"
-    },
-    "pimple/pimple": {
-        "version": "v1.1.1"
-    },
-    "silex/silex": {
-        "version": "v1.3.6"
-    },
-    "symfony/debug": {
-        "version": "v3.4.33"
-    },
-    "symfony/event-dispatcher": {
-        "version": "v3.0.9"
-    },
     "symfony/flex": {
         "version": "1.0",
         "recipe": {
@@ -31,20 +10,5 @@
         "files": [
             ".env"
         ]
-    },
-    "symfony/http-foundation": {
-        "version": "v2.8.50"
-    },
-    "symfony/http-kernel": {
-        "version": "v3.0.9"
-    },
-    "symfony/polyfill-php54": {
-        "version": "v1.12.0"
-    },
-    "symfony/polyfill-php55": {
-        "version": "v1.12.0"
-    },
-    "symfony/routing": {
-        "version": "v3.0.9"
     }
 }
