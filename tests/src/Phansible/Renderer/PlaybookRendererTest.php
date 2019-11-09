@@ -86,7 +86,7 @@ class PlaybookRendererTest extends TestCase
 
         $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['render'])
+//            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())

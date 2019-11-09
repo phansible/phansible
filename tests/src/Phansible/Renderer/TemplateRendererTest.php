@@ -24,19 +24,16 @@ class TemplateRendererTest extends TestCase
         $this->model = null;
     }
 
-    public function testConstructorShouldCallMethod()
+    public function testConstructorShouldCallMethod(): void
     {
-        $className = 'Phansible\Renderer\TemplateRenderer';
+        $className = TemplateRenderer::class;
 
         $mock = $this->getMockBuilder($className)
             ->disableOriginalConstructor()
             ->getMock();
 
         $mock->expects($this->once())
-            ->method('loadDefaults')
-            ->will(
-                $this->returnValue(null)
-            );
+            ->method('loadDefaults');
 
         $reflectedClass = new ReflectionClass($className);
         $constructor    = $reflectedClass->getConstructor();
@@ -46,21 +43,21 @@ class TemplateRendererTest extends TestCase
     /**
      * @covers \Phansible\Renderer\TemplateRenderer::add
      */
-    public function testShouldAddArrayValue()
+    public function testShouldAddArrayValue(): void
     {
         $key   = 'packages';
         $value = ['git', 'curl'];
 
         $this->model->add($key, $value);
 
-        $this->assertTrue(is_array($this->model->get('packages')));
+        $this->assertIsArray($this->model->get('packages'));
     }
 
     /**
      * @covers \Phansible\Renderer\TemplateRenderer::setFilePath
      * @covers \Phansible\Renderer\TemplateRenderer::getFilePath
      */
-    public function testShouldSetAndGetFilePath()
+    public function testShouldSetAndGetFilePath(): void
     {
         $path = 'ansible/vars/common.yml';
 
@@ -72,7 +69,7 @@ class TemplateRendererTest extends TestCase
     /**
      * @covers \Phansible\Renderer\TemplateRenderer::getData
      */
-    public function testGetData()
+    public function testGetData(): void
     {
         $this->model->add('test', 'test');
 
@@ -84,7 +81,7 @@ class TemplateRendererTest extends TestCase
     /**
      * @covers \Phansible\Renderer\TemplateRenderer::renderFile
      */
-    public function testRenderFile()
+    public function testRenderFile(): void
     {
         $twig = $this->getMockBuilder(\Twig_Environment::class)
             ->disableOriginalConstructor()
