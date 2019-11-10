@@ -1,8 +1,8 @@
 <?php
 
-namespace Phansible;
+namespace App\Phansible;
 
-use Phansible\Model\VagrantBundle;
+use App\Phansible\Model\VagrantBundle;
 
 interface RoleValuesTransformer
 {

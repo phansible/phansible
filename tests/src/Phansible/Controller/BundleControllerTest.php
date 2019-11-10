@@ -1,12 +1,12 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Phansible\RoleManager;
-use Phansible\Application;
-use Phansible\Model\VagrantBundle;
+use App\Phansible\RoleManager;
+use App\Phansible\Application;
+use App\Phansible\Model\VagrantBundle;
 use Symfony\Component\HttpFoundation\Response;
 
 class BundleControllerTest extends TestCase
@@ -24,7 +24,7 @@ class BundleControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\BundleController::extractLocale
+     * @covers \App\Phansible\Controller\BundleController::extractLocale
      */
     public function testShouldExtractLocale(): void
     {
@@ -36,7 +36,7 @@ class BundleControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\BundleController::extractLocale
+     * @covers \App\Phansible\Controller\BundleController::extractLocale
      */
     public function testShouldExtractLocaleIfArray(): void
     {
@@ -53,10 +53,10 @@ class BundleControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\BundleController::indexAction
-     * @covers \Phansible\Controller\BundleController::getVagrantBundle
-     * @covers \Phansible\Controller\BundleController::setVagrantBundle
-     * @covers \Phansible\Controller\BundleController::getInventory
+     * @covers \App\Phansible\Controller\BundleController::indexAction
+     * @covers \App\Phansible\Controller\BundleController::getVagrantBundle
+     * @covers \App\Phansible\Controller\BundleController::setVagrantBundle
+     * @covers \App\Phansible\Controller\BundleController::getInventory
      */
     public function testShouldResponseWithErrorMessage(): void
     {

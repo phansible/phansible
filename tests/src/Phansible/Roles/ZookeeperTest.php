@@ -1,9 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class ZookeeperTest extends TestCase
@@ -25,7 +25,7 @@ class ZookeeperTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Zookeeper
+     * @covers \App\Phansible\Roles\Zookeeper
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class ZookeeperTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Zookeeper::getName
+     * @covers \App\Phansible\Roles\Zookeeper::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class ZookeeperTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Zookeeper::getSlug
+     * @covers \App\Phansible\Roles\Zookeeper::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class ZookeeperTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Zookeeper::getRole
+     * @covers \App\Phansible\Roles\Zookeeper::getRole
      */
     public function testShouldGetRole()
     {
@@ -57,7 +57,7 @@ class ZookeeperTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Zookeeper::getInitialValues
+     * @covers \App\Phansible\Roles\Zookeeper::getInitialValues
      */
     public function testShouldGetInitialValues()
     {

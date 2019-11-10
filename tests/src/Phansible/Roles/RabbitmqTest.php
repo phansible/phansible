@@ -1,8 +1,8 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class RabbitmqTest extends TestCase
@@ -24,7 +24,7 @@ class RabbitmqTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Rabbitmq
+     * @covers \App\Phansible\Roles\Rabbitmq
      */
     public function testShouldInstanceOf(): void
     {
@@ -32,7 +32,7 @@ class RabbitmqTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Rabbitmq::getName
+     * @covers \App\Phansible\Roles\Rabbitmq::getName
      */
     public function testShouldGetName(): void
     {
@@ -40,7 +40,7 @@ class RabbitmqTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Rabbitmq::getSlug
+     * @covers \App\Phansible\Roles\Rabbitmq::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -48,7 +48,7 @@ class RabbitmqTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Rabbitmq::getRole
+     * @covers \App\Phansible\Roles\Rabbitmq::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -56,7 +56,7 @@ class RabbitmqTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Rabbitmq::getInitialValues
+     * @covers \App\Phansible\Roles\Rabbitmq::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

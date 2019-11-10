@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 
 class MysqlTest extends TestCase
 {
@@ -25,7 +25,7 @@ class MysqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mysql
+     * @covers \App\Phansible\Roles\Mysql
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class MysqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mysql::getName
+     * @covers \App\Phansible\Roles\Mysql::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class MysqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mysql::getSlug
+     * @covers \App\Phansible\Roles\Mysql::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class MysqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mysql::getRole
+     * @covers \App\Phansible\Roles\Mysql::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class MysqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mysql::getInitialValues
+     * @covers \App\Phansible\Roles\Mysql::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

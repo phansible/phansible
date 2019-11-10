@@ -1,0 +1,51 @@
+<div class="ui tab bottom attached segment" data-tab="beanstalkd">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input type="checkbox" name="beanstalkd[install]" value="1"
+                   {% if beanstalkd.install %}checked="checked"{% endif %} />
+            <label>Install Beanstalkd</label>
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label for="port">Listen Address:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[listenAddress]" value="{{ beanstalkd.listenAddress }}"/>
+            </div>
+        </div>
+        <div class="field">
+            <label for="port">Listen Port:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[listenPort]" value="{{ beanstalkd.listenPort }}"/>
+            </div>
+        </div>
+        <div class="field">
+            <label for="port">Version:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[version]" value="{{ beanstalkd.version }}"/>
+            </div>
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label for="storage">User:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[user]" value="{{ beanstalkd.user }}"/>
+            </div>
+        </div>
+        <div class="field">
+            <label for="persistent">Persistent:</label>
+            <select id="persistent" name="beanstalkd[persistent]" class="select-one single">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+        </div>
+        <div class="field">
+            <label for="storage">Storage:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="beanstalkd[storage]" value="{{ beanstalkd.storage }}"/>
+            </div>
+        </div>
+    </div>
+</div>

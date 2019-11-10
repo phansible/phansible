@@ -1,12 +1,12 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\VagrantfileRenderer;
-use Phansible\Role;
-use Phansible\RoleValuesTransformer;
+use App\Phansible\Application;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Role;
+use App\Phansible\RoleValuesTransformer;
 
 class VagrantLocal implements Role, RoleValuesTransformer
 {

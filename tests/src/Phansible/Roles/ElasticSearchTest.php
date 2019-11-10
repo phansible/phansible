@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 
 class ElasticSearchTest extends TestCase
 {
@@ -25,7 +25,7 @@ class ElasticSearchTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\ElasticSearch
+     * @covers \App\Phansible\Roles\ElasticSearch
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class ElasticSearchTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\ElasticSearch::getName
+     * @covers \App\Phansible\Roles\ElasticSearch::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class ElasticSearchTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\ElasticSearch::getSlug
+     * @covers \App\Phansible\Roles\ElasticSearch::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class ElasticSearchTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\ElasticSearch::getRole
+     * @covers \App\Phansible\Roles\ElasticSearch::getRole
      */
     public function testShouldGetRole()
     {
@@ -57,7 +57,7 @@ class ElasticSearchTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\ElasticSearch::getInitialValues
+     * @covers \App\Phansible\Roles\ElasticSearch::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

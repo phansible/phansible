@@ -3,13 +3,13 @@
  * Model for Vagrant Bundle
  */
 
-namespace Phansible\Model;
+namespace App\Phansible\Model;
 
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\TemplateRenderer;
-use Phansible\Renderer\VagrantfileRenderer;
-use Phansible\Renderer\VarfileRenderer;
-use Phansible\Roles\VagrantLocal;
+use App\Phansible\Renderer\PlaybookRenderer;
+use App\Phansible\Renderer\TemplateRenderer;
+use App\Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Renderer\VarfileRenderer;
+use App\Phansible\Roles\VagrantLocal;
 use Twig_Environment;
 use ZipArchive;
 

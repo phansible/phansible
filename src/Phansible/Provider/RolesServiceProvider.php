@@ -1,8 +1,8 @@
 <?php
 
-namespace Phansible\Provider;
+namespace App\Phansible\Provider;
 
-use Phansible\RoleManager;
+use App\Phansible\RoleManager;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 

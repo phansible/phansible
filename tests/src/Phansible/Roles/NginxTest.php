@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 
 class NginxTest extends TestCase
 {
@@ -25,7 +25,7 @@ class NginxTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Nginx
+     * @covers \App\Phansible\Roles\Nginx
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class NginxTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Nginx::getName
+     * @covers \App\Phansible\Roles\Nginx::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class NginxTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Nginx::getSlug
+     * @covers \App\Phansible\Roles\Nginx::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class NginxTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Nginx::getRole
+     * @covers \App\Phansible\Roles\Nginx::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class NginxTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Nginx::getInitialValues
+     * @covers \App\Phansible\Roles\Nginx::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phansible\Model;
+namespace App\Phansible\Model;
 
 use Github\Client;
 use InvalidArgumentException;

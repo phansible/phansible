@@ -1,9 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
-use Phansible\RoleWithDependencies;
+use App\Phansible\Role;
+use App\Phansible\RoleWithDependencies;
 
 class Composer implements Role, RoleWithDependencies
 {

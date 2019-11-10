@@ -1,0 +1,16 @@
+<div class="ui tab bottom attached segment" data-tab="redis">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input type="checkbox" name="redis[install]" value="1" {% if redis.install %}checked="checked"{% endif %}/>
+            <label>Install Redis</label>
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label for="port">Port:</label>
+            <div class="ui disabled left labeled input">
+                <input type="text" name="redis[port]" value="6379"/>
+            </div>
+        </div>
+    </div>
+</div>

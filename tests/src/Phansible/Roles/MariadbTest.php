@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
+use App\Phansible\Application;
 
 class MariadbTest extends TestCase
 {
@@ -25,7 +25,7 @@ class MariadbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mariadb
+     * @covers \App\Phansible\Roles\Mariadb
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class MariadbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mariadb::getName
+     * @covers \App\Phansible\Roles\Mariadb::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class MariadbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mariadb::getSlug
+     * @covers \App\Phansible\Roles\Mariadb::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class MariadbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mariadb::getRole
+     * @covers \App\Phansible\Roles\Mariadb::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class MariadbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mariadb::getInitialValues
+     * @covers \App\Phansible\Roles\Mariadb::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

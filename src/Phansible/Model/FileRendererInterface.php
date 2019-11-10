@@ -3,7 +3,7 @@
  * FileRenderer Interface
  */
 
-namespace Phansible\Model;
+namespace App\Phansible\Model;
 
 use Twig_Environment;
 

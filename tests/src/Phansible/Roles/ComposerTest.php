@@ -1,11 +1,11 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
-use Phansible\RoleWithDependencies;
+use App\Phansible\Application;
+use App\Phansible\Role;
+use App\Phansible\RoleWithDependencies;
 
 class ComposerTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ComposerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Composer
+     * @covers \App\Phansible\Roles\Composer
      */
     public function testShouldInstanceOf(): void
     {
@@ -35,7 +35,7 @@ class ComposerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Composer::getName
+     * @covers \App\Phansible\Roles\Composer::getName
      */
     public function testShouldGetName(): void
     {
@@ -43,7 +43,7 @@ class ComposerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Composer::getSlug
+     * @covers \App\Phansible\Roles\Composer::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -51,7 +51,7 @@ class ComposerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Composer::getRole
+     * @covers \App\Phansible\Roles\Composer::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -59,7 +59,7 @@ class ComposerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Composer::requiredRolesToBeInstalled
+     * @covers \App\Phansible\Roles\Composer::requiredRolesToBeInstalled
      */
     public function testShouldGetRequiredRoles(): void
     {
@@ -68,7 +68,7 @@ class ComposerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Composer::getInitialValues
+     * @covers \App\Phansible\Roles\Composer::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
-use Phansible\RoleManager;
+use App\Phansible\RoleManager;
 use PHPUnit\Framework\TestCase;
 use Pimple;
 use SplFileObject;
@@ -28,7 +28,7 @@ class DefaultControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::indexAction
+     * @covers \App\Phansible\Controller\DefaultController::indexAction
      */
     public function testShouldRenderIndexAction(): void
     {
@@ -58,7 +58,7 @@ class DefaultControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::docsAction
+     * @covers \App\Phansible\Controller\DefaultController::docsAction
      * @expectException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testShouldThrowExceptionWhenDocFileNotExists(): void
@@ -69,7 +69,7 @@ class DefaultControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::docsAction
+     * @covers \App\Phansible\Controller\DefaultController::docsAction
      */
     public function testShouldRenderDocsActionWhenFileExists(): void
     {

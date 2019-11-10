@@ -1,13 +1,13 @@
 <?php
 
-namespace Phansible\Model;
+namespace App\Phansible\Model;
 
-use Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Renderer\VagrantfileRenderer;
 use PHPUnit\Framework\TestCase;
 use Twig_Environment;
-use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Renderer\PlaybookRenderer;
+use App\Phansible\Renderer\VarfileRenderer;
 
 class VagrantBundleTest extends TestCase
 {
@@ -37,9 +37,9 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getVagrantFile
-     * @covers \Phansible\Model\VagrantBundle::setVagrantFile
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getVagrantFile
+     * @covers \App\Phansible\Model\VagrantBundle::setVagrantFile
      */
     public function testShouldSetAndGetVagrantFile(): void
     {
@@ -50,8 +50,8 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getZipArchive
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getZipArchive
      */
     public function testShouldRetrieveZipArchive(): void
     {
@@ -61,8 +61,8 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::addRoleFiles
-     * @covers \Phansible\Model\VagrantBundle::includeBundleFiles
+     * @covers \App\Phansible\Model\VagrantBundle::addRoleFiles
+     * @covers \App\Phansible\Model\VagrantBundle::includeBundleFiles
      */
     public function testShouldIncludeRole(): void
     {
@@ -97,8 +97,8 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::includeBundleFiles
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::includeBundleFiles
      */
     public function testDefaultIncludeBundleFiles(): void
     {
@@ -122,7 +122,7 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::generateBundle
+     * @covers \App\Phansible\Model\VagrantBundle::generateBundle
      */
     public function testShouldRetrieveZeroWhenGenerateBundleNotOpenFilePath(): void
     {
@@ -151,7 +151,7 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::generateBundle
+     * @covers \App\Phansible\Model\VagrantBundle::generateBundle
      */
     public function testShouldRetrieveOneWhenGenerateBundle(): void
     {
@@ -184,11 +184,11 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getPlaybook
-     * @covers \Phansible\Model\VagrantBundle::setPlaybook
-     * @covers \Phansible\Model\VagrantBundle::addRenderer
-     * @covers \Phansible\Model\VagrantBundle::getRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getPlaybook
+     * @covers \App\Phansible\Model\VagrantBundle::setPlaybook
+     * @covers \App\Phansible\Model\VagrantBundle::addRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::getRenderer
      */
     public function testShouldSetAndGetPlaybook(): void
     {
@@ -199,11 +199,11 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getVarsFile
-     * @covers \Phansible\Model\VagrantBundle::setVarsFile
-     * @covers \Phansible\Model\VagrantBundle::addRenderer
-     * @covers \Phansible\Model\VagrantBundle::getRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getVarsFile
+     * @covers \App\Phansible\Model\VagrantBundle::setVarsFile
+     * @covers \App\Phansible\Model\VagrantBundle::addRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::getRenderer
      */
     public function testShouldSetAndGetVarsFile(): void
     {

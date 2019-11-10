@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
+use App\Phansible\Application;
 
 class BeanstalkdTest extends TestCase
 {
@@ -25,7 +25,7 @@ class BeanstalkdTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Beanstalkd
+     * @covers \App\Phansible\Roles\Beanstalkd
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class BeanstalkdTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Beanstalkd::getName
+     * @covers \App\Phansible\Roles\Beanstalkd::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class BeanstalkdTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Beanstalkd::getSlug
+     * @covers \App\Phansible\Roles\Beanstalkd::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class BeanstalkdTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Beanstalkd::getRole
+     * @covers \App\Phansible\Roles\Beanstalkd::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class BeanstalkdTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Beanstalkd::getInitialValues
+     * @covers \App\Phansible\Roles\Beanstalkd::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

@@ -1,18 +1,19 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
 use DateTimeZone;
-use Flint\Controller\Controller;
 use Michelf\Markdown;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @package Phansible
  */
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
-    public function indexAction()
+    public function indexAction(): Response
     {
         $config = $this->get('config');
 
@@ -35,7 +36,7 @@ class DefaultController extends Controller
         return $this->render('index.html.twig', array_merge($initialValues, $config));
     }
 
-    public function docsAction($doc)
+    public function docsAction($doc): Response
     {
         if (!in_array($doc, ['contributing', 'customize', 'usage', 'vagrant'])) {
             throw new NotFoundHttpException();

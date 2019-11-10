@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Model\VagrantBundle;
-use Phansible\Role;
-use Phansible\RoleValuesTransformer;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Role;
+use App\Phansible\RoleValuesTransformer;
 
 class Php implements Role, RoleValuesTransformer
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
-use Flint\Controller\Controller;
-use Phansible\Application;
-use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\TemplateRenderer;
-use Phansible\Renderer\VarfileRenderer;
+use App\Phansible\Application;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Renderer\PlaybookRenderer;
+use App\Phansible\Renderer\TemplateRenderer;
+use App\Phansible\Renderer\VarfileRenderer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -18,7 +18,7 @@ use Twig_Loader_Filesystem;
 /**
  * @package Phansible
  */
-class BundleController extends Controller
+class BundleController extends AbstractController
 {
     /**
      * @var VagrantBundle
@@ -28,9 +28,9 @@ class BundleController extends Controller
     /**
      * @param Request $request
      * @param Application $app
-     * @return Response|StreamedResponse
+     * @return Response
      */
-    public function indexAction(Request $request, Application $app)
+    public function indexAction(Request $request, Application $app): Response
     {
         $requestVars                     = $request->request->all();
         $requestVars['server']['locale'] = $this->extractLocale(

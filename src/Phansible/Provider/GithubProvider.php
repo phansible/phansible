@@ -1,12 +1,12 @@
 <?php
 
-namespace Phansible\Provider;
+namespace App\Phansible\Provider;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Github\Client;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
-use Phansible\Model\GithubAdapter;
+use App\Phansible\Model\GithubAdapter;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 

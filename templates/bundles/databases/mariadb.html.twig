@@ -1,0 +1,43 @@
+<div class="ui tab bottom attached segment" data-tab="mariadb">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input class="update-other-input" type="checkbox" name="mariadb[install]" data-update-mysql[install]="0"
+                   value="1" {% if mariadb.install %}checked="checked"{% endif %}/>
+            <label>Install MariaDb</label>
+        </div>
+    </div>
+    <p>If you install MariaDB, you cannot install MySQL.</p>
+    <div class="field">
+        <label for="root_password">Root Password:</label>
+        <input type="text" name="mariadb[root_password]" value="{{ mariadb.root_password }}"/>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label for="database">Database:</label>
+            <div class="ui disabled left labeled input">
+                <input type="text" name="mariadb[database]" value="db"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="user">User:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="mariadb[user]" value="user"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="database">Password:</label>
+            <div class="ui left labeled input">
+                <input type="text" name="mariadb[password]" value="password"/>
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label for="dump">Dump file:</label>
+        <input type="text" name="mariadb[dump]"/>
+    </div>
+</div>

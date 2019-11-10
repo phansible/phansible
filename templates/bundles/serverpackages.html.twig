@@ -1,0 +1,17 @@
+<h2 class="ui dividing header" id="section-serverpackages">Server Packages</h2>
+<section>
+    <input type="hidden" name="server[install]" value="1"/>
+    <h3 class="ui header">Instructions:</h3>
+    <p>Type the name of the package and choose from the list.</p>
+    <div class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="field">
+            <label for="serverpackages">Packages:</label>
+            <select id="serverpackages" name="server[packages][]" class="selectized" multiple>
+                {% for package in config.syspackages %}
+                    <option value="{{ package }}">{{ package }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</section>

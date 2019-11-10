@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible;
+namespace App\Phansible;
 
 use Exception;
-use Phansible\Provider\GithubProvider;
-use Phansible\Provider\RolesServiceProvider;
+use App\Phansible\Provider\GithubProvider;
+use App\Phansible\Provider\RolesServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 
 class RedisTest extends TestCase
 {
@@ -25,7 +25,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis
+     * @covers \App\Phansible\Roles\Redis
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getName
+     * @covers \App\Phansible\Roles\Redis::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getSlug
+     * @covers \App\Phansible\Roles\Redis::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getRole
+     * @covers \App\Phansible\Roles\Redis::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getInitialValues
+     * @covers \App\Phansible\Roles\Redis::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

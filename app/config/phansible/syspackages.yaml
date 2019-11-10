@@ -1,0 +1,9 @@
+syspackages:
+  - vim
+  - git
+  - fail2ban
+  - htop
+  - iotop
+  - imagemagick
+  - nodejs
+  - npm

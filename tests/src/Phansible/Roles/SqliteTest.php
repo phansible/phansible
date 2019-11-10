@@ -1,9 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class SqliteTest extends TestCase
@@ -25,7 +25,7 @@ class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Sqlite
+     * @covers \App\Phansible\Roles\Sqlite
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Sqlite::getName
+     * @covers \App\Phansible\Roles\Sqlite::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Sqlite::getSlug
+     * @covers \App\Phansible\Roles\Sqlite::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Sqlite::getRole
+     * @covers \App\Phansible\Roles\Sqlite::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Sqlite::getInitialValues
+     * @covers \App\Phansible\Roles\Sqlite::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

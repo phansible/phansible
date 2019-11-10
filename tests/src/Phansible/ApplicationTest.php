@@ -1,13 +1,13 @@
 <?php
 
-namespace Phansible;
+namespace App\Phansible;
 
 use PHPUnit\Framework\TestCase;
 
 class ApplicationTest extends TestCase
 {
     /**
-     * @covers \Phansible\Application::__construct
+     * @covers \App\Phansible\Application::__construct
      */
     public function testShouldVerifyInformationPassedByConstructor(): void
     {

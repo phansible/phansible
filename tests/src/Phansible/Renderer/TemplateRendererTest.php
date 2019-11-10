@@ -3,7 +3,7 @@
  * Abstract FileRenderer Test
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -41,7 +41,7 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\TemplateRenderer::add
+     * @covers \App\Phansible\Renderer\TemplateRenderer::add
      */
     public function testShouldAddArrayValue(): void
     {
@@ -54,8 +54,8 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\TemplateRenderer::setFilePath
-     * @covers \Phansible\Renderer\TemplateRenderer::getFilePath
+     * @covers \App\Phansible\Renderer\TemplateRenderer::setFilePath
+     * @covers \App\Phansible\Renderer\TemplateRenderer::getFilePath
      */
     public function testShouldSetAndGetFilePath(): void
     {
@@ -67,7 +67,7 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\TemplateRenderer::getData
+     * @covers \App\Phansible\Renderer\TemplateRenderer::getData
      */
     public function testGetData(): void
     {
@@ -79,7 +79,7 @@ class TemplateRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\TemplateRenderer::renderFile
+     * @covers \App\Phansible\Renderer\TemplateRenderer::renderFile
      */
     public function testRenderFile(): void
     {

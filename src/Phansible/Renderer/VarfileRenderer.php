@@ -3,7 +3,7 @@
  * Var File renderer
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 use Symfony\Component\Yaml\Yaml;
 

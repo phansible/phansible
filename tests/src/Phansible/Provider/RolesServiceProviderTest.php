@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Provider;
+namespace App\Phansible\Provider;
 
-use Phansible\Application;
+use App\Phansible\Application;
 use PHPUnit\Framework\TestCase;
-use Phansible\RoleManager;
+use App\Phansible\RoleManager;
 
 class RolesServiceProviderTest extends TestCase
 {

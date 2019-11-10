@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible;
+namespace App\Phansible;
 
-use Phansible\Model\VagrantBundle;
+use App\Phansible\Model\VagrantBundle;
 use PHPUnit\Framework\TestCase;
-use Phansible\Role;
+use App\Phansible\Role;
 
 class RoleManagerTest extends TestCase
 {

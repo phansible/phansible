@@ -6,29 +6,64 @@
     {
       "name": "Erika Heidi",
       "homepage": "http://erikaheidi.com"
+    },
+    {
+      "name": "Marco \"Debo\" De Bortoli",
+      "homepage": "https://debo.io"
     }
   ],
   "license": "MIT",
   "autoload": {
     "psr-0": {
       "": "src/"
+    },
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
     }
   },
   "require": {
     "php": "^7.2",
-    "symfony/yaml": "~2.6",
-    "symfony/twig-bridge": "~2.6",
-    "michelf/php-markdown": "~1.4",
+    "symfony/flex": "^1.4",
+    "symfony/http-foundation": "^4.3",
+    "symfony/routing": "^4.3",
+    "symfony/http-kernel": "^4.3",
+    "symfony/event-dispatcher": "^4.3",
+    "symfony/dependency-injection": "^4.3",
+    "symfony/proxy-manager-bridge": "^4.3",
+    "symfony/config": "^4.3",
+    "symfony/twig-pack": "^1.0",
+    "twig/markdown-extra": "^2.12",
     "knplabs/github-api": "^2.12",
     "php-http/guzzle6-adapter": "^1.1",
     "cache/filesystem-adapter": "^1.0",
-    "symfony/flex": "^1.4"
+    "symfony/yaml": "4.3.*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
+    "symfony/dotenv": "^4.3",
     "phpunit/phpunit": "^8.4",
     "phpmd/phpmd": "^2.7",
     "squizlabs/php_codesniffer": "^3.5",
     "pdepend/pdepend": "^2.5"
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    }
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "4.3.*"
+    }
   }
 }

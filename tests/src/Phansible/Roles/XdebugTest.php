@@ -1,9 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Application;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class XdebugTest extends TestCase
@@ -25,7 +25,7 @@ class XdebugTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Xdebug
+     * @covers \App\Phansible\Roles\Xdebug
      */
     public function testShouldInstanceOf(): void
     {
@@ -34,7 +34,7 @@ class XdebugTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Xdebug::getName
+     * @covers \App\Phansible\Roles\Xdebug::getName
      */
     public function testShouldGetName(): void
     {
@@ -42,7 +42,7 @@ class XdebugTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Xdebug::getSlug
+     * @covers \App\Phansible\Roles\Xdebug::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -50,7 +50,7 @@ class XdebugTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Xdebug::getRole
+     * @covers \App\Phansible\Roles\Xdebug::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -58,7 +58,7 @@ class XdebugTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Xdebug::requiredRolesToBeInstalled
+     * @covers \App\Phansible\Roles\Xdebug::requiredRolesToBeInstalled
      */
     public function testShouldGetRequiredRoles(): void
     {
@@ -68,7 +68,7 @@ class XdebugTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Xdebug::getInitialValues
+     * @covers \App\Phansible\Roles\Xdebug::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

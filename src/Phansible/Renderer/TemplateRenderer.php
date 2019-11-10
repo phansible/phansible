@@ -4,9 +4,9 @@
  * Generic Renderer for templates
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
-use Phansible\Model\FileRendererInterface;
+use App\Phansible\Model\FileRendererInterface;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 
 class Hhvm implements Role
 {

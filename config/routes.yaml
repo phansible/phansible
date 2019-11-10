@@ -1,0 +1,18 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+phansible_default:
+  path: /
+  controller: 'App\Phansible\Controller\DefaultController::indexAction'
+
+phansible_about:
+  path: /about
+  controller: 'App\Phansible\Controller\AboutController::indexAction'
+
+phansible_docs:
+  path: /docs/{doc}
+  controller: 'App\Phansible\Controller\DefaultController::docsAction'
+
+phansible_bundle:
+  path: /generate
+  controller: 'App\Phansible\Controller\BundleController::indexAction'

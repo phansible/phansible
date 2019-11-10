@@ -3,7 +3,7 @@
  * Playbook Renderer
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 class PlaybookRenderer extends TemplateRenderer
 {

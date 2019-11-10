@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
+use App\Phansible\Application;
 
 class HhvmTest extends TestCase
 {
@@ -25,7 +25,7 @@ class HhvmTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Hhvm
+     * @covers \App\Phansible\Roles\Hhvm
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class HhvmTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Hhvm::getName
+     * @covers \App\Phansible\Roles\Hhvm::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class HhvmTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Hhvm::getSlug
+     * @covers \App\Phansible\Roles\Hhvm::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class HhvmTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Hhvm::getRole
+     * @covers \App\Phansible\Roles\Hhvm::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class HhvmTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Hhvm::getInitialValues
+     * @covers \App\Phansible\Roles\Hhvm::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

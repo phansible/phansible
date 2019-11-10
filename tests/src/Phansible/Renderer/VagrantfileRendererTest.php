@@ -3,7 +3,7 @@
  * Vagrantfile Renderer Test
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::loadDefaults
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::loadDefaults
      */
     public function testLoadDefaults(): void
     {
@@ -39,7 +39,7 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getTemplate
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getTemplate
      */
     public function testGetTemplate(): void
     {
@@ -49,7 +49,7 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getFilePath
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getFilePath
      */
     public function testGetFilePath(): void
     {
@@ -59,8 +59,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getMemory
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setMemory
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getMemory
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setMemory
      */
     public function testShouldSetAndGetMemory(): void
     {
@@ -74,8 +74,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getName
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setName
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getName
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setName
      */
     public function testShouldSetAndGetVmName(): void
     {
@@ -89,8 +89,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getBoxName
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setBoxName
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getBoxName
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setBoxName
      */
     public function testShouldSetAndGetBox(): void
     {
@@ -104,8 +104,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getBoxUrl
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setBoxUrl
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getBoxUrl
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setBoxUrl
      */
     public function testShouldSetAndGetBoxUrl(): void
     {
@@ -119,8 +119,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getIpAddress
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setIpAddress
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getIpAddress
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setIpAddress
      */
     public function testShouldSetAndGetIpAddress(): void
     {
@@ -134,8 +134,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getSyncedFolder
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setSyncedFolder
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getSyncedFolder
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setSyncedFolder
      */
     public function testShouldSetAndGetSyncedFolder(): void
     {
@@ -149,8 +149,8 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getSyncedType
-     * @covers \Phansible\Renderer\VagrantfileRenderer::setSyncedType
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getSyncedType
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setSyncedType
      */
     public function testShouldSetAndGetSyncedFolderType(): void
     {
@@ -164,7 +164,7 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::getData
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getData
      */
     public function testGetData(): void
     {
@@ -179,7 +179,7 @@ class VagrantfileRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\VagrantfileRenderer::renderFile
+     * @covers \App\Phansible\Renderer\VagrantfileRenderer::renderFile
      */
     public function testShouldRenderVagrantfile(): void
     {

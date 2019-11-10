@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
+use App\Phansible\Application;
 
 class BlackfireTest extends TestCase
 {
@@ -25,7 +25,7 @@ class BlackfireTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Blackfire
+     * @covers \App\Phansible\Roles\Blackfire
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +33,7 @@ class BlackfireTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Blackfire::getName
+     * @covers \App\Phansible\Roles\Blackfire::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +41,7 @@ class BlackfireTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Blackfire::getSlug
+     * @covers \App\Phansible\Roles\Blackfire::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +49,7 @@ class BlackfireTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Blackfire::getRole
+     * @covers \App\Phansible\Roles\Blackfire::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +57,7 @@ class BlackfireTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Blackfire::getInitialValues
+     * @covers \App\Phansible\Roles\Blackfire::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

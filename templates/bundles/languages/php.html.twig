@@ -1,0 +1,78 @@
+<div class="ui tab bottom attached segment active" data-tab="php">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input id="php_install" class="update-other-input" type="checkbox" name="php[install]"
+                   data-update-hhvm[install]="0" value="1" {% if php.install %}checked="checked"{% endif %} />
+            <label>Install PHP</label>
+        </div>
+    </div>
+    <p>If you install PHP, you cannot install HHVM.</p>
+
+    <div id="php_install_details" class="ui piled segment">
+        <div class="ui top attached black label">Details</div>
+        <div class="three fields">
+            <div class="field">
+                <label for="php_version">Version:</label>
+                <div class="three fluid ui buttons">
+                    <input type="hidden" id="php_version" name="php[ppa]" value="php5-5.6"/>
+                    <div class="ui green active button phpversion" data-value="php5-5.6">5.6</div>
+                    <div class="ui black button phpversion" data-value="php5">5.5</div>
+                    <div class="ui black button phpversion" data-value="php5-oldstable">5.4</div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="composer">Composer:</label>
+                <input type="hidden" id="composer" name="composer[install]" value="0"/>
+                <div class="ui fluid toggle black button composer">Disabled</div>
+            </div>
+            <div class="field">
+                <label for="xdebug">Xdebug:</label>
+                <input type="hidden" id="xdebug" name="xdebug[install]" value="0"/>
+                <div class="ui fluid toggle black button xdebug">Disabled</div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="phppackages">PHP Modules:</label>
+            <select id="phppackages" name="php[packages][]" class="selectized" multiple>
+                {% for package in config.phppackages %}
+                    <option value="{{ package }}"{% if package in php.packages %} selected="selected"{% endif %}>{{ package }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="peclpackages">PECL Packages:</label>
+            <select id="peclpackages" name="php[peclpackages][]" class="selectized" multiple>
+                {% for key, values in config.peclpackages %}
+                    <optgroup label="{{ key }}">
+                        {% for package in values %}
+                            <option value="{{ package }}"{% if package in php.peclpackages %} selected="selected"{% endif %}>{{ package }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="blackfire[install]">BlackFire:</label>
+            <div class="field inline">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="blackfire[install]" value="1"
+                           {% if blackfire.install %}checked="checked"{% endif %} /><label>Install BlackFire</label>
+                </div>
+            </div>
+            <div class="field">
+                <label for="blackfire[server_id]">Blackfire Server ID:</label>
+                <input type="text" id="blackfire_server_id" name="blackfire[server_id]"
+                       value="{{ blackfire.server_id }}"/>
+            </div>
+            <div class="field">
+                <label for="blackfire[server_token]">Blackfire Server Token:</label>
+                <input type="text" id="blackfire_server_token" name="blackfire[server_token]"
+                       value="{{ blackfire.server_token }}"/>
+            </div>
+            <p>
+                You can get your credentials from <a href="https://blackfire.io/account/credentials">Blackfire
+                    website</a>.
+            </p>
+        </div>
+    </div>
+</div>

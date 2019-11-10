@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
 use PHPUnit\Framework\TestCase;
 use Pimple;
-use Phansible\Model\GithubAdapter;
+use App\Phansible\Model\GithubAdapter;
 
 class AboutControllerTest extends TestCase
 {
@@ -26,7 +26,7 @@ class AboutControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\AboutController::indexAction
+     * @covers \App\Phansible\Controller\AboutController::indexAction
      */
     public function testShouldRenderindexAction(): void
     {
