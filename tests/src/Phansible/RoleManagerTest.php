@@ -4,7 +4,7 @@ namespace App\Phansible;
 
 use App\Phansible\Model\VagrantBundle;
 use PHPUnit\Framework\TestCase;
-use App\Phansible\Role;
+use Twig\Environment;
 
 class RoleManagerTest extends TestCase
 {
@@ -50,7 +50,7 @@ class RoleManagerTest extends TestCase
         $this->roleManager->register($firstRole);
         $this->roleManager->register($secondRole);
 
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 

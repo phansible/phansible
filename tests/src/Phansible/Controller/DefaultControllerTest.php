@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Pimple;
 use SplFileObject;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Twig\Environment;
 
 class DefaultControllerTest extends TestCase
 {
@@ -16,7 +17,7 @@ class DefaultControllerTest extends TestCase
     public function setUp(): void
     {
         $this->controller = new DefaultController();
-        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
+        $this->twig       = $this->getMockBuilder(Environment::class)
             ->onlyMethods(['render'])
             ->getMock();
     }

@@ -5,17 +5,17 @@
 
 namespace App\Phansible\Model;
 
-use Twig_Environment;
+use Twig\Environment;
 
 interface FileRendererInterface
 {
     /**
      * Renders the template with current data
      *
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      * @return string Rendered template
      */
-    public function renderFile(Twig_Environment $twig): string;
+    public function renderFile(Environment $twig): string;
 
     /**
      * Loads any default values

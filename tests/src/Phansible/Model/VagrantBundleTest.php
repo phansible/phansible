@@ -2,12 +2,11 @@
 
 namespace App\Phansible\Model;
 
-use App\Phansible\Renderer\VagrantfileRenderer;
-use PHPUnit\Framework\TestCase;
-use Twig_Environment;
-use App\Phansible\Model\VagrantBundle;
 use App\Phansible\Renderer\PlaybookRenderer;
+use App\Phansible\Renderer\VagrantfileRenderer;
 use App\Phansible\Renderer\VarfileRenderer;
+use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 
 class VagrantBundleTest extends TestCase
 {
@@ -17,13 +16,13 @@ class VagrantBundleTest extends TestCase
     private $model;
 
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     private $twig;
 
     public function setUp(): void
     {
-        $this->twig = $this->getMockBuilder(Twig_Environment::class)
+        $this->twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 

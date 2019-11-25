@@ -5,6 +5,7 @@ namespace App\Phansible\Controller;
 use PHPUnit\Framework\TestCase;
 use Pimple;
 use App\Phansible\Model\GithubAdapter;
+use Twig\Environment;
 
 class AboutControllerTest extends TestCase
 {
@@ -14,7 +15,7 @@ class AboutControllerTest extends TestCase
     public function setUp(): void
     {
         $this->controller = new AboutController();
-        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
+        $this->twig       = $this->getMockBuilder(Environment::class)
             ->onlyMethods(['render'])
             ->getMock();
     }

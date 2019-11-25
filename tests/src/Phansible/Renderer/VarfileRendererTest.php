@@ -8,6 +8,7 @@ namespace App\Phansible\Renderer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
+use Twig\Environment;
 
 class VarfileRendererTest extends TestCase
 {
@@ -131,7 +132,7 @@ class VarfileRendererTest extends TestCase
      */
     public function testShouldRenderVarfile()
     {
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['render'])
             ->getMock();

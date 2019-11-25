@@ -6,6 +6,7 @@
 namespace App\Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 
 class VagrantfileRendererTest extends TestCase
 {
@@ -185,7 +186,7 @@ class VagrantfileRendererTest extends TestCase
     {
         $this->model->setName('phansible');
 
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['render'])
             ->getMock();

@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Twig_Environment;
-use Twig_Loader_Filesystem;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * @package Phansible
  */
-class BundleController
+class BundleController extends AbstractController
 {
     /**
      * @var VagrantBundle
@@ -111,8 +111,8 @@ class BundleController
     private function getVagrantBundle(): VagrantBundle
     {
         if (!$this->vagrantBundle instanceof VagrantBundle) {
-            $twig = new Twig_Environment(
-                new Twig_Loader_Filesystem($this->get('ansible.templates'))
+            $twig = new Environment(
+                new FilesystemLoader($this->getParameters('ansible.templates'))
             );
 
             $this->vagrantBundle = new VagrantBundle(

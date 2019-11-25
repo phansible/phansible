@@ -6,6 +6,7 @@
 namespace App\Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 
 class PlaybookRendererTest extends TestCase
 {
@@ -84,9 +85,9 @@ class PlaybookRendererTest extends TestCase
     {
         $this->model->setRoles(['nginx', 'php5-fpm']);
 
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
-//            ->onlyMethods(['render'])
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())

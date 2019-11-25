@@ -7,6 +7,7 @@ namespace App\Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use Twig\Environment;
 
 class TemplateRendererTest extends TestCase
 {
@@ -83,7 +84,7 @@ class TemplateRendererTest extends TestCase
      */
     public function testRenderFile(): void
     {
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['render'])
             ->getMock();

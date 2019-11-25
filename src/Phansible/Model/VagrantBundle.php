@@ -10,7 +10,7 @@ use App\Phansible\Renderer\TemplateRenderer;
 use App\Phansible\Renderer\VagrantfileRenderer;
 use App\Phansible\Renderer\VarfileRenderer;
 use App\Phansible\Roles\VagrantLocal;
-use Twig_Environment;
+use Twig\Environment;
 use ZipArchive;
 
 class VagrantBundle
@@ -26,14 +26,14 @@ class VagrantBundle
     /** @var string Path to Ansible Resources */
     protected $ansiblePath;
 
-    /** @var Twig_Environment */
+    /** @var Environment */
     protected $twig;
 
     /**
      * @param string $ansiblePath
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      */
-    public function __construct($ansiblePath, Twig_Environment $twig)
+    public function __construct($ansiblePath, Environment $twig)
     {
         $this->twig        = $twig;
         $this->ansiblePath = $ansiblePath;

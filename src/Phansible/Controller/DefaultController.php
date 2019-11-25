@@ -113,7 +113,7 @@ class DefaultController extends AbstractController
         $docfile = $this->getParameter('docs.path') . DIRECTORY_SEPARATOR . $doc . '.md';
 
         $content = '';
-        
+
         if (is_file($docfile)) {
             $content = file_get_contents($docfile);
         }
