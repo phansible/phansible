@@ -12,6 +12,15 @@ build/*
 
 src/Phansible/Resources/ansible/roles
 !src/Phansible/Resources/ansible/roles/app
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
 
 ###> symfony/framework-bundle ###
 /.env.local

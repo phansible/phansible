@@ -4,6 +4,6 @@
 
 {% block content %}
 
-    {{ content|raw }}
+    {{ content | markdown_to_html }}
 
 {% endblock %}

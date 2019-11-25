@@ -10,7 +10,7 @@ databases:
     include:
       - mariadb
 
-  pgsql :
+  pgsql:
     name: PostgreSQL
     include:
       - postgresql-9.3

@@ -1,0 +1,19 @@
+#imports:
+#    - { resource: 'phansible/boxes.yaml' }
+#    - { resource: 'phansible/webservers.yaml' }
+#    - { resource: 'phansible/syspackages.yaml' }
+#    - { resource: 'phansible/phppackages.yaml' }
+#    - { resource: 'phansible/rabbitmqplugins.yaml' }
+#    - { resource: 'phansible/databases.yaml' }
+#    - { resource: 'phansible/workers.yaml' }
+#    - { resource: 'phansible/peclpackages.yaml' }
+
+config:
+  bundles:
+    - vagrant
+    - webserver
+    - php
+    - database
+    - workers
+    - syspackages
+    - timezone

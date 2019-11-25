@@ -18,7 +18,7 @@ use Twig_Loader_Filesystem;
 /**
  * @package Phansible
  */
-class BundleController extends AbstractController
+class BundleController
 {
     /**
      * @var VagrantBundle
