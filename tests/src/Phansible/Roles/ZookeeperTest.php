@@ -2,7 +2,6 @@
 
 namespace App\Phansible\Roles;
 
-use App\Phansible\Application;
 use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
@@ -12,11 +11,7 @@ class ZookeeperTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Zookeeper($app);
+        $this->role = new Zookeeper();
     }
 
     public function tearDown(): void
@@ -61,11 +56,11 @@ class ZookeeperTest extends TestCase
      */
     public function testShouldGetInitialValues()
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+//        $app = $this->getMockBuilder(Application::class)
+//            ->disableOriginalConstructor()
+//            ->getMock();
 
-        $role = new Zookeeper($app);
+        $role = new Zookeeper();
 
         $expected = [
             'install' => 1,

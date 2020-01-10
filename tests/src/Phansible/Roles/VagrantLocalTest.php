@@ -2,12 +2,11 @@
 
 namespace App\Phansible\Roles;
 
-use App\Phansible\Application;
-use App\Phansible\Role;
-use PHPUnit\Framework\TestCase;
-use App\Phansible\RoleValuesTransformer;
 use App\Phansible\Model\VagrantBundle;
 use App\Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Role;
+use App\Phansible\RoleValuesTransformer;
+use PHPUnit\Framework\TestCase;
 
 class VagrantLocalTest extends TestCase
 {
@@ -15,11 +14,7 @@ class VagrantLocalTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new VagrantLocal($app);
+        $this->role = new VagrantLocal();
     }
 
     public function tearDown(): void
@@ -109,17 +104,17 @@ class VagrantLocalTest extends TestCase
                 $this->isInstanceOf(VagrantfileRenderer::class)
             );
 
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['offsetGet'])
-            ->getMock();
+//        $app = $this->getMockBuilder(Application::class)
+//            ->disableOriginalConstructor()
+//            ->onlyMethods(['offsetGet'])
+//            ->getMock();
+//
+//        $app->expects($this->once())
+//            ->method('offsetGet')
+//            ->with('boxes')
+//            ->willReturn($boxes);
 
-        $app->expects($this->once())
-            ->method('offsetGet')
-            ->with('boxes')
-            ->willReturn($boxes);
-
-        $role = new VagrantLocal($app);
+        $role = new VagrantLocal();
 
         $role->transformValues($values, $bundle);
     }

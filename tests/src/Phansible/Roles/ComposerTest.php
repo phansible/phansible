@@ -2,10 +2,9 @@
 
 namespace App\Phansible\Roles;
 
-use PHPUnit\Framework\TestCase;
-use App\Phansible\Application;
 use App\Phansible\Role;
 use App\Phansible\RoleWithDependencies;
+use PHPUnit\Framework\TestCase;
 
 class ComposerTest extends TestCase
 {
@@ -13,11 +12,7 @@ class ComposerTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Composer($app);
+        $this->role = new Composer();
     }
 
     public function tearDown(): void

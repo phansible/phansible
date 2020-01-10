@@ -2,9 +2,8 @@
 
 namespace App\Phansible\Controller;
 
-use PHPUnit\Framework\TestCase;
-use Pimple;
 use App\Phansible\Model\GithubAdapter;
+use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
 class AboutControllerTest extends TestCase
@@ -16,6 +15,7 @@ class AboutControllerTest extends TestCase
     {
         $this->controller = new AboutController();
         $this->twig       = $this->getMockBuilder(Environment::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['render'])
             ->getMock();
     }
@@ -31,7 +31,7 @@ class AboutControllerTest extends TestCase
      */
     public function testShouldRenderindexAction(): void
     {
-        $container = new Pimple();
+//        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -48,16 +48,16 @@ class AboutControllerTest extends TestCase
             ->method('get')
             ->willReturn(['contributors-data']);
 
-        $container['twig']        = $this->twig;
-        $container['config']      = [];
-        $container['webservers']  = [];
-        $container['boxes']       = [];
-        $container['syspackages'] = [];
-        $container['phppackages'] = [];
-        $container['github']      = $github;
+//        $container['twig']        = $this->twig;
+//        $container['config']      = [];
+//        $container['webservers']  = [];
+//        $container['boxes']       = [];
+//        $container['syspackages'] = [];
+//        $container['phppackages'] = [];
+//        $container['github']      = $github;
+//
+//        $this->controller->setPimple($container);
 
-        $this->controller->setPimple($container);
-
-        $this->controller->indexAction();
+        $this->controller->indexAction($github);
     }
 }

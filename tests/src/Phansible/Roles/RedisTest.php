@@ -2,9 +2,8 @@
 
 namespace App\Phansible\Roles;
 
-use PHPUnit\Framework\TestCase;
-use App\Phansible\Application;
 use App\Phansible\Role;
+use PHPUnit\Framework\TestCase;
 
 class RedisTest extends TestCase
 {
@@ -12,11 +11,7 @@ class RedisTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Redis($app);
+        $this->role = new Redis();
     }
 
     public function tearDown(): void

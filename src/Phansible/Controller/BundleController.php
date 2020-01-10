@@ -27,10 +27,10 @@ class BundleController extends AbstractController
 
     /**
      * @param Request $request
-     * @param Application $app
+     * @param array $app
      * @return Response
      */
-    public function indexAction(Request $request, Application $app): Response
+    public function indexAction(Request $request, array $app = []): Response
     {
         $requestVars                     = $request->request->all();
         $requestVars['server']['locale'] = $this->extractLocale(

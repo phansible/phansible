@@ -18,6 +18,7 @@ class DefaultControllerTest extends TestCase
     {
         $this->controller = new DefaultController();
         $this->twig       = $this->getMockBuilder(Environment::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['render'])
             ->getMock();
     }
@@ -33,7 +34,7 @@ class DefaultControllerTest extends TestCase
      */
     public function testShouldRenderIndexAction(): void
     {
-        $container = new Pimple();
+//        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -42,19 +43,19 @@ class DefaultControllerTest extends TestCase
                 $this->arrayHasKey('config')
             );
 
-        $container['twig']            = $this->twig;
-        $container['config']          = [];
-        $container['webservers']      = [];
-        $container['boxes']           = [];
-        $container['syspackages']     = [];
-        $container['phppackages']     = [];
-        $container['databases']       = [];
-        $container['workers']         = [];
-        $container['peclpackages']    = [];
-        $container['rabbitmqplugins'] = [];
-        $container['roles']           = new RoleManager();
+//        $container['twig']            = $this->twig;
+//        $container['config']          = [];
+//        $container['webservers']      = [];
+//        $container['boxes']           = [];
+//        $container['syspackages']     = [];
+//        $container['phppackages']     = [];
+//        $container['databases']       = [];
+//        $container['workers']         = [];
+//        $container['peclpackages']    = [];
+//        $container['rabbitmqplugins'] = [];
+//        $container['roles']           = new RoleManager();
 
-        $this->controller->setPimple($container);
+//        $this->controller->setPimple($container);
         $this->controller->indexAction();
     }
 
@@ -74,7 +75,7 @@ class DefaultControllerTest extends TestCase
      */
     public function testShouldRenderDocsActionWhenFileExists(): void
     {
-        $container = new Pimple();
+//        $container = new Pimple();
 
         $this->twig->expects($this->once())
             ->method('render')
@@ -90,10 +91,10 @@ class DefaultControllerTest extends TestCase
 
         $doc = 'vagrant';
 
-        $container['twig']      = $this->twig;
-        $container['docs.path'] = '/tmp';
+//        $container['twig']      = $this->twig;
+//        $container['docs.path'] = '/tmp';
 
-        $this->controller->setPimple($container);
+//        $this->controller->setPimple($container);
         $this->controller->docsAction($doc);
 
         unlink($docFile->getPathname());

@@ -11,11 +11,7 @@ class RabbitmqTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Rabbitmq($app);
+        $this->role = new Rabbitmq();
     }
 
     public function tearDown(): void

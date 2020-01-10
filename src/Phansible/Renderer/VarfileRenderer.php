@@ -18,7 +18,8 @@ class VarfileRenderer extends TemplateRenderer
     /**
      * @param string $name
      */
-    public function __construct($name)
+    //public function __construct($name)
+    public function __construct()
     {
         $this->name = $name;
         parent::__construct();

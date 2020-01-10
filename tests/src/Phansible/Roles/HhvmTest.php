@@ -4,7 +4,6 @@ namespace App\Phansible\Roles;
 
 use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use App\Phansible\Application;
 
 class HhvmTest extends TestCase
 {
@@ -12,11 +11,7 @@ class HhvmTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Hhvm($app);
+        $this->role = new Hhvm();
     }
 
     public function tearDown(): void

@@ -2,9 +2,8 @@
 
 namespace App\Phansible\Roles;
 
-use PHPUnit\Framework\TestCase;
-use App\Phansible\Application;
 use App\Phansible\Role;
+use PHPUnit\Framework\TestCase;
 
 class ElasticSearchTest extends TestCase
 {
@@ -12,11 +11,7 @@ class ElasticSearchTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new ElasticSearch($app);
+        $this->role = new ElasticSearch();
     }
 
     public function tearDown(): void

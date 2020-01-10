@@ -33,7 +33,8 @@ class VagrantBundle
      * @param string $ansiblePath
      * @param Environment $twig
      */
-    public function __construct($ansiblePath, Environment $twig)
+    //public function __construct($ansiblePath, Environment $twig)
+    public function __construct(Environment $twig)
     {
         $this->twig        = $twig;
         $this->ansiblePath = $ansiblePath;

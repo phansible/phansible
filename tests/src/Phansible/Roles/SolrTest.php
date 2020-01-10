@@ -2,7 +2,6 @@
 
 namespace App\Phansible\Roles;
 
-use App\Phansible\Application;
 use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
@@ -12,11 +11,7 @@ class SolrTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Solr($app);
+        $this->role = new Solr();
     }
 
     public function tearDown(): void

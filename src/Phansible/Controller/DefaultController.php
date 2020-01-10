@@ -38,15 +38,6 @@ class DefaultController extends AbstractController
 //        $config = $this->getParameter('config');
         $config = Yaml::parse(file_get_contents('../config/config.yaml'));
 
-//        $config['boxes']           = Yaml::parse(file_get_contents('../config/phansible/boxes.yaml'));
-//        $config['webservers']      = Yaml::parse(file_get_contents('../config/phansible/webservers.yaml'));
-//        $config['syspackages']     = Yaml::parse(file_get_contents('../config/phansible/syspackages.yaml'));
-//        $config['phppackages']     = Yaml::parse(file_get_contents('../config/phansible/phppackages.yaml'));
-//        $config['databases']       = Yaml::parse(file_get_contents('../config/phansible/databases.yaml'));
-//        $config['workers']         = Yaml::parse(file_get_contents('../config/phansible/workers.yaml'));
-//        $config['peclpackages']    = Yaml::parse(file_get_contents('../config/phansible/peclpackages.yaml'));
-//        $config['rabbitmqplugins'] = Yaml::parse(file_get_contents('../config/phansible/rabbitmqplugins.yaml'));
-
         $config = array_merge($config, Yaml::parse(file_get_contents('../config/phansible/boxes.yaml')));
         $config = array_merge($config, Yaml::parse(file_get_contents('../config/phansible/webservers.yaml')));
         $config = array_merge($config, Yaml::parse(file_get_contents('../config/phansible/syspackages.yaml')));

@@ -2,7 +2,6 @@
 
 namespace App\Phansible\Roles;
 
-use App\Phansible\Application;
 use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
@@ -12,11 +11,7 @@ class ServerTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Server($app);
+        $this->role = new Server();
     }
 
     public function tearDown(): void

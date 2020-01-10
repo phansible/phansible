@@ -2,8 +2,8 @@
 
 namespace App\Phansible\Roles;
 
-use App\Phansible\Application;
 use App\Phansible\Role;
+use App\Phansible\RoleWithDependencies;
 use PHPUnit\Framework\TestCase;
 
 class XdebugTest extends TestCase
@@ -12,11 +12,7 @@ class XdebugTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Xdebug($app);
+        $this->role = new Xdebug();
     }
 
     public function tearDown(): void
@@ -30,7 +26,7 @@ class XdebugTest extends TestCase
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
-        $this->assertInstanceOf('\Phansible\RoleWithDependencies', $this->role);
+        $this->assertInstanceOf(RoleWithDependencies::class, $this->role);
     }
 
     /**

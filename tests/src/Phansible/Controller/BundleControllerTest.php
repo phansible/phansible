@@ -5,7 +5,6 @@ namespace App\Phansible\Controller;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use App\Phansible\RoleManager;
-use App\Phansible\Application;
 use App\Phansible\Model\VagrantBundle;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -72,15 +71,15 @@ class BundleControllerTest extends TestCase
 
         $roles = $this->createMock(RoleManager::class);
 
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['offsetGet'])
-            ->getMock();
-
-        $app->expects($this->once())
-            ->method('offsetGet')
-            ->with('roles')
-            ->willReturn($roles);
+//        $app = $this->getMockBuilder(Application::class)
+//            ->disableOriginalConstructor()
+//            ->onlyMethods(['offsetGet'])
+//            ->getMock();
+//
+//        $app->expects($this->once())
+//            ->method('offsetGet')
+//            ->with('roles')
+//            ->willReturn($roles);
 
         $bundle = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
@@ -92,7 +91,7 @@ class BundleControllerTest extends TestCase
             ->willReturn(false);
 
         $this->controller->setVagrantBundle($bundle);
-        $response = $this->controller->indexAction($request, $app);
+        $response = $this->controller->indexAction($request);
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals('An error occurred.', $response->getContent());
