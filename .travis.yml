@@ -10,8 +10,11 @@ install:
   - composer install --optimize-autoloader --prefer-source --no-interaction
 
 script:
-  - cd vendor/bin/
-  - php ./vendor/bin/phpunit -c phpunit.xml --color --coverage-clover=build/logs/clover.xml
+  - cd vendor/
+  - ls -l
+  - cd bin/
+  - ls -l
+  - php vendor/bin/phpunit -c phpunit.xml --color --coverage-clover=build/logs/clover.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
