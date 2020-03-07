@@ -50,6 +50,15 @@
             "config/packages/github_api.yaml"
         ]
     },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.1"
+    },
     "league/commonmark": {
         "version": "1.1.1"
     },
@@ -57,7 +66,7 @@
         "version": "1.0.57"
     },
     "myclabs/deep-copy": {
-        "version": "1.9.3"
+        "version": "1.9.5"
     },
     "ocramius/package-versions": {
         "version": "1.5.1"
@@ -72,7 +81,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.3"
+        "version": "7.4"
     },
     "php-http/cache-plugin": {
         "version": "1.6.0"
@@ -102,28 +111,31 @@
         "version": "2.0.0"
     },
     "phpdocumentor/reflection-docblock": {
-        "version": "4.3.2"
+        "version": "5.1.0"
     },
     "phpdocumentor/type-resolver": {
-        "version": "1.0.1"
+        "version": "1.1.0"
     },
     "phpspec/prophecy": {
-        "version": "1.9.0"
+        "version": "v1.10.2"
     },
     "phpunit/php-code-coverage": {
-        "version": "7.0.10"
+        "version": "8.0.1"
     },
     "phpunit/php-file-iterator": {
-        "version": "2.0.2"
+        "version": "3.0.0"
+    },
+    "phpunit/php-invoker": {
+        "version": "3.0.0"
     },
     "phpunit/php-text-template": {
-        "version": "1.2.1"
+        "version": "2.0.0"
     },
     "phpunit/php-timer": {
-        "version": "2.1.2"
+        "version": "3.0.0"
     },
     "phpunit/php-token-stream": {
-        "version": "3.1.1"
+        "version": "4.0.0"
     },
     "phpunit/phpunit": {
         "version": "4.7",
@@ -131,13 +143,12 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.7",
-            "ref": "f1546d78502f904f37f7b47a42b1444cbf1d3423"
+            "ref": "00fdb38c318774cd39f475a753028a5e8d25d47c"
         },
         "files": [
             ".env.test",
             "phpunit.xml.dist",
-            "config/bootstrap.php",
-            "tests/.gitignore"
+            "tests/bootstrap.php"
         ]
     },
     "psr/cache": {
@@ -161,41 +172,44 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
+    "roave/security-advisories": {
+        "version": "dev-master"
+    },
     "sebastian/code-unit-reverse-lookup": {
-        "version": "1.0.1"
+        "version": "2.0.0"
     },
     "sebastian/comparator": {
-        "version": "3.0.2"
+        "version": "4.0.0"
     },
     "sebastian/diff": {
-        "version": "3.0.2"
+        "version": "4.0.0"
     },
     "sebastian/environment": {
-        "version": "4.2.3"
+        "version": "5.0.1"
     },
     "sebastian/exporter": {
-        "version": "3.1.2"
+        "version": "4.0.0"
     },
     "sebastian/global-state": {
-        "version": "3.0.0"
+        "version": "4.0.0"
     },
     "sebastian/object-enumerator": {
-        "version": "3.0.3"
+        "version": "4.0.0"
     },
     "sebastian/object-reflector": {
-        "version": "1.1.1"
+        "version": "2.0.0"
     },
     "sebastian/recursion-context": {
-        "version": "3.0.0"
+        "version": "4.0.0"
     },
     "sebastian/resource-operations": {
-        "version": "2.0.1"
+        "version": "3.0.0"
     },
     "sebastian/type": {
-        "version": "1.1.3"
+        "version": "2.0.0"
     },
     "sebastian/version": {
-        "version": "2.0.1"
+        "version": "3.0.0"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
@@ -224,7 +238,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.4",
-            "ref": "59d8cc5a923274e552412fcd51e284bba02982de"
+            "ref": "ea8c0eda34fda57e7d5cd8cbd889e2a387e3472c"
         },
         "files": [
             "bin/console",
@@ -235,7 +249,7 @@
         "version": "v4.3.8"
     },
     "symfony/dotenv": {
-        "version": "v5.0.0"
+        "version": "v5.0.5"
     },
     "symfony/error-handler": {
         "version": "v4.4.0"
@@ -376,8 +390,11 @@
     "twig/twig": {
         "version": "v2.12.1"
     },
+    "webimpress/safe-writer": {
+        "version": "2.0.0"
+    },
     "webmozart/assert": {
-        "version": "1.5.0"
+        "version": "1.7.0"
     },
     "zendframework/zend-code": {
         "version": "3.4.0"
