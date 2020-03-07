@@ -2,16 +2,15 @@
 
 namespace App\Phansible\Controller;
 
-use App\Phansible\Application;
 use App\Phansible\Model\VagrantBundle;
 use App\Phansible\Renderer\PlaybookRenderer;
 use App\Phansible\Renderer\TemplateRenderer;
 use App\Phansible\Renderer\VarfileRenderer;
+use App\Phansible\RolesManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -21,16 +20,29 @@ use Twig\Loader\FilesystemLoader;
 class BundleController extends AbstractController
 {
     /**
+     * @var RolesManager
+     */
+    private $rolesManager;
+
+    /**
      * @var VagrantBundle
      */
     private $vagrantBundle;
 
     /**
+     * AboutController constructor.
+     * @param RolesManager $rolesManager
+     */
+    public function __construct(RolesManager $rolesManager)
+    {
+        $this->rolesManager = $rolesManager;
+    }
+
+    /**
      * @param Request $request
-     * @param array $app
      * @return Response
      */
-    public function indexAction(Request $request, array $app = []): Response
+    public function indexAction(Request $request): Response
     {
         $requestVars                     = $request->request->all();
         $requestVars['server']['locale'] = $this->extractLocale(
@@ -49,7 +61,7 @@ class BundleController extends AbstractController
             ->setVarsFile($varsFile)
             ->setInventory($inventory);
 
-        $app['roles']->setupRole($requestVars, $this->getVagrantBundle());
+        $this->rolesManager->setupRole($requestVars, $this->getVagrantBundle());
         $playbook->addRole('app');
 
         $zipPath = tempnam(sys_get_temp_dir(), 'phansible_bundle_');
@@ -61,7 +73,7 @@ class BundleController extends AbstractController
         ) {
             $vagrantfile = $this->getVagrantBundle()->getVagrantFile();
 
-            return $this->outputBundle($zipPath, $app, $vagrantfile->getName());
+            return $this->outputBundle($zipPath, $vagrantfile->getName());
         }
 
         return new Response('An error occurred.');
@@ -112,11 +124,11 @@ class BundleController extends AbstractController
     {
         if (!$this->vagrantBundle instanceof VagrantBundle) {
             $twig = new Environment(
-                new FilesystemLoader($this->getParameters('ansible.templates'))
+                new FilesystemLoader(__DIR__ . '/../Resources/ansible/templates')
             );
 
             $this->vagrantBundle = new VagrantBundle(
-                $this->get('ansible.path'),
+                __DIR__ . '/../Resources/ansible',
                 $twig
             );
         }
@@ -126,32 +138,43 @@ class BundleController extends AbstractController
 
     /**
      * @param string $zipPath
-     * @param Application $app
      * @param string $filename
-     * @return StreamedResponse
+     * @return Response
      */
-    private function outputBundle($zipPath, Application $app, $filename): StreamedResponse
+    private function outputBundle($zipPath, $filename): Response
     {
-        $stream = static function () use ($zipPath) {
-            echo file_get_contents($zipPath);
-            unlink($zipPath);
-        };
+//        $stream = static function () use ($zipPath) {
+//            echo file_get_contents($zipPath);
+//            unlink($zipPath);
+//        };
+//
+//        $response = $app->stream(
+//            $stream,
+//            Response::HTTP_OK,
+//            array(
+//                'Content-length' => filesize($zipPath),
+//                'Content-Type'   => 'application/zip',
+//                'Pragma'         => 'no-cache',
+//                'Cache-Control'  => 'no-cache',
+//            )
+//        );
+//
+//        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
+//            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+//            'phansible_' . $filename . '.zip'
+//        ));
+        $fileContent = file_get_contents($zipPath);
 
-        $response = $app->stream(
-            $stream,
-            Response::HTTP_OK,
-            array(
-                'Content-length' => filesize($zipPath),
-                'Content-Type'   => 'application/zip',
-                'Pragma'         => 'no-cache',
-                'Cache-Control'  => 'no-cache',
-            )
+        unlink($zipPath);
+
+        $response = new Response($fileContent);
+
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            'phansible_' . $filename . '.zip'
         );
 
-        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            'phansible_' . $filename . '.zip'
-        ));
+        $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
     }

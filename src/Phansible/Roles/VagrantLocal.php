@@ -42,7 +42,7 @@ class VagrantLocal implements Role, RoleValuesTransformer
      * @param array $config
      * @return VagrantfileRenderer
      */
-    private function getVagrantfile(array $config)
+    private function getVagrantfile(array $config): VagrantfileRenderer
     {
         $boxName = $config['vm']['base_box'];
         $box     = $this->getBox($boxName);
@@ -67,9 +67,8 @@ class VagrantLocal implements Role, RoleValuesTransformer
 
     private function getBox($boxName)
     {
-        $boxes = Yaml::parse(file_get_contents('../config/phansible/boxes.yaml'));
-        var_dump($boxes);
-        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
+        $boxes = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/boxes.yaml'))['boxes']['virtualbox'];
+        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'trusty64';
 
         return $boxes[$boxName];
     }

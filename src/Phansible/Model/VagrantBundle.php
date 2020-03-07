@@ -33,8 +33,8 @@ class VagrantBundle
      * @param string $ansiblePath
      * @param Environment $twig
      */
-    //public function __construct($ansiblePath, Environment $twig)
-    public function __construct(Environment $twig)
+    public function __construct($ansiblePath, Environment $twig)
+//    public function __construct(Environment $twig)
     {
         $this->twig        = $twig;
         $this->ansiblePath = $ansiblePath;
@@ -106,7 +106,6 @@ class VagrantBundle
      * @param VagrantfileRenderer $vagrantFile
      * @return VagrantBundle
      * @see VagrantLocal
-     * @see Phansible\Roles\VagrantLocal::setup
      */
     public function setVagrantFile(VagrantfileRenderer $vagrantFile): self
     {
@@ -138,12 +137,12 @@ class VagrantBundle
      * Generates a Vagrant Bundle based on given Roles and currently configured file renderers
      * @param string $filepath
      * @param array $roles
-     * @return int
+     * @return bool
      */
-    public function generateBundle($filepath, array $roles)
+    public function generateBundle($filepath, array $roles): bool
     {
         $zip = $this->getZipArchive();
-        $res = $zip->open($filepath, ZipArchive::CREATE);
+        $res = $zip->open($filepath, ZipArchive::OVERWRITE);
 
         if ($res === true) {
             /** template files rendering */
@@ -165,10 +164,10 @@ class VagrantBundle
 
             $zip->close();
 
-            return 1;
+            return true;
         }
 
-        return 0;
+        return false;
     }
 
     /**

@@ -13,7 +13,6 @@ services:
   _defaults:
     autowire: true     # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    public: true
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
@@ -27,9 +26,15 @@ services:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
+  App\Phansible\Controller\:
+    resource: '../src/Phansible/Controller'
+    autoconfigure: false
+    tags: ['controller.service_arguments']
+
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
-  #  github:
-  #    alias: App\Phansible\Model\GithubAdapter
   App\Phansible\Model\GithubAdapter:
-    public: true
+    factory: ['App\Phansible\Provider\GithubProviderStaticFactory', 'create']
+
+  App\Phansible\RolesManager:
+    factory: ['App\Phansible\Provider\RolesProviderStaticFactory', 'create']

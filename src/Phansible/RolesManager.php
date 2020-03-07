@@ -4,7 +4,7 @@ namespace App\Phansible;
 
 use App\Phansible\Model\VagrantBundle;
 
-class RoleManager
+class RolesManager
 {
     /**
      * @var array
