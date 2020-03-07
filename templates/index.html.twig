@@ -1,0 +1,55 @@
+{% set active='home' %}
+
+{% extends "main.html.twig" %}
+
+{% block content %}
+
+    <div class="html ui top">
+        <div class="ui segment">
+            <div id="main_menu" class="ui right very close rail">
+                <div class="ui secondary vertical pointing menu">
+                    <a class="active teal item" href="#section-vagrant">Machine Settings</a>
+                    <a class="item" href="#section-serverpackages">Server Packages</a>
+                    <a class="item" href="#section-webservers">Webservers</a>
+                    <a class="item" href="#section-languages">Languages</a>
+                    <a class="item" href="#section-databases">Databases</a>
+                    <a class="item" href="#section-workers">Workers</a>
+                    <a class="item" href="#section-searchengines">Search Engines</a>
+                    <a class="item" href="#section-timezone">Timezone</a>
+                    <div class="social-twitter">
+                        <a class="twitter-timeline" href="https://twitter.com/phansible"
+                           data-widget-id="539435624110239744">@phansible</a>
+                        <script>
+                            !function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0],
+                                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                                if (!d.getElementById(id)) {
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = p + "://platform.twitter.com/widgets.js";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }
+                            }(document, "script", "twitter-wjs");
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <form class="ui form" method="post" action="{{ path('phansible_bundle') }}">
+                {% include "bundles/vagrant.html.twig" %}
+                {% include "bundles/serverpackages.html.twig" %}
+                {% include "bundles/webservers.html.twig" %}
+                {% include "bundles/languages.html.twig" %}
+                {% include "bundles/databases.html.twig" %}
+                {% include "bundles/workers.html.twig" %}
+                {% include "bundles/searchengines.html.twig" %}
+                {% include "bundles/timezone.html.twig" %}
+                <section>
+                    <button class="ui fluid labeled purple icon button" type="submit">
+                        <i class="download cloud icon"></i> Generate
+                    </button>
+                </section>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

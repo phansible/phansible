@@ -1,9 +1,8 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class ServerTest extends TestCase
@@ -12,11 +11,7 @@ class ServerTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Server($app);
+        $this->role = new Server();
     }
 
     public function tearDown(): void
@@ -25,7 +20,7 @@ class ServerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Server
+     * @covers \App\Phansible\Roles\Server
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +28,7 @@ class ServerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Server::getName
+     * @covers \App\Phansible\Roles\Server::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +36,7 @@ class ServerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Server::getSlug
+     * @covers \App\Phansible\Roles\Server::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +44,7 @@ class ServerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Server::getRole
+     * @covers \App\Phansible\Roles\Server::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +52,7 @@ class ServerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Server::getInitialValues
+     * @covers \App\Phansible\Roles\Server::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

@@ -1,0 +1,27 @@
+<div class="ui tab bottom attached segment" data-tab="hhvm">
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input id="hhvm_install" class="update-other-input" type="checkbox" name="hhvm[install]"
+                   data-update-php[install]="0" value="1" {% if hhvm.install %}checked="checked"{% endif %} />
+            <label>Install HHVM</label>
+        </div>
+    </div>
+    <p>If you install HHVM, you cannot install PHP.</p>
+    <!--
+    <div class="field">
+        <label for="hhvm_host">Host:</label>
+        <div class="ui left labeled input">
+            <input type="text" id="hhvm_host" name="hhvm[host]" value="{{ hhvm.host }}" />
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label for="hhvm_port">Port</label>
+        <div class="ui left labeled input">
+            <input type="number" id="hhvm_port" name="hhvm[port]" value="{{ hhvm.port }}" />
+        </div>
+    </div>
+    -->
+</div>

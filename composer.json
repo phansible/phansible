@@ -6,29 +6,69 @@
     {
       "name": "Erika Heidi",
       "homepage": "http://erikaheidi.com"
+    },
+    {
+      "name": "Marco \"Debo\" De Bortoli",
+      "homepage": "https://debo.io"
     }
   ],
   "license": "MIT",
+  "config": {
+    "bin-dir": "bin"
+   },
   "autoload": {
     "psr-0": {
       "": "src/"
+    },
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\Tests\\": "tests/"
     }
   },
   "require": {
     "php": "^7.2",
-    "flint/flint": "~1.7",
-    "symfony/yaml": "~2.6",
-    "symfony/twig-bridge": "~2.6",
-    "michelf/php-markdown": "~1.4",
+    "symfony/flex": "^1.4",
+    "symfony/http-foundation": "^5.0",
+    "symfony/routing": "^5.0",
+    "symfony/http-kernel": "^5.0",
+    "symfony/event-dispatcher": "^5.0",
+    "symfony/dependency-injection": "^5.0",
+    "symfony/proxy-manager-bridge": "^5.0",
+    "symfony/config": "^5.0",
+    "symfony/yaml": "^5.0",
+    "symfony/twig-pack": "^1.0",
+    "twig/markdown-extra": "^2.12",
     "knplabs/github-api": "^2.12",
     "php-http/guzzle6-adapter": "^1.1",
-    "cache/filesystem-adapter": "^1.0"
+    "cache/filesystem-adapter": "^1.0",
+    "league/commonmark": "^1.1",
+    "doctrine/annotations": "^1.8",
+    "ext-zip": "^1.15"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "phpunit/phpunit": "^8.4",
-    "phpmd/phpmd": "^2.7",
+    "phpunit/phpunit": "^9.0",
+    "symfony/dotenv": "^5.0",
     "squizlabs/php_codesniffer": "^3.5",
-    "pdepend/pdepend": "^2.5"
+    "symfony/console": "^5.0"
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    }
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "5.0.*"
+    }
   }
 }

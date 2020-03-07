@@ -1,13 +1,12 @@
 <?php
 
-namespace Phansible\Model;
+namespace App\Phansible\Model;
 
-use Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Renderer\PlaybookRenderer;
+use App\Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Renderer\VarfileRenderer;
 use PHPUnit\Framework\TestCase;
-use Twig_Environment;
-use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Renderer\VarfileRenderer;
+use Twig\Environment;
 
 class VagrantBundleTest extends TestCase
 {
@@ -16,18 +15,21 @@ class VagrantBundleTest extends TestCase
      */
     private $model;
 
+    private $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
+
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     private $twig;
 
     public function setUp(): void
     {
-        $this->twig = $this->getMockBuilder(Twig_Environment::class)
+        $this->twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->model = new VagrantBundle('path/to/ansible', $this->twig);
+        $this->model = new VagrantBundle($this->ansiblePath, $this->twig);
+
     }
 
     public function tearDown(): void
@@ -37,9 +39,9 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getVagrantFile
-     * @covers \Phansible\Model\VagrantBundle::setVagrantFile
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getVagrantFile
+     * @covers \App\Phansible\Model\VagrantBundle::setVagrantFile
      */
     public function testShouldSetAndGetVagrantFile(): void
     {
@@ -50,8 +52,8 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getZipArchive
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getZipArchive
      */
     public function testShouldRetrieveZipArchive(): void
     {
@@ -61,8 +63,8 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::addRoleFiles
-     * @covers \Phansible\Model\VagrantBundle::includeBundleFiles
+     * @covers \App\Phansible\Model\VagrantBundle::addRoleFiles
+     * @covers \App\Phansible\Model\VagrantBundle::includeBundleFiles
      */
     public function testShouldIncludeRole(): void
     {
@@ -97,8 +99,8 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::includeBundleFiles
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::includeBundleFiles
      */
     public function testDefaultIncludeBundleFiles(): void
     {
@@ -113,16 +115,14 @@ class VagrantBundleTest extends TestCase
                 $this->stringContains('vars')
             );
 
-        $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
-        $this->model = new VagrantBundle($ansiblePath, $this->twig);
 
-        $this->assertDirectoryExists($ansiblePath);
+        $this->assertDirectoryExists($this->ansiblePath);
 
         $this->model->includeBundleFiles($mockedZip, 'vars');
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::generateBundle
+     * @covers \App\Phansible\Model\VagrantBundle::generateBundle
      */
     public function testShouldRetrieveZeroWhenGenerateBundleNotOpenFilePath(): void
     {
@@ -151,7 +151,7 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::generateBundle
+     * @covers \App\Phansible\Model\VagrantBundle::generateBundle
      */
     public function testShouldRetrieveOneWhenGenerateBundle(): void
     {
@@ -184,11 +184,11 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getPlaybook
-     * @covers \Phansible\Model\VagrantBundle::setPlaybook
-     * @covers \Phansible\Model\VagrantBundle::addRenderer
-     * @covers \Phansible\Model\VagrantBundle::getRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getPlaybook
+     * @covers \App\Phansible\Model\VagrantBundle::setPlaybook
+     * @covers \App\Phansible\Model\VagrantBundle::addRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::getRenderer
      */
     public function testShouldSetAndGetPlaybook(): void
     {
@@ -199,11 +199,11 @@ class VagrantBundleTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Model\VagrantBundle::__construct
-     * @covers \Phansible\Model\VagrantBundle::getVarsFile
-     * @covers \Phansible\Model\VagrantBundle::setVarsFile
-     * @covers \Phansible\Model\VagrantBundle::addRenderer
-     * @covers \Phansible\Model\VagrantBundle::getRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::__construct
+     * @covers \App\Phansible\Model\VagrantBundle::getVarsFile
+     * @covers \App\Phansible\Model\VagrantBundle::setVarsFile
+     * @covers \App\Phansible\Model\VagrantBundle::addRenderer
+     * @covers \App\Phansible\Model\VagrantBundle::getRenderer
      */
     public function testShouldSetAndGetVarsFile(): void
     {

@@ -1,39 +1,39 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
-use Phansible\RoleManager;
+use App\Phansible\RolesManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Pimple;
+use Psr\Container\ContainerInterface;
 use SplFileObject;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Twig\Environment;
 
 class DefaultControllerTest extends TestCase
 {
-    private $controller;
     private $twig;
+    private $controller;
 
     public function setUp(): void
     {
-        $this->controller = new DefaultController();
-        $this->twig       = $this->getMockBuilder(\Twig_Environment::class)
-            ->onlyMethods(['render'])
-            ->getMock();
-    }
+        parent::setUp();
 
-    public function tearDown(): void
-    {
-        $this->controller = null;
-        $this->twig       = null;
+        $this->twig = $this->getTwigDouble();
+
+        $container    = $this->getServiceContainerDouble();
+        $rolesManager = $this->getRolesManagerDouble();
+
+        $this->controller = new DefaultController($rolesManager);
+
+        $this->controller->setContainer($container);
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::indexAction
+     * @covers \App\Phansible\Controller\DefaultController::indexAction
      */
     public function testShouldRenderIndexAction(): void
     {
-        $container = new Pimple();
-
         $this->twig->expects($this->once())
             ->method('render')
             ->with(
@@ -41,24 +41,11 @@ class DefaultControllerTest extends TestCase
                 $this->arrayHasKey('config')
             );
 
-        $container['twig']            = $this->twig;
-        $container['config']          = [];
-        $container['webservers']      = [];
-        $container['boxes']           = [];
-        $container['syspackages']     = [];
-        $container['phppackages']     = [];
-        $container['databases']       = [];
-        $container['workers']         = [];
-        $container['peclpackages']    = [];
-        $container['rabbitmqplugins'] = [];
-        $container['roles']           = new RoleManager();
-
-        $this->controller->setPimple($container);
         $this->controller->indexAction();
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::docsAction
+     * @covers \App\Phansible\Controller\DefaultController::docsAction
      * @expectException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testShouldThrowExceptionWhenDocFileNotExists(): void
@@ -69,12 +56,10 @@ class DefaultControllerTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Controller\DefaultController::docsAction
+     * @covers \App\Phansible\Controller\DefaultController::docsAction
      */
     public function testShouldRenderDocsActionWhenFileExists(): void
     {
-        $container = new Pimple();
-
         $this->twig->expects($this->once())
             ->method('render')
             ->with(
@@ -89,12 +74,69 @@ class DefaultControllerTest extends TestCase
 
         $doc = 'vagrant';
 
-        $container['twig']      = $this->twig;
-        $container['docs.path'] = '/tmp';
-
-        $this->controller->setPimple($container);
         $this->controller->docsAction($doc);
 
         unlink($docFile->getPathname());
     }
+
+    /**
+     * @return MockObject
+     */
+    private function getTwigDouble(): MockObject
+    {
+        return $this->getMockBuilder(Environment::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['render'])
+            ->getMock();
+    }
+
+   /**
+     * @return MockObject
+     */
+    private function getServiceContainerDouble(): MockObject
+    {
+        $container = $this->getMockBuilder(ContainerInterface::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods([
+                'get',
+                'has',
+            ])
+            ->getMock();
+
+        $container->expects($this->any())
+            ->method('get')
+            ->willReturnMap([
+                ['twig', $this->twig],
+            ]);
+
+        $container->expects($this->any())
+            ->method('has')
+            ->with('twig')
+            ->willReturn(true);
+
+        return $container;
+    }
+
+    /**
+     * @return MockObject
+     */
+    private function getRolesManagerDouble(): MockObject
+    {
+        return $this->getMockBuilder(RolesManager::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['register'])
+            ->getMock();
+    }
+
+    public function tearDown(): void
+    {
+        unset(
+            $this->controller,
+            $this->container,
+            $this->twig,
+        );
+
+        parent::tearDown();
+    }
 }
+

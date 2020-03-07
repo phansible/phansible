@@ -1,13 +1,12 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Renderer\PlaybookRenderer;
+use App\Phansible\Role;
+use App\Phansible\RoleValuesTransformer;
 use PHPUnit\Framework\TestCase;
-use Phansible\RoleValuesTransformer;
-use Phansible\Renderer\PlaybookRenderer;
-use Phansible\Model\VagrantBundle;
 
 class PhpTest extends TestCase
 {
@@ -15,11 +14,7 @@ class PhpTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Php($app);
+        $this->role = new Php();
     }
 
     public function tearDown(): void
@@ -28,7 +23,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php
+     * @covers \App\Phansible\Roles\Php
      */
     public function testShouldInstanceOf(): void
     {
@@ -37,7 +32,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php::getName
+     * @covers \App\Phansible\Roles\Php::getName
      */
     public function testShouldGetName(): void
     {
@@ -45,7 +40,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php::getSlug
+     * @covers \App\Phansible\Roles\Php::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -53,7 +48,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php::getRole
+     * @covers \App\Phansible\Roles\Php::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -61,7 +56,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php::getInitialValues
+     * @covers \App\Phansible\Roles\Php::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {
@@ -79,7 +74,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php::transformValues
+     * @covers \App\Phansible\Roles\Php::transformValues
      */
     public function testShouldNotTransformValues(): void
     {
@@ -118,8 +113,8 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Php::transformValues
-     * @covers \Phansible\Roles\Php::addPhpPackage
+     * @covers \App\Phansible\Roles\Php::transformValues
+     * @covers \App\Phansible\Roles\Php::addPhpPackage
      */
     public function testShouldTransformValues(): void
     {

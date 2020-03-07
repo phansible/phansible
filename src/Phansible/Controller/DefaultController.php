@@ -1,51 +1,67 @@
 <?php
 
-namespace Phansible\Controller;
+namespace App\Phansible\Controller;
 
+use App\Phansible\RolesManager;
 use DateTimeZone;
-use Flint\Controller\Controller;
-use Michelf\Markdown;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * @package Phansible
  */
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
-    public function indexAction()
-    {
-        $config = $this->get('config');
+    /**
+     * @var RolesManager
+     */
+    private $rolesManager;
 
-        $config['boxes']           = $this->get('boxes');
-        $config['webservers']      = $this->get('webservers');
-        $config['syspackages']     = $this->get('syspackages');
-        $config['phppackages']     = $this->get('phppackages');
-        $config['databases']       = $this->get('databases');
-        $config['workers']         = $this->get('workers');
-        $config['peclpackages']    = $this->get('peclpackages');
-        $config['rabbitmqplugins'] = $this->get('rabbitmqplugins');
+    /**
+     * AboutController constructor.
+     * @param RolesManager $rolesManager
+     */
+    public function __construct(RolesManager $rolesManager)
+    {
+        $this->rolesManager = $rolesManager;
+    }
+
+    public function indexAction(): Response
+    {
+        $config = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/config.yaml'));
+
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/boxes.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/webservers.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/syspackages.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/phppackages.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/databases.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/workers.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/peclpackages.yaml')));
+        $config = array_merge($config, Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/rabbitmqplugins.yaml')));
 
         $config['timezones'] = DateTimeZone::listIdentifiers();
 
-        $roles = $this->get('roles');
+        $initialValues = $this->rolesManager->getInitialValues();
 
-        $initialValues = $roles->getInitialValues();
-        $config        = ['config' => $config];
+        $config = ['config' => $config];
 
         return $this->render('index.html.twig', array_merge($initialValues, $config));
     }
 
-    public function docsAction($doc)
+    public function docsAction($doc): Response
     {
         if (!in_array($doc, ['contributing', 'customize', 'usage', 'vagrant'])) {
             throw new NotFoundHttpException();
         }
-        $docfile = $this->get('docs.path') . DIRECTORY_SEPARATOR . $doc . '.md';
+
+        $docfile = __DIR__ . '/../Resources/docs' . DIRECTORY_SEPARATOR . $doc . '.md';
 
         $content = '';
 
         if (is_file($docfile)) {
-            $content = Markdown::defaultTransform(file_get_contents($docfile));
+            $content = file_get_contents($docfile);
         }
 
         return $this->render('docs.html.twig', [

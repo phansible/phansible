@@ -1,10 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
 
 class MongodbTest extends TestCase
 {
@@ -12,11 +11,7 @@ class MongodbTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Mongodb($app);
+        $this->role = new Mongodb();
     }
 
     public function tearDown(): void
@@ -25,7 +20,7 @@ class MongodbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mongodb
+     * @covers \App\Phansible\Roles\Mongodb
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +28,7 @@ class MongodbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mongodb::getName
+     * @covers \App\Phansible\Roles\Mongodb::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +36,7 @@ class MongodbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mongodb::getSlug
+     * @covers \App\Phansible\Roles\Mongodb::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +44,7 @@ class MongodbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mongodb::getRole
+     * @covers \App\Phansible\Roles\Mongodb::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +52,7 @@ class MongodbTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Mongodb::getInitialValues
+     * @covers \App\Phansible\Roles\Mongodb::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

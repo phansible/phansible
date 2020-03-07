@@ -4,13 +4,13 @@
  * Generic Renderer for templates
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
-use Phansible\Model\FileRendererInterface;
+use App\Phansible\Model\FileRendererInterface;
+use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig_Environment;
 
 class TemplateRenderer implements FileRendererInterface
 {
@@ -41,13 +41,13 @@ class TemplateRenderer implements FileRendererInterface
 
     /**
      * Renders the Template
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      * @return string Rendered template contents
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function renderFile(Twig_Environment $twig): string
+    public function renderFile(Environment $twig): string
     {
         return $twig->render($this->getTemplate(), $this->getData());
     }

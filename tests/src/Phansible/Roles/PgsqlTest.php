@@ -1,10 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
 
 class PgsqlTest extends TestCase
 {
@@ -12,11 +11,7 @@ class PgsqlTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Pgsql($app);
+        $this->role = new Pgsql();
     }
 
     public function tearDown(): void
@@ -25,7 +20,7 @@ class PgsqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Pgsql
+     * @covers \App\Phansible\Roles\Pgsql
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +28,7 @@ class PgsqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Pgsql::getName
+     * @covers \App\Phansible\Roles\Pgsql::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +36,7 @@ class PgsqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Pgsql::getSlug
+     * @covers \App\Phansible\Roles\Pgsql::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +44,7 @@ class PgsqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Pgsql::getRole
+     * @covers \App\Phansible\Roles\Pgsql::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +52,7 @@ class PgsqlTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Pgsql::getInitialValues
+     * @covers \App\Phansible\Roles\Pgsql::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phansible;
+namespace App\Phansible;
 
 interface Role
 {

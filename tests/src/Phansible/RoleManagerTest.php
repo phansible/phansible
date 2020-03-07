@@ -1,10 +1,10 @@
 <?php
 
-namespace Phansible;
+namespace App\Phansible;
 
-use Phansible\Model\VagrantBundle;
+use App\Phansible\Model\VagrantBundle;
 use PHPUnit\Framework\TestCase;
-use Phansible\Role;
+use Twig\Environment;
 
 class RoleManagerTest extends TestCase
 {
@@ -12,7 +12,7 @@ class RoleManagerTest extends TestCase
 
     public function setup(): void
     {
-        $this->roleManager = new RoleManager();
+        $this->roleManager = new RolesManager();
     }
 
     public function testThatRegisterAddsTheGivenRoleToTheListOfRoles(): void
@@ -50,7 +50,7 @@ class RoleManagerTest extends TestCase
         $this->roleManager->register($firstRole);
         $this->roleManager->register($secondRole);
 
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 

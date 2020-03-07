@@ -1,9 +1,8 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
 
 class SolrTest extends TestCase
@@ -12,11 +11,7 @@ class SolrTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Solr($app);
+        $this->role = new Solr();
     }
 
     public function tearDown(): void
@@ -25,7 +20,7 @@ class SolrTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Solr
+     * @covers \App\Phansible\Roles\Solr
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +28,7 @@ class SolrTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Solr::getName
+     * @covers \App\Phansible\Roles\Solr::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +36,7 @@ class SolrTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Solr::getSlug
+     * @covers \App\Phansible\Roles\Solr::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +44,7 @@ class SolrTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Solr::getRole
+     * @covers \App\Phansible\Roles\Solr::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +52,7 @@ class SolrTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Solr::getInitialValues
+     * @covers \App\Phansible\Roles\Solr::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

@@ -3,7 +3,7 @@
  * Var File renderer
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -16,9 +16,10 @@ class VarfileRenderer extends TemplateRenderer
     protected $name;
 
     /**
+     * VarfileRenderer constructor.
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
         parent::__construct();

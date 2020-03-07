@@ -1,10 +1,9 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
+use App\Phansible\Role;
 use PHPUnit\Framework\TestCase;
-use Phansible\Application;
-use Phansible\Role;
 
 class RedisTest extends TestCase
 {
@@ -12,11 +11,7 @@ class RedisTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new Redis($app);
+        $this->role = new Redis();
     }
 
     public function tearDown(): void
@@ -25,7 +20,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis
+     * @covers \App\Phansible\Roles\Redis
      */
     public function testShouldInstanceOf(): void
     {
@@ -33,7 +28,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getName
+     * @covers \App\Phansible\Roles\Redis::getName
      */
     public function testShouldGetName(): void
     {
@@ -41,7 +36,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getSlug
+     * @covers \App\Phansible\Roles\Redis::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -49,7 +44,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getRole
+     * @covers \App\Phansible\Roles\Redis::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -57,7 +52,7 @@ class RedisTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\Redis::getInitialValues
+     * @covers \App\Phansible\Roles\Redis::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {

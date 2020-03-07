@@ -3,9 +3,10 @@
  * PlaybookRenderer Test
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 
 class PlaybookRendererTest extends TestCase
 {
@@ -25,7 +26,7 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::getTemplate
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::getTemplate
      */
     public function testGetTemplate(): void
     {
@@ -35,7 +36,7 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::getFilePath
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::getFilePath
      */
     public function testGetFilePath(): void
     {
@@ -45,9 +46,9 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::getRoles
-     * @covers \Phansible\Renderer\PlaybookRenderer::setRoles
-     * @covers \Phansible\Renderer\PlaybookRenderer::addRole
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::getRoles
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::setRoles
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::addRole
      */
     public function testShouldSetAndGetRoles(): void
     {
@@ -63,8 +64,8 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::getData
-     * @covers \Phansible\Renderer\PlaybookRenderer::setVarsFilename
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::getData
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::setVarsFilename
      */
     public function testGetData(): void
     {
@@ -78,15 +79,15 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::renderFile
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::renderFile
      */
     public function testShouldRenderPlaybook(): void
     {
         $this->model->setRoles(['nginx', 'php5-fpm']);
 
-        $twig = $this->getMockBuilder(\Twig_Environment::class)
+        $twig = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
-//            ->onlyMethods(['render'])
+            ->onlyMethods(['render'])
             ->getMock();
 
         $twig->expects($this->once())
@@ -98,7 +99,7 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::hasRole
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::hasRole
      */
     public function testShouldRetrieveFalseIfRoleNotExists(): void
     {
@@ -106,7 +107,7 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::hasRole
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::hasRole
      */
     public function testShouldRetrieveTrueIfRoleExists(): void
     {
@@ -115,7 +116,7 @@ class PlaybookRendererTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Renderer\PlaybookRenderer::loadDefaults
+     * @covers \App\Phansible\Renderer\PlaybookRenderer::loadDefaults
      */
     public function testShouldLoadDefaults(): void
     {

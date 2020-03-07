@@ -3,7 +3,7 @@
  * Vagrantfile Renderer
  */
 
-namespace Phansible\Renderer;
+namespace App\Phansible\Renderer;
 
 class VagrantfileRenderer extends TemplateRenderer
 {

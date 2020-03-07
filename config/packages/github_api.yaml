@@ -1,0 +1,13 @@
+services:
+    Github\Client:
+        arguments:
+            - '@Github\HttpClient\Builder'
+        # Uncomment to enable authentication
+        #calls:
+        #    - ['authenticate', ['%env(GITHUB_USERNAME)%', '%env(GITHUB_SECRET)%', '%env(GITHUB_AUTH_METHOD)%']]
+
+    Github\HttpClient\Builder:
+        arguments:
+            - '@?Http\Client\HttpClient'
+            - '@?Http\Message\RequestFactory'
+            - '@?Http\Message\StreamFactory'

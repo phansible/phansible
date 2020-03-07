@@ -1,13 +1,12 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Role;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Role;
+use App\Phansible\RoleValuesTransformer;
 use PHPUnit\Framework\TestCase;
-use Phansible\RoleValuesTransformer;
-use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\VagrantfileRenderer;
 
 class VagrantLocalTest extends TestCase
 {
@@ -15,11 +14,7 @@ class VagrantLocalTest extends TestCase
 
     public function setUp(): void
     {
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->role = new VagrantLocal($app);
+        $this->role = new VagrantLocal();
     }
 
     public function tearDown(): void
@@ -28,7 +23,7 @@ class VagrantLocalTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\VagrantLocal
+     * @covers \App\Phansible\Roles\VagrantLocal
      */
     public function testShouldInstanceOf(): void
     {
@@ -37,7 +32,7 @@ class VagrantLocalTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\VagrantLocal::getName
+     * @covers \App\Phansible\Roles\VagrantLocal::getName
      */
     public function testShouldGetName(): void
     {
@@ -45,7 +40,7 @@ class VagrantLocalTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\VagrantLocal::getSlug
+     * @covers \App\Phansible\Roles\VagrantLocal::getSlug
      */
     public function testShouldGetSlug(): void
     {
@@ -53,7 +48,7 @@ class VagrantLocalTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\VagrantLocal::getRole
+     * @covers \App\Phansible\Roles\VagrantLocal::getRole
      */
     public function testShouldGetRole(): void
     {
@@ -61,7 +56,7 @@ class VagrantLocalTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\VagrantLocal::getInitialValues
+     * @covers \App\Phansible\Roles\VagrantLocal::getInitialValues
      */
     public function testShouldGetInitialValues(): void
     {
@@ -71,9 +66,9 @@ class VagrantLocalTest extends TestCase
     }
 
     /**
-     * @covers \Phansible\Roles\VagrantLocal::transformValues
-     * @covers \Phansible\Roles\VagrantLocal::getVagrantFile
-     * @covers \Phansible\Roles\VagrantLocal::getBox
+     * @covers \App\Phansible\Roles\VagrantLocal::transformValues
+     * @covers \App\Phansible\Roles\VagrantLocal::getVagrantFile
+     * @covers \App\Phansible\Roles\VagrantLocal::getBox
      */
     public function testShouldTransformValues(): void
     {
@@ -89,15 +84,6 @@ class VagrantLocalTest extends TestCase
             ],
         ];
 
-        $boxes = [
-            'virtualbox' => [
-                'trusty64' => [
-                    'cloud' => 'ubuntu/trusty64',
-                    'url'   => 'http://local.trusty64',
-                ],
-            ],
-        ];
-
         $bundle = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['setVagrantFile'])
@@ -109,18 +95,6 @@ class VagrantLocalTest extends TestCase
                 $this->isInstanceOf(VagrantfileRenderer::class)
             );
 
-        $app = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['offsetGet'])
-            ->getMock();
-
-        $app->expects($this->once())
-            ->method('offsetGet')
-            ->with('boxes')
-            ->willReturn($boxes);
-
-        $role = new VagrantLocal($app);
-
-        $role->transformValues($values, $bundle);
+        $this->role->transformValues($values, $bundle);
     }
 }

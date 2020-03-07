@@ -1,0 +1,11 @@
+<h2 class="ui dividing header" id="section-searchengines">Search Engine</h2>
+<section class="searchengines-tabs">
+    <h3 class="ui header">Instructions:</h3>
+    <p>Choose the Search Engine you want to use.</p>
+    <div class="ui top attached searchengines menu tabs">
+        <a class="item active" data-tab="solr">Solr</a>
+        <a class="item" data-tab="elasticsearch">Elastic Search</a>
+    </div>
+    {% include "bundles/searchengines/solr.html.twig" %}
+    {% include "bundles/searchengines/elasticsearch.html.twig" %}
+</section>

@@ -1,25 +1,15 @@
 <?php
 
-namespace Phansible\Roles;
+namespace App\Phansible\Roles;
 
-use Phansible\Application;
-use Phansible\Model\VagrantBundle;
-use Phansible\Renderer\VagrantfileRenderer;
-use Phansible\Role;
-use Phansible\RoleValuesTransformer;
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\Renderer\VagrantfileRenderer;
+use App\Phansible\Role;
+use App\Phansible\RoleValuesTransformer;
+use Symfony\Component\Yaml\Yaml;
 
 class VagrantLocal implements Role, RoleValuesTransformer
 {
-    /**
-     * @var Application
-     */
-    private $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
-
     public function getName(): string
     {
         return 'Local';
@@ -52,7 +42,7 @@ class VagrantLocal implements Role, RoleValuesTransformer
      * @param array $config
      * @return VagrantfileRenderer
      */
-    private function getVagrantfile(array $config)
+    private function getVagrantfile(array $config): VagrantfileRenderer
     {
         $boxName = $config['vm']['base_box'];
         $box     = $this->getBox($boxName);
@@ -77,8 +67,8 @@ class VagrantLocal implements Role, RoleValuesTransformer
 
     private function getBox($boxName)
     {
-        $boxes   = $this->app['boxes']['virtualbox'];
-        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'precise64';
+        $boxes = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/boxes.yaml'))['boxes']['virtualbox'];
+        $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'trusty64';
 
         return $boxes[$boxName];
     }
