@@ -10,8 +10,7 @@ install:
   - composer install --optimize-autoloader --prefer-source --no-interaction
 
 script:
-  - pwd
-  - ls -l
+  - cd vendor/bin/
   - php ./vendor/bin/phpunit -c phpunit.xml --color --coverage-clover=build/logs/clover.xml
 
 after_script:
