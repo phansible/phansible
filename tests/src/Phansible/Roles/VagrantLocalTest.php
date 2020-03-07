@@ -84,15 +84,6 @@ class VagrantLocalTest extends TestCase
             ],
         ];
 
-        $boxes = [
-            'virtualbox' => [
-                'trusty64' => [
-                    'cloud' => 'ubuntu/trusty64',
-                    'url'   => 'http://local.trusty64',
-                ],
-            ],
-        ];
-
         $bundle = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['setVagrantFile'])
@@ -104,18 +95,6 @@ class VagrantLocalTest extends TestCase
                 $this->isInstanceOf(VagrantfileRenderer::class)
             );
 
-//        $app = $this->getMockBuilder(Application::class)
-//            ->disableOriginalConstructor()
-//            ->onlyMethods(['offsetGet'])
-//            ->getMock();
-//
-//        $app->expects($this->once())
-//            ->method('offsetGet')
-//            ->with('boxes')
-//            ->willReturn($boxes);
-
-        $role = new VagrantLocal();
-
-        $role->transformValues($values, $bundle);
+        $this->role->transformValues($values, $bundle);
     }
 }

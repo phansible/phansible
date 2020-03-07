@@ -2,24 +2,23 @@
 
 namespace App\Phansible\Controller;
 
+use App\Phansible\Model\VagrantBundle;
+use App\Phansible\RolesManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use App\Phansible\RoleManager;
-use App\Phansible\Model\VagrantBundle;
-use Symfony\Component\HttpFoundation\Response;
 
 class BundleControllerTest extends TestCase
 {
-    /**
-     * @var BundleController
-     */
     private $controller;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->controller = new BundleController();
+        $rolesManager = $this->getRolesManagerDouble();
+
+        $this->controller = new BundleController($rolesManager);
     }
 
     /**
@@ -57,7 +56,7 @@ class BundleControllerTest extends TestCase
      * @covers \App\Phansible\Controller\BundleController::setVagrantBundle
      * @covers \App\Phansible\Controller\BundleController::getInventory
      */
-    public function testShouldResponseWithErrorMessage(): void
+    public function testShouldReturnResponseWithErrorMessage(): void
     {
         $data = [
             'vagrant_local' => [
@@ -68,18 +67,6 @@ class BundleControllerTest extends TestCase
         ];
 
         $request = new Request([], $data);
-
-        $roles = $this->createMock(RoleManager::class);
-
-//        $app = $this->getMockBuilder(Application::class)
-//            ->disableOriginalConstructor()
-//            ->onlyMethods(['offsetGet'])
-//            ->getMock();
-//
-//        $app->expects($this->once())
-//            ->method('offsetGet')
-//            ->with('roles')
-//            ->willReturn($roles);
 
         $bundle = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
@@ -93,7 +80,26 @@ class BundleControllerTest extends TestCase
         $this->controller->setVagrantBundle($bundle);
         $response = $this->controller->indexAction($request);
 
-        $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals('An error occurred.', $response->getContent());
+    }
+
+    /**
+     * @return MockObject
+     */
+    private function getRolesManagerDouble(): MockObject
+    {
+        return $this->getMockBuilder(RolesManager::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['setupRole'])
+            ->getMock();
+    }
+
+    public function tearDown(): void
+    {
+        unset(
+            $this->controller,
+        );
+
+        parent::tearDown();
     }
 }

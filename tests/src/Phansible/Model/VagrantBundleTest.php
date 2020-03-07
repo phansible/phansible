@@ -15,6 +15,8 @@ class VagrantBundleTest extends TestCase
      */
     private $model;
 
+    private $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
+
     /**
      * @var Environment
      */
@@ -26,7 +28,8 @@ class VagrantBundleTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->model = new VagrantBundle('path/to/ansible', $this->twig);
+        $this->model = new VagrantBundle($this->ansiblePath, $this->twig);
+
     }
 
     public function tearDown(): void
@@ -112,10 +115,8 @@ class VagrantBundleTest extends TestCase
                 $this->stringContains('vars')
             );
 
-        $ansiblePath = __DIR__ . '/../../../../src/Phansible/Resources/ansible';
-        $this->model = new VagrantBundle($ansiblePath, $this->twig);
 
-        $this->assertDirectoryExists($ansiblePath);
+        $this->assertDirectoryExists($this->ansiblePath);
 
         $this->model->includeBundleFiles($mockedZip, 'vars');
     }

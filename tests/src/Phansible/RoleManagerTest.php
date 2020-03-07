@@ -12,7 +12,7 @@ class RoleManagerTest extends TestCase
 
     public function setup(): void
     {
-        $this->roleManager = new RoleManager();
+        $this->roleManager = new RolesManager();
     }
 
     public function testThatRegisterAddsTheGivenRoleToTheListOfRoles(): void
