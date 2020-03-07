@@ -1,17 +1,19 @@
 language: php
 
 php:
-   - 7.4
+  - 7.4
 
 before_install:
-   - composer self-update
+  - composer self-update
 
 install:
-   - composer install --optimize-autoloader --prefer-source --no-interaction
+  - composer install --optimize-autoloader --prefer-source --no-interaction
 
 script:
-   - php ./vendor/bin/phpunit -c phpunit.xml --color --coverage-clover=build/logs/clover.xml
+  - pwd
+  - ls -l
+  - php ./vendor/bin/phpunit -c phpunit.xml --color --coverage-clover=build/logs/clover.xml
 
 after_script:
-   - wget https://scrutinizer-ci.com/ocular.phar
-   - php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover ./build/logs/clover.xml
