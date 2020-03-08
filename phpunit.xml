@@ -1,6 +1,11 @@
-<phpunit backupGlobals="false"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="config/bootstrap.php"
+         bootstrap="tests/bootstrap.php"
          cacheTokens="true"
          colors="true"
          convertErrorsToExceptions="true"
@@ -8,15 +13,21 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         verbose="false">
+         verbose="false"
+>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
+    </php>
     <testsuites>
         <testsuite name="Phpansible">
-            <directory>./tests/</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist>
-            <directory>./src/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
             <exclude>
                 <directory>./src/Phansible/Resources/ansible</directory>
             </exclude>
