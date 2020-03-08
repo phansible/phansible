@@ -15,7 +15,7 @@ class GithubProviderStaticFactory
      */
     public static function create(): GithubAdapter
     {
-        $filesystemAdapter = new Local(__DIR__ . '/../../../app/cache/github-api-cache');
+        $filesystemAdapter = new Local(__DIR__ . '/../../../var/cache/github-api-cache');
         $filesystem        = new Filesystem($filesystemAdapter);
         $cache             = new FilesystemCachePool($filesystem);
 
