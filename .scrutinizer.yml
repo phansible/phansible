@@ -3,7 +3,7 @@ filter:
         - 'app/*'
         - 'tests/*'
         - 'ansible/*'
-        - 'web/*'
+        - 'public/*'
         - 'src/Phansible/Resources/ansible'
 
 checks:
@@ -12,14 +12,12 @@ checks:
         duplication: true
 
 tools:
-    php_analyzer: true
     php_mess_detector: true
     external_code_coverage: true
     php_code_sniffer:
         config:
             standard: "PSR2"
     php_cpd: true
-    php_pdepend: true
     php_sim:
         enabled: true
         min_mass: 16
