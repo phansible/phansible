@@ -8,10 +8,14 @@ use Github\Client;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 
+/**
+ * Class GithubProviderStaticFactory
+ * @package App\Phansible\Provider
+ */
 class GithubProviderStaticFactory
 {
     /**
-     * {@inheritdoc}
+     * @return GithubAdapter
      */
     public static function create(): GithubAdapter
     {

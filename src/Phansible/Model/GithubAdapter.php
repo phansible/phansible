@@ -6,7 +6,8 @@ use Github\Client;
 use InvalidArgumentException;
 
 /**
- * An adapter that simplifies dependencies with the Github SDK.
+ * Class GithubAdapter
+ * @package App\Phansible\Model
  */
 class GithubAdapter
 {

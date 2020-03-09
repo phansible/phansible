@@ -7,10 +7,14 @@ namespace App\Phansible\Renderer;
 
 class PlaybookRenderer extends TemplateRenderer
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $varsFilename;
 
-    /** @var array Playbook Roles */
+    /**
+     * @var array Playbook Roles
+     */
     protected $roles = [];
 
     /**

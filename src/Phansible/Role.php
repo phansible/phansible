@@ -2,6 +2,10 @@
 
 namespace App\Phansible;
 
+/**
+ * Interface Role
+ * @package App\Phansible
+ */
 interface Role
 {
     /**

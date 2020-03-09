@@ -13,6 +13,10 @@ use App\Phansible\Roles\VagrantLocal;
 use Twig\Environment;
 use ZipArchive;
 
+/**
+ * Class VagrantBundle
+ * @package App\Phansible\Model
+ */
 class VagrantBundle
 {
     public const VARSFILE = 'varsfile';
@@ -34,7 +38,6 @@ class VagrantBundle
      * @param Environment $twig
      */
     public function __construct($ansiblePath, Environment $twig)
-//    public function __construct(Environment $twig)
     {
         $this->twig        = $twig;
         $this->ansiblePath = $ansiblePath;

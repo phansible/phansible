@@ -10,7 +10,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @package Phansible
+ * Class DefaultController
+ * @package App\Phansible\Controller
  */
 class DefaultController extends AbstractController
 {
@@ -20,7 +21,7 @@ class DefaultController extends AbstractController
     private $rolesManager;
 
     /**
-     * AboutController constructor.
+     * DefaultController constructor.
      * @param RolesManager $rolesManager
      */
     public function __construct(RolesManager $rolesManager)
@@ -28,6 +29,9 @@ class DefaultController extends AbstractController
         $this->rolesManager = $rolesManager;
     }
 
+    /**
+     * @return Response
+     */
     public function indexAction(): Response
     {
         $config = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/config.yaml'));
@@ -50,6 +54,10 @@ class DefaultController extends AbstractController
         return $this->render('index.html.twig', array_merge($initialValues, $config));
     }
 
+    /**
+     * @param $doc
+     * @return Response
+     */
     public function docsAction($doc): Response
     {
         if (!in_array($doc, ['contributing', 'customize', 'usage', 'vagrant'])) {

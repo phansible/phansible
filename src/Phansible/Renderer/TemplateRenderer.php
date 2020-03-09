@@ -12,15 +12,25 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+/**
+ * Class TemplateRenderer
+ * @package App\Phansible\Renderer
+ */
 class TemplateRenderer implements FileRendererInterface
 {
-    /** @var string Path for Twig Template */
+    /**
+     * @var string Path for Twig Template
+     */
     protected $templateFile;
 
-    /** @var array Data to render the template */
+    /**
+     * @var array Data to render the template
+     */
     protected $data;
 
-    /** @var string Path to save the rendered file */
+    /**
+     * @var string Path to save the rendered file
+     */
     protected $filePath;
 
     /**

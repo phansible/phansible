@@ -4,6 +4,10 @@ namespace App\Phansible;
 
 use App\Phansible\Model\VagrantBundle;
 
+/**
+ * Class RolesManager
+ * @package App\Phansible
+ */
 class RolesManager
 {
     /**
@@ -84,7 +88,7 @@ class RolesManager
      * @param array $requestVars The information of the request
      * @return boolean
      */
-    private function willBeInstalled($roleSlug, $requestVars): bool
+    private function willBeInstalled(string $roleSlug, array $requestVars): bool
     {
         if (!array_key_exists($roleSlug, $requestVars)) {
             return false;

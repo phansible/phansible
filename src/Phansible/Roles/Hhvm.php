@@ -4,23 +4,39 @@ namespace App\Phansible\Roles;
 
 use App\Phansible\Role;
 
+/**
+ * Class Hhvm
+ * @package App\Phansible\Roles
+ */
 class Hhvm implements Role
 {
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return 'HHVM';
     }
 
+    /**
+     * @return string
+     */
     public function getSlug(): string
     {
         return 'hhvm';
     }
 
+    /**
+     * @return string
+     */
     public function getRole(): string
     {
         return 'hhvm';
     }
 
+    /**
+     * @return array
+     */
     public function getInitialValues(): array
     {
         return [

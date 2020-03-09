@@ -7,7 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @package Phansible
+ * Class AboutController
+ * @package App\Phansible\Controller
  */
 class AboutController extends AbstractController
 {

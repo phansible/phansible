@@ -7,12 +7,20 @@ namespace App\Phansible\Renderer;
 
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class VarfileRenderer
+ * @package App\Phansible\Renderer
+ */
 class VarfileRenderer extends TemplateRenderer
 {
-    /** @var  array Variables key-value format */
+    /**
+     * @var array Variables key-value format
+     */
     protected $data = [];
 
-    /** @var  string Varfile name */
+    /**
+     * @var string Varfile name
+     */
     protected $name;
 
     /**
@@ -41,6 +49,9 @@ class VarfileRenderer extends TemplateRenderer
         $this->data[$key] = $value;
     }
 
+    /**
+     * @param array $vars
+     */
     public function addMultipleVars(array $vars)
     {
         $this->data = array_merge($this->data, $vars);

@@ -24,10 +24,14 @@ use App\Phansible\Roles\VagrantLocal;
 use App\Phansible\Roles\Xdebug;
 use App\Phansible\Roles\Zookeeper;
 
+/**
+ * Class RolesProviderStaticFactory
+ * @package App\Phansible\Provider
+ */
 class RolesProviderStaticFactory
 {
     /**
-     * {@inheritdoc}
+     * @return RolesManager
      */
     public static function create(): RolesManager
     {

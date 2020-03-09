@@ -15,7 +15,8 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * @package Phansible
+ * Class BundleController
+ * @package App\Phansible\Controller
  */
 class BundleController extends AbstractController
 {
@@ -30,7 +31,7 @@ class BundleController extends AbstractController
     private $vagrantBundle;
 
     /**
-     * AboutController constructor.
+     * BundleController constructor.
      * @param RolesManager $rolesManager
      */
     public function __construct(RolesManager $rolesManager)
@@ -81,9 +82,9 @@ class BundleController extends AbstractController
 
     /**
      * @param $languages
-     * @return mixed|string
+     * @return string
      */
-    public function extractLocale($languages)
+    public function extractLocale($languages): string
     {
         $locale = 'en_US';
 

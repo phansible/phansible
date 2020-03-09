@@ -8,28 +8,49 @@ use App\Phansible\Role;
 use App\Phansible\RoleValuesTransformer;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class VagrantLocal
+ * @package App\Phansible\Roles
+ */
 class VagrantLocal implements Role, RoleValuesTransformer
 {
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return 'Local';
     }
 
+    /**
+     * @return string
+     */
     public function getSlug(): string
     {
         return 'vagrant_local';
     }
 
+    /**
+     * @return string
+     */
     public function getRole(): string
     {
         return 'vagrant_local';
     }
 
+    /**
+     * @return array
+     */
     public function getInitialValues(): array
     {
         return [];
     }
 
+    /**
+     * @param array $values
+     * @param VagrantBundle $vagrantBundle
+     * @return array
+     */
     public function transformValues(array $values, VagrantBundle $vagrantBundle): array
     {
         $vagrantFile = $this->getVagrantfile($values);
@@ -65,7 +86,11 @@ class VagrantLocal implements Role, RoleValuesTransformer
         return $vagrantfile;
     }
 
-    private function getBox($boxName)
+    /**
+     * @param $boxName
+     * @return array
+     */
+    private function getBox($boxName): array
     {
         $boxes = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/boxes.yaml'))['boxes']['virtualbox'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'trusty64';

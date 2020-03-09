@@ -7,6 +7,10 @@ namespace App\Phansible\Model;
 
 use Twig\Environment;
 
+/**
+ * Interface FileRendererInterface
+ * @package App\Phansible\Model
+ */
 interface FileRendererInterface
 {
     /**

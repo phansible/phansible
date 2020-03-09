@@ -4,6 +4,10 @@ namespace App\Phansible;
 
 use App\Phansible\Model\VagrantBundle;
 
+/**
+ * Interface RoleValuesTransformer
+ * @package App\Phansible
+ */
 interface RoleValuesTransformer
 {
     /**

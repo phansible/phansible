@@ -5,30 +5,50 @@
 
 namespace App\Phansible\Renderer;
 
+/**
+ * Class VagrantfileRenderer
+ * @package App\Phansible\Renderer
+ */
 class VagrantfileRenderer extends TemplateRenderer
 {
-    /** @var string VM Name */
+    /**
+     * @var string VM Name
+     */
     protected $name;
 
-    /** @var  string Memory */
+    /**
+     * @var  string Memory
+     */
     protected $memory;
 
-    /** @var  string Box Name */
+    /**
+     * @var  string Box Name
+     */
     protected $boxName;
 
-    /** @var  string Box URL */
+    /**
+     * @var  string Box URL
+     */
     protected $boxUrl;
 
-    /** @var  string IP Address */
+    /**
+     * @var  string IP Address
+     */
     protected $ipAddress;
 
-    /** @var  string Synced Folder */
+    /**
+     * @var  string Synced Folder
+     */
     protected $syncedFolder;
 
-    /** @var  string Mount Point */
+    /**
+     * @var  string Mount Point
+     */
     protected $mountPoint;
 
-    /** @var  string Synced Folder Type */
+    /**
+     * @var  string Synced Folder Type
+     */
     protected $syncedType;
 
     /**

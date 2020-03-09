@@ -4,23 +4,39 @@ namespace App\Phansible\Roles;
 
 use App\Phansible\Role;
 
+/**
+ * Class Beanstalkd
+ * @package App\Phansible\Roles
+ */
 class Beanstalkd implements Role
 {
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return 'Beanstalkd';
     }
 
+    /**
+     * @return string
+     */
     public function getSlug(): string
     {
         return 'beanstalkd';
     }
 
+    /**
+     * @return string
+     */
     public function getRole(): string
     {
         return 'beanstalkd';
     }
 
+    /**
+     * @return array
+     */
     public function getInitialValues(): array
     {
         return [
