@@ -31,7 +31,7 @@
   },
   "require": {
     "php": "^7.2",
-    "symfony/flex": "^1.4",
+    "symfony/flex": "^1.9",
     "symfony/http-foundation": "^5.1",
     "symfony/routing": "^5.1",
     "symfony/http-kernel": "^5.1",
