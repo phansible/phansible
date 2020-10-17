@@ -65,6 +65,7 @@ class VagrantBundleTest extends TestCase
     /**
      * @covers \App\Phansible\Model\VagrantBundle::addRoleFiles
      * @covers \App\Phansible\Model\VagrantBundle::includeBundleFiles
+     * @doesNotPerformAssertions
      */
     public function testShouldIncludeRole(): void
     {
@@ -77,22 +78,32 @@ class VagrantBundleTest extends TestCase
             ->onlyMethods(['open'])
             ->getMock();
 
-        $model->expects($this->at(0))
-            ->method('includeBundleFiles')
-            ->with(
-                $this->identicalTo($mockedZip),
-                $this->equalTo('roles/nginx/defaults'),
-                $this->equalTo('*.yml'),
-                $this->equalTo('ansible/roles/nginx/defaults')
-            );
-
-        $model->expects($this->at(3))
-            ->method('includeBundleFiles')
-            ->with(
-                $this->identicalTo($mockedZip),
-                $this->equalTo('roles/nginx/templates'),
-                $this->equalTo('*.tpl'),
-                $this->equalTo('ansible/roles/nginx/templates')
+        $model->method('includeBundleFiles')
+            ->withConsecutive(
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/defaults'),
+                    $this->equalTo('*.yml'),
+                    $this->equalTo('ansible/roles/nginx/defaults')
+                ],
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/tasks'),
+                    $this->equalTo('*.yml'),
+                    $this->equalTo('ansible/roles/nginx/tasks')
+                ],
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/handlers'),
+                    $this->equalTo('*.yml'),
+                    $this->equalTo('ansible/roles/nginx/handlers')
+                ],
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/templates'),
+                    $this->equalTo('*.tpl'),
+                    $this->equalTo('ansible/roles/nginx/templates')
+                ]
             );
 
         $model->addRoleFiles('nginx', $mockedZip);
