@@ -92,7 +92,7 @@ class VagrantLocal implements Role, RoleValuesTransformer
      */
     private function getBox($boxName): array
     {
-        $boxes = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/boxes.yaml'))['boxes']['virtualbox'];
+        $boxes   = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/phansible/boxes.yaml'))['boxes']['virtualbox'];
         $boxName = array_key_exists($boxName, $boxes) ? $boxName : 'trusty64';
 
         return $boxes[$boxName];

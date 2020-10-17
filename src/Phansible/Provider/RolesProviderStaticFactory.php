@@ -2,10 +2,9 @@
 
 namespace App\Phansible\Provider;
 
-use App\Phansible\Roles\Blackfire;
-use App\Phansible\RolesManager;
 use App\Phansible\Roles\Apache;
 use App\Phansible\Roles\Beanstalkd;
+use App\Phansible\Roles\Blackfire;
 use App\Phansible\Roles\Composer;
 use App\Phansible\Roles\ElasticSearch;
 use App\Phansible\Roles\Hhvm;
@@ -23,6 +22,7 @@ use App\Phansible\Roles\Sqlite;
 use App\Phansible\Roles\VagrantLocal;
 use App\Phansible\Roles\Xdebug;
 use App\Phansible\Roles\Zookeeper;
+use App\Phansible\RolesManager;
 
 /**
  * Class RolesProviderStaticFactory

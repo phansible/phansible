@@ -7,6 +7,7 @@ use App\Phansible\Renderer\VagrantfileRenderer;
 use App\Phansible\Renderer\VarfileRenderer;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
+use ZipArchive;
 
 class VagrantBundleTest extends TestCase
 {
@@ -59,7 +60,7 @@ class VagrantBundleTest extends TestCase
     {
         $result = $this->model->getZipArchive();
 
-        $this->assertInstanceOf(\ZipArchive::class, $result);
+        $this->assertInstanceOf(ZipArchive::class, $result);
     }
 
     /**
@@ -74,7 +75,7 @@ class VagrantBundleTest extends TestCase
             ->onlyMethods(['includeBundleFiles'])
             ->getMock();
 
-        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+        $mockedZip = $this->getMockBuilder(ZipArchive::class)
             ->onlyMethods(['open'])
             ->getMock();
 
@@ -84,25 +85,25 @@ class VagrantBundleTest extends TestCase
                     $this->identicalTo($mockedZip),
                     $this->equalTo('roles/nginx/defaults'),
                     $this->equalTo('*.yml'),
-                    $this->equalTo('ansible/roles/nginx/defaults')
+                    $this->equalTo('ansible/roles/nginx/defaults'),
                 ],
                 [
                     $this->identicalTo($mockedZip),
                     $this->equalTo('roles/nginx/tasks'),
                     $this->equalTo('*.yml'),
-                    $this->equalTo('ansible/roles/nginx/tasks')
+                    $this->equalTo('ansible/roles/nginx/tasks'),
                 ],
                 [
                     $this->identicalTo($mockedZip),
                     $this->equalTo('roles/nginx/handlers'),
                     $this->equalTo('*.yml'),
-                    $this->equalTo('ansible/roles/nginx/handlers')
+                    $this->equalTo('ansible/roles/nginx/handlers'),
                 ],
                 [
                     $this->identicalTo($mockedZip),
                     $this->equalTo('roles/nginx/templates'),
                     $this->equalTo('*.tpl'),
-                    $this->equalTo('ansible/roles/nginx/templates')
+                    $this->equalTo('ansible/roles/nginx/templates'),
                 ]
             );
 
@@ -115,7 +116,7 @@ class VagrantBundleTest extends TestCase
      */
     public function testDefaultIncludeBundleFiles(): void
     {
-        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+        $mockedZip = $this->getMockBuilder(ZipArchive::class)
             ->onlyMethods(['addFile'])
             ->getMock();
 
@@ -144,7 +145,7 @@ class VagrantBundleTest extends TestCase
             ->onlyMethods(['getZipArchive'])
             ->getMock();
 
-        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+        $mockedZip = $this->getMockBuilder(ZipArchive::class)
             ->onlyMethods(['open'])
             ->getMock();
 
@@ -173,7 +174,7 @@ class VagrantBundleTest extends TestCase
             ->onlyMethods(['getZipArchive', 'renderFiles'])
             ->getMock();
 
-        $mockedZip = $this->getMockBuilder(\ZipArchive::class)
+        $mockedZip = $this->getMockBuilder(ZipArchive::class)
             ->onlyMethods(['open', 'addFile', 'close'])
             ->getMock();
 

@@ -2,10 +2,10 @@
 
 namespace App\Phansible\Model;
 
+use Github\Api\Repo;
 use Github\Client;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Github\Api\Repo;
 
 class GithubAdapterTest extends TestCase
 {
