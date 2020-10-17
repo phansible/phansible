@@ -127,9 +127,9 @@ class PhpTest extends TestCase
             ->onlyMethods(['hasRole'])
             ->getMock();
 
-        $playbook->expects($this->at(0))
-            ->method('hasRole')
-            ->willReturn(true);
+          $playbook->method('hasRole')
+            ->withConsecutive(['mysql'], ['mariadb'], ['pgsql'], ['sqlite'], ['mongodb'], ['php'])
+            ->willReturnOnConsecutiveCalls(true, false, false, false, false, true);
 
         $bundle = $this->getMockBuilder(VagrantBundle::class)
             ->disableOriginalConstructor()
