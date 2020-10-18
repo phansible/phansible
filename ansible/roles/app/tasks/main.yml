@@ -35,12 +35,6 @@
        dest={{ project_root }}/src/Phansible/Resources/ansible/roles/elasticsearch
        version=HEAD
 
-- name: HHVM role
-  become: yes
-  git: repo=https://github.com/phansible/role-hhvm.git
-       dest={{ project_root }}/src/Phansible/Resources/ansible/roles/hhvm
-       version=HEAD
-
 - name: Mariadb role
   become: yes
   git: repo=https://github.com/phansible/role-mariadb.git

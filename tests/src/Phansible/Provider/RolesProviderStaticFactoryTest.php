@@ -32,7 +32,7 @@ class RolesProviderStaticFactoryTest extends TestCase
     {
         $rolesManager = $this->factory::create();
 
-        $this->assertCount(20, $rolesManager->getRoles());
+        $this->assertCount(19, $rolesManager->getRoles());
     }
 
     public function testItShouldRegisterRoles(): void
@@ -42,7 +42,7 @@ class RolesProviderStaticFactoryTest extends TestCase
         $rolesManager = $this->factory::create();
         $rolesManager->register($role);
 
-        $this->assertCount(21, $rolesManager->getRoles());
+        $this->assertCount(20, $rolesManager->getRoles());
     }
 
     /**

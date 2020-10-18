@@ -7,7 +7,6 @@ use App\Phansible\Roles\Beanstalkd;
 use App\Phansible\Roles\Blackfire;
 use App\Phansible\Roles\Composer;
 use App\Phansible\Roles\ElasticSearch;
-use App\Phansible\Roles\Hhvm;
 use App\Phansible\Roles\Mariadb;
 use App\Phansible\Roles\Mongodb;
 use App\Phansible\Roles\Mysql;
@@ -45,9 +44,6 @@ class RolesProviderStaticFactory
         // Webservers
         $roleManager->register(new Apache());
         $roleManager->register(new Nginx());
-
-        // Languages
-        $roleManager->register(new Hhvm());
 
         // Databases
         $roleManager->register(new Mysql());

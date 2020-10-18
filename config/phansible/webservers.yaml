@@ -11,9 +11,3 @@ webservers:
     include:
       - apache
       - php5
-
-  nginxhhvm:
-    name: NGINX + HHVM
-    include:
-      - nginx
-      - hhvm

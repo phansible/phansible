@@ -240,14 +240,6 @@ $(document).ready(function(){
             $('#php_install_details').removeClass('nodisplay');
         }
     });
-    $('#hhvm_install').on('change', function(){
-        if ($(this).is(':checked')) {
-            $('#php_install_details').addClass('nodisplay');
-        } else {
-            $('#php_install_details').removeClass('nodisplay');
-        }
-    });
-
     $('.searchengines.tabs .item').tab(
         {
             context: 'section.searchengines-tabs'

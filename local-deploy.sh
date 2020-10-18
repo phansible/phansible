@@ -5,7 +5,6 @@ rm -rf src/Phansible/Resources/ansible/roles/beanstalkd
 rm -rf src/Phansible/Resources/ansible/roles/blackfire
 rm -rf src/Phansible/Resources/ansible/roles/composer
 rm -rf src/Phansible/Resources/ansible/roles/elasticsearch
-rm -rf src/Phansible/Resources/ansible/roles/hhvm
 rm -rf src/Phansible/Resources/ansible/roles/mariadb
 rm -rf src/Phansible/Resources/ansible/roles/mongodb
 rm -rf src/Phansible/Resources/ansible/roles/mysql
@@ -26,7 +25,6 @@ git clone https://github.com/phansible/role-beanstalkd.git src/Phansible/Resourc
 git clone https://github.com/phansible/role-blackfire.git src/Phansible/Resources/ansible/roles/blackfire
 git clone https://github.com/phansible/role-composer.git src/Phansible/Resources/ansible/roles/composer
 git clone https://github.com/phansible/role-elasticsearch.git src/Phansible/Resources/ansible/roles/elasticsearch
-git clone https://github.com/phansible/role-hhvm.git src/Phansible/Resources/ansible/roles/hhvm
 git clone https://github.com/phansible/role-mariadb.git src/Phansible/Resources/ansible/roles/mariadb
 git clone https://github.com/phansible/role-mongodb.git src/Phansible/Resources/ansible/roles/mongodb
 git clone https://github.com/phansible/role-mysql.git src/Phansible/Resources/ansible/roles/mysql
