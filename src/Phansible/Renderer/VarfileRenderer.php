@@ -52,7 +52,7 @@ class VarfileRenderer extends TemplateRenderer
     /**
      * @param array $vars
      */
-    public function addMultipleVars(array $vars)
+    public function addMultipleVars(array $vars): void
     {
         $this->data = array_merge($this->data, $vars);
     }
@@ -84,7 +84,7 @@ class VarfileRenderer extends TemplateRenderer
     /**
      * @param string $name
      */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }

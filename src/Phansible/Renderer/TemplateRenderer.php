@@ -91,7 +91,7 @@ class TemplateRenderer implements FileRendererInterface
      * @param string $key
      * @param mixed $value
      */
-    public function add($key, $value): void
+    public function add(string $key, $value): void
     {
         $this->data[$key] = $value;
     }
@@ -100,7 +100,7 @@ class TemplateRenderer implements FileRendererInterface
      * Sets the Template Path
      * @param string $templateFile
      */
-    public function setTemplate($templateFile): void
+    public function setTemplate(string $templateFile): void
     {
         $this->templateFile = $templateFile;
     }
@@ -109,7 +109,7 @@ class TemplateRenderer implements FileRendererInterface
      * @param string $key
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->data[$key] ?? null;
     }
@@ -126,7 +126,7 @@ class TemplateRenderer implements FileRendererInterface
      * Defines the path where the rendered file should be saved
      * @param string $filePath
      */
-    public function setFilePath($filePath): void
+    public function setFilePath(string $filePath): void
     {
         $this->filePath = $filePath;
     }
