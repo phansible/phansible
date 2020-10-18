@@ -37,7 +37,7 @@ class VagrantBundle
      * @param string $ansiblePath
      * @param Environment $twig
      */
-    public function __construct($ansiblePath, Environment $twig)
+    public function __construct(string $ansiblePath, Environment $twig)
     {
         $this->twig        = $twig;
         $this->ansiblePath = $ansiblePath;
@@ -64,7 +64,7 @@ class VagrantBundle
      * @param string $name
      * @param FileRendererInterface $renderer
      */
-    protected function addRenderer($name, FileRendererInterface $renderer): void
+    protected function addRenderer(string $name, FileRendererInterface $renderer): void
     {
         $this->renderers[$name] = $renderer;
     }
@@ -81,7 +81,7 @@ class VagrantBundle
      * @param string $name
      * @return mixed
      */
-    protected function getRenderer($name)
+    protected function getRenderer(string $name)
     {
         return $this->renderers[$name];
     }
@@ -142,7 +142,7 @@ class VagrantBundle
      * @param array $roles
      * @return bool
      */
-    public function generateBundle($filepath, array $roles): bool
+    public function generateBundle(string $filepath, array $roles): bool
     {
         $zip = $this->getZipArchive();
         $res = $zip->open($filepath, ZipArchive::OVERWRITE);
@@ -227,9 +227,9 @@ class VagrantBundle
      * @param ZipArchive $zip
      * @param string $sourceDir The source directory where to get the files from
      * @param string $pattern Pattern to be used with glob
-     * @param string $includePath Path to save the file inside the bundle, defaults to the same as sourceDir
+     * @param null | string $includePath Path to save the file inside the bundle, defaults to the same as sourceDir
      */
-    public function includeBundleFiles(ZipArchive $zip, $sourceDir, $pattern = '*.*', $includePath = null): void
+    public function includeBundleFiles(ZipArchive $zip, string $sourceDir, $pattern = '*.*', $includePath = null): void
     {
         $includePath = $includePath ?: $sourceDir;
 

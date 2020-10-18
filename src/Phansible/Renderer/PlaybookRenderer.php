@@ -40,7 +40,7 @@ class PlaybookRenderer extends TemplateRenderer
     /**
      * @param string $varsFilename
      */
-    public function setVarsFilename($varsFilename): void
+    public function setVarsFilename(string $varsFilename): void
     {
         $this->varsFilename = $varsFilename;
     }
@@ -64,7 +64,7 @@ class PlaybookRenderer extends TemplateRenderer
     /**
      * @param string $role
      */
-    public function addRole($role): void
+    public function addRole(string $role): void
     {
         $this->roles[] = $role;
     }
@@ -73,7 +73,7 @@ class PlaybookRenderer extends TemplateRenderer
      * @param string $role
      * @return boolean
      */
-    public function hasRole($role): bool
+    public function hasRole(string $role): bool
     {
         return in_array($role, $this->roles, true);
     }

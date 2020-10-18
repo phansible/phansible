@@ -97,7 +97,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $name
      */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -113,7 +113,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $memory
      */
-    public function setMemory($memory): void
+    public function setMemory(string $memory): void
     {
         $this->memory = $memory;
     }
@@ -129,7 +129,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $boxUrl
      */
-    public function setBoxUrl($boxUrl): void
+    public function setBoxUrl(string $boxUrl): void
     {
         $this->boxUrl = $boxUrl;
     }
@@ -145,7 +145,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $boxName
      */
-    public function setBoxName($boxName): void
+    public function setBoxName(string $boxName): void
     {
         $this->boxName = $boxName;
     }
@@ -161,7 +161,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $ipAddress
      */
-    public function setIpAddress($ipAddress): void
+    public function setIpAddress(string $ipAddress): void
     {
         $this->ipAddress = $ipAddress;
     }
@@ -177,7 +177,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $syncedFolder
      */
-    public function setSyncedFolder($syncedFolder): void
+    public function setSyncedFolder(string $syncedFolder): void
     {
         $this->syncedFolder = $syncedFolder;
     }
@@ -193,7 +193,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $mountPoint
      */
-    public function setMountPoint($mountPoint): void
+    public function setMountPoint(string $mountPoint): void
     {
         $this->mountPoint = $mountPoint;
     }
@@ -209,7 +209,7 @@ class VagrantfileRenderer extends TemplateRenderer
     /**
      * @param string $syncedType
      */
-    public function setSyncedType($syncedType): void
+    public function setSyncedType(string $syncedType): void
     {
         $this->syncedType = $syncedType;
     }
