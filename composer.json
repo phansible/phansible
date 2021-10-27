@@ -30,31 +30,33 @@
     }
   },
   "require": {
-    "php": "^7.2",
-    "symfony/flex": "^1.9",
-    "symfony/http-foundation": "^5.1",
-    "symfony/routing": "^5.1",
-    "symfony/http-kernel": "^5.1",
-    "symfony/event-dispatcher": "^5.1",
-    "symfony/dependency-injection": "^5.1",
-    "symfony/proxy-manager-bridge": "^5.1",
-    "symfony/config": "^5.1",
-    "symfony/yaml": "^5.1",
-    "symfony/twig-pack": "^1.0",
-    "twig/markdown-extra": "^2.12",
+    "php": "^7.4",
+    "symfony/flex": "^1.17",
+    "symfony/http-foundation": "^5.3",
+    "symfony/routing": "^5.3",
+    "symfony/http-kernel": "^5.3",
+    "symfony/event-dispatcher": "^5.3",
+    "symfony/dependency-injection": "^5.3",
+    "symfony/proxy-manager-bridge": "^5.3",
+    "symfony/config": "^5.3",
+    "symfony/yaml": "^5.3",
+    "twig/markdown-extra": "^2.14",
     "knplabs/github-api": "^2.12",
     "php-http/guzzle6-adapter": "^1.1",
-    "cache/filesystem-adapter": "^1.0",
-    "league/commonmark": "^1.1",
-    "doctrine/annotations": "^1.8",
-    "ext-zip": "^1.15"
+    "cache/filesystem-adapter": "^1.1",
+    "league/commonmark": "^1.6",
+    "doctrine/annotations": "^1.13",
+    "ext-zip": "^1.15",
+    "symfony/twig-bundle": "^5.3",
+    "twig/extra-bundle": "^3.3",
+    "twig/twig": "^3.3"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "phpunit/phpunit": "^9.0",
-    "symfony/dotenv": "^5.1",
-    "squizlabs/php_codesniffer": "^3.5",
-    "symfony/console": "^5.1"
+    "phpunit/phpunit": "^9.5",
+    "symfony/dotenv": "^5.3",
+    "squizlabs/php_codesniffer": "^3.6",
+    "symfony/console": "^5.3"
   },
   "scripts": {
     "auto-scripts": {
@@ -68,7 +70,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "5.1.*"
+      "require": "5.3.*"
     }
   }
 }
