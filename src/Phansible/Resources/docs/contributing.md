@@ -43,7 +43,7 @@ The easiest way to get Phansible up and running is by using the built-in PHP ser
 
 After cloning your forked Phansible repository in your local machine, go to the project directory and run:
 
-    php -S 0.0.0.0:8000 -t web/
+    php -S 0.0.0.0:8000 -t public/
 
 Now point your browser to `http://localhost:8000` and you will be able to access your local Phansible copy.
 

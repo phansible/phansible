@@ -22,7 +22,7 @@ You can also join us on [gitter](https://gitter.im/phansible/phansible).
 - CI our generated roles (@naxhh is working on this)
 - API for generating roles outside the Web (@erikaheidi is working on this)
 - New technologies (request for your favourite ones!)
-- More documentation on how to customize things 
+- More documentation on how to customize things
 - Take a look at our [issues](https://github.com/phansible/phansible/issues).
 
 ## Setup
@@ -30,7 +30,7 @@ You can also join us on [gitter](https://gitter.im/phansible/phansible).
 - Clone the repo: ```git clone https://github.com/Phansible/phansible.git```
 - Go into the phansible folder ```cd phansible/```
 - Install the dependencies with [composer](https://getcomposer.org/): ```php composer install```
-- Run the php built in server: ```php -S 0.0.0.0:8080 -t web/``` 
+- Run the php built in server: ```php -S 0.0.0.0:8080 -t public/```
 - You can now go on [http://localhost:8080](http://localhost:8080) to see your modification.
 
 As an alternative, you can also use the included Vagrant setup (requires Ansible).
