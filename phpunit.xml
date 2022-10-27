@@ -6,7 +6,6 @@
          backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="tests/bootstrap.php"
-         cacheTokens="true"
          colors="true"
          convertDeprecationsToExceptions="false"
          convertErrorsToExceptions="true"
@@ -35,18 +34,12 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory>./src/Phansible/Resources/ansible</directory>
+        </exclude>
     </coverage>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-            <exclude>
-                <directory>./src/Phansible/Resources/ansible</directory>
-            </exclude>
-        </whitelist>
-    </filter>
 </phpunit>
