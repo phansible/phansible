@@ -38,8 +38,4 @@
             <directory>./src/Phansible/Resources/ansible</directory>
         </exclude>
     </coverage>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
 </phpunit>
