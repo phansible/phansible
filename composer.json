@@ -52,8 +52,7 @@
     "symfony/twig-bundle": "^6.1",
     "twig/extra-bundle": "^3.4",
     "twig/twig": "^3.4",
-    "ext-zip": "^1.19",
-    "symfony/phpunit-bridge": "^6.1"
+    "ext-zip": "^1.19"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
