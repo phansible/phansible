@@ -80,7 +80,7 @@ class VagrantBundleTest extends TestCase
             ->getMock();
 
         $model->method('includeBundleFiles')
-            ->withConsecutive(
+            ->willReturnOnConsecutiveCalls(
                 [
                     $this->identicalTo($mockedZip),
                     $this->equalTo('roles/nginx/defaults'),
