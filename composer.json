@@ -16,7 +16,8 @@
   "config": {
     "bin-dir": "bin",
     "allow-plugins": {
-      "symfony/flex": true
+      "symfony/flex": true,
+      "php-http/discovery": true
     }
    },
   "autoload": {
@@ -33,33 +34,33 @@
     }
   },
   "require": {
-    "php": "^8.1",
-    "symfony/flex": "^2.2",
-    "symfony/http-foundation": "^6.1",
-    "symfony/routing": "^6.1",
-    "symfony/http-kernel": "^6.1",
-    "symfony/event-dispatcher": "^6.1",
-    "symfony/dependency-injection": "^6.1",
-    "symfony/proxy-manager-bridge": "^6.1",
-    "symfony/config": "^6.1",
-    "symfony/yaml": "^6.1",
-    "twig/markdown-extra": "^3.4",
-    "knplabs/github-api": "^3.9",
+    "php": "^8.3",
+    "symfony/flex": "^2.4",
+    "symfony/http-foundation": "^7.1",
+    "symfony/routing": "^7.1",
+    "symfony/http-kernel": "^7.1",
+    "symfony/event-dispatcher": "^7.1",
+    "symfony/dependency-injection": "^7.1",
+    "symfony/proxy-manager-bridge": "^6.4",
+    "symfony/config": "^7.1",
+    "symfony/yaml": "^7.1",
+    "knplabs/github-api": "^3.15",
     "php-http/guzzle7-adapter": "^1.0",
     "cache/filesystem-adapter": "^1.2",
-    "league/commonmark": "^2.3",
-    "doctrine/annotations": "^1.13",
-    "symfony/twig-bundle": "^6.1",
-    "twig/extra-bundle": "^3.4",
-    "twig/twig": "^3.4",
-    "ext-zip": "^1.19"
+    "league/commonmark": "^2.5",
+    "doctrine/annotations": "^1.14",
+    "symfony/twig-bundle": "^7.1",
+    "twig/twig": "^3.14",
+    "twig/markdown-extra": "^3.13",
+    "twig/extra-bundle": "^3.13",
+    "ext-zip": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "phpunit/phpunit": "^9.5",
-    "symfony/dotenv": "^6.1",
+    "phpunit/phpunit": "^11.4",
+    "symfony/dotenv": "^7.1",
     "squizlabs/php_codesniffer": "^3.7",
-    "symfony/console": "^6.1"
+    "symfony/console": "^7.1"
   },
   "scripts": {
     "auto-scripts": {
@@ -73,7 +74,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "6.1.*"
+      "require": "7.1.*"
     }
   }
 }
