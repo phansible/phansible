@@ -1,3 +1,6 @@
+build:
+  environment:
+    php: 8.3
 filter:
   excluded_paths:
     - 'app/*'
