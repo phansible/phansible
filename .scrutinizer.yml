@@ -31,39 +31,10 @@ checks:
   php:
     code_rating: true
     duplication: true
-    coding_standard: PSR12  # You can set this to PSR12 or another standard if preferred
+    coding_standard: PSR12  # Specify a coding standard if preferred
     unused_variables: true
     unused_properties: true
     unused_methods: true
-    security_vulnerabilities: true
-    line_length:
-        max_length: 120  # Example max line length for code readability
-    spacing_of_function_arguments: true
-    ensure_lower_case_builtin_functions: true
-    verify_property_names: true
-    no_trailing_whitespace: true
-
-coding_style:
-  php:
-    general:
-      indent_with_space: true  # Indents with spaces instead of tabs
-      indent_size: 4           # Set to 4 spaces for indentation
-    braces:
-      classes_functions: "next-line"  # Places braces on the next line for classes and functions
-      if: "same-line"                 # Places braces on the same line for if statements
-      for: "same-line"
-      while: "same-line"
-      switch: "same-line"
-      try: "same-line"
-      do_while: "same-line"
-    around_operators:
-      equal: true
-      concat: true
-    before_keywords:
-      class: 1
-      function: 1
-    within:
-      parentheses: false
 
 repository:
     branches:
