@@ -6,7 +6,11 @@ tools:
   php_cpd: true
   php_mess_detector: true
   php_loc: true
-  php_cs_fixer: true
+  php_cs_fixer:
+    enabled: true
+    config:
+      level: "PSR12"
+      fixers: ["@PSR12"]
 
 checks:
   php:
@@ -23,6 +27,9 @@ build:
   dependencies:
     override:
       - 'composer install --no-interaction --prefer-dist'
+  before_commands:
+    - rm -rf /home/scrutinizer/.analysis/phpcs/vendor/*
+    - composer require squizlabs/php_codesniffer:^3.7 --dev
   tests:
     override:
       - 'bin/phpunit --configuration phpunit.xml.dist'
