@@ -21,13 +21,13 @@ checks:
     unused_methods: true
 
 build:
-  before_commands:
-    - rm -rf /home/scrutinizer/.analysis/phpcs/vendor/*
-    - composer require squizlabs/php_codesniffer:^3.7 --dev
   environment:
     php:
       version: 8.3.11
   dependencies:
+    before:
+      - rm -rf /home/scrutinizer/.analysis/phpcs/vendor/*
+      - composer require squizlabs/php_codesniffer:^3.7 --dev
     override:
       - 'composer install --no-interaction --prefer-dist'
   tests:
