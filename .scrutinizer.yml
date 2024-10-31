@@ -1,8 +1,8 @@
 tools:
   php_code_sniffer:
-      config:
-          standard: "PSR12"
-      version: "3.7.0"
+    enable: true
+    config:
+        standard: "PSR12"
   php_cpd: true
   php_mess_detector: true
   php_loc: true
