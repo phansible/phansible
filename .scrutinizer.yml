@@ -7,6 +7,12 @@ checks:
     unused_methods: true
 
 build:
+  nodes:
+    analysis:
+      tests:
+        override:
+        - phpcs-run
+
   environment:
     php:
       version: 8.3.11
