@@ -1,6 +1,6 @@
 tools:
   php_code_sniffer:
-    enable: true
+    enabled: true
     config:
         standard: "PSR12"
   php_cpd: true
