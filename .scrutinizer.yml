@@ -49,8 +49,13 @@ coding_style:
       indent_with_space: true  # Indents with spaces instead of tabs
       indent_size: 4           # Set to 4 spaces for indentation
     braces:
-      inline: false
-      new_line_for_else: true
+      classes_functions: "next-line"  # Places braces on the next line for classes and functions
+      if: "same-line"                 # Places braces on the same line for if statements
+      for: "same-line"
+      while: "same-line"
+      switch: "same-line"
+      try: "same-line"
+      do_while: "same-line"
     around_operators:
       equal: true
       concat: true
