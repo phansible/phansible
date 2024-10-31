@@ -8,6 +8,14 @@ tools:
   php_loc: true
   php_cs_fixer: true
 
+checks:
+  php:
+    code_rating: true
+    duplication: true
+    unused_variables: true
+    unused_properties: true
+    unused_methods: true
+
 build:
   environment:
     php:
@@ -18,6 +26,7 @@ build:
   tests:
     override:
       - 'vendor/bin/phpunit --configuration phpunit.xml.dist'
+
 filter:
   paths:
     - src
@@ -26,12 +35,3 @@ filter:
     - 'app/*'
     - 'ansible/*'
     - 'src/Phansible/Resources/ansible/*'
-
-checks:
-  php:
-    code_rating: true
-    duplication: true
-    coding_standard: PSR12  # Specify a coding standard if preferred
-    unused_variables: true
-    unused_properties: true
-    unused_methods: true
