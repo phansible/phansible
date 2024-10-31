@@ -29,18 +29,19 @@ filter:
 
 checks:
   php:
-    code_style:
-      php5_style_constructor: false
-      remove_php4_constructors: true
-    code_size:
-      max_class_size: 500
-      max_method_size: 50
     code_rating: true
     duplication: true
-    security: true
+    coding_standard: PSR12  # You can set this to PSR12 or another standard if preferred
     unused_variables: true
     unused_properties: true
     unused_methods: true
+    security_vulnerabilities: true
+    line_length:
+        max_length: 120  # Example max line length for code readability
+    spacing_of_function_arguments: true
+    ensure_lower_case_builtin_functions: true
+    verify_property_names: true
+    no_trailing_whitespace: true
 
 coding_style:
   php:
@@ -59,9 +60,7 @@ coding_style:
     within:
       parentheses: false
 
-
 repository:
     branches:
         pull_requests: true
         all: true  # This makes it run on all branches, not just PRs
-
