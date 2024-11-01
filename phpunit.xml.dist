@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.4/phpunit.xsd"
-         backupGlobals="false"
-         bootstrap="tests/bootstrap.php"
+         backupGlobals="false" bootstrap="tests/bootstrap.php"
          colors="true"
          stopOnFailure="false"
          displayDetailsOnPhpunitDeprecations="true">
-    <php>
-        <ini name="display_errors" value="1" />
-        <ini name="error_reporting" value="-1"/>
-        <server name="APP_ENV" value="test" force="true"/>
-        <server name="SHELL_VERBOSITY" value="-1"/>
-        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-    </php>
-    <testsuites>
-        <testsuite name="Phansible">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-        <exclude>
-            <directory>./src/Phansible/Resources/ansible</directory>
-        </exclude>
-    </coverage>
+  <php>
+    <ini name="display_errors" value="1"/>
+    <ini name="error_reporting" value="-1"/>
+    <server name="APP_ENV" value="test" force="true"/>
+    <server name="SHELL_VERBOSITY" value="-1"/>
+    <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+  </php>
+  <testsuites>
+    <testsuite name="Phansible">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <directory>./src/Phansible/Resources/ansible</directory>
+    </exclude>
+  </source>
+  <coverage pathCoverage="false"
+            ignoreDeprecatedCodeUnits="true"
+            disableCodeCoverageIgnore="true">
+  </coverage>
 </phpunit>
