@@ -12,6 +12,13 @@ build:
       tests:
         override:
         - phpcs-run
+    code-coverage:
+      tests:
+        override:
+          - command: 'XDEBUG_MODE=coverage bin/phpunit --configuration phpunit.xml.dist --coverage-clover=coverage.clover'
+            coverage:
+              file: coverage.clover'
+              format: clover
 
   environment:
     php:
@@ -19,11 +26,6 @@ build:
   dependencies:
     override:
       - 'composer install --no-interaction --prefer-dist'
-  tests:
-    override:
-      - 'XDEBUG_MODE=coverage bin/phpunit --configuration phpunit.xml.dist --coverage-clover=coverage.clover'
-      - 'wget https://scrutinizer-ci.com/ocular.phar'
-      - 'php ocular.phar code-coverage:upload --format=php-clover coverage.clover'
 
 filter:
   paths:
