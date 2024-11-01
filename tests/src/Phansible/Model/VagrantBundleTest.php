@@ -5,6 +5,7 @@ namespace App\Phansible\Model;
 use App\Phansible\Renderer\PlaybookRenderer;
 use App\Phansible\Renderer\VagrantfileRenderer;
 use App\Phansible\Renderer\VarfileRenderer;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use ZipArchive;
@@ -59,49 +60,50 @@ class VagrantBundleTest extends TestCase
         $this->assertInstanceOf(ZipArchive::class, $result);
     }
 
-    // #[covers(App\Phansible\Model\VagrantBundle::addRoleFiles)]
-    // #[covers(App\Phansible\Model\VagrantBundle::includeBundleFiles)]
-    // public function testShouldIncludeRole(): void
-    // {
-    //     $model = $this->getMockBuilder(VagrantBundle::class)
-    //         ->disableOriginalConstructor()
-    //         ->onlyMethods(['includeBundleFiles'])
-    //         ->getMock();
+    #[DoesNotPerformAssertions]
+    #[covers(App\Phansible\Model\VagrantBundle::addRoleFiles)]
+    #[covers(App\Phansible\Model\VagrantBundle::includeBundleFiles)]
+    public function testShouldIncludeRole(): void
+    {
+        $model = $this->getMockBuilder(VagrantBundle::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['includeBundleFiles'])
+            ->getMock();
 
-    //     $mockedZip = $this->getMockBuilder(ZipArchive::class)
-    //         ->onlyMethods(['open'])
-    //         ->getMock();
+        $mockedZip = $this->getMockBuilder(ZipArchive::class)
+            ->onlyMethods(['open'])
+            ->getMock();
 
-    //     $model->method('includeBundleFiles')
-    //         ->willReturnOnConsecutiveCalls(
-    //             [
-    //                 $this->identicalTo($mockedZip),
-    //                 $this->equalTo('roles/nginx/defaults'),
-    //                 $this->equalTo('*.yml'),
-    //                 $this->equalTo('ansible/roles/nginx/defaults'),
-    //             ],
-    //             [
-    //                 $this->identicalTo($mockedZip),
-    //                 $this->equalTo('roles/nginx/tasks'),
-    //                 $this->equalTo('*.yml'),
-    //                 $this->equalTo('ansible/roles/nginx/tasks'),
-    //             ],
-    //             [
-    //                 $this->identicalTo($mockedZip),
-    //                 $this->equalTo('roles/nginx/handlers'),
-    //                 $this->equalTo('*.yml'),
-    //                 $this->equalTo('ansible/roles/nginx/handlers'),
-    //             ],
-    //             [
-    //                 $this->identicalTo($mockedZip),
-    //                 $this->equalTo('roles/nginx/templates'),
-    //                 $this->equalTo('*.tpl'),
-    //                 $this->equalTo('ansible/roles/nginx/templates'),
-    //             ]
-    //         );
+        $model->method('includeBundleFiles')
+            ->willReturnOnConsecutiveCalls(
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/defaults'),
+                    $this->equalTo('*.yml'),
+                    $this->equalTo('ansible/roles/nginx/defaults'),
+                ],
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/tasks'),
+                    $this->equalTo('*.yml'),
+                    $this->equalTo('ansible/roles/nginx/tasks'),
+                ],
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/handlers'),
+                    $this->equalTo('*.yml'),
+                    $this->equalTo('ansible/roles/nginx/handlers'),
+                ],
+                [
+                    $this->identicalTo($mockedZip),
+                    $this->equalTo('roles/nginx/templates'),
+                    $this->equalTo('*.tpl'),
+                    $this->equalTo('ansible/roles/nginx/templates'),
+                ]
+            );
 
-    //     $model->addRoleFiles('nginx', $mockedZip);
-    // }
+        $model->addRoleFiles('nginx', $mockedZip);
+    }
 
     #[covers(App\Phansible\Model\VagrantBundle::__construct)]
     #[covers(App\Phansible\Model\VagrantBundle::includeBundleFiles)]
