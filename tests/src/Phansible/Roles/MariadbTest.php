@@ -19,41 +19,31 @@ class MariadbTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mariadb
-     */
+    #[covers(\App\Phansible\Roles\Mariadb)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mariadb::getName
-     */
+    #[covers(\App\Phansible\Roles\Mariadb::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('MariaDb', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mariadb::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Mariadb::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('mariadb', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mariadb::getRole
-     */
+    #[covers(\App\Phansible\Roles\Mariadb::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('mariadb', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mariadb::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Mariadb::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

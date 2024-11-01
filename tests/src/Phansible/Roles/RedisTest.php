@@ -19,41 +19,31 @@ class RedisTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Redis
-     */
+    #[covers(\App\Phansible\Roles\Redis)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Redis::getName
-     */
+    #[covers(\App\Phansible\Roles\Redis::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('Redis', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Redis::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Redis::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('redis', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Redis::getRole
-     */
+    #[covers(\App\Phansible\Roles\Redis::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('redis', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Redis::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Redis::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

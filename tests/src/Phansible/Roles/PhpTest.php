@@ -22,42 +22,32 @@ class PhpTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php
-     */
+    #[covers(\App\Phansible\Roles\Php)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
         $this->assertInstanceOf(RoleValuesTransformer::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php::getName
-     */
+    #[covers(\App\Phansible\Roles\Php::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('PHP', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Php::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('php', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php::getRole
-     */
+    #[covers(\App\Phansible\Roles\Php::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('php', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Php::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [
@@ -73,9 +63,7 @@ class PhpTest extends TestCase
         $this->assertEquals($expected, $this->role->getInitialValues());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php::transformValues
-     */
+    #[covers(\App\Phansible\Roles\Php::transformValues)]
     public function testShouldNotTransformValues(): void
     {
         $values = [
@@ -112,10 +100,8 @@ class PhpTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Php::transformValues
-     * @covers \App\Phansible\Roles\Php::addPhpPackage
-     */
+    #[covers(\App\Phansible\Roles\Php::transformValues)]
+    #[covers(\App\Phansible\Roles\Php::addPhpPackage)]
     public function testShouldTransformValues(): void
     {
         $values = [

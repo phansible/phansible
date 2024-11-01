@@ -19,41 +19,31 @@ class ApacheTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Apache
-     */
+    #[covers(\App\Phansible\Roles\Apache)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Apache::getName
-     */
+    #[covers(\App\Phansible\Roles\Apache::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('Apache', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Apache::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Apache::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('apache', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Apache::getRole
-     */
+    #[covers(\App\Phansible\Roles\Apache::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('apache', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Apache::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Apache::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

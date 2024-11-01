@@ -19,41 +19,31 @@ class PgsqlTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Pgsql
-     */
+    #[covers(\App\Phansible\Roles\Pgsql)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Pgsql::getName
-     */
+    #[covers(\App\Phansible\Roles\Pgsql::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('PostgreSQL', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Pgsql::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Pgsql::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('pgsql', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Pgsql::getRole
-     */
+    #[covers(\App\Phansible\Roles\Pgsql::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('pgsql', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Pgsql::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Pgsql::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

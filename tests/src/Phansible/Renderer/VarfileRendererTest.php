@@ -27,26 +27,20 @@ class VarfileRendererTest extends TestCase
         $this->model = null;
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::__construct
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::__construct)]
     public function testShouldConstruct()
     {
         $this->assertEquals('common', $this->model->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::loadDefaults
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::loadDefaults)]
     public function testLoadDefaults()
     {
         $this->assertEquals('vars.yml.twig', $this->model->getTemplate());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::setName
-     * @covers \App\Phansible\Renderer\VarfileRenderer::getName
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::setName)]
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::getName)]
     public function testShouldSetAndGetName()
     {
         $name = 'phansible';
@@ -55,10 +49,8 @@ class VarfileRendererTest extends TestCase
         $this->assertEquals($name, $this->model->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::getTemplate
-     * @covers \App\Phansible\Renderer\VarfileRenderer::setTemplate
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::getTemplate)]
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::setTemplate)]
     public function testShouldSetAndGetTemplate()
     {
         $tpl = 'common.yml.twig';
@@ -70,10 +62,8 @@ class VarfileRendererTest extends TestCase
         $this->assertEquals($tpl, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::add
-     * @covers \App\Phansible\Renderer\VarfileRenderer::get
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::add)]
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::get)]
     public function testShouldAddAndGetVar()
     {
         $key   = 'doc_root';
@@ -84,10 +74,8 @@ class VarfileRendererTest extends TestCase
         $this->assertEquals($value, $this->model->get($key));
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::setData
-     * @covers \App\Phansible\Renderer\VarfileRenderer::getData
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::setData)]
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::getData)]
     public function testShouldSetAndGetData()
     {
         $this->model->setData([
@@ -104,9 +92,7 @@ class VarfileRendererTest extends TestCase
 
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::add
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::add)]
     public function testShouldAddArrayValue()
     {
         $key   = 'packages';
@@ -117,9 +103,7 @@ class VarfileRendererTest extends TestCase
         $this->assertTrue(is_array($this->model->get('packages')));
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::getFilePath
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::getFilePath)]
     public function testGetFilePath()
     {
         $path = 'ansible/vars/common.yml';
@@ -127,9 +111,7 @@ class VarfileRendererTest extends TestCase
         $this->assertEquals($path, $this->model->getFilePath());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::renderFile
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::renderFile)]
     public function testShouldRenderVarfile()
     {
         $twig = $this->getMockBuilder(Environment::class)
@@ -145,9 +127,7 @@ class VarfileRendererTest extends TestCase
         $this->model->renderFile($twig);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VarfileRenderer::addMultipleVars
-     */
+    #[covers(\App\Phansible\Renderer\VarfileRenderer::addMultipleVars)]
     public function testShouldAddMultipleVars()
     {
         $vars = [

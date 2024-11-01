@@ -19,41 +19,31 @@ class ElasticSearchTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\ElasticSearch
-     */
+    #[covers(\App\Phansible\Roles\ElasticSearch)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\ElasticSearch::getName
-     */
+    #[covers(\App\Phansible\Roles\ElasticSearch::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('ElasticSearch', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\ElasticSearch::getSlug
-     */
+    #[covers(\App\Phansible\Roles\ElasticSearch::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('elasticsearch', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\ElasticSearch::getRole
-     */
+    #[covers(\App\Phansible\Roles\ElasticSearch::getRole)]
     public function testShouldGetRole()
     {
         $this->assertEquals('elasticsearch', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\ElasticSearch::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\ElasticSearch::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

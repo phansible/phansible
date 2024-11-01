@@ -19,41 +19,31 @@ class SqliteTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Sqlite
-     */
+    #[covers(\App\Phansible\Roles\Sqlite)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Sqlite::getName
-     */
+    #[covers(\App\Phansible\Roles\Sqlite::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('SQLite', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Sqlite::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Sqlite::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('sqlite', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Sqlite::getRole
-     */
+    #[covers(\App\Phansible\Roles\Sqlite::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('sqlite', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Sqlite::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Sqlite::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

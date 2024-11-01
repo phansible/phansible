@@ -41,9 +41,7 @@ class TemplateRendererTest extends TestCase
         $constructor->invoke($mock);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\TemplateRenderer::add
-     */
+    #[covers(\App\Phansible\Renderer\TemplateRenderer::add)]
     public function testShouldAddArrayValue(): void
     {
         $key   = 'packages';
@@ -54,10 +52,8 @@ class TemplateRendererTest extends TestCase
         $this->assertIsArray($this->model->get('packages'));
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\TemplateRenderer::setFilePath
-     * @covers \App\Phansible\Renderer\TemplateRenderer::getFilePath
-     */
+    #[covers(\App\Phansible\Renderer\TemplateRenderer::setFilePath)]
+    #[covers(\App\Phansible\Renderer\TemplateRenderer::getFilePath)]
     public function testShouldSetAndGetFilePath(): void
     {
         $path = 'ansible/vars/common.yml';
@@ -67,9 +63,7 @@ class TemplateRendererTest extends TestCase
         $this->assertEquals($path, $this->model->getFilePath());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\TemplateRenderer::getData
-     */
+    #[covers(\App\Phansible\Renderer\TemplateRenderer::getData)]
     public function testGetData(): void
     {
         $this->model->add('test', 'test');
@@ -79,9 +73,7 @@ class TemplateRendererTest extends TestCase
         $this->assertArrayHasKey('test', $data);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\TemplateRenderer::renderFile
-     */
+    #[covers(\App\Phansible\Renderer\TemplateRenderer::renderFile)]
     public function testRenderFile(): void
     {
         $twig = $this->getMockBuilder(Environment::class)

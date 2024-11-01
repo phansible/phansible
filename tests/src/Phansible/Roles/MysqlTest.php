@@ -19,41 +19,31 @@ class MysqlTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mysql
-     */
+    #[covers(\App\Phansible\Roles\Mysql)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mysql::getName
-     */
+    #[covers(\App\Phansible\Roles\Mysql::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('MySQL', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mysql::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Mysql::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('mysql', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mysql::getRole
-     */
+    #[covers(\App\Phansible\Roles\Mysql::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('mysql', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mysql::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Mysql::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

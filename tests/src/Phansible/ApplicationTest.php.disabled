@@ -6,9 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class ApplicationTest extends TestCase
 {
-    /**
-     * @covers \App\Phansible\Application::__construct
-     */
+    #[covers(\App\Phansible\Application::__construct)]
     public function testShouldVerifyInformationPassedByConstructor(): void
     {
         $app = new Application(__DIR__);
