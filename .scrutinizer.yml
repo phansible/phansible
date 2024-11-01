@@ -21,7 +21,9 @@ build:
       - 'composer install --no-interaction --prefer-dist'
   tests:
     override:
-      - 'bin/phpunit --configuration phpunit.xml.dist'
+      - 'bin/phpunit --configuration phpunit.xml.dist  --coverage-clover=coverage.clover'
+      - 'wget https://scrutinizer-ci.com/ocular.phar'
+      - 'php ocular.phar code-coverage:upload --access-token="your-token" --format=php-clover coverage.clover'
 
 filter:
   paths:
