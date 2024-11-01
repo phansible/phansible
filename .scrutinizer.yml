@@ -17,7 +17,7 @@ build:
         override:
           - command: 'XDEBUG_MODE=coverage bin/phpunit --configuration phpunit.xml.dist --coverage-clover=coverage.clover'
             coverage:
-              file: coverage.clover'
+              file: coverage.clover
               format: clover
 
   environment:
