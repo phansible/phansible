@@ -25,9 +25,7 @@ class VagrantfileRendererTest extends TestCase
         $this->model = null;
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::loadDefaults
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::loadDefaults)]
     public function testLoadDefaults(): void
     {
         $this->assertEquals(512, $this->model->getMemory());
@@ -39,9 +37,7 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals('nfs', $this->model->getSyncedType());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getTemplate
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getTemplate)]
     public function testGetTemplate(): void
     {
         $path = 'Vagrantfile.twig';
@@ -49,9 +45,7 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($path, $this->model->getTemplate());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getFilePath
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getFilePath)]
     public function testGetFilePath(): void
     {
         $path = 'Vagrantfile';
@@ -59,10 +53,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($path, $this->model->getFilePath());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getMemory
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setMemory
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getMemory)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setMemory)]
     public function testShouldSetAndGetMemory(): void
     {
         $memory = 512;
@@ -74,10 +66,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($memory, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getName
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setName
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getName)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setName)]
     public function testShouldSetAndGetVmName(): void
     {
         $vmName = 'phansible';
@@ -89,10 +79,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($vmName, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getBoxName
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setBoxName
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getBoxName)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setBoxName)]
     public function testShouldSetAndGetBox(): void
     {
         $box = 'precise64';
@@ -104,10 +92,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($box, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getBoxUrl
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setBoxUrl
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getBoxUrl)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setBoxUrl)]
     public function testShouldSetAndGetBoxUrl(): void
     {
         $boxUrl = 'http://files.vagrantup.com/precise64.box';
@@ -119,10 +105,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($boxUrl, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getIpAddress
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setIpAddress
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getIpAddress)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setIpAddress)]
     public function testShouldSetAndGetIpAddress(): void
     {
         $ipAddress = '192.168.100.100';
@@ -134,10 +118,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($ipAddress, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getSyncedFolder
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setSyncedFolder
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getSyncedFolder)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setSyncedFolder)]
     public function testShouldSetAndGetSyncedFolder(): void
     {
         $syncedFolder = './';
@@ -149,10 +131,8 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($syncedFolder, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getSyncedType
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::setSyncedType
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getSyncedType)]
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::setSyncedType)]
     public function testShouldSetAndGetSyncedFolderType(): void
     {
         $syncedType = 'nfs';
@@ -164,9 +144,7 @@ class VagrantfileRendererTest extends TestCase
         $this->assertEquals($syncedType, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::getData
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::getData)]
     public function testGetData(): void
     {
         $data = $this->model->getData();
@@ -179,9 +157,7 @@ class VagrantfileRendererTest extends TestCase
         $this->assertArrayHasKey('syncedFolder', $data);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\VagrantfileRenderer::renderFile
-     */
+    #[covers(\App\Phansible\Renderer\VagrantfileRenderer::renderFile)]
     public function testShouldRenderVagrantfile(): void
     {
         $this->model->setName('phansible');

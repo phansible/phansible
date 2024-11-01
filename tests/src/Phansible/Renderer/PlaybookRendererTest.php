@@ -25,9 +25,7 @@ class PlaybookRendererTest extends TestCase
         $this->model = null;
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::getTemplate
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::getTemplate)]
     public function testGetTemplate(): void
     {
         $path = 'playbook.yml.twig';
@@ -35,9 +33,7 @@ class PlaybookRendererTest extends TestCase
         $this->assertEquals($path, $this->model->getTemplate());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::getFilePath
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::getFilePath)]
     public function testGetFilePath(): void
     {
         $path = 'ansible/playbook.yml';
@@ -45,11 +41,9 @@ class PlaybookRendererTest extends TestCase
         $this->assertEquals($path, $this->model->getFilePath());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::getRoles
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::setRoles
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::addRole
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::getRoles)]
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::setRoles)]
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::addRole)]
     public function testShouldSetAndGetRoles(): void
     {
         $roles = ['nginx', 'php'];
@@ -63,10 +57,8 @@ class PlaybookRendererTest extends TestCase
         $this->assertContains('init', $this->model->getRoles());
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::getData
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::setVarsFilename
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::getData)]
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::setVarsFilename)]
     public function testGetData(): void
     {
         $this->model->setVarsFilename('test.yml');
@@ -78,9 +70,7 @@ class PlaybookRendererTest extends TestCase
         $this->assertEquals('test.yml', $data['varsfile']);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::renderFile
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::renderFile)]
     public function testShouldRenderPlaybook(): void
     {
         $this->model->setRoles(['nginx', 'php5-fpm']);
@@ -98,26 +88,20 @@ class PlaybookRendererTest extends TestCase
         $this->model->renderFile($twig);
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::hasRole
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::hasRole)]
     public function testShouldRetrieveFalseIfRoleNotExists(): void
     {
         $this->assertFalse($this->model->hasRole('something'));
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::hasRole
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::hasRole)]
     public function testShouldRetrieveTrueIfRoleExists(): void
     {
         $this->model->addRole('mysql');
         $this->assertTrue($this->model->hasRole('mysql'));
     }
 
-    /**
-     * @covers \App\Phansible\Renderer\PlaybookRenderer::loadDefaults
-     */
+    #[covers(\App\Phansible\Renderer\PlaybookRenderer::loadDefaults)]
     public function testShouldLoadDefaults(): void
     {
         $this->model->loadDefaults();

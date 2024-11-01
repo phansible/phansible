@@ -27,10 +27,7 @@ class AboutControllerTest extends TestCase
         $this->controller->setContainer($container);
     }
 
-
-    /**
-     * @covers \App\Phansible\Controller\AboutController::indexAction
-     */
+    #[Covers(App\Phansible\Controller\AboutController::class)]
     public function testShouldRenderindexAction(): void
     {
         $this->twig->expects($this->once())

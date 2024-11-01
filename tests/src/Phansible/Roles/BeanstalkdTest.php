@@ -19,41 +19,31 @@ class BeanstalkdTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Beanstalkd
-     */
+    #[covers(\App\Phansible\Roles\Beanstalkd)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Beanstalkd::getName
-     */
+    #[covers(\App\Phansible\Roles\Beanstalkd::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('Beanstalkd', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Beanstalkd::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Beanstalkd::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('beanstalkd', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Beanstalkd::getRole
-     */
+    #[covers(\App\Phansible\Roles\Beanstalkd::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('beanstalkd', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Beanstalkd::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Beanstalkd::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

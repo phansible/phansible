@@ -21,9 +21,7 @@ class BundleControllerTest extends TestCase
         $this->controller = new BundleController($rolesManager);
     }
 
-    /**
-     * @covers \App\Phansible\Controller\BundleController::extractLocale
-     */
+    #[Covers(App\Phansible\Controller\BundleController::extractLocale)]
     public function testShouldExtractLocale(): void
     {
         $result = $this->controller->extractLocale('en');
@@ -33,9 +31,7 @@ class BundleControllerTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Controller\BundleController::extractLocale
-     */
+    #[Covers(App\Phansible\Controller\BundleController::extractLocale)]
     public function testShouldExtractLocaleIfArray(): void
     {
         $langs = [
@@ -50,12 +46,10 @@ class BundleControllerTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @covers \App\Phansible\Controller\BundleController::indexAction
-     * @covers \App\Phansible\Controller\BundleController::getVagrantBundle
-     * @covers \App\Phansible\Controller\BundleController::setVagrantBundle
-     * @covers \App\Phansible\Controller\BundleController::getInventory
-     */
+    #[Covers(App\Phansible\Controller\BundleController::indexAction)]
+    #[Covers(App\Phansible\Controller\BundleController::getVagrantBundle)]
+    #[Covers(App\Phansible\Controller\BundleController::setVagrantBundle)]
+    #[Covers(App\Phansible\Controller\BundleController::getInventory)]
     public function testShouldReturnResponseWithErrorMessage(): void
     {
         $data = [

@@ -19,41 +19,31 @@ class MongodbTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mongodb
-     */
+    #[covers(\App\Phansible\Roles\Mongodb)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mongodb::getName
-     */
+    #[covers(\App\Phansible\Roles\Mongodb::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('MongoDb', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mongodb::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Mongodb::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('mongodb', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mongodb::getRole
-     */
+    #[covers(\App\Phansible\Roles\Mongodb::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('mongodb', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Mongodb::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Mongodb::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

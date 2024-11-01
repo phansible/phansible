@@ -19,41 +19,31 @@ class SolrTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Solr
-     */
+    #[covers(\App\Phansible\Roles\Solr)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Solr::getName
-     */
+    #[covers(\App\Phansible\Roles\Solr::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('Solr', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Solr::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Solr::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('solr', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Solr::getRole
-     */
+    #[covers(\App\Phansible\Roles\Solr::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('solr', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Solr::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Solr::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

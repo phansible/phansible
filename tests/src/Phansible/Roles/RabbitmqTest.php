@@ -19,41 +19,31 @@ class RabbitmqTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Rabbitmq
-     */
+    #[covers(\App\Phansible\Roles\Rabbitmq)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Rabbitmq::getName
-     */
+    #[covers(\App\Phansible\Roles\Rabbitmq::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('RabbitMQ', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Rabbitmq::getSlug
-     */
+    #[covers(\App\Phansible\Roles\Rabbitmq::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('rabbitmq', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Rabbitmq::getRole
-     */
+    #[covers(\App\Phansible\Roles\Rabbitmq::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('rabbitmq', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\Rabbitmq::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\Rabbitmq::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [

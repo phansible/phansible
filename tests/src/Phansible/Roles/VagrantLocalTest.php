@@ -22,42 +22,32 @@ class VagrantLocalTest extends TestCase
         unset($this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\VagrantLocal
-     */
+    #[covers(\App\Phansible\Roles\VagrantLocal)]
     public function testShouldInstanceOf(): void
     {
         $this->assertInstanceOf(Role::class, $this->role);
         $this->assertInstanceOf(RoleValuesTransformer::class, $this->role);
     }
 
-    /**
-     * @covers \App\Phansible\Roles\VagrantLocal::getName
-     */
+    #[covers(\App\Phansible\Roles\VagrantLocal::getName)]
     public function testShouldGetName(): void
     {
         $this->assertEquals('Local', $this->role->getName());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\VagrantLocal::getSlug
-     */
+    #[covers(\App\Phansible\Roles\VagrantLocal::getSlug)]
     public function testShouldGetSlug(): void
     {
         $this->assertEquals('vagrant_local', $this->role->getSlug());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\VagrantLocal::getRole
-     */
+    #[covers(\App\Phansible\Roles\VagrantLocal::getRole)]
     public function testShouldGetRole(): void
     {
         $this->assertEquals('vagrant_local', $this->role->getRole());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\VagrantLocal::getInitialValues
-     */
+    #[covers(\App\Phansible\Roles\VagrantLocal::getInitialValues)]
     public function testShouldGetInitialValues(): void
     {
         $expected = [];
@@ -65,11 +55,9 @@ class VagrantLocalTest extends TestCase
         $this->assertEquals($expected, $this->role->getInitialValues());
     }
 
-    /**
-     * @covers \App\Phansible\Roles\VagrantLocal::transformValues
-     * @covers \App\Phansible\Roles\VagrantLocal::getVagrantFile
-     * @covers \App\Phansible\Roles\VagrantLocal::getBox
-     */
+    #[covers(\App\Phansible\Roles\VagrantLocal::transformValues)]
+    #[covers(\App\Phansible\Roles\VagrantLocal::getVagrantFile)]
+    #[covers(\App\Phansible\Roles\VagrantLocal::getBox)]
     public function testShouldTransformValues(): void
     {
         $values = [

@@ -29,9 +29,7 @@ class DefaultControllerTest extends TestCase
         $this->controller->setContainer($container);
     }
 
-    /**
-     * @covers \App\Phansible\Controller\DefaultController::indexAction
-     */
+    #[Covers(App\Phansible\Controller\DefaultController::indexAction)]
     public function testShouldRenderIndexAction(): void
     {
         $this->twig->expects($this->once())
@@ -44,10 +42,8 @@ class DefaultControllerTest extends TestCase
         $this->controller->indexAction();
     }
 
-    /**
-     * @covers \App\Phansible\Controller\DefaultController::docsAction
-     * @expectException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
+    #[Covers(App\Phansible\Controller\DefaultController::docsAction)]
+    #[expectException(Symfony\Component\HttpKernel\Exception\NotFoundHttpException)]
     public function testShouldThrowExceptionWhenDocFileNotExists(): void
     {
         $doc = '';
@@ -55,9 +51,7 @@ class DefaultControllerTest extends TestCase
         $this->controller->docsAction($doc);
     }
 
-    /**
-     * @covers \App\Phansible\Controller\DefaultController::docsAction
-     */
+    #[Covers(App\Phansible\Controller\DefaultController::docsAction)]
     public function testShouldRenderDocsActionWhenFileExists(): void
     {
         $this->twig->expects($this->once())
