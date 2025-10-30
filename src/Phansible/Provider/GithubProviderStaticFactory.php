@@ -3,10 +3,8 @@
 namespace App\Phansible\Provider;
 
 use App\Phansible\Model\GithubAdapter;
-use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Github\Client;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 /**
  * Class GithubProviderStaticFactory
@@ -19,9 +17,12 @@ class GithubProviderStaticFactory
      */
     public static function create(): GithubAdapter
     {
-        $filesystemAdapter = new Local(__DIR__ . '/../../../var/cache/github-api-cache');
-        $filesystem        = new Filesystem($filesystemAdapter);
-        $cache             = new FilesystemCachePool($filesystem);
+        // Use Symfony FilesystemAdapter (PSR-6)
+        $cache = new FilesystemAdapter(
+            namespace: 'github_api',
+            defaultLifetime: 0,
+            directory: __DIR__ . '/../../../var/cache/github-api-cache'
+        );
 
         $client = new Client();
         $client->addCache($cache);
