@@ -54,7 +54,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "^11.4",
+    "phpunit/phpunit": "^12.5",
     "phpstan/phpstan": "^2.1",
     "friendsofphp/php-cs-fixer": "^3.12",
     "squizlabs/php_codesniffer": "^3.8",
