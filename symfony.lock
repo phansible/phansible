@@ -1,13 +1,4 @@
 {
-    "cache/adapter-common": {
-        "version": "1.2.0"
-    },
-    "cache/filesystem-adapter": {
-        "version": "1.1.0"
-    },
-    "cache/tag-interop": {
-        "version": "1.0.1"
-    },
     "clue/stream-filter": {
         "version": "v1.5.0"
     },
@@ -26,11 +17,32 @@
             "config/routes/annotations.yaml"
         ]
     },
+    "doctrine/deprecations": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "87424683adc81d7dc305eefec1fced883084aab9"
+        }
+    },
     "doctrine/instantiator": {
         "version": "1.4.0"
     },
     "doctrine/lexer": {
         "version": "1.2.1"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "3.89",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
+        ]
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
@@ -61,12 +73,6 @@
     },
     "league/commonmark": {
         "version": "1.6.6"
-    },
-    "league/flysystem": {
-        "version": "1.1.5"
-    },
-    "league/mime-type-detection": {
-        "version": "1.8.0"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
@@ -116,6 +122,18 @@
     "phpspec/prophecy": {
         "version": "1.14.0"
     },
+    "phpstan/phpstan": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "5e490cc197fb6bb1ae22e5abbc531ddc633b6767"
+        },
+        "files": [
+            "phpstan.dist.neon"
+        ]
+    },
     "phpunit/php-code-coverage": {
         "version": "9.2.7"
     },
@@ -159,9 +177,6 @@
     },
     "psr/log": {
         "version": "1.1.4"
-    },
-    "psr/simple-cache": {
-        "version": "1.0.1"
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
