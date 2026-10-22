@@ -1,4 +1,6 @@
 ---
+# Capistrano-style: build a new release next to the live one, then switch the current symlink atomically.
+# First run on a server: provision.yml -t init, then this, then full provision.yml (points nginx at current/).
 - hosts: webservers
   user: "{{ system_user }}"
   vars_prompt:
@@ -6,48 +8,63 @@
       default: main
       prompt: "Tag, Branch or Hash to deploy"
       private: no
+  vars:
+    shared_dir: "{{ project_root }}/shared"
   tasks:
-    - name: Set Maintenance Page
-      shell: cp {{ doc_root }}/maintenance/maintenance.html {{ doc_root }}/maintenance.html
-      ignore_errors: true
+    # set once: a templated timestamp var would be re-evaluated on every use
+    - name: Name the release
+      set_fact:
+        release_dir: "{{ project_root }}/releases/{{ '%Y%m%d%H%M%S' | strftime(utc=true) }}"
+
+    - name: Create releases and shared directories
+      file: path={{ item }} state=directory
+      loop:
+        - "{{ project_root }}/releases"
+        - "{{ shared_dir }}"
 
     - name: Checkout code
-      git: repo=https://github.com/phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
+      git: repo=https://github.com/phansible/phansible.git dest={{ release_dir }} version={{ deploy_version }} depth=1
 
     # The app role clones the generator roles into the checkout, so it has to run after it
     - name: Fetch generator roles
       include_role: name=app
+      vars:
+        project_root: "{{ release_dir }}"
       tags: [ 'app' ]
 
     # --no-scripts: there is no bin/console for the cache:clear auto-script
     - name: Run Composer
-      shell: /usr/local/bin/composer install --no-dev --no-progress --no-scripts --classmap-authoritative chdir={{ project_root }}
+      shell: /usr/local/bin/composer install --no-dev --no-progress --no-scripts --classmap-authoritative chdir={{ release_dir }}
 
     # symfony/dotenv is a dev dependency, so prod reads its env from .env.local.php
     - name: Write env file
       template:
         src: env.local.php.j2
-        dest: "{{ project_root }}/.env.local.php"
+        dest: "{{ shared_dir }}/.env.local.php"
         mode: '0640'
         force: no
       vars:
         app_secret: "{{ lookup('password', '/dev/null chars=hexdigits length=32') }}"
 
+    - name: Link shared env file into the release
+      file: src={{ shared_dir }}/.env.local.php dest={{ release_dir }}/.env.local.php state=link
+
+    - name: Create var directory
+      file: path={{ release_dir }}/var state=directory
+
     - name: Read ACLs for web_user
-      shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'
+      shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ release_dir }} {{ shared_dir }}'
 
-    - name: Read and Write ACLs for shell user
-      shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX -m d:u:"{{ system_user }}":rwX {{ project_root }}'
-
-    - name: Clean cache directory
-      file: path={{ project_root }}/var/cache/prod state=absent
-
-    - name: Make sure var directory exists
-      file: path={{ project_root }}/var state=directory owner={{ system_user }} group={{ system_group }}
-
+    # no -n: the mask has to be recalculated to rwx or www-data stays read-only
     - name: Read and Write ACLs var dir
-      # no -n: the mask has to be recalculated to rwx or www-data stays read-only
-      shell: 'setfacl -R -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}/var'
+      shell: 'setfacl -R -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ release_dir }}/var'
 
-    - name: Remove maintenance page
-      file: path="{{ doc_root }}/maintenance.html" state=absent
+    # file module swaps the link via rename, so requests never see a missing or half-built release
+    - name: Switch current release
+      file: src={{ release_dir }} dest={{ project_root }}/current state=link
+
+    - name: Remove old releases
+      shell: ls -1 | sort | head -n -{{ keep_releases }} | grep -vx "$(basename "$(readlink ../current)")" | xargs -r rm -rf
+      args:
+        chdir: "{{ project_root }}/releases"
+      changed_when: false

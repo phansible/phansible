@@ -1,0 +1,18 @@
+---
+# Points current back at the release before it. Run again to step back further.
+- hosts: webservers
+  user: "{{ system_user }}"
+  tasks:
+    - name: Find the release before the current one
+      shell: |
+        current=$(basename "$(readlink {{ project_root }}/current)")
+        ls -1 {{ project_root }}/releases | sort | awk -v c="$current" '$0 < c' | tail -n 1
+      register: previous
+      changed_when: false
+
+    - name: Fail when there is nothing to roll back to
+      fail: msg="No release older than the current one"
+      when: previous.stdout | length == 0
+
+    - name: Switch current release
+      file: src={{ project_root }}/releases/{{ previous.stdout }} dest={{ project_root }}/current state=link

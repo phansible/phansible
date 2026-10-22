@@ -4,7 +4,7 @@ server {
     server_name {{ server_name }};
 
     location /.well-known/acme-challenge/ {
-        root {{ doc_root }};
+        root {{ acme_root }};
     }
 
     location / {

@@ -1,6 +1,6 @@
 ---
-project_root: /sites/phansible
-doc_root: /sites/phansible/public
+project_root: /srv/phansible
+doc_root: /srv/phansible/current/public
 
 sys_packages: ["vim", "git", "fail2ban"]
 
