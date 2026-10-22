@@ -3,6 +3,11 @@
   become: yes
   apt: pkg=certbot state=latest
 
+# outside the releases, so renewals work whatever release is current
+- name: Create ACME challenge directory
+  become: yes
+  file: path={{ acme_root }} state=directory mode=0755
+
 - name: Create TLS certificate directory
   become: yes
   file: path={{ tls_cert_dir }} state=directory mode=0700
@@ -20,6 +25,6 @@
 - name: Issue certificate
   become: yes
   command: >
-    certbot certonly --webroot -w {{ doc_root }} -d {{ tls_domain }}
+    certbot certonly --webroot -w {{ acme_root }} -d {{ tls_domain }}
     --cert-name {{ tls_domain }} --non-interactive --agree-tos --register-unsafely-without-email --keep-until-expiring
   when: tls_issue | default(false) | bool
