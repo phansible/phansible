@@ -19,10 +19,6 @@
       include_role: name=app
       tags: [ 'app' ]
 
-    - name: Self-update Composer
-      become: yes
-      shell: /usr/local/bin/composer self-update
-
     # --no-scripts: there is no bin/console for the cache:clear auto-script
     - name: Run Composer
       shell: /usr/local/bin/composer install --no-dev --no-progress --no-scripts --classmap-authoritative chdir={{ project_root }}
@@ -38,28 +34,20 @@
         app_secret: "{{ lookup('password', '/dev/null chars=hexdigits length=32') }}"
 
     - name: Read ACLs for web_user
-      become: yes
       shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rX -m d:u:"{{ webserver_user }}":rX {{ project_root }}'
 
     - name: Read and Write ACLs for shell user
-      become: yes
       shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX -m d:u:"{{ system_user }}":rwX {{ project_root }}'
 
     - name: Clean cache directory
-      become: yes
       file: path={{ project_root }}/var/cache/prod state=absent
 
     - name: Make sure var directory exists
-      become: yes
       file: path={{ project_root }}/var state=directory owner={{ system_user }} group={{ system_group }}
 
     - name: Read and Write ACLs var dir
-      become: yes
-      shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}/var'
-
-    - name: Reload php-fpm to clear OPcache
-      become: yes
-      service: name=php{{ php_version }}-fpm state=reloaded
+      # no -n: the mask has to be recalculated to rwx or www-data stays read-only
+      shell: 'setfacl -R -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}/var'
 
     - name: Remove maintenance page
       file: path="{{ doc_root }}/maintenance.html" state=absent
