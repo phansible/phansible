@@ -174,6 +174,4 @@ class VagrantfileRendererTest extends TestCase
 
         $this->model->renderFile($twig);
     }
-
-
 }
