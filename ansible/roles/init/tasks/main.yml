@@ -6,18 +6,14 @@
     state: latest
     update_cache: yes
 
-- name: Add Sury PHP repository key
-  become: yes
-  get_url:
-    url: https://packages.sury.org/php/apt.gpg
-    dest: /usr/share/keyrings/deb.sury.org-php.gpg
-    mode: '0644'
-
 - name: Add Sury PHP repository
   become: yes
-  apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
-    filename: php
+  deb822_repository:
+    name: php
+    uris: https://packages.sury.org/php/
+    suites: '{{ ansible_facts.distribution_release }}'
+    components: main
+    signed_by: https://packages.sury.org/php/apt.gpg
 
 - name: Install Extra Packages
   become: yes

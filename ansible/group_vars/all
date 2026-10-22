@@ -4,3 +4,5 @@ webserver_group: www-data
 
 system_user: phansible
 system_group: phansible
+
+ansible_python_interpreter: /usr/bin/python3
