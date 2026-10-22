@@ -51,14 +51,6 @@ header img.logo {
     display: none;
 }
 
-#forkme {
-    position: absolute;
-    z-index: 1000;
-    top: 0;
-    right: 0;
-    border: 0;
-}
-
 header p {
     color: #FFF;
 }
