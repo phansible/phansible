@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+install -m 0600 "$RENEWED_LINEAGE/fullchain.pem" "$RENEWED_LINEAGE/privkey.pem" {{ tls_cert_dir }}/
+systemctl reload nginx

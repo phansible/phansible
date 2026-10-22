@@ -3,6 +3,7 @@
   become: true
   roles:
     - { role: init, tags: [ 'init' ] }
+    - { role: certbot, tags: [ 'certbot' ], when: tls_domain is defined }
     - { role: nginx, tags: [ 'nginx' ] }
     - { role: php-fpm, tags: [ 'php' ] }
     - { role: composer, tags: [ 'composer', 'php' ] }

@@ -10,3 +10,5 @@ php_display_startup_errors: 'Off'
 php_html_errors: 'Off'
 
 server_name: phansible.com
+
+tls_domain: phansible.com

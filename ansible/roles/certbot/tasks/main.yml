@@ -1,0 +1,25 @@
+---
+- name: Install certbot
+  become: yes
+  apt: pkg=certbot state=latest
+
+- name: Create TLS certificate directory
+  become: yes
+  file: path={{ tls_cert_dir }} state=directory mode=0700
+
+- name: Create certbot deploy hook directory
+  become: yes
+  file: path=/etc/letsencrypt/renewal-hooks/deploy state=directory
+
+# nginx reads the cert from tls_cert_dir, so a copied-in cert works before certbot has issued one
+- name: Install certbot deploy hook
+  become: yes
+  template: src=deploy-hook.sh.j2 dest=/etc/letsencrypt/renewal-hooks/deploy/phansible.sh mode=0755
+
+# Only once the domain points at this droplet: ansible-playbook provision.yml -t certbot -e tls_issue=true
+- name: Issue certificate
+  become: yes
+  command: >
+    certbot certonly --webroot -w {{ doc_root }} -d {{ tls_domain }}
+    --cert-name {{ tls_domain }} --non-interactive --agree-tos --register-unsafely-without-email --keep-until-expiring
+  when: tls_issue | default(false) | bool
