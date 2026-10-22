@@ -1,0 +1,697 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: src/Kernel.php
+
+		-
+			message: '#^Cannot access offset ''all'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Kernel.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Kernel.php
+
+		-
+			message: '#^Comparison operation "\<" between int\<80300, 80599\> and 70400 is always false\.$#'
+			identifier: smaller.alwaysFalse
+			count: 1
+			path: src/Kernel.php
+
+		-
+			message: '#^Method App\\Kernel\:\:registerBundles\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Kernel.php
+
+		-
+			message: '#^Binary operation "\.\=" between mixed and ''\.UTF\-8'' results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Cannot access offset ''ip'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Cannot access offset ''locale'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Cannot access offset ''vm'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Instanceof between App\\Phansible\\Model\\VagrantBundle and App\\Phansible\\Model\\VagrantBundle will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Method App\\Phansible\\Controller\\BundleController\:\:extractLocale\(\) has parameter \$languages with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Method App\\Phansible\\Controller\\BundleController\:\:getInventory\(\) has parameter \$requestVars with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Controller/BundleController.php
+
+		-
+			message: '#^Binary operation "\." between literal\-string&non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Phansible/Controller/DefaultController.php
+
+		-
+			message: '#^Method App\\Phansible\\Controller\\DefaultController\:\:docsAction\(\) has parameter \$doc with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Phansible/Controller/DefaultController.php
+
+		-
+			message: '#^Parameter \#1 \$input of static method Symfony\\Component\\Yaml\\Yaml\:\:parse\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 9
+			path: src/Phansible/Controller/DefaultController.php
+
+		-
+			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Controller/DefaultController.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 8
+			path: src/Phansible/Controller/DefaultController.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\FileRendererInterface\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Model/FileRendererInterface.php
+
+		-
+			message: '#^Call to an undefined method Github\\Api\\AbstractApi\:\:statistics\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Phansible/Model/GithubAdapter.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\GithubAdapter\:\:get\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Model/GithubAdapter.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\GithubAdapter\:\:get\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Phansible/Model/GithubAdapter.php
+
+		-
+			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Binary operation "\." between ''roles/'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Cannot call method getFilePath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Cannot call method renderFile\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\VagrantBundle\:\:addRoleFiles\(\) has parameter \$role with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\VagrantBundle\:\:generateBundle\(\) has parameter \$roles with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\VagrantBundle\:\:getPlaybook\(\) should return App\\Phansible\\Renderer\\PlaybookRenderer but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\VagrantBundle\:\:getVagrantFile\(\) should return App\\Phansible\\Renderer\\VagrantfileRenderer but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Method App\\Phansible\\Model\\VagrantBundle\:\:getVarsFile\(\) should return App\\Phansible\\Renderer\\VarfileRenderer but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Parameter \#1 \$name of method ZipArchive\:\:addFromString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Parameter \#2 \$content of method ZipArchive\:\:addFromString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Property App\\Phansible\\Model\\VagrantBundle\:\:\$renderers type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Model/VagrantBundle.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\PlaybookRenderer\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/PlaybookRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\PlaybookRenderer\:\:getRoles\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/PlaybookRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\PlaybookRenderer\:\:setRoles\(\) has parameter \$roles with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/PlaybookRenderer.php
+
+		-
+			message: '#^Property App\\Phansible\\Renderer\\PlaybookRenderer\:\:\$roles type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/PlaybookRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\TemplateRenderer\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/TemplateRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\TemplateRenderer\:\:setData\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/TemplateRenderer.php
+
+		-
+			message: '#^Property App\\Phansible\\Renderer\\TemplateRenderer\:\:\$data type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/TemplateRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/VagrantfileRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\VarfileRenderer\:\:addMultipleVars\(\) has parameter \$vars with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/VarfileRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Renderer\\VarfileRenderer\:\:getData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/VarfileRenderer.php
+
+		-
+			message: '#^Property App\\Phansible\\Renderer\\VarfileRenderer\:\:\$data type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Renderer/VarfileRenderer.php
+
+		-
+			message: '#^Method App\\Phansible\\Role\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Role.php
+
+		-
+			message: '#^Method App\\Phansible\\RoleValuesTransformer\:\:transformValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RoleValuesTransformer.php
+
+		-
+			message: '#^Method App\\Phansible\\RoleValuesTransformer\:\:transformValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RoleValuesTransformer.php
+
+		-
+			message: '#^Method App\\Phansible\\RoleWithDependencies\:\:requiredRolesToBeInstalled\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RoleWithDependencies.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Apache\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Apache.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Beanstalkd\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Beanstalkd.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Blackfire\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Blackfire.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Composer\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Composer.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Composer\:\:requiredRolesToBeInstalled\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Composer.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\ElasticSearch\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/ElasticSearch.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Mariadb\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Mariadb.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Mongodb\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Mongodb.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Mysql\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Mysql.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Nginx\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Nginx.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Pgsql\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Pgsql.php
+
+		-
+			message: '#^Cannot access an offset on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Php\:\:addPhpPackage\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Php\:\:addPhpPackage\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Php\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Php\:\:transformValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Php\:\:transformValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of function in_array expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/Php.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Rabbitmq\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Rabbitmq.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Redis\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Redis.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Server\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Server.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Solr\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Solr.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Sqlite\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Sqlite.php
+
+		-
+			message: '#^Cannot access offset ''base_box'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''boxes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''hostname'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''ip'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''memory'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''mountPoint'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''sharedfolder'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''syncType'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''useVagrantCloud'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset ''virtualbox'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Cannot access offset mixed on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:getBox\(\) has parameter \$boxName with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:getBox\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:getBox\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:getVagrantfile\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:transformValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\VagrantLocal\:\:transformValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$boxName of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setBoxName\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$boxUrl of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setBoxUrl\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$input of static method Symfony\\Component\\Yaml\\Yaml\:\:parse\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$ipAddress of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setIpAddress\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$memory of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setMemory\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$mountPoint of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setMountPoint\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$name of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setName\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$syncedFolder of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setSyncedFolder\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#1 \$syncedType of method App\\Phansible\\Renderer\\VagrantfileRenderer\:\:setSyncedType\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/Roles/VagrantLocal.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Xdebug\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Xdebug.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Xdebug\:\:requiredRolesToBeInstalled\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Xdebug.php
+
+		-
+			message: '#^Method App\\Phansible\\Roles\\Zookeeper\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/Roles/Zookeeper.php
+
+		-
+			message: '#^Cannot call method getInitialValues\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Cannot call method getSlug\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Method App\\Phansible\\RolesManager\:\:getInitialValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Method App\\Phansible\\RolesManager\:\:getRoles\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Method App\\Phansible\\RolesManager\:\:setupRole\(\) has parameter \$requestVars with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Method App\\Phansible\\RolesManager\:\:willBeInstalled\(\) has parameter \$requestVars with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Parameter \#1 \$roleSlug of method App\\Phansible\\RolesManager\:\:willBeInstalled\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Parameter \#1 \$values of method App\\Phansible\\RoleValuesTransformer\:\:transformValues\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_walk expects callable\(mixed, int\|string\)\: mixed, Closure\(App\\Phansible\\Role\)\: void given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: src/Phansible/RolesManager.php
+
+		-
+			message: '#^Property App\\Phansible\\RolesManager\:\:\$roles type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Phansible/RolesManager.php
