@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write # codecov upload via OIDC, no token secret needed
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: zip
+          coverage: pcov
+
+      - uses: ramsey/composer-install@v3
+
+      - name: phpcs
+        run: bin/phpcs -n
+
+      - name: phpstan
+        run: composer analyse -- --no-progress
+
+      - name: phpunit
+        run: bin/phpunit --coverage-clover coverage.clover
+
+      - uses: codecov/codecov-action@v5
+        with:
+          files: coverage.clover
+          use_oidc: true

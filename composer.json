@@ -61,7 +61,7 @@
     "symfony/dotenv": "^7.3"
   },
   "scripts": {
-    "analyse": "phpstan analyse src --level=max",
+    "analyse": "phpstan analyse --memory-limit=1G",
     "fix-style": "php-cs-fixer fix",
     "test": "phpunit",
     "auto-scripts": {
