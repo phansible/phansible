@@ -28,7 +28,6 @@ services:
 
   App\Phansible\Controller\:
     resource: '../src/Phansible/Controller'
-    autoconfigure: false
     tags: ['controller.service_arguments']
 
   # add more service definitions when explicit configuration is needed
