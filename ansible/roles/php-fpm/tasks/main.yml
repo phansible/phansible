@@ -1,34 +1,44 @@
-- name: Install php5-fpm and php5-cli
+- name: Install php-fpm and php-cli
   become: yes
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - php5-fpm
-    - php5-cli
+  apt:
+    pkg: ['php{{ php_version }}-fpm', 'php{{ php_version }}-cli']
+    state: latest
+
+# CVE-2026-109618 / CVE-2026-109619: refuse to continue on an unpatched build
+- name: Read PHP version
+  command: php{{ php_version }} -r 'echo PHP_VERSION;'
+  register: php_installed_version
+  changed_when: false
+
+- name: Check PHP version is patched
+  assert:
+    that: php_installed_version.stdout is version(php_min_version, '>=')
+    fail_msg: "PHP {{ php_installed_version.stdout }} is older than {{ php_min_version }}"
 
 - name: Set error reporting
   become: yes
   lineinfile: dest={{ php_fpm_ini }}
               regexp='^error_reporting ='
               line='error_reporting = {{ php_error_reporting }}'
-  notify: restart php5-fpm
+  notify: restart php-fpm
 
 - name: Set display_errors
   become: yes
   lineinfile: dest={{ php_fpm_ini }}
               regexp='^display_errors ='
               line='display_errors = {{ php_display_errors }}'
-  notify: restart php5-fpm
+  notify: restart php-fpm
 
 - name: Set display_startup_errors
   become: yes
   lineinfile: dest={{ php_fpm_ini }}
               regexp='^display_startup_errors ='
               line='display_startup_errors = {{ php_display_startup_errors }}'
-  notify: restart php5-fpm
+  notify: restart php-fpm
 
 - name: Set html_errors
   become: yes
   lineinfile: dest={{ php_fpm_ini }}
               regexp='^html_errors ='
               line='html_errors = {{ php_html_errors }}'
-  notify: restart php5-fpm
+  notify: restart php-fpm

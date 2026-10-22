@@ -1,4 +1,5 @@
 ---
-php_ppa: php
-php_fpm_ini: /etc/php5/fpm/php.ini
+php_version: '8.3'
+php_min_version: '8.3.36'
+php_fpm_ini: /etc/php/{{ php_version }}/fpm/php.ini
 php_error_reporting: -1

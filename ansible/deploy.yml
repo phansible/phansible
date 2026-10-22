@@ -3,25 +3,39 @@
   user: "{{ system_user }}"
   vars_prompt:
     - name: deploy_version
-      default: master
+      default: main
       prompt: "Tag, Branch or Hash to deploy"
       private: no
-  roles:
-    - { role: app, tags: [ 'app' ] }
   tasks:
     - name: Set Maintenance Page
       shell: cp {{ doc_root }}/maintenance/maintenance.html {{ doc_root }}/maintenance.html
       ignore_errors: true
 
     - name: Checkout code
-      git: repo=http://github.com/phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
+      git: repo=https://github.com/phansible/phansible.git dest={{ project_root }} accept_hostkey=true version={{ deploy_version }}
+
+    # The app role clones the generator roles into the checkout, so it has to run after it
+    - name: Fetch generator roles
+      include_role: name=app
+      tags: [ 'app' ]
 
     - name: Self-update Composer
       become: yes
       shell: /usr/local/bin/composer self-update
 
+    # --no-scripts: there is no bin/console for the cache:clear auto-script
     - name: Run Composer
-      shell: /usr/local/bin/composer install --no-dev --no-progress chdir={{ project_root }}
+      shell: /usr/local/bin/composer install --no-dev --no-progress --no-scripts --classmap-authoritative chdir={{ project_root }}
+
+    # symfony/dotenv is a dev dependency, so prod reads its env from .env.local.php
+    - name: Write env file
+      template:
+        src: env.local.php.j2
+        dest: "{{ project_root }}/.env.local.php"
+        mode: '0640'
+        force: no
+      vars:
+        app_secret: "{{ lookup('password', '/dev/null chars=hexdigits length=32') }}"
 
     - name: Read ACLs for web_user
       become: yes
@@ -31,20 +45,21 @@
       become: yes
       shell: 'setfacl -Rn -m u:"{{ system_user }}":rwX -m d:u:"{{ system_user }}":rwX {{ project_root }}'
 
-    - name: Make sure cache directory exists
+    - name: Clean cache directory
       become: yes
-      file: path={{ project_root }}/app/cache state=directory owner={{ system_user }} group={{ system_group }}
+      file: path={{ project_root }}/var/cache/prod state=absent
 
-    - name: Clean cache directories
+    - name: Make sure var directory exists
       become: yes
-      file: path={{ project_root }}/app/cache/{{ item }} state=absent owner={{ system_user }} group={{ system_group }}
-      with_items:
-        - config
-        - github-api-cache
+      file: path={{ project_root }}/var state=directory owner={{ system_user }} group={{ system_group }}
 
-    - name: Read and Write ACLs cache dir
+    - name: Read and Write ACLs var dir
       become: yes
-      shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}'
+      shell: 'setfacl -Rn -m u:"{{ webserver_user }}":rwX -m d:u:"{{ webserver_user }}":rwX {{ project_root }}/var'
+
+    - name: Reload php-fpm to clear OPcache
+      become: yes
+      service: name=php{{ php_version }}-fpm state=reloaded
 
     - name: Remove maintenance page
       file: path="{{ doc_root }}/maintenance.html" state=absent
