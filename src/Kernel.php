@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use function dirname;
 use const PHP_VERSION_ID;
 
-
 /**
  * Class Kernel
  * @package App

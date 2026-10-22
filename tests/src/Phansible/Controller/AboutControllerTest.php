@@ -105,5 +105,4 @@ class AboutControllerTest extends TestCase
 
         parent::tearDown();
     }
-
 }

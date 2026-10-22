@@ -89,7 +89,6 @@ class VarfileRendererTest extends TestCase
         $this->assertTrue(is_array(
             $parser->parse($data['variables'], 1)
         ));
-
     }
 
     #[covers(\App\Phansible\Renderer\VarfileRenderer::add)]

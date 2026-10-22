@@ -133,4 +133,3 @@ class DefaultControllerTest extends TestCase
         parent::tearDown();
     }
 }
-

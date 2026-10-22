@@ -31,7 +31,6 @@ class VagrantBundleTest extends TestCase
             ->getMock();
 
         $this->model = new VagrantBundle($this->ansiblePath, $this->twig);
-
     }
 
     public function tearDown(): void
