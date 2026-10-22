@@ -1,5 +1,27 @@
+{% if tls_ready %}
 server {
     listen 80;
+    server_name {{ server_name }};
+
+    location /.well-known/acme-challenge/ {
+        root {{ doc_root }};
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+{% endif %}
+server {
+{% if tls_ready %}
+    listen 443 ssl;
+    http2 on;
+    ssl_certificate {{ tls_cert_dir }}/fullchain.pem;
+    ssl_certificate_key {{ tls_cert_dir }}/privkey.pem;
+{% else %}
+    listen 80;
+{% endif %}
 
     root {{ doc_root }};
     index index.html index.php;

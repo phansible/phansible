@@ -3,6 +3,15 @@
   become: yes
   apt: pkg=nginx state=latest
 
+- name: Check for TLS certificate
+  stat: path={{ tls_cert_dir }}/fullchain.pem
+  register: tls_cert
+  when: tls_domain is defined
+
+- name: Set TLS state
+  set_fact:
+    tls_ready: "{{ tls_domain is defined and tls_cert.stat.exists }}"
+
 - name: Change default nginx site
   become: yes
   template: src=default.tpl dest=/etc/nginx/sites-available/default
