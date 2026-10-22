@@ -1,4 +1,6 @@
 - name: Install PHP Packages
   become: yes
-  apt: pkg={{ item }} state=latest
-  with_items: '{{ php_packages }}'
+  apt:
+    pkg: '{{ php_packages }}'
+    state: latest
+  notify: restart php-fpm

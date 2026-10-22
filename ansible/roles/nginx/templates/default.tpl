@@ -17,21 +17,25 @@ server {
     }
 
     location / {
-        try_files $uri $uri/ /index.php;
+        try_files $uri /index.php$is_args$args;
     }
 
     error_page 404 /404.html;
 
     error_page 500 502 504 /50x.html;
         location = /50x.html {
-        root /usr/share/nginx/www;
+        root /usr/share/nginx/html;
+    }
+
+    location = /index.php {
+        fastcgi_pass unix:/run/php/php{{ php_version }}-fpm.sock;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        internal;
     }
 
     location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
+        return 404;
     }
 }

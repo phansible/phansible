@@ -1,27 +1,52 @@
 ---
-- name: Update apt
-  become: yes
-  apt: update_cache=yes
-
 - name: Install System Packages
   become: yes
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - curl
-    - wget
-    - python-software-properties
-    - acl
-    - git
+  apt:
+    pkg: [curl, ca-certificates, acl, git, unzip]
+    state: latest
+    update_cache: yes
 
-- name: Add ppa Repository
+- name: Add Sury PHP repository key
   become: yes
-  apt_repository: repo=ppa:ondrej/{{ php_ppa }}
+  get_url:
+    url: https://packages.sury.org/php/apt.gpg
+    dest: /usr/share/keyrings/deb.sury.org-php.gpg
+    mode: '0644'
 
-- name: Update apt
+- name: Add Sury PHP repository
   become: yes
-  apt: update_cache=yes
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
+    filename: php
 
 - name: Install Extra Packages
   become: yes
-  apt: pkg={{ item }} state=latest
-  with_items: '{{ sys_packages }}'
+  apt:
+    pkg: '{{ sys_packages }}'
+    state: latest
+    update_cache: yes
+
+- name: Create system user
+  become: yes
+  user:
+    name: '{{ system_user }}'
+    shell: /bin/bash
+
+- name: Authorise root's SSH keys for system user
+  become: yes
+  copy:
+    src: /root/.ssh/authorized_keys
+    dest: '/home/{{ system_user }}/.ssh/'
+    remote_src: yes
+    owner: '{{ system_user }}'
+    group: '{{ system_group }}'
+    mode: '0600'
+    directory_mode: '0700'
+
+- name: Create project root
+  become: yes
+  file:
+    path: '{{ project_root }}'
+    state: directory
+    owner: '{{ system_user }}'
+    group: '{{ system_group }}'
