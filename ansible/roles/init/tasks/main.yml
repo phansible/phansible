@@ -46,3 +46,29 @@
     state: directory
     owner: '{{ system_user }}'
     group: '{{ system_group }}'
+
+- name: Install unattended-upgrades
+  become: yes
+  apt:
+    pkg: unattended-upgrades
+    state: latest
+
+- name: Enable daily unattended upgrades
+  become: yes
+  copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+    mode: '0644'
+
+# PHP security releases ship from sury, which Debian's default origins don't cover
+- name: Allow unattended upgrades from Sury
+  become: yes
+  copy:
+    dest: /etc/apt/apt.conf.d/52unattended-upgrades-sury
+    content: |
+      Unattended-Upgrade::Origins-Pattern {
+              "origin=deb.sury.org,codename=${distro_codename}";
+      };
+    mode: '0644'
